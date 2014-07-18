@@ -3,6 +3,8 @@ Dati Aruba
 Login: 1087553@aruba.it
 Password: design4soluti
 
+http host: 62.149.131.193
+
 Ftp: ftp.antonioegiusy.com
 Login: 1087553@aruba.it
 Password: design4soluti

@@ -1,7 +1,7 @@
 
 <?php
-
 	include 'settings.php';
+
 
 //-----------------------------------------------------------------------
 // Error managment
@@ -423,6 +423,82 @@ function downloadProduct($id, $productType, $productId, $loadType, $warehouse, $
 */
 
 //-----------------------------------------------------------------------
+function sendPushNotification2($ids, $message)
+{
+	global $GOOGLE_API_KEY;
+
+	$url = 'https://android.googleapis.com/gcm/send';
+
+	$fields = array('registration_ids'  => $ids,
+					'data'=> $message
+				);
+
+	$headers = array('Authorization: key=' . $GOOGLE_API_KEY,'Content-Type: application/json');
+
+	// use key 'http' even if you send the request to https://...
+	$options = array(
+		'http' => array(
+			'header'=> $headers ,
+			'method'  => 'POST',
+			'content' => json_encode($fields),
+		),
+	);
+	$context  = stream_context_create($options);
+	$result = file_get_contents($url, false, $context);
+
+	print "Result: ".$result;
+}
+
+function sendPushNotification($registatoin_ids, $message)
+{
+	global $GOOGLE_API_KEY;
+
+	// Set POST variables
+	$url = 'https://android.googleapis.com/gcm/send';
+
+	$fields = array(
+		'registration_ids' => $registatoin_ids,
+		'data' => $message,
+	);
+
+	$headers = array(
+		'Authorization: key=' . GOOGLE_API_KEY,
+		'Content-Type: application/json'
+	);
+
+	print $headers ."\\n";
+	// Open connection
+	$ch = curl_init();
+
+	// Set the url, number of POST vars, POST data
+	curl_setopt($ch, CURLOPT_URL, $url);
+
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	// Disabling SSL Certificate support temporarly
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+	// Execute post
+	print $ch."\\n";
+	$result = curl_exec($ch);
+	print $result."\\n";
+	if ($result == FALSE) {
+		die('Curl failed: ' . curl_error($ch));
+	}
+
+	// Close connection
+	curl_close($ch);
+}
+
+//-----------------------------------------------------------------------
+if(isset($_GET["phpinfo"]))
+{
+	phpinfo();
+}
 
 if(isset($_GET["select"]))
 {
@@ -499,6 +575,24 @@ if(isset($_GET["logout"]))
 	{
 		print userLogout($id, $pwd);
 	}
+}
+
+if(isset($_GET["sendPushNotification"]))
+{
+    //require_once './purl/Purl.php';
+
+    if(	isset($_GET["regId"]) &&
+    	isset($_GET["message"])	)
+   	{
+   		$regId = $_GET["regId"];
+   		$message = $_GET["message"];
+        $registationIdsA = array($regId);
+        $messageA = array("price" => $message);
+
+	    print "sendPushNotification RegId: ".$regId." Msg: ".$message;
+        $result = sendPushNotification2($registationIdsA, $messageA);
+        print " Result ".$result;
+    }
 }
 
 if(isset($_GET["downloadProduct"]))
