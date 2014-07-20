@@ -587,7 +587,7 @@ if(isset($_GET["sendPushNotification"]))
    		$regId = $_GET["regId"];
    		$message = $_GET["message"];
         $registationIdsA = array($regId);
-        $messageA = array("price" => $message);
+        $messageA = array("data" => $message);
 
 	    print "sendPushNotification RegId: ".$regId." Msg: ".$message;
         $result = sendPushNotification2($registationIdsA, $messageA);

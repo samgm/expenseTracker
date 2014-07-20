@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
      * Substitute you own sender ID here. This is the project number you got
      * from the API Console, as described in "Getting Started."
      */
-    String SENDER_ID = "Your-Sender-ID";
+    String SENDER_ID = "402754076759";
 
     /**
      * Tag used on log messages.
@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
 
+            Log.i(TAG, "RegId: " + regid);
             if (regid.isEmpty()) {
                 registerInBackground();
             }
@@ -154,6 +155,7 @@ public class MainActivity extends Activity {
                     }
                     regid = gcm.register(SENDER_ID);
                     msg = "Device registered, registration ID=" + regid;
+                    Log.i(TAG, "RegId: " + regid);
 
                     // You should send the registration ID to your server over HTTP, so it
                     // can use GCM/HTTP or CCS to send messages to your app.
@@ -185,28 +187,33 @@ public class MainActivity extends Activity {
     public void onClick(final View view) {
 
         if (view == findViewById(R.id.send)) {
-            new AsyncTask<Void, Void, String>() {
-                @Override
-                protected String doInBackground(Void... params) {
-                    String msg = "";
-                    try {
-                        Bundle data = new Bundle();
-                        data.putString("my_message", "Hello World");
-                        data.putString("my_action", "com.google.android.gcm.demo.app.ECHO_NOW");
-                        String id = Integer.toString(msgId.incrementAndGet());
-                        gcm.send(SENDER_ID + "@gcm.googleapis.com", id, data);
-                        msg = "Sent message";
-                    } catch (IOException ex) {
-                        msg = "Error :" + ex.getMessage();
-                    }
-                    return msg;
-                }
+            final String message = "prova123";
+            new HttpRequestTask().execute("http://www.antonioegiusy.com/GCMApplicationTest/" +
+                    "dataService.php?sendPushNotification&regId=APA91bGn-M4tByAXK_dw_K-ZLsujBnQBPh5xiJjKDH3SG-a6oPupUM5BYcXvNUDFN6ubSIKtFCF0jJEwwNZyRseDxXMtEGE8uI8H03YxsIa2FQ0hkw8Ee6nr7sVCOeA7yKbAgwjQWHkua2OGXG12ljpU5pHFg32OrEPz2QPPwMt0ME-y4UOY_-g&" +
+                    "message=" + message);
 
-                @Override
-                protected void onPostExecute(String msg) {
-                    mDisplay.append(msg + "\n");
-                }
-            }.execute(null, null, null);
+//            new AsyncTask<Void, Void, String>() {
+//                @Override
+//                protected String doInBackground(Void... params) {
+//                    String msg = "";
+//                    try {
+//                        Bundle data = new Bundle();
+//                        data.putString("my_message", "Hello World");
+//                        data.putString("my_action", "com.google.android.gcm.demo.app.ECHO_NOW");
+//                        String id = Integer.toString(msgId.incrementAndGet());
+//                        gcm.send(SENDER_ID + "@gcm.googleapis.com", id, data);
+//                        msg = "Sent message: " + data;
+//                    } catch (IOException ex) {
+//                        msg = "Error :" + ex.getMessage();
+//                    }
+//                    return msg;
+//                }
+//
+//                @Override
+//                protected void onPostExecute(String msg) {
+//                    mDisplay.append(msg + "\n");
+//                }
+//            }.execute(null, null, null);
         } else if (view == findViewById(R.id.clear)) {
             mDisplay.setText("");
         }
@@ -247,5 +254,6 @@ public class MainActivity extends Activity {
      */
     private void sendRegistrationIdToBackend() {
         // Your implementation here.
+
     }
 }
