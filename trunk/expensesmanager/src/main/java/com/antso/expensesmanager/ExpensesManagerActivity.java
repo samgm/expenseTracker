@@ -15,7 +15,7 @@ public class ExpensesManagerActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 //        Intent intent = new Intent(this, ExpensesManagerActivity2.class);
-        Intent intent = new Intent(this, TransactionActivity.class);
+        Intent intent = new Intent(this, TransactionEntryActivity.class);
 
         // Start an Activity using that intent and the request code defined above
         //startActivityForResult(intent, 0);

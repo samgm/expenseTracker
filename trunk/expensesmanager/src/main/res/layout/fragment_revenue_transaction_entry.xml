@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.antso.expensesmanager.TransactionActivity">
+    tools:context="com.antso.expensesmanager.TransactionEntryActivity$PlaceholderFragment">
+
 
     <LinearLayout
         android:id="@+id/transactionColor"
@@ -13,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="left"
-        android:background="#FF0000">
+        android:background="#00FF00">
     </LinearLayout>
 
     <LinearLayout

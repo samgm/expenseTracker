@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.antso.expensesmanager.TransactionActivity">
+    tools:context="com.antso.expensesmanager.TransactionEntryActivity$PlaceholderFragment">
+
 
     <LinearLayout
         android:id="@+id/transactionColor"
@@ -200,5 +201,6 @@
         android:textSize="25dp"
         android:text="dd/mm/yyyy"
         android:gravity="right"/>
+
 
 </RelativeLayout>

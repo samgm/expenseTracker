@@ -22,11 +22,15 @@
         <item>Account 2</item>
         <item>Account 3</item>
     </string-array>
-
     <string-array name="arrayFakeBudget">
         <item>Budget One</item>
         <item>Budget Two</item>
         <item>Budget Three</item>
     </string-array>
+
+    <string name="title_activity_transaction_activity2">TransactionActivity2</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
 </resources>
