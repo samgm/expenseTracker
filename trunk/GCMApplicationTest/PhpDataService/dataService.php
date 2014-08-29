@@ -495,6 +495,10 @@ function sendPushNotification($registatoin_ids, $message)
 }
 
 //-----------------------------------------------------------------------
+//
+//-General data managment functions--------------------------------------
+//
+
 if(isset($_GET["phpinfo"]))
 {
 	phpinfo();
@@ -559,6 +563,10 @@ if(isset($_GET["update"]))
 	}
 }
 
+//
+//-Login functions--------------------------------------
+//
+
 if(isset($_GET["login"]))
 {
 	if(	isset($_GET["id"])	&&
@@ -576,6 +584,10 @@ if(isset($_GET["logout"]))
 		print userLogout($id, $pwd);
 	}
 }
+
+//
+//-Specific application functions--------------------------------------
+//
 
 if(isset($_GET["sendPushNotification"]))
 {
@@ -595,27 +607,18 @@ if(isset($_GET["sendPushNotification"]))
     }
 }
 
-if(isset($_GET["downloadProduct"]))
+if(isset($_GET["registerPeer"]))
 {
-	print "2:Not supported";
-/*
-	if(	isset($_GET["id"])			&&
-		isset($_GET["productType"])	&&
-		isset($_GET["productId"])	&&
-		isset($_GET["loadType"])	&&
-		isset($_GET["warehouse"])	&&
-		isset($_GET["qty"])			&&
-		isset($_GET["qtyType"])		&&
-		isset($_GET["priceTotal"])	&&
-		isset($_GET["lastUpdBy"])	&&
-		isset($_GET["lastUpdTime"])	&&
-		isset($_GET["lastUpdDate"])	&&
-		isset($_GET["checksum"])
-		)
-	{
-		print downloadProduct($id, $productType, $productId, $loadType, $warehouse, $qty, $qtyType, $priceTotal, $lastUpdBy, $lastUpdTime, $lastUpdDate, $checksum);
-	}
-*/
+
+}
+
+if(isset($_GET["sendLogMessage"]))
+{
+
+}
+
+if(isset($_GET["sendLogMessage"]))
+{
 
 }
 
