@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res" >
+            <file
+                name="ic_launcher"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-xhdpi\ic_launcher.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="account_item"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\account_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="account_list_footer"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\account_list_footer.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_main"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\activity_main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="activity_main_activity2"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\activity_main_activity2.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="fragment_main"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\fragment_main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="list_fragment"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\list_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="transaction_activity"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\transaction_activity.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="transaction_item"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\transaction_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="transaction_list_footer"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\transaction_list_footer.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="main"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\menu\main.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="main_activity2"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\menu\main_activity2.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="transaction"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\menu\transaction.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="transaction_list"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\menu\transaction_list.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\values\dimens.xml"
+                qualifiers="" >
+                <dimen name="navigation_drawer_width" >240dp
+                </dimen>
+                <dimen name="activity_horizontal_margin" >16dp
+                </dimen>
+                <dimen name="activity_vertical_margin" >16dp
+                </dimen>
+            </file>
+            <file
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\values\strings.xml"
+                qualifiers="" >
+                <string name="title_section1" >Transaction Entry
+                </string>
+
+                <string-array name="arrayFakeAccount" >
+                    <item>
+Account 1
+                    </item>
+                    <item>
+Account 2
+                    </item>
+                    <item>
+Account 3
+                    </item>
+                </string-array>
+
+                <string name="title_section3" >Section 3
+                </string>
+                <string name="action_settings" >Settings
+                </string>
+                <string name="title_section2" >Transaction List
+                </string>
+                <string name="navigation_drawer_close" >Close navigation drawer
+                </string>
+                <string name="title_transactions" >Transactions
+                </string>
+                <string name="title_main" >Main
+                </string>
+                <string name="transaction_list_footer_text" >Tap here to add a new Transaction
+                </string>
+
+                <string-array name="arrayFakeBudget" >
+                    <item>
+Budget One
+                    </item>
+                    <item>
+Budget Two
+                    </item>
+                    <item>
+Budget Three
+                    </item>
+                </string-array>
+
+                <string name="action_example" >Example action
+                </string>
+                <string name="account_list_footer_text" >Tap here to add a new Account
+                </string>
+                <string name="app_name" >ExpensesManager
+                </string>
+                <string name="title_budgets" >Budgets
+                </string>
+                <string name="title_transaction_list_activity" >Transactions
+                </string>
+                <string name="title_activity_main_navigation" >MainNavigationActivity
+                </string>
+                <string name="hello_world" >Hello world!
+                </string>
+                <string name="title_accounts" >Accounts
+                </string>
+                <string name="title_activity_transaction" >TransactionActivity
+                </string>
+                <string name="navigation_drawer_open" >Open navigation drawer
+                </string>
+            </file>
+            <file
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\values\styles.xml"
+                qualifiers="" >
+
+                <style
+                    name="AppTheme"
+                    parent="android:Theme.Holo.Light.DarkActionBar" >
+
+                    <!-- Customize your theme here. -->
+                </style>
+            </file>
+            <file
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\values-w820dp\dimens.xml"
+                qualifiers="w820dp-v13" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
+            <file
+                name="ic_drawer"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-xxhdpi\ic_drawer.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="drawer_shadow"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-xxhdpi\drawer_shadow.9.png"
+                qualifiers="xxhdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_drawer"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-xhdpi\ic_drawer.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="drawer_shadow"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-hdpi\drawer_shadow.9.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="main_navigation_activity_drawer"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\main_navigation_activity_drawer.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="ic_drawer"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-hdpi\ic_drawer.png"
+                qualifiers="hdpi-v4"
+                type="drawable" />
+            <file
+                name="ic_drawer"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-mdpi\ic_drawer.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="main_navigation"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\menu\main_navigation.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="drawer_shadow"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-xhdpi\drawer_shadow.9.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="global"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\menu\global.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="main_navigation_activity_fragment"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\main_navigation_activity_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="drawer_shadow"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\drawable-mdpi\drawer_shadow.9.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="main_navigation_activity"
+                path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\main\res\layout\main_navigation_activity.xml"
+                qualifiers=""
+                type="layout" />
+        </source>
+        <source path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\build\generated\res\rs\debug" />
+        <source path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\build\generated\res\generated\debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="C:\Users\asolano\AndroidStudioProjects\ExpensesManager\expensesmanager\src\debug\res" />
+    </dataSet>
+
+</merger>
