@@ -1,0 +1,20 @@
+<!-- From: file:/C:/Users/asolano/AndroidStudioProjects/ExpensesManager/expensesmanager/src/main/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.antso.expensesmanager">
+    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="19"/>
+
+    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@style/AppTheme">
+        <activity android:label="@string/app_name" android:name="com.antso.expensesmanager.ExpensesManagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/app_name" android:name="com.antso.expensesmanager.ExpensesManagerActivity2">
+        </activity>
+        <activity android:label="@string/title_transaction_list_activity" android:name="com.antso.expensesmanager.TransactionListActivity">
+        </activity>
+        <activity android:label="@string/title_activity_transaction" android:name="com.antso.expensesmanager.TransactionActivity">
+        </activity>
+    </application>
+
+</manifest>
