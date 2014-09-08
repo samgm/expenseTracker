@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * Created by asolano on 5/11/2014.
  *
- * This bean represent a financial transaction as:
+ * This bean represent a financial menu_transaction_list as:
  *  - money revenue
  *  - money transfer
  *  - money payment

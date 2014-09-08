@@ -1,4 +1,4 @@
-package com.antso.expensesmanager;
+package com.antso.expensesmanager.accounts;
 
 /**
  * Created by asolano on 5/4/2014.
@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 
 import java.math.BigDecimal;

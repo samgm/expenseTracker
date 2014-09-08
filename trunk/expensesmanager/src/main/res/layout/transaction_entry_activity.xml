@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.antso.expensesmanager.TransactionActivity">
+    tools:context="com.antso.expensesmanager.transactions.TransactionEntryActivity">
 
     <LinearLayout
         android:id="@+id/transactionColor"
@@ -16,44 +16,16 @@
         android:background="#FF0000">
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/transactionDirectionLayout"
-        android:orientation="horizontal"
+    <EditText
+        android:id="@+id/transactionDate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/transactionColor"
-        android:layout_centerHorizontal="true"
-        android:choiceMode="singleChoice">
-
-        <ToggleButton
-            android:id="@+id/transactionDirectionOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:textOff="OUT"/>
-
-        <ToggleButton
-            android:id="@+id/transactionDirectionMove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:textOff="MOVE"/>
-
-        <ToggleButton
-            android:id="@+id/transactionDirectionIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:textOff="IN"/>
-    </LinearLayout>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="25dp"
+        android:text="dd/mm/yyy"
+        android:gravity="right"/>
 
     <LinearLayout
         android:id="@+id/transactionPredefinedValueLayout"
@@ -61,7 +33,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/transactionColor"
-        android:layout_below="@id/transactionDirectionLayout"
+        android:layout_below="@id/transactionDate"
         android:layout_centerHorizontal="true">
 
         <Button
@@ -113,6 +85,7 @@
         android:layout_marginRight="10dp"
         android:textSize="25dp"
         android:text="$ 1000.00"
+        android:numeric="decimal"
         android:gravity="right"/>
 
     <MultiAutoCompleteTextView
@@ -189,14 +162,33 @@
             android:entries="@array/arrayFakeBudget"/>
     </LinearLayout>
 
-    <DatePicker
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/transactionConfirmButtonsLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/transactionColor"
-        android:layout_below="@id/transactionBudgetLayout"
-        android:calendarViewShown="false"
-        android:spinnersShown="false"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"></DatePicker>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/transactionConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Add"/>
+
+        <Button
+            android:id="@+id/transactionCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Cancel"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

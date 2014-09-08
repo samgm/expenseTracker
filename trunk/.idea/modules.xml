@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ExpensesManager.iml" filepath="$PROJECT_DIR$/ExpensesManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/expensesmanager/expensesmanager.iml" filepath="$PROJECT_DIR$/expensesmanager/expensesmanager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/trunk.iml" filepath="$PROJECT_DIR$/trunk.iml" />
     </modules>
   </component>
 </project>
