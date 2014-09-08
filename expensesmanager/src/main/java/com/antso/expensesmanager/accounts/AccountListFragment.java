@@ -1,4 +1,4 @@
-package com.antso.expensesmanager;
+package com.antso.expensesmanager.accounts;
 
 import android.app.ListFragment;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +20,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Transaction;
-import com.antso.expensesmanager.entities.TransactionDirection;
-import com.antso.expensesmanager.entities.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
-
-import org.joda.time.DateTime;
+import com.antso.expensesmanager.transactions.TransactionListActivity;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -161,6 +161,13 @@ public class AccountListFragment extends ListFragment {
         }
 
         return true;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_account_list, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

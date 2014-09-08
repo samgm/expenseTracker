@@ -1,4 +1,4 @@
-package com.antso.expensesmanager;
+package com.antso.expensesmanager.transactions;
 
 /**
  * Created by asolano on 5/4/2014.
@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.entities.TransactionDirection;

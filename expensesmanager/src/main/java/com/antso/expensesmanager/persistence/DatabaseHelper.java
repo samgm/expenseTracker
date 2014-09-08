@@ -14,7 +14,6 @@ import com.antso.expensesmanager.entities.TransactionType;
 import com.antso.expensesmanager.utils.Utils;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -193,7 +192,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
-                transactionColumns, "AccountId = ?", new String[] { accountId }, null, null,
+                transactionColumns,
+                TRANSACTION_FIELD_ACCOUNT_ID + " = ?", new String[] { accountId },
+                null, null,
+                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        while (cursor.moveToNext()) {
+            Transaction transaction = new Transaction(cursor.getString(0),
+                    cursor.getString(1),
+                    TransactionDirection.valueOf(cursor.getInt(2)),
+                    TransactionType.valueOf(cursor.getInt(3)),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    BigDecimal.valueOf(cursor.getDouble(6)),
+                    Utils.yyyMMddhhMMssToDateTime(cursor.getInt(7), cursor.getInt(8)));
+
+            transactions.add(transaction);
+        }
+
+        return transactions;
+    }
+
+    public Collection<Transaction> getTransactions(TransactionDirection direction) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        Integer directionInt = direction.getIntValue();
+        String directionStr = directionInt.toString();
+        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
+                transactionColumns,
+                TRANSACTION_FIELD_DIRECTION + " = ?", new String[] { directionStr },
+                null, null,
                 TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
 
         List<Transaction> transactions = new ArrayList<Transaction>();

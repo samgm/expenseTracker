@@ -1,13 +1,16 @@
-package com.antso.expensesmanager;
+package com.antso.expensesmanager.transactions;
 
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.antso.expensesmanager.entities.Account;
+import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.entities.TransactionDirection;
 import com.antso.expensesmanager.entities.TransactionType;
@@ -42,9 +45,12 @@ public class TransactionListFragment extends ListFragment {
 
     private TransactionListAdapter transactionListAdapter = null;
     private DatabaseHelper dbHelper = null;
+    final TransactionDirection transactionDirection;
 
-    public TransactionListFragment(final Context mContext) {
+    public TransactionListFragment(final Context mContext,
+                                   final TransactionDirection transactionDirection) {
         this.mContext = mContext;
+        this.transactionDirection = transactionDirection;
     }
 
     @Override
@@ -70,7 +76,12 @@ public class TransactionListFragment extends ListFragment {
         }
 
         if (transactionListAdapter == null) {
-            Collection<Transaction> transactions = dbHelper.getTransactions();
+            Collection<Transaction> transactions;
+            if (transactionDirection != TransactionDirection.Undef) {
+                transactions = dbHelper.getTransactions(transactionDirection);
+            } else {
+                transactions = dbHelper.getTransactions();
+            }
 
             transactionListAdapter = new TransactionListAdapter(mContext, transactions);
 
@@ -151,7 +162,7 @@ public class TransactionListFragment extends ListFragment {
 //        }
 //
 //        if (item.getTitle() == "Edit") {
-//            Toast.makeText(getActivity(), "Selected 'Edit' on item " + account.getName(), Toast.LENGTH_LONG).show();
+//  3          Toast.makeText(getActivity(), "Selected 'Edit' on item " + account.getName(), Toast.LENGTH_LONG).show();
 //        } else if(item.getTitle() == "Delete") {
 //            accountListAdapter.del(index);
 //            dbHelper.deleteAccount(account.getId());
@@ -161,6 +172,25 @@ public class TransactionListFragment extends ListFragment {
 //        }
 
         return true;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_transaction_list, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_transaction_add) {
+            Intent intent = new Intent(mContext, TransactionEntryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

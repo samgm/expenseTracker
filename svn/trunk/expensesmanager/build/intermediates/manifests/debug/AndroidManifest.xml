@@ -27,7 +27,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.antso.expensesmanager.TransactionListActivity"
+            android:name="com.antso.expensesmanager.transactions.TransactionListActivity"
             android:label="@string/title_transaction_list_activity" >
         </activity>
         <activity

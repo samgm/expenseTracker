@@ -1,4 +1,4 @@
-package com.antso.expensesmanager;
+package com.antso.expensesmanager.transactions;
 
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import com.antso.expensesmanager.persistence.DatabaseHelper;
 
 import java.util.Collection;
 
+// Used to show a list of activities, for example when clicking on an account
+//this is used to show the list of all the activity related to that account
 
 public class TransactionListActivity extends ListActivity {
 
