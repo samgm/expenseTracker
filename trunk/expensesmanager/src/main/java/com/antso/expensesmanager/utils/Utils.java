@@ -47,4 +47,8 @@ public class Utils {
         return new LocalTime(hour, min, sec).toDateTime(yyyyMMddToDate(yyyyMMdd));
     }
 
+    public static String getDatePatten() {
+        return "MM/dd/yyyy";
+    }
+
 }

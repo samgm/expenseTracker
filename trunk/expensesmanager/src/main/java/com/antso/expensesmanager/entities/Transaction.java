@@ -77,6 +77,9 @@ public class Transaction {
         return dateTime;
     }
 
-
+    @Override
+    public String toString() {
+        return description;
+    }
 
 }
