@@ -25,6 +25,7 @@ import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.entities.TransactionDirection;
 import com.antso.expensesmanager.entities.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
+import com.antso.expensesmanager.utils.Utils;
 
 import org.joda.time.DateTime;
 
@@ -55,7 +56,8 @@ public class TransactionEntryActivity extends Activity {
             //TODO budgets = dbHelper.getBudgets();
         }
 
-        EditText date = (EditText)findViewById(R.id.transactionDate);
+        final EditText date = (EditText)findViewById(R.id.transactionDate);
+        date.setText(DateTime.now().toString(Utils.getDatePatten()));
         final EditText value = (EditText)findViewById(R.id.transactionValue);
         final AutoCompleteTextView description = (AutoCompleteTextView)findViewById(R.id.transactionDesc);
         Spinner accountSpinner = (Spinner)findViewById(R.id.transactionAccountSpinner);
@@ -75,10 +77,11 @@ public class TransactionEntryActivity extends Activity {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                     transactionDate = new DateTime(year, monthOfYear, dayOfMonth, 0, 0);
+                                    date.setText(transactionDate.toString(Utils.getDatePatten()));
                                 }
                             }, now.getYear(), now.getMonthOfYear(), now.getDayOfMonth()
                     );
-//                    datePicker.show();
+                    datePicker.show();
                 }
             }
         });
@@ -94,65 +97,9 @@ public class TransactionEntryActivity extends Activity {
             }
         });
 
-        accountSpinner.setAdapter(new
-
-//        accountSpinner.setAdapter(new SpinnerAdapter() {
-//            @Override
-//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-//                return null;
-//            }
-//
-//            @Override
-//            public void registerDataSetObserver(DataSetObserver observer) {
-//
-//            }
-//
-//            @Override
-//            public void unregisterDataSetObserver(DataSetObserver observer) {
-//
-//            }
-//
-//            @Override
-//            public int getCount() {
-//                return accounts.size();
-//            }
-//
-//            @Override
-//            public Object getItem(int position) {
-//                return accounts.toArray()[position];
-//            }
-//
-//            @Override
-//            public long getItemId(int position) {
-//                return position;
-//            }
-//
-//            @Override
-//            public boolean hasStableIds() {
-//                return false;
-//            }
-//
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//                return null;
-//            }
-//
-//            @Override
-//            public int getItemViewType(int position) {
-//                return 0;
-//            }
-//
-//            @Override
-//            public int getViewTypeCount() {
-//                return 0;
-//            }
-//
-//            @Override
-//            public boolean isEmpty() {
-//                return false;
-//            }
-//        });
-//        Spinner budgetSpinner = (Spinner)findViewById(R.id.transactionBudgetSpinner);
+        accountSpinner.setAdapter(
+                new ArrayAdapter<Account>(this, R.layout.text_spinner_item,
+                        accounts.toArray(new Account[0])));
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,6 +143,12 @@ public class TransactionEntryActivity extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if(id ==  android.R.id.home) {
+            this.onBackPressed();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
