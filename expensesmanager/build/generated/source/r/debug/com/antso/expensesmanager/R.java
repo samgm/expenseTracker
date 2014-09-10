@@ -89,21 +89,24 @@ public final class R {
         public static final int action_settings=0x7f060003;
         public static final int action_transaction_add=0x7f060004;
         public static final int app_name=0x7f060005;
-        public static final int navigation_drawer_close=0x7f060006;
-        public static final int navigation_drawer_open=0x7f060007;
-        public static final int title_accounts_list_section=0x7f060008;
-        public static final int title_activity_transaction=0x7f060009;
-        public static final int title_budgets=0x7f06000a;
-        public static final int title_budgets_list_section=0x7f06000b;
-        public static final int title_help_section=0x7f06000c;
-        public static final int title_settings_section=0x7f06000d;
-        public static final int title_statistics_section=0x7f06000e;
-        public static final int title_transaction_list_activity=0x7f06000f;
-        public static final int title_transactions_expenses=0x7f060010;
-        public static final int title_transactions_list_section=0x7f060011;
-        public static final int title_transactions_revenues=0x7f060012;
-        public static final int title_transactions_transfers=0x7f060013;
-        public static final int transaction_list_footer_text=0x7f060014;
+        public static final int expenses_list_footer_text=0x7f060006;
+        public static final int navigation_drawer_close=0x7f060007;
+        public static final int navigation_drawer_open=0x7f060008;
+        public static final int revenues_list_footer_text=0x7f060009;
+        public static final int title_accounts_list_section=0x7f06000a;
+        public static final int title_activity_transaction=0x7f06000b;
+        public static final int title_budgets=0x7f06000c;
+        public static final int title_budgets_list_section=0x7f06000d;
+        public static final int title_help_section=0x7f06000e;
+        public static final int title_settings_section=0x7f06000f;
+        public static final int title_statistics_section=0x7f060010;
+        public static final int title_transaction_list_activity=0x7f060011;
+        public static final int title_transactions_expenses=0x7f060012;
+        public static final int title_transactions_list_section=0x7f060013;
+        public static final int title_transactions_revenues=0x7f060014;
+        public static final int title_transactions_transfers=0x7f060015;
+        public static final int transaction_list_footer_text=0x7f060016;
+        public static final int transfers_list_footer_text=0x7f060017;
     }
     public static final class style {
         /**  Customize your theme here. 

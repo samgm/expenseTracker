@@ -18,9 +18,13 @@ public class TransactionsPagerAdapter
     private final Context applicationContext;
     private ViewPager viewPager;
 
-    public TransactionsPagerAdapter(final Context context, FragmentManager fm,
+    private Fragment currentRevenueFragment;
+    private Fragment currentExpensesFragment;
+    private Fragment currentTransferFragment;
+
+    public TransactionsPagerAdapter(final Context context, FragmentManager fragmentManager,
                                     ActionBar actionBar) {
-        super(fm);
+        super(fragmentManager);
 
         this.applicationContext = context;
 
@@ -40,11 +44,14 @@ public class TransactionsPagerAdapter
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new TransactionListFragment(applicationContext, TransactionDirection.In);
+                currentExpensesFragment = new ExpensesListFragment();
+                return currentExpensesFragment;
             case 1:
-                return new TransactionListFragment(applicationContext, TransactionDirection.Out);
+                currentTransferFragment = new TransfersListFragment();
+                return currentTransferFragment;
             case 2:
-                return new TransactionListFragment(applicationContext, TransactionDirection.Undef);
+                currentRevenueFragment = new RevenuesListFragment();
+                return currentRevenueFragment;
         }
 
         return null;
@@ -59,11 +66,11 @@ public class TransactionsPagerAdapter
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return applicationContext.getString(R.string.title_transactions_revenues);
-            case 1:
                 return applicationContext.getString(R.string.title_transactions_expenses);
-            case 2:
+            case 1:
                 return applicationContext.getString(R.string.title_transactions_transfers);
+            case 2:
+                return applicationContext.getString(R.string.title_transactions_revenues);
         }
         return null;
     }
@@ -83,4 +90,14 @@ public class TransactionsPagerAdapter
 
     }
 
+    public Fragment getCurrentFragment(int position) {
+        switch (position) {
+            case 0:
+                return currentExpensesFragment;
+            case 1:
+                return currentTransferFragment;
+            case 2:
+                return currentRevenueFragment;
+        }
+        return null;    }
 }

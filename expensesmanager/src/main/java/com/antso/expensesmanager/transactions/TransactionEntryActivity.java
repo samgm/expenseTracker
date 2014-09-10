@@ -2,7 +2,9 @@ package com.antso.expensesmanager.transactions;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -21,10 +24,12 @@ import android.widget.TextView;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
+import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.entities.TransactionDirection;
 import com.antso.expensesmanager.entities.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
+import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.Utils;
 
 import org.joda.time.DateTime;
@@ -42,6 +47,8 @@ public class TransactionEntryActivity extends Activity {
     private Collection<Account> accounts;
     private Collection<Budget> budgets;
 
+    private TransactionDirection direction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +56,22 @@ public class TransactionEntryActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
+        final LinearLayout color = (LinearLayout)findViewById(R.id.transactionColor);
+        int directionInt = getIntent().getIntExtra("transaction_direction", TransactionDirection.Undef.getIntValue());
+        direction = TransactionDirection.valueOf(directionInt);
+        switch (direction) {
+            case In:
+                color.setBackgroundColor(Color.GREEN);
+                break;
+            case Out:
+                color.setBackgroundColor(Color.RED);
+                break;
+            case Undef:
+                color.setBackgroundColor(Color.GRAY);
+                break;
+
+        }
 
         if (dbHelper == null) {
             dbHelper = new DatabaseHelper(getApplicationContext());
@@ -60,7 +83,7 @@ public class TransactionEntryActivity extends Activity {
         date.setText(DateTime.now().toString(Utils.getDatePatten()));
         final EditText value = (EditText)findViewById(R.id.transactionValue);
         final AutoCompleteTextView description = (AutoCompleteTextView)findViewById(R.id.transactionDesc);
-        Spinner accountSpinner = (Spinner)findViewById(R.id.transactionAccountSpinner);
+        final Spinner accountSpinner = (Spinner)findViewById(R.id.transactionAccountSpinner);
         Spinner budgetSpinner = (Spinner)findViewById(R.id.transactionBudgetSpinner);
 
         Button confirm = (Button)findViewById(R.id.transactionConfirm);
@@ -104,23 +127,38 @@ public class TransactionEntryActivity extends Activity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Transaction transaction = new Transaction("id",
+                Account account = (Account)(accountSpinner.getSelectedItem());
+
+                String valueStr = value.getText().toString();
+                //TODO wash not allowed chars
+                transactionValue = BigDecimal.valueOf(Double.parseDouble(valueStr));
+
+                Transaction transaction = new Transaction(
+                        EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Transaction.class),
                         description.getText().toString(),
-                        TransactionDirection.Out,
+                        direction,
                         TransactionType.Single,
-                        "account",
+                        account != null ? account.getId() : "",
                         "budget",
                         transactionValue,
                         transactionDate);
 
                 dbHelper.insertTransactions(transaction);
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("transaction",
+                        new ParcelableTransaction(transaction));
+                setResult(RESULT_OK, returnIntent);
+                finish();
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO navigate back in the UI
+                Intent returnIntent = new Intent();
+                setResult(RESULT_CANCELED, returnIntent);
+                finish();
             }
         });
     }

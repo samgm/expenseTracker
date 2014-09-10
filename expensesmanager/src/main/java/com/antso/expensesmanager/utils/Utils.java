@@ -2,6 +2,8 @@ package com.antso.expensesmanager.utils;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Created by asolano on 5/11/2014.
@@ -49,6 +51,10 @@ public class Utils {
 
     public static String getDatePatten() {
         return "MM/dd/yyyy";
+    }
+
+    public static DateTimeFormatter getDateFormatter() {
+        return DateTimeFormat.forPattern(Utils.getDatePatten());
     }
 
 }
