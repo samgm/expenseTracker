@@ -14,13 +14,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.entities.TransactionDirection;
 
 import org.joda.time.DateTime;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +35,6 @@ public class TransactionListAdapter extends BaseAdapter {
     }
 
     public void add(Transaction item) {
-
         transactions.add(item);
         notifyDataSetChanged();
     }

@@ -3,6 +3,7 @@ package com.antso.expensesmanager.persistence;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.antso.expensesmanager.utils.Utils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -82,6 +84,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.mContext = context;
+
+        SQLiteDatabase db = getReadableDatabase();
+        long accounts = DatabaseUtils.queryNumEntries(db, ACCOUNT_TABLE_NAME);
+        long transactions = DatabaseUtils.queryNumEntries(db, TRANSACTION_TABLE_NAME);
+
+        EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Account.class, "A", accounts, true);
+        EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Transaction.class, "T", transactions, true);
     }
 
     @Override
@@ -222,6 +231,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
                 transactionColumns,
                 TRANSACTION_FIELD_DIRECTION + " = ?", new String[] { directionStr },
+                null, null,
+                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        while (cursor.moveToNext()) {
+            Transaction transaction = new Transaction(cursor.getString(0),
+                    cursor.getString(1),
+                    TransactionDirection.valueOf(cursor.getInt(2)),
+                    TransactionType.valueOf(cursor.getInt(3)),
+                    cursor.getString(4),
+                    cursor.getString(5),
+                    BigDecimal.valueOf(cursor.getDouble(6)),
+                    Utils.yyyMMddhhMMssToDateTime(cursor.getInt(7), cursor.getInt(8)));
+
+            transactions.add(transaction);
+        }
+
+        return transactions;
+    }
+
+    public Collection<Transaction> getTransactions(TransactionType type) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        Integer typeInt = type.getIntValue();
+        String typeStr = typeInt.toString();
+        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
+                transactionColumns,
+                TRANSACTION_FIELD_TYPE + " = ?", new String[] { typeStr },
                 null, null,
                 TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
 

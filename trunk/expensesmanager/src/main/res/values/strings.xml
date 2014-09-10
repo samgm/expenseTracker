@@ -15,7 +15,12 @@
 
     <!-- other strings -->
     <string name="account_list_footer_text">Tap here to add a new Account</string>
+
     <string name="transaction_list_footer_text">Tap here to add a new Transaction</string>
+    <string name="expenses_list_footer_text">Nothing to show here</string>
+    <string name="revenues_list_footer_text">Nothing to show here</string>
+    <string name="transfers_list_footer_text">Nothing to show here</string>
+
     <string name="title_activity_transaction">TransactionActivity</string>
 
     <string-array name="arrayFakeAccount">

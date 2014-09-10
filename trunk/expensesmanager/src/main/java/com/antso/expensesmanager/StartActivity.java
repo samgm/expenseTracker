@@ -18,7 +18,7 @@ import com.antso.expensesmanager.utils.PlaceholderFragment;
 
 public class StartActivity
     extends Activity
-    implements NavigationDrawerFragment.NavigationDrawerCallbacks, ViewPager.OnPageChangeListener {
+    implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private CharSequence mTitle;
     private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -56,7 +56,6 @@ public class StartActivity
             }
         });
         mPagerView.setAdapter(mTransactionsPagerAdapter);
-        mPagerView.setOnPageChangeListener(this);
 
         mTransactionsPagerAdapter.setViewPager(mPagerView);
         onNavigationDrawerItemSelected(0);
@@ -64,14 +63,18 @@ public class StartActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Fragment currentFragment = getFragmentManager().findFragmentById(R.id.container);
-
-        switch(mNavigationDrawerFragment.getCurrentSelectedPosition()) {
-            case 0:
-            case 1:
+        switch (mNavigationDrawerFragment.getCurrentSelectedPosition()) {
+            case 0: {
+                Fragment currentFragment = mTransactionsPagerAdapter.getCurrentFragment(
+                        getActionBar().getSelectedNavigationIndex());
                 return currentFragment.onOptionsItemSelected(item);
+            }
+            case 1: {
+                Fragment currentFragment = getFragmentManager().findFragmentById(R.id.container);
+                return currentFragment.onOptionsItemSelected(item);
+            }
             case 2:
-            default:
+            default: {
                 // Handle action bar item clicks here. The action bar will
                 // automatically handle clicks on the Home/Up button, so long
                 // as you specify a parent activity in AndroidManifest.xml.
@@ -79,6 +82,7 @@ public class StartActivity
                 if (id == R.id.action_settings) {
                     return true;
                 }
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -87,15 +91,19 @@ public class StartActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            Fragment currentFragment = getFragmentManager().findFragmentById(R.id.container);
             switch (mNavigationDrawerFragment.getCurrentSelectedPosition()) {
-                case 0:
-                case 1:
+                case 0: {
+                    Fragment currentFragment = mTransactionsPagerAdapter.getItem(getActionBar().getSelectedNavigationIndex());
                     currentFragment.onCreateOptionsMenu(menu, getMenuInflater());
-                    break;
+                } break;
+                case 1: {
+                    Fragment currentFragment = getFragmentManager().findFragmentById(R.id.container);
+                    currentFragment.onCreateOptionsMenu(menu, getMenuInflater());
+                } break;
                 case 2:
-                default:
+                default: {
                     getMenuInflater().inflate(R.menu.menu_start_activity, menu);
+                }
             }
 
             ActionBar actionBar = getActionBar();
@@ -122,9 +130,6 @@ public class StartActivity
                 mPagerView.setVisibility(View.VISIBLE);
                 getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 getActionBar().setSelectedNavigationItem(0);
-                getFragmentManager().beginTransaction()
-                    .replace(R.id.container, mTransactionsPagerAdapter.getItem(0))
-                    .commit();
                 break;
             case 1:
                 mPagerView.setVisibility(View.INVISIBLE);
@@ -157,22 +162,6 @@ public class StartActivity
                 //    .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 //    .commit();
         }
-
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, mTransactionsPagerAdapter.getItem(position))
-                .commit();
-        getActionBar().setSelectedNavigationItem(position);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-    }
 }
