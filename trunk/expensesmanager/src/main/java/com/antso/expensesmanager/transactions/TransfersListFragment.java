@@ -21,8 +21,8 @@ import android.widget.Toast;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
-import com.antso.expensesmanager.entities.TransactionDirection;
-import com.antso.expensesmanager.entities.TransactionType;
+import com.antso.expensesmanager.enums.TransactionDirection;
+import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.utils.Constants;
 
@@ -92,31 +92,31 @@ public class TransfersListFragment extends ListFragment {
 
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle("Choose Action");   // Context-menu title
-        menu.add(0, v.getId(), 0, "Edit");      // Add element "Edit"
-        menu.add(0, v.getId(), 1, "Delete");    // Add element "Delete"
+        menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, "Edit");
+        menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, "Delete");
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getGroupId() != Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID) {
+            return false;
+        }
+
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
 
         Transaction transaction = (Transaction) transactionListAdapter.getItem(index);
         if (transaction == null) {
-            return false;
+            return true;
         }
 
         if (item.getTitle() == "Edit") {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
-        } else if(item.getTitle() == "Delete")
-        {
-            //TODO review as required per transfer
+        } else if(item.getTitle() == "Delete") {
             transactionListAdapter.del(index);
             dbHelper.deleteTransaction(transaction.getId());
+            dbHelper.deleteTransaction(transaction.getLinkedTransactionId());
             Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
-        } else {
-            return false;
         }
 
         return true;
@@ -134,8 +134,8 @@ public class TransfersListFragment extends ListFragment {
         int id = item.getItemId();
         if (id == R.id.action_transaction_add) {
             Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
-            //TODO review as required per transfer
             intent.putExtra("transaction_direction", TransactionDirection.Undef.getIntValue());
+            intent.putExtra("transaction_type", TransactionType.Transfer.getIntValue());
             startActivityForResult(intent, Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE);
             return true;
         }
@@ -148,14 +148,15 @@ public class TransfersListFragment extends ListFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE) {
             if(resultCode == getActivity().RESULT_OK){
-                //TODO review as required per transfer
+                final ParcelableTransaction pTransactionOut = data.getParcelableExtra("transaction_out");
+                final ParcelableTransaction pTransactionIn = data.getParcelableExtra("transaction_in");
 
-//                final ParcelableTransaction pTransaction = data.getParcelableExtra("transaction");
-//                getActivity().runOnUiThread(new Runnable() {
-//                    public void run() {
-//                        transactionListAdapter.add(pTransaction.getTransaction());
-//                    }
-//                });
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        transactionListAdapter.add(pTransactionOut.getTransaction());
+                        transactionListAdapter.add(pTransactionIn.getTransaction());
+                    }
+                });
             }
             if (resultCode == getActivity().RESULT_CANCELED) {
                 //Do Nothing

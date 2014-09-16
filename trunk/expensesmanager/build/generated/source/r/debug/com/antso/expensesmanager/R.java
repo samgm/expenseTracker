@@ -11,6 +11,7 @@ public final class R {
     public static final class array {
         public static final int arrayFakeAccount=0x7f040000;
         public static final int arrayFakeBudget=0x7f040001;
+        public static final int arrayFakeColor=0x7f040002;
     }
     public static final class attr {
     }
@@ -25,62 +26,81 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f090000;
-        public static final int accountBalance=0x7f090003;
-        public static final int accountColor=0x7f090001;
-        public static final int accountMonthBalance=0x7f090006;
-        public static final int accountMonthIn=0x7f090004;
-        public static final int accountMonthOut=0x7f090005;
-        public static final int accountName=0x7f090002;
-        public static final int account_list_footer_message=0x7f090007;
-        public static final int action_account_add=0x7f090022;
-        public static final int action_example=0x7f090024;
-        public static final int action_settings=0x7f090023;
-        public static final int action_transaction_add=0x7f090025;
-        public static final int container=0x7f09000a;
-        public static final int navigation_drawer=0x7f09000c;
-        public static final int pager=0x7f09000b;
-        public static final int section_label=0x7f090008;
-        public static final int start_activity_layout=0x7f090009;
-        public static final int textSpinnerItem=0x7f09000d;
-        public static final int transactionAccountButtom=0x7f090018;
-        public static final int transactionAccountLayout=0x7f090017;
-        public static final int transactionAccountSpinner=0x7f090019;
-        public static final int transactionBudgetButtom=0x7f09001b;
-        public static final int transactionBudgetLayout=0x7f09001a;
-        public static final int transactionBudgetSpinner=0x7f09001c;
-        public static final int transactionCancel=0x7f09001f;
-        public static final int transactionColor=0x7f09000e;
-        public static final int transactionConfirm=0x7f09001e;
-        public static final int transactionConfirmButtonsLayout=0x7f09001d;
-        public static final int transactionDate=0x7f09000f;
-        public static final int transactionDateTime=0x7f090020;
-        public static final int transactionDesc=0x7f090016;
-        public static final int transactionPredefinedValueLayout=0x7f090010;
-        public static final int transactionValue=0x7f090015;
-        public static final int transactionValue1=0x7f090011;
-        public static final int transactionValue2=0x7f090012;
-        public static final int transactionValue3=0x7f090013;
-        public static final int transactionValue4=0x7f090014;
-        public static final int transaction_list_footer_message=0x7f090021;
+        public static final int RelativeLayout1=0x7f09000b;
+        public static final int accountBalance=0x7f09000c;
+        public static final int accountColor=0x7f090000;
+        public static final int accountColorButtom=0x7f090007;
+        public static final int accountColorLayout=0x7f090005;
+        public static final int accountColorSpinner=0x7f090006;
+        public static final int accountMonthBalance=0x7f09000f;
+        public static final int accountMonthIn=0x7f09000d;
+        public static final int accountMonthOut=0x7f09000e;
+        public static final int accountName=0x7f090001;
+        public static final int accountValue=0x7f090004;
+        public static final int accountValueCurrency=0x7f090003;
+        public static final int accountValueLayout=0x7f090002;
+        public static final int account_list_footer_message=0x7f090010;
+        public static final int action_account_add=0x7f090035;
+        public static final int action_settings=0x7f090036;
+        public static final int action_transaction_add=0x7f090037;
+        public static final int clearDataButton=0x7f090017;
+        public static final int container=0x7f090019;
+        public static final int exportButton=0x7f090014;
+        public static final int importFromMyMoneyButton=0x7f090013;
+        public static final int navigation_drawer=0x7f09001b;
+        public static final int pager=0x7f09001a;
+        public static final int section_label=0x7f090011;
+        public static final int settingTitle=0x7f090012;
+        public static final int start_activity_layout=0x7f090018;
+        public static final int testButton1=0x7f090015;
+        public static final int testButton2=0x7f090016;
+        public static final int textSpinnerItem=0x7f09001c;
+        public static final int transactionAccountButtom=0x7f09002b;
+        public static final int transactionAccountLabel=0x7f090028;
+        public static final int transactionAccountLayout=0x7f090029;
+        public static final int transactionAccountSpinner=0x7f09002a;
+        public static final int transactionBudgetButtom=0x7f090032;
+        public static final int transactionBudgetLayout=0x7f090030;
+        public static final int transactionBudgetSpinner=0x7f090031;
+        public static final int transactionCancel=0x7f09000a;
+        public static final int transactionColor=0x7f09001d;
+        public static final int transactionConfirm=0x7f090009;
+        public static final int transactionConfirmButtonsLayout=0x7f090008;
+        public static final int transactionDate=0x7f09001e;
+        public static final int transactionDateTime=0x7f090033;
+        public static final int transactionDesc=0x7f090027;
+        public static final int transactionPredefinedValueLayout=0x7f09001f;
+        public static final int transactionSecondaryAccountButtom=0x7f09002f;
+        public static final int transactionSecondaryAccountLabel=0x7f09002c;
+        public static final int transactionSecondaryAccountLayout=0x7f09002d;
+        public static final int transactionSecondaryAccountSpinner=0x7f09002e;
+        public static final int transactionValue=0x7f090026;
+        public static final int transactionValue1=0x7f090020;
+        public static final int transactionValue2=0x7f090021;
+        public static final int transactionValue3=0x7f090022;
+        public static final int transactionValue4=0x7f090023;
+        public static final int transactionValueCurrency=0x7f090025;
+        public static final int transactionValueLayout=0x7f090024;
+        public static final int transaction_list_footer_message=0x7f090034;
     }
     public static final class layout {
-        public static final int account_item=0x7f030000;
-        public static final int account_list_footer=0x7f030001;
-        public static final int list_fragment=0x7f030002;
-        public static final int main_drawer_navigation_activity=0x7f030003;
-        public static final int placeholder_fragment=0x7f030004;
-        public static final int start_activity=0x7f030005;
-        public static final int text_spinner_item=0x7f030006;
-        public static final int transaction_entry_activity=0x7f030007;
-        public static final int transaction_item=0x7f030008;
-        public static final int transaction_list_footer=0x7f030009;
+        public static final int account_entry_activity=0x7f030000;
+        public static final int account_item=0x7f030001;
+        public static final int account_list_footer=0x7f030002;
+        public static final int list_fragment=0x7f030003;
+        public static final int main_drawer_navigation_activity=0x7f030004;
+        public static final int placeholder_fragment=0x7f030005;
+        public static final int settings_fragment=0x7f030006;
+        public static final int start_activity=0x7f030007;
+        public static final int text_spinner_item=0x7f030008;
+        public static final int transaction_entry_activity=0x7f030009;
+        public static final int transaction_item=0x7f03000a;
+        public static final int transaction_list_footer=0x7f03000b;
     }
     public static final class menu {
         public static final int menu_account_list=0x7f080000;
         public static final int menu_default=0x7f080001;
-        public static final int menu_start_activity=0x7f080002;
-        public static final int menu_transaction_list=0x7f080003;
+        public static final int menu_transaction_list=0x7f080002;
     }
     public static final class string {
         public static final int account_list_footer_text=0x7f060000;
@@ -88,25 +108,27 @@ public final class R {
         public static final int action_example=0x7f060002;
         public static final int action_settings=0x7f060003;
         public static final int action_transaction_add=0x7f060004;
-        public static final int app_name=0x7f060005;
-        public static final int expenses_list_footer_text=0x7f060006;
-        public static final int navigation_drawer_close=0x7f060007;
-        public static final int navigation_drawer_open=0x7f060008;
-        public static final int revenues_list_footer_text=0x7f060009;
-        public static final int title_accounts_list_section=0x7f06000a;
-        public static final int title_activity_transaction=0x7f06000b;
-        public static final int title_budgets=0x7f06000c;
-        public static final int title_budgets_list_section=0x7f06000d;
-        public static final int title_help_section=0x7f06000e;
-        public static final int title_settings_section=0x7f06000f;
-        public static final int title_statistics_section=0x7f060010;
-        public static final int title_transaction_list_activity=0x7f060011;
-        public static final int title_transactions_expenses=0x7f060012;
-        public static final int title_transactions_list_section=0x7f060013;
-        public static final int title_transactions_revenues=0x7f060014;
-        public static final int title_transactions_transfers=0x7f060015;
-        public static final int transaction_list_footer_text=0x7f060016;
-        public static final int transfers_list_footer_text=0x7f060017;
+        public static final int app_data_folder=0x7f060005;
+        public static final int app_name=0x7f060006;
+        public static final int expenses_list_footer_text=0x7f060007;
+        public static final int navigation_drawer_close=0x7f060008;
+        public static final int navigation_drawer_open=0x7f060009;
+        public static final int revenues_list_footer_text=0x7f06000a;
+        public static final int title_about_section=0x7f06000b;
+        public static final int title_accounts_list_section=0x7f06000c;
+        public static final int title_activity_account=0x7f06000d;
+        public static final int title_activity_transaction=0x7f06000e;
+        public static final int title_budgets=0x7f06000f;
+        public static final int title_budgets_list_section=0x7f060010;
+        public static final int title_settings_section=0x7f060011;
+        public static final int title_statistics_section=0x7f060012;
+        public static final int title_transaction_list_activity=0x7f060013;
+        public static final int title_transactions_expenses=0x7f060014;
+        public static final int title_transactions_list_section=0x7f060015;
+        public static final int title_transactions_revenues=0x7f060016;
+        public static final int title_transactions_transfers=0x7f060017;
+        public static final int transaction_list_footer_text=0x7f060018;
+        public static final int transfers_list_footer_text=0x7f060019;
     }
     public static final class style {
         /**  Customize your theme here. 

@@ -23,6 +23,10 @@
             android:name=".transactions.TransactionEntryActivity"
             android:label="@string/title_activity_transaction" >
         </activity>
+        <activity
+            android:name=".accounts.AccountEntryActivity"
+            android:label="@string/title_activity_account" >
+        </activity>
     </application>
 
 </manifest>

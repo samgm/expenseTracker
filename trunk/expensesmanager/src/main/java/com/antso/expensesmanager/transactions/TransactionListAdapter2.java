@@ -24,14 +24,21 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class TransactionListAdapter extends BaseAdapter {
+public class TransactionListAdapter2 extends BaseAdapter {
 
     private final List<Transaction> transactions;
     private final Context context;
+    private int itemNum;
 
-    public TransactionListAdapter(Context context, Collection<Transaction> transactions) {
+    public TransactionListAdapter2(Context context, Collection<Transaction> transactions) {
         this.context = context;
         this.transactions = new ArrayList<Transaction>(transactions);
+
+        if(this.transactions.size() > 15) {
+            itemNum = 15;
+        } else {
+            itemNum = this.transactions.size();
+        }
     }
 
     public void add(Transaction item) {
@@ -84,9 +91,17 @@ public class TransactionListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void loadMore() {
+        if (itemNum + 15 < transactions.size()) {
+            itemNum += 15;
+        } else {
+            itemNum = transactions.size();
+        }
+    }
+
     @Override
     public int getCount() {
-        return transactions.size();
+        return itemNum;
     }
 
     @Override

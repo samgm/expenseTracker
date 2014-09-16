@@ -1,20 +1,16 @@
 package com.antso.expensesmanager.entities;
 
-import android.graphics.Path;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.antso.expensesmanager.enums.TransactionDirection;
+import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.Utils;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
-/**
- * Created by asolano on 09/09/2014.
- */
 public class ParcelableTransaction implements Parcelable {
     private Transaction transaction;
 
@@ -38,6 +34,7 @@ public class ParcelableTransaction implements Parcelable {
         dest.writeString(transaction.getBudgetId());
         dest.writeDouble(transaction.getValue().doubleValue());
         dest.writeString(transaction.getDateTime().toString(Utils.getDatePatten()));
+        dest.writeString(transaction.getLinkedTransactionId());
     }
 
     public Transaction getTransaction() {
@@ -48,7 +45,7 @@ public class ParcelableTransaction implements Parcelable {
             = new Parcelable.Creator<ParcelableTransaction>() {
         @Override
         public ParcelableTransaction createFromParcel(Parcel source) {
-            return new ParcelableTransaction(new Transaction(
+            Transaction transaction = new Transaction(
                     source.readString(),
                     source.readString(),
                     TransactionDirection.valueOf(source.readInt()),
@@ -56,7 +53,9 @@ public class ParcelableTransaction implements Parcelable {
                     source.readString(),
                     source.readString(),
                     BigDecimal.valueOf(source.readDouble()),
-                    DateTime.parse(source.readString(), Utils.getDateFormatter())));
+                    DateTime.parse(source.readString(), Utils.getDateFormatter()));
+            transaction.setLinkedTransactionId(source.readString());
+            return new ParcelableTransaction(transaction);
         }
 
         @Override

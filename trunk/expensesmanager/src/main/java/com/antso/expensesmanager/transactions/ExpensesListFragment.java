@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
-import com.antso.expensesmanager.entities.TransactionDirection;
+import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.utils.Constants;
 
@@ -59,10 +59,10 @@ public class ExpensesListFragment extends ListFragment {
         if (transactionListAdapter == null) {
             transactionListAdapter = new TransactionListAdapter(
                     getActivity().getApplicationContext(),
-                    dbHelper.getTransactions(TransactionDirection.Out));
+                    dbHelper.getTransactions(TransactionDirection.Out, true));
 
             if (footerView != null &&
-                    dbHelper.getTransactions(TransactionDirection.Out).isEmpty()) {
+                    dbHelper.getTransactions(TransactionDirection.Out, true).isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.transaction_list_footer_message);
                 textView.setText(R.string.expenses_list_footer_text);
                 textView.setTextColor(Color.GRAY);
@@ -80,7 +80,10 @@ public class ExpensesListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView list, View v, int position, long id) {
-        Toast.makeText(getActivity(), getListView().getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+        Object item = getListView().getItemAtPosition(position);
+        if (item != null) {
+            Toast.makeText(getActivity(), item.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -89,19 +92,22 @@ public class ExpensesListFragment extends ListFragment {
 
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle("Choose Action");   // Context-menu title
-        menu.add(0, v.getId(), 0, "Edit");      // Add element "Edit"
-        menu.add(0, v.getId(), 1, "Delete");    // Add element "Delete"
+        menu.add(Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, "Edit");
+        menu.add(Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, "Delete");
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getGroupId() != Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID) {
+            return false;
+        }
+
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
 
         Transaction transaction = (Transaction) transactionListAdapter.getItem(index);
         if (transaction == null) {
-            return false;
+            return true;
         }
 
         if (item.getTitle() == "Edit") {
@@ -110,8 +116,6 @@ public class ExpensesListFragment extends ListFragment {
             transactionListAdapter.del(index);
             dbHelper.deleteTransaction(transaction.getId());
             Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
-        } else {
-            return false;
         }
 
         return true;

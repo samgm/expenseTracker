@@ -1,0 +1,27 @@
+ordinamento transazioni
+
+LAYOUT
+//TODO review transaction entry screen (for in, out, mov, recurrent)
+//TODO review transaction list item view (for in, out, mov, recurrent)
+//TODO review account entry screen
+//TODO review account list item view
+
+BUDGET
+//TODO create budget entities support (list, add, del)
+
+EDIT
+//TODO edit support for transactions (in, out, mov)
+//TODO edit support for budget
+//TODO edit support for account
+
+CALCULATIONS
+//TODO Calculations for account, budgets partials
+
+rimuovere title da contex menu
+aggiungere edit e delete as actionbar in the entry activities (all transactions, account, budget)
+remove footer from accounts
+recurrent transaction with repeat number (done with end date)
+liste che si caricano man mano che scrolli
+
+SETTINGS
+    configurable currency simbol
