@@ -9,7 +9,6 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.entities.TransactionDirection;
 
 public class TransactionsPagerAdapter
         extends FragmentPagerAdapter
@@ -93,10 +92,19 @@ public class TransactionsPagerAdapter
     public Fragment getCurrentFragment(int position) {
         switch (position) {
             case 0:
+                if(currentExpensesFragment == null) {
+                    return getItem(position);
+                }
                 return currentExpensesFragment;
             case 1:
+                if(currentTransferFragment == null) {
+                    return getItem(position);
+                }
                 return currentTransferFragment;
             case 2:
+                if(currentRevenueFragment == null) {
+                    return getItem(position);
+                }
                 return currentRevenueFragment;
         }
         return null;    }

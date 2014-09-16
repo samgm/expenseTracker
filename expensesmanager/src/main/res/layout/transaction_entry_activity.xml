@@ -23,6 +23,7 @@
         android:layout_toRightOf="@+id/transactionColor"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:textSize="25dp"
         android:text="dd/mm/yyy"
         android:gravity="right"/>
@@ -75,30 +76,63 @@
             />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/transactionValue"
+    <LinearLayout
+        android:id="@+id/transactionValueLayout"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/transactionColor"
         android:layout_below="@id/transactionPredefinedValueLayout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textSize="25dp"
-        android:text="$ 1000.00"
-        android:numeric="decimal"
-        android:gravity="right"/>
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/transactionValueCurrency"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:layout_marginLeft="10dp"
+            android:textSize="25dp"
+            android:text="$"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/transactionValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="25dp"
+            android:text="1000.00"
+            android:numeric="decimal"
+            android:gravity="right"/>
+
+    </LinearLayout>
 
     <MultiAutoCompleteTextView
         android:id="@+id/transactionDesc"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/transactionColor"
-        android:layout_below="@id/transactionValue"
+        android:layout_below="@id/transactionValueLayout"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textSize="25dp"
         android:text="Description"
         android:gravity="right"/>
+
+    <TextView
+        android:id="@+id/transactionAccountLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/transactionColor"
+        android:layout_below="@id/transactionDesc"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="20dp"
+        android:text="From"
+        android:gravity="left"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/transactionAccountLayout"
@@ -106,17 +140,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/transactionColor"
-        android:layout_below="@id/transactionDesc"
+        android:layout_below="@id/transactionAccountLabel"
         android:layout_centerHorizontal="true">
-
-        <Button
-            android:id="@+id/transactionAccountButtom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            />
 
         <Spinner
             android:id="@+id/transactionAccountSpinner"
@@ -124,12 +149,65 @@
             android:layout_height="40dp"
             android:layout_weight="10"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:textSize="25dp"
             android:entries="@array/arrayFakeAccount" />
         />
 
+        <Button
+            android:id="@+id/transactionAccountButtom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/transactionSecondaryAccountLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/transactionColor"
+        android:layout_below="@id/transactionAccountLayout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="20dp"
+        android:text="To"
+        android:gravity="left"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/transactionSecondaryAccountLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/transactionColor"
+        android:layout_below="@id/transactionSecondaryAccountLabel"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone">
+
+        <Spinner
+            android:id="@+id/transactionSecondaryAccountSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="10"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:textSize="25dp"
+            android:entries="@array/arrayFakeAccount" />
+        />
+
+        <Button
+            android:id="@+id/transactionSecondaryAccountButtom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -138,17 +216,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/transactionColor"
-        android:layout_below="@id/transactionAccountLayout"
+        android:layout_below="@id/transactionSecondaryAccountLayout"
         android:layout_centerHorizontal="true">
-
-        <Button
-            android:id="@+id/transactionBudgetButtom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            />
 
         <Spinner
             android:id="@+id/transactionBudgetSpinner"
@@ -156,10 +225,19 @@
             android:layout_height="40dp"
             android:layout_weight="10"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="15dp"
             android:textSize="25dp"
             android:entries="@array/arrayFakeBudget"/>
+
+        <Button
+            android:id="@+id/transactionBudgetButtom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -178,6 +256,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Add"/>
 
         <Button
@@ -186,7 +265,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Cancel"/>
 
     </LinearLayout>

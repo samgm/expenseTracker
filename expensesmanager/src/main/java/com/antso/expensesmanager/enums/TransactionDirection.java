@@ -1,4 +1,4 @@
-package com.antso.expensesmanager.entities;
+package com.antso.expensesmanager.enums;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,17 +6,16 @@ import java.util.Map;
 /**
  * Created by asolano on 5/11/2014.
  */
-public enum TransactionType {
+public enum TransactionDirection {
     Undef(0, "Undef"),
-    Single(1, "Single"),
-    Recurrent(2, "Recurrent"),
-    Transfer(3, "Transfer");
+    In(1, "In"),
+    Out(2, "Out");
 
     private int intValue;
     private String strValue;
-    private static Map<Integer, TransactionType> reverseMap = null;
+    private static Map<Integer, TransactionDirection> reverseMap = null;
 
-    TransactionType(int intValue, String strValue) {
+    TransactionDirection(int intValue, String strValue) {
         this.intValue = intValue;
         this.strValue = strValue;
     }
@@ -29,10 +28,10 @@ public enum TransactionType {
         return intValue;
     }
 
-    public static TransactionType valueOf(int value) {
+    public static TransactionDirection valueOf(int value) {
         if (reverseMap == null) {
-            reverseMap = new HashMap<Integer, TransactionType>();
-            for(TransactionType val : TransactionType.values()) {
+            reverseMap = new HashMap<Integer, TransactionDirection>();
+            for(TransactionDirection val : TransactionDirection.values()) {
                 reverseMap.put(val.intValue, val);
             }
 
@@ -40,5 +39,4 @@ public enum TransactionType {
 
         return reverseMap.get(value);
     }
-
 }

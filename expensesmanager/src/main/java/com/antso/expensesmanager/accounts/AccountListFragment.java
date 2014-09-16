@@ -1,7 +1,7 @@
 package com.antso.expensesmanager.accounts;
 
+import android.app.Activity;
 import android.app.ListFragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,30 +23,22 @@ import android.widget.Toast;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
-import com.antso.expensesmanager.entities.Transaction;
+import com.antso.expensesmanager.entities.ParcelableAccount;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
+import com.antso.expensesmanager.utils.Constants;
 
 import java.math.BigDecimal;
 import java.util.Collection;
 
-/**
- * Created by asolano on 5/4/2014.
- *
- * This class represent the view showing the list of all accounts
- * It uses list_fragment.xml layout, each element in the list uses account_item.xml layout
- */
 public class AccountListFragment extends ListFragment {
-
-    private final Context mContext;
 
     private View footerView;
 
     private AccountListAdapter accountListAdapter = null;
     private DatabaseHelper dbHelper = null;
 
-    public AccountListFragment(final Context mContext) {
-        this.mContext = mContext;
+    public AccountListFragment() {
     }
 
     @Override
@@ -57,7 +50,6 @@ public class AccountListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View listView = inflater.inflate(R.layout.list_fragment, container, false);
 
-        //Create a footer view
         footerView = (LinearLayout) inflater.inflate(R.layout.account_list_footer, null, false);
         return listView;
     }
@@ -73,10 +65,11 @@ public class AccountListFragment extends ListFragment {
         if (accountListAdapter == null) {
             Collection<Account> accounts = dbHelper.getAccounts();
             for (Account account : accounts) {
-                Collection<Transaction> transactions = dbHelper.getTransactions(account.getId());
-                account.setTransactions(transactions);
+                AccountManager.ACCOUNT_MANAGER
+                        .addAccount(account, dbHelper.getTransactions(account.getId()));
             }
-            accountListAdapter = new AccountListAdapter(mContext, accounts);
+            accountListAdapter = new AccountListAdapter(getActivity().getApplicationContext(),
+                    AccountManager.ACCOUNT_MANAGER);
 
             if (footerView != null) {
                 TextView textView = (TextView) footerView.findViewById(R.id.account_list_footer_message);
@@ -118,46 +111,49 @@ public class AccountListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView list, View v, int position, long id) {
-        Account selectedAccount = (Account)getListView().getItemAtPosition(position);
-        Intent intent = new Intent(getActivity(), TransactionListActivity.class);
+        Object item = getListView().getItemAtPosition(position);
+        if (item != null) {
+            AccountManager.AccountInfo accountInfo = (AccountManager.AccountInfo) item;
+            Account selectedAccount =  accountInfo.account;
+            Intent intent = new Intent(getActivity(), TransactionListActivity.class);
 
-        Bundle params = new Bundle();
-        params.putString("AccountId", selectedAccount.getId());
-        intent.putExtras(params);
-        startActivity(intent);
-
-        //Toast.makeText(getActivity(), getListView().getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+            Bundle params = new Bundle();
+            params.putString("AccountId", selectedAccount.getId());
+            intent.putExtras(params);
+            startActivity(intent);
+        }
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle("Choose Action");   // Context-menu title
-        menu.add(0, v.getId(), 0, "Edit");      // Add element "Edit"
-        menu.add(0, v.getId(), 1, "Delete");    // Add element "Delete"
+        menu.add(Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, "Edit");
+        menu.add(Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, "Delete");    // Add element "Delete"
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item)
     {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        int index = info.position;
-
-        Account account = (Account) accountListAdapter.getItem(index);
-        if (account == null) {
+        if(item.getGroupId() != Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID) {
             return false;
         }
 
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        int index = info.position;
+
+        AccountManager.AccountInfo accountInfo = (AccountManager.AccountInfo) accountListAdapter.getItem(index);
+        Account account = accountInfo.account;
+        if (account == null) {
+            return true;
+        }
+
         if (item.getTitle() == "Edit") {
-            Toast.makeText(getActivity(), "Selected 'Edit' on item " + account.getName(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
             accountListAdapter.del(index);
             dbHelper.deleteAccount(account.getId());
             Toast.makeText(getActivity(), account.getName() + " Deleted", Toast.LENGTH_LONG).show();
-        } else {
-            return false;
         }
 
         return true;
@@ -168,6 +164,35 @@ public class AccountListFragment extends ListFragment {
         inflater.inflate(R.menu.menu_account_list, menu);
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_account_add) {
+            Intent intent = new Intent(getActivity().getApplicationContext(), AccountEntryActivity.class);
+            startActivityForResult(intent, Constants.ACCOUNT_ENTRY_REQUEST_CODE);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.ACCOUNT_ENTRY_REQUEST_CODE) {
+            if(resultCode == Activity.RESULT_OK){
+                final ParcelableAccount pAccount = data.getParcelableExtra("account");
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        accountListAdapter.add(pAccount.getAccount());
+                    }
+                });
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Do Nothing
+            }
+        }
     }
 
     @Override

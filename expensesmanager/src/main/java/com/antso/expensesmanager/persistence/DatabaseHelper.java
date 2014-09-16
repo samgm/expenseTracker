@@ -10,19 +10,17 @@ import android.util.Log;
 
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Transaction;
-import com.antso.expensesmanager.entities.TransactionDirection;
-import com.antso.expensesmanager.entities.TransactionType;
+import com.antso.expensesmanager.enums.TransactionDirection;
+import com.antso.expensesmanager.enums.TransactionFrequencyUnit;
+import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by asolano on 5/11/2014.
- */
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     final private static String DB_NAME = "expenses_db";
     final private static Integer DB_VERSION = 1;
@@ -57,6 +55,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String TRANSACTION_FIELD_VALUE = "Value";
     final static String TRANSACTION_FIELD_DATE = "Date";
     final static String TRANSACTION_FIELD_TIME = "Time";
+    final static String TRANSACTION_FIELD_LINKED_TRANSACTION_ID = "LinkedTransactionId";
+    final static String TRANSACTION_FIELD_FREQUENCY = "Frequency";
+    final static String TRANSACTION_FIELD_FREQUENCY_UNIT = "FrequencyUnit";
+    final static String TRANSACTION_FIELD_END = "End";
+    final static String TRANSACTION_FIELD_REPETITION_NUM = "RepetitionNum";
 
     final static String[] transactionColumns = {  TRANSACTION_FIELD_ID,
             TRANSACTION_FIELD_DESC,
@@ -66,7 +69,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             TRANSACTION_FIELD_BUDGET_ID,
             TRANSACTION_FIELD_VALUE,
             TRANSACTION_FIELD_DATE,
-            TRANSACTION_FIELD_TIME };
+            TRANSACTION_FIELD_TIME,
+            TRANSACTION_FIELD_LINKED_TRANSACTION_ID,
+            TRANSACTION_FIELD_FREQUENCY,
+            TRANSACTION_FIELD_FREQUENCY_UNIT,
+            TRANSACTION_FIELD_END,
+            TRANSACTION_FIELD_REPETITION_NUM };
 
     final private static String TRANSACTION_CREATE_CMD =
             "CREATE TABLE " + TRANSACTION_TABLE_NAME + " ( "
@@ -78,8 +86,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + TRANSACTION_FIELD_BUDGET_ID + " TEXT NOT NULL, "
                     + TRANSACTION_FIELD_VALUE + " REAL, "
                     + TRANSACTION_FIELD_DATE + " INTEGER NOT NULL, "
-                    + TRANSACTION_FIELD_TIME + " INTEGER NOT NULL );";
-
+                    + TRANSACTION_FIELD_TIME + " INTEGER NOT NULL, "
+                    + TRANSACTION_FIELD_LINKED_TRANSACTION_ID + " TEXT, "
+                    + TRANSACTION_FIELD_FREQUENCY + " INTEGER, "
+                    + TRANSACTION_FIELD_FREQUENCY_UNIT + " INTEGER, "
+                    + TRANSACTION_FIELD_END + " INTEGER, "
+                    + TRANSACTION_FIELD_REPETITION_NUM + " INTEGER );";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -170,8 +182,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TRANSACTION_FIELD_VALUE, transaction.getValue().doubleValue());
         values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyMMdd(transaction.getDateTime()));
         values.put(TRANSACTION_FIELD_TIME, Utils.dateTimeTohhMMss(transaction.getDateTime()));
+        values.put(TRANSACTION_FIELD_LINKED_TRANSACTION_ID, transaction.getLinkedTransactionId());
+        values.put(TRANSACTION_FIELD_FREQUENCY, transaction.getFrequency());
+        values.put(TRANSACTION_FIELD_FREQUENCY_UNIT, transaction.getFrequencyUnit().getIntValue());
+        values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyMMdd(transaction.getEndDate()));
+        values.put(TRANSACTION_FIELD_REPETITION_NUM, transaction.getRepetitionNum());
 
         db.insert(TRANSACTION_TABLE_NAME, null, values);
+    }
+    private Transaction cursorToTransaction(Cursor cursor) {
+        Transaction transaction = new Transaction(cursor.getString(0),
+                cursor.getString(1),
+                TransactionDirection.valueOf(cursor.getInt(2)),
+                TransactionType.valueOf(cursor.getInt(3)),
+                cursor.getString(4),
+                cursor.getString(5),
+                BigDecimal.valueOf(cursor.getDouble(6)),
+                Utils.yyyyMMddhhMMssToDateTime(cursor.getInt(7), cursor.getInt(8)));
+
+        transaction.setLinkedTransactionId(cursor.getString(9));
+        transaction.setFrequency(cursor.getInt(10));
+        transaction.setFrequencyUnit(TransactionFrequencyUnit.valueOf(cursor.getInt(11)));
+        transaction.setEndDate(Utils.yyyyMMddToDate(cursor.getInt(12)));
+        transaction.setRepetitionNum(cursor.getInt(13));
+
+        return transaction;
     }
 
     public Collection<Transaction> getTransactions() {
@@ -182,16 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<Transaction> transactions = new ArrayList<Transaction>();
         while (cursor.moveToNext()) {
-            Transaction transaction = new Transaction(cursor.getString(0),
-                    cursor.getString(1),
-                    TransactionDirection.valueOf(cursor.getInt(2)),
-                    TransactionType.valueOf(cursor.getInt(3)),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    BigDecimal.valueOf(cursor.getDouble(6)),
-                    Utils.yyyMMddhhMMssToDateTime(cursor.getInt(7), cursor.getInt(8)));
-
-            transactions.add(transaction);
+            transactions.add(cursorToTransaction(cursor));
         }
 
         return transactions;
@@ -208,44 +234,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<Transaction> transactions = new ArrayList<Transaction>();
         while (cursor.moveToNext()) {
-            Transaction transaction = new Transaction(cursor.getString(0),
-                    cursor.getString(1),
-                    TransactionDirection.valueOf(cursor.getInt(2)),
-                    TransactionType.valueOf(cursor.getInt(3)),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    BigDecimal.valueOf(cursor.getDouble(6)),
-                    Utils.yyyMMddhhMMssToDateTime(cursor.getInt(7), cursor.getInt(8)));
-
-            transactions.add(transaction);
+            transactions.add(cursorToTransaction(cursor));
         }
 
         return transactions;
     }
 
-    public Collection<Transaction> getTransactions(TransactionDirection direction) {
+    public Collection<Transaction> getTransactions(TransactionDirection direction, boolean noTransfer) {
         SQLiteDatabase db = getWritableDatabase();
 
         Integer directionInt = direction.getIntValue();
         String directionStr = directionInt.toString();
-        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
-                transactionColumns,
-                TRANSACTION_FIELD_DIRECTION + " = ?", new String[] { directionStr },
-                null, null,
-                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
-
+        Integer typeInt = TransactionType.Transfer.getIntValue();
+        String typeStr = typeInt.toString();
+        Cursor cursor = null;
+        if (noTransfer) {
+            cursor = db.query(TRANSACTION_TABLE_NAME,
+                    transactionColumns,
+                    TRANSACTION_FIELD_DIRECTION + " = ? AND " + TRANSACTION_FIELD_TYPE + " != ?",
+                    new String[]{directionStr, typeStr},
+                    null, null,
+                    TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+        } else {
+            cursor = db.query(TRANSACTION_TABLE_NAME,
+                    transactionColumns,
+                    TRANSACTION_FIELD_DIRECTION + " = ?", new String[]{directionStr},
+                    null, null,
+                    TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+        }
         List<Transaction> transactions = new ArrayList<Transaction>();
         while (cursor.moveToNext()) {
-            Transaction transaction = new Transaction(cursor.getString(0),
-                    cursor.getString(1),
-                    TransactionDirection.valueOf(cursor.getInt(2)),
-                    TransactionType.valueOf(cursor.getInt(3)),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    BigDecimal.valueOf(cursor.getDouble(6)),
-                    Utils.yyyMMddhhMMssToDateTime(cursor.getInt(7), cursor.getInt(8)));
-
-            transactions.add(transaction);
+            transactions.add(cursorToTransaction(cursor));
         }
 
         return transactions;
@@ -264,16 +283,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<Transaction> transactions = new ArrayList<Transaction>();
         while (cursor.moveToNext()) {
-            Transaction transaction = new Transaction(cursor.getString(0),
-                    cursor.getString(1),
-                    TransactionDirection.valueOf(cursor.getInt(2)),
-                    TransactionType.valueOf(cursor.getInt(3)),
-                    cursor.getString(4),
-                    cursor.getString(5),
-                    BigDecimal.valueOf(cursor.getDouble(6)),
-                    Utils.yyyMMddhhMMssToDateTime(cursor.getInt(7), cursor.getInt(8)));
-
-            transactions.add(transaction);
+            transactions.add(cursorToTransaction(cursor));
         }
 
         return transactions;

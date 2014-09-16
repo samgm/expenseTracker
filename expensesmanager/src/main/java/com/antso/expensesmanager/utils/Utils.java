@@ -41,7 +41,7 @@ public class Utils {
         return new DateTime(year, month, day, 0, 0);
     }
 
-    public static DateTime yyyMMddhhMMssToDateTime(int yyyyMMdd, int hhMMss) {
+    public static DateTime yyyyMMddhhMMssToDateTime(int yyyyMMdd, int hhMMss) {
         int hour = hhMMss / 10000;
         int min = hhMMss % 10000 / 100;
         int sec = hhMMss % 100;
@@ -57,4 +57,15 @@ public class Utils {
         return DateTimeFormat.forPattern(Utils.getDatePatten());
     }
 
+    public static String getDatePattenEU() {
+        return "dd/MM/yyyy";
+    }
+
+    public static DateTimeFormatter getDateFormatterEU() {
+        return DateTimeFormat.forPattern(Utils.getDatePattenEU());
+    }
+
+    public static String getCurrencyString() {
+        return "$";
+    }
 }

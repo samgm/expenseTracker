@@ -41,8 +41,4 @@ public class PlaceholderFragment extends Fragment {
         }
         return rootView;
     }
-
-    public static Fragment newBlankInstance() {
-        return new PlaceholderFragment();
-    }
 }

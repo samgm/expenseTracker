@@ -2,26 +2,24 @@
 <resources>
 
     <string name="app_name">Expense App</string>
+    <string name="app_data_folder">ExpenseApp</string>
     <string name="action_settings">Settings</string>
-
     <string name="title_transaction_list_activity">Transactions</string>
 
     <!-- main tab view names -->
     <string name="title_transactions_revenues">Revenues</string>
     <string name="title_transactions_expenses">Expenses</string>
     <string name="title_transactions_transfers">Transfers</string>
-
     <string name="title_budgets">Budgets</string>
 
     <!-- other strings -->
     <string name="account_list_footer_text">Tap here to add a new Account</string>
-
     <string name="transaction_list_footer_text">Tap here to add a new Transaction</string>
     <string name="expenses_list_footer_text">Nothing to show here</string>
     <string name="revenues_list_footer_text">Nothing to show here</string>
     <string name="transfers_list_footer_text">Nothing to show here</string>
-
     <string name="title_activity_transaction">TransactionActivity</string>
+    <string name="title_activity_account">AccountActivity</string>
 
     <string-array name="arrayFakeAccount">
         <item>Account 1</item>
@@ -33,20 +31,23 @@
         <item>Budget Two</item>
         <item>Budget Three</item>
     </string-array>
+    <string-array name="arrayFakeColor">
+        <item>Color 1</item>
+        <item>Color 2</item>
+        <item>Color 3</item>
+    </string-array>
 
     <string name="title_transactions_list_section">Transactions</string>
     <string name="title_accounts_list_section">Accounts</string>
     <string name="title_budgets_list_section">Budgets</string>
     <string name="title_statistics_section">Statistics</string>
     <string name="title_settings_section">Settings</string>
-    <string name="title_help_section">Hekp</string>
-
+    <string name="title_about_section">About</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_example">Example action</string>
-
     <string name="action_transaction_add">+</string>
-    <string name="action_account_add">++</string>
+    <string name="action_account_add">+</string>
+
 
 </resources>

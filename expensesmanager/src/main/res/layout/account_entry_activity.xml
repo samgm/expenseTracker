@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.antso.expensesmanager.accounts.AccountEntryActivity">
+
+    <LinearLayout
+        android:id="@+id/accountColor"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="left"
+        android:background="#FF0000">
+    </LinearLayout>
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/accountName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/accountColor"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="25dp"
+        android:text="Description"
+        android:gravity="right"/>
+
+    <LinearLayout
+        android:id="@+id/accountValueLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/accountColor"
+        android:layout_below="@id/accountName"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/accountValueCurrency"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:layout_marginLeft="10dp"
+            android:textSize="25dp"
+            android:text="$"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/accountValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="25dp"
+            android:text="1000.00"
+            android:numeric="decimal"
+            android:gravity="right"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/accountColorLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/accountColor"
+        android:layout_below="@id/accountValueLayout"
+        android:layout_centerHorizontal="true">
+
+        <Spinner
+            android:id="@+id/accountColorSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="10"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:textSize="25dp"
+            android:entries="@array/arrayFakeColor" />
+        />
+
+        <Button
+            android:id="@+id/accountColorButtom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/transactionConfirmButtonsLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/accountColor"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/transactionConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Add"/>
+
+        <Button
+            android:id="@+id/transactionCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Cancel"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
