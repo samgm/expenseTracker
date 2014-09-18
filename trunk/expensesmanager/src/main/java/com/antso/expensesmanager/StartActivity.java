@@ -14,14 +14,21 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.antso.expensesmanager.accounts.AccountListFragment;
+import com.antso.expensesmanager.accounts.AccountManager;
 import com.antso.expensesmanager.budgets.BudgetListFragment;
+import com.antso.expensesmanager.budgets.BudgetManager;
+import com.antso.expensesmanager.entities.Account;
+import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.enums.DrawerSection;
+import com.antso.expensesmanager.persistence.DatabaseHelper;
+import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.transactions.TransactionsPagerAdapter;
 import com.antso.expensesmanager.utils.PlaceholderFragment;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.Collection;
 
 public class StartActivity
     extends Activity
@@ -39,6 +46,10 @@ public class StartActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
+
+        AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());
+        BudgetManager.BUDGET_MANAGER.start(getApplicationContext());
+        TransactionManager.TRANSACTION_MANAGER.start(getApplicationContext());
 
         mTitle = getTitle();
 
@@ -173,4 +184,12 @@ public class StartActivity
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        AccountManager.ACCOUNT_MANAGER.stop();
+        BudgetManager.BUDGET_MANAGER.stop();
+        TransactionManager.TRANSACTION_MANAGER.stop();
+
+        super.onDestroy();
+    }
 }

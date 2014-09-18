@@ -1,11 +1,15 @@
 package com.antso.expensesmanager.budgets;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.antso.expensesmanager.accounts.AccountManager;
+import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.BudgetPeriodUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
+import com.antso.expensesmanager.persistence.DatabaseHelper;
 
 import org.joda.time.DateTime;
 
@@ -28,13 +32,33 @@ public enum BudgetManager {
         public BigDecimal periodBalance;
     }
     private Map<String, BudgetInfo> budgets;
-
+    private DatabaseHelper dbHelper = null;
 
     private BudgetManager() {
         budgets = new HashMap<String, BudgetInfo>();
     }
 
-    public void addBudget(Budget budget, Collection<Transaction> transactions) {
+    public void start(Context context) {
+        if (dbHelper == null) {
+            dbHelper = new DatabaseHelper(context);
+
+            Collection<Budget> budgets = dbHelper.getBudgets();
+            for (Budget budget : budgets) {
+                BudgetManager.BUDGET_MANAGER
+                        .addBudget(budget, dbHelper.getTransactionsByBudget(budget.getId()));
+            }
+        }
+    }
+
+
+    public void stop() {
+        if (dbHelper != null) {
+            dbHelper.close();
+            dbHelper = null;
+        }
+    }
+
+    private void addBudget(Budget budget, Collection<Transaction> transactions) {
         BudgetInfo budgetInfo = new BudgetInfo();
         budgetInfo.budget = budget;
 
@@ -58,8 +82,14 @@ public enum BudgetManager {
         budgets.put(budget.getId(), budgetInfo);
     }
 
+    public void insertBudget(Budget budget) {
+        dbHelper.insertBudget(budget);
+        addBudget(budget, dbHelper.getTransactionsByBudget(budget.getId()));
+    }
+
     public void removeBudget(Budget budget) {
         budgets.remove(budget.getId());
+        dbHelper.deleteBudget(budget.getId());
     }
 
     public void refresh(BudgetInfo budgetInfo, DateTime currentDateTime) {
@@ -190,6 +220,10 @@ public enum BudgetManager {
             }
         }
         return budgetByName;
+    }
+
+    public Collection<Budget> getBudgets() {
+        return dbHelper.getBudgets();
     }
 
 }

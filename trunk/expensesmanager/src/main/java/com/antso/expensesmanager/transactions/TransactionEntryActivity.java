@@ -18,13 +18,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
+import com.antso.expensesmanager.accounts.AccountManager;
+import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
-import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.Utils;
 
@@ -38,7 +39,6 @@ public class TransactionEntryActivity extends Activity {
 
     private DateTime transactionDate = DateTime.now();
     private BigDecimal transactionValue = BigDecimal.ZERO;
-    private DatabaseHelper dbHelper;
 
     private Collection<Account> accounts;
     private Collection<Budget> budgets;
@@ -87,10 +87,11 @@ public class TransactionEntryActivity extends Activity {
                 break;
         }
 
-        if (dbHelper == null) {
-            dbHelper = new DatabaseHelper(getApplicationContext());
-            accounts = dbHelper.getAccounts();
-            budgets = dbHelper.getBudgets();
+        if (accounts == null) {
+            accounts = AccountManager.ACCOUNT_MANAGER.getAccounts();
+        }
+        if (budgets == null) {
+            budgets = BudgetManager.BUDGET_MANAGER.getBudgets();
         }
 
         final EditText date = (EditText)findViewById(R.id.transactionDate);
@@ -182,8 +183,8 @@ public class TransactionEntryActivity extends Activity {
                                 transactionDate);
                         t1.setLinkedTransactionId(t2Id);
                         t2.setLinkedTransactionId(t1Id);
-                        dbHelper.insertTransactions(t1);
-                        dbHelper.insertTransactions(t2);
+                        TransactionManager.TRANSACTION_MANAGER.insertTransaction(t1);
+                        TransactionManager.TRANSACTION_MANAGER.insertTransaction(t2);
                         returnIntent.putExtra("transaction_out", new ParcelableTransaction(t1));
                         returnIntent.putExtra("transaction_in", new ParcelableTransaction(t2));
                         break;
@@ -200,7 +201,7 @@ public class TransactionEntryActivity extends Activity {
                                 transactionValue,
                                 transactionDate);
 
-                        dbHelper.insertTransactions(transaction);
+                        TransactionManager.TRANSACTION_MANAGER.insertTransaction(transaction);
                         returnIntent.putExtra("transaction", new ParcelableTransaction(transaction));
                         break;
                 }

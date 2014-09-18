@@ -76,6 +76,8 @@ containing a value of this type.
         public static final int action_budget_add=0x7f090038;
         public static final int action_settings=0x7f090037;
         public static final int action_transaction_add=0x7f090039;
+        public static final int budgetColor=0x7f090033;
+        public static final int budgetName=0x7f090035;
         public static final int clearDataButton=0x7f090017;
         public static final int container=0x7f090019;
         public static final int exportButton=0x7f090014;
@@ -83,8 +85,6 @@ containing a value of this type.
         public static final int list_footer_message=0x7f090010;
         public static final int navigation_drawer=0x7f09001b;
         public static final int pager=0x7f09001a;
-        public static final int pieCircle=0x7f090033;
-        public static final int pieCircle2=0x7f090034;
         public static final int section_label=0x7f090011;
         public static final int settingTitle=0x7f090012;
         public static final int start_activity_layout=0x7f090018;
@@ -103,7 +103,7 @@ containing a value of this type.
         public static final int transactionConfirm=0x7f090009;
         public static final int transactionConfirmButtonsLayout=0x7f090008;
         public static final int transactionDate=0x7f09001e;
-        public static final int transactionDateTime=0x7f090035;
+        public static final int transactionDateTime=0x7f090034;
         public static final int transactionDesc=0x7f090027;
         public static final int transactionPredefinedValueLayout=0x7f09001f;
         public static final int transactionSecondaryAccountButtom=0x7f09002f;

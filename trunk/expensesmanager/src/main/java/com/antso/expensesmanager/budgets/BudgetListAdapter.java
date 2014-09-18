@@ -11,44 +11,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.utils.Utils;
-
-import java.util.List;
 
 
 public class BudgetListAdapter extends BaseAdapter {
     private final BudgetManager budgetManager;
-    private volatile List<BudgetManager.BudgetInfo> budgetInfos;
     private final Context context;
 
     public BudgetListAdapter(Context context, BudgetManager budgetManager) {
         this.context = context;
         this.budgetManager = budgetManager;
-        this.budgetInfos = budgetManager.getBudgetInfo();
-    }
-
-    public void add(Budget item) {
-        budgetManager.addBudget(item, null);
-        budgetInfos = budgetManager.getBudgetInfo();
-
-        notifyDataSetChanged();
-    }
-
-    public void del(int index) {
-        budgetManager.removeBudget(budgetInfos.get(index).budget);
-        budgetInfos = budgetManager.getBudgetInfo();
-        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return budgetInfos.size();
+        return budgetManager.getBudgetInfo().size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return budgetInfos.get(pos);
+        return budgetManager.getBudgetInfo().get(pos);
     }
 
     @Override
@@ -61,7 +43,7 @@ public class BudgetListAdapter extends BaseAdapter {
         //TODO create a proper layout for budgets
 
         // Get the current ToDoItem
-        final BudgetManager.BudgetInfo budgetInfo = budgetInfos.get(position);
+        final BudgetManager.BudgetInfo budgetInfo = budgetManager.getBudgetInfo().get(position);
 
         //Inflate the View for this ToDoItem
         // from todo_item.xml.

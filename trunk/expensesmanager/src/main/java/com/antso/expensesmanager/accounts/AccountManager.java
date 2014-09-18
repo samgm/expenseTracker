@@ -1,11 +1,14 @@
 package com.antso.expensesmanager.accounts;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.antso.expensesmanager.entities.Account;
+import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
+import com.antso.expensesmanager.persistence.DatabaseHelper;
 
 import org.joda.time.DateTime;
 
@@ -29,13 +32,32 @@ public enum AccountManager {
         public BigDecimal monthBalance;
     }
     private Map<String, AccountInfo> accounts;
+    private DatabaseHelper dbHelper = null;
 
 
     private AccountManager() {
         accounts = new HashMap<String, AccountInfo>();
     }
 
-    public void addAccount(Account account, Collection<Transaction> transactions) {
+    public void start(Context context) {
+        if (dbHelper == null) {
+            dbHelper = new DatabaseHelper(context);
+
+            Collection<Account> accounts = dbHelper.getAccounts();
+            for (Account account : accounts) {
+                ACCOUNT_MANAGER.addAccount(account, dbHelper.getTransactionsByAccount(account.getId()));
+            }
+        }
+    }
+
+    public void stop() {
+        if (dbHelper != null) {
+            dbHelper.close();
+            dbHelper = null;
+        }
+    }
+
+    private void addAccount(Account account, Collection<Transaction> transactions) {
         AccountInfo accountInfo = new AccountInfo();
         accountInfo.account = account;
 
@@ -60,8 +82,14 @@ public enum AccountManager {
         accounts.put(account.getId(), accountInfo);
     }
 
+    public void insertAccount(Account account) {
+        dbHelper.insertAccount(account);
+        addAccount(account, dbHelper.getTransactionsByAccount(account.getId()));
+    }
+
     public void removeAccount(Account account) {
         accounts.remove(account.getId());
+        dbHelper.deleteAccount(account.getId());
     }
 
     public void refresh(AccountInfo accountInfo, int currentMonth, int currentYear) {
@@ -167,6 +195,10 @@ public enum AccountManager {
             }
         }
         return accountByName;
+    }
+
+    public Collection<Account> getAccounts() {
+        return dbHelper.getAccounts();
     }
 
 }

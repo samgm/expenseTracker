@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
+import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.utils.Utils;
 
 import java.math.BigDecimal;
@@ -20,36 +21,21 @@ import java.util.List;
 
 public class AccountListAdapter extends BaseAdapter {
     private final AccountManager accountManager;
-    private volatile List<AccountManager.AccountInfo> accountInfos;
     private final Context context;
 
     public AccountListAdapter(Context context, AccountManager accountManager) {
         this.context = context;
         this.accountManager = accountManager;
-        this.accountInfos = accountManager.getAccountInfo();
-    }
-
-    public void add(Account item) {
-        accountManager.addAccount(item, null);
-        accountInfos = accountManager.getAccountInfo();
-
-        notifyDataSetChanged();
-    }
-
-    public void del(int index) {
-        accountManager.removeAccount(accountInfos.get(index).account);
-        accountInfos = accountManager.getAccountInfo();
-        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return accountInfos.size();
+        return accountManager.getAccountInfo().size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return accountInfos.get(pos);
+        return accountManager.getAccountInfo().get(pos);
     }
 
     @Override
@@ -61,7 +47,7 @@ public class AccountListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         // Get the current ToDoItem
-        final AccountManager.AccountInfo accountInfo = accountInfos.get(position);
+        final AccountManager.AccountInfo accountInfo = accountManager.getAccountInfo().get(position);
 
         //Inflate the View for this ToDoItem
         // from todo_item.xml.
@@ -115,5 +101,4 @@ public class AccountListAdapter extends BaseAdapter {
         return itemLayout;
 
     }
-
 }
