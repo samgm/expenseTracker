@@ -9,7 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.antso.expensesmanager.entities.Account;
+import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
+import com.antso.expensesmanager.enums.BudgetPeriodUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionFrequencyUnit;
 import com.antso.expensesmanager.enums.TransactionType;
@@ -43,6 +45,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + ACCOUNT_FIELD_NAME + " TEXT NOT NULL, "
                     + ACCOUNT_FIELD_COLOR + " INTEGER NOT NULL, "
                     + ACCOUNT_FIELD_INITIAL_BALANCE + " REAL );";
+
+    //Budgets
+    final static String BUDGET_TABLE_NAME = "Budgets";
+    final static String BUDGET_FIELD_ID = "Id";
+    final static String BUDGET_FIELD_NAME = "Name";
+    final static String BUDGET_FIELD_THRESHOLD = "Threshold";
+    final static String BUDGET_FIELD_COLOR = "Color";
+    final static String BUDGET_FIELD_PERIOD_UNIT = "PeriodUnit";
+    final static String BUDGET_FIELD_PERIOD_LENGTH = "PeriodLength";
+    final static String BUDGET_FIELD_PERIOD_START = "PeriodStart";
+
+    final static String[] budgetColumns = { BUDGET_FIELD_ID,
+            BUDGET_FIELD_NAME,
+            BUDGET_FIELD_THRESHOLD,
+            BUDGET_FIELD_COLOR,
+            BUDGET_FIELD_PERIOD_UNIT,
+            BUDGET_FIELD_PERIOD_LENGTH,
+            BUDGET_FIELD_PERIOD_START };
+
+    final private static String BUDGET_CREATE_CMD =
+            "CREATE TABLE " + BUDGET_TABLE_NAME + " ( "
+                    + BUDGET_FIELD_ID + " TEXT NOT NULL PRIMARY KEY, "
+                    + BUDGET_FIELD_NAME + " TEXT NOT NULL, "
+                    + BUDGET_FIELD_THRESHOLD + " REAL, "
+                    + BUDGET_FIELD_COLOR + " INTEGER NOT NULL, "
+                    + BUDGET_FIELD_PERIOD_UNIT + " INTEGER NOT NULL, "
+                    + BUDGET_FIELD_PERIOD_LENGTH + " INTEGER NOT NULL,"
+                    + BUDGET_FIELD_PERIOD_START + " INTEGER NOT NULL );";
 
     //Transactions
     final static String TRANSACTION_TABLE_NAME = "Transactions";
@@ -99,9 +129,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getReadableDatabase();
         long accounts = DatabaseUtils.queryNumEntries(db, ACCOUNT_TABLE_NAME);
+        long budgets = DatabaseUtils.queryNumEntries(db, BUDGET_TABLE_NAME);
         long transactions = DatabaseUtils.queryNumEntries(db, TRANSACTION_TABLE_NAME);
 
         EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Account.class, "A", accounts, true);
+        EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Budget.class, "B", accounts, true);
         EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Transaction.class, "T", transactions, true);
     }
 
@@ -109,6 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(ACCOUNT_CREATE_CMD);
+            db.execSQL(BUDGET_CREATE_CMD);
             db.execSQL(TRANSACTION_CREATE_CMD);
         } catch (Exception e) {
             Log.e("DatabaseHelper", "Exception raised: " + e);
@@ -121,6 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         mContext.deleteDatabase(DB_NAME);
 
         db.execSQL(ACCOUNT_CREATE_CMD);
+        db.execSQL(BUDGET_CREATE_CMD);
         db.execSQL(TRANSACTION_CREATE_CMD);
     }
 
@@ -163,6 +197,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(ACCOUNT_TABLE_NAME,
                 ACCOUNT_FIELD_ID + " = ?",
+                new String[] { id });
+    }
+
+    // BUDGETS
+    //--------------------------
+
+    public void insertBudget(Budget budget) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(BUDGET_FIELD_ID, budget.getId());
+        values.put(BUDGET_FIELD_NAME, budget.getName());
+        values.put(BUDGET_FIELD_THRESHOLD, budget.getThreshold().doubleValue());
+        values.put(BUDGET_FIELD_COLOR, budget.getColor());
+        values.put(BUDGET_FIELD_PERIOD_UNIT, budget.getPeriodUnit().getIntValue());
+        values.put(BUDGET_FIELD_PERIOD_LENGTH, budget.getPeriodLength());
+        values.put(BUDGET_FIELD_PERIOD_START, Utils.dateTimeToyyyMMdd(budget.getPeriodStart()));
+
+        db.insert(BUDGET_TABLE_NAME, null, values);
+    }
+
+    public Collection<Budget> getBudgets() {
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.query(BUDGET_TABLE_NAME,
+                budgetColumns, null, new String[] {}, null, null, null);
+
+        List<Budget> budgets = new ArrayList<Budget>();
+        while (cursor.moveToNext()) {
+            Budget budget = new Budget(cursor.getString(0), cursor.getString(1),
+                    BigDecimal.valueOf(cursor.getDouble(2)), cursor.getInt(3),
+                    cursor.getInt(5),
+                    BudgetPeriodUnit.valueOf(cursor.getInt(4)),
+                    Utils.yyyyMMddToDate(cursor.getInt(6)));
+            budgets.add(budget);
+        }
+
+        return budgets;
+    }
+
+    public void deleteBudget(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(BUDGET_TABLE_NAME,
+                BUDGET_FIELD_ID + " = ?",
                 new String[] { id });
     }
 
@@ -223,12 +301,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
-    public Collection<Transaction> getTransactions(String accountId) {
+    public Collection<Transaction> getTransactionsByAccount(String accountId) {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
                 transactionColumns,
                 TRANSACTION_FIELD_ACCOUNT_ID + " = ?", new String[] { accountId },
+                null, null,
+                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        while (cursor.moveToNext()) {
+            transactions.add(cursorToTransaction(cursor));
+        }
+
+        return transactions;
+    }
+
+    public Collection<Transaction> getTransactionsByBudget(String budgetId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
+                transactionColumns,
+                TRANSACTION_FIELD_BUDGET_ID + " = ?", new String[] { budgetId },
                 null, null,
                 TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
 

@@ -14,6 +14,39 @@ public final class R {
         public static final int arrayFakeColor=0x7f040002;
     }
     public static final class attr {
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cAngleEnd=0x7f010003;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cAngleStart=0x7f010002;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cFillColor=0x7f010001;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cRadiusDp=0x7f010000;
     }
     public static final class dimen {
         public static final int activity_horizontal_margin=0x7f050000;
@@ -39,16 +72,19 @@ public final class R {
         public static final int accountValue=0x7f090004;
         public static final int accountValueCurrency=0x7f090003;
         public static final int accountValueLayout=0x7f090002;
-        public static final int account_list_footer_message=0x7f090010;
-        public static final int action_account_add=0x7f090035;
-        public static final int action_settings=0x7f090036;
-        public static final int action_transaction_add=0x7f090037;
+        public static final int action_account_add=0x7f090036;
+        public static final int action_budget_add=0x7f090038;
+        public static final int action_settings=0x7f090037;
+        public static final int action_transaction_add=0x7f090039;
         public static final int clearDataButton=0x7f090017;
         public static final int container=0x7f090019;
         public static final int exportButton=0x7f090014;
         public static final int importFromMyMoneyButton=0x7f090013;
+        public static final int list_footer_message=0x7f090010;
         public static final int navigation_drawer=0x7f09001b;
         public static final int pager=0x7f09001a;
+        public static final int pieCircle=0x7f090033;
+        public static final int pieCircle2=0x7f090034;
         public static final int section_label=0x7f090011;
         public static final int settingTitle=0x7f090012;
         public static final int start_activity_layout=0x7f090018;
@@ -67,7 +103,7 @@ public final class R {
         public static final int transactionConfirm=0x7f090009;
         public static final int transactionConfirmButtonsLayout=0x7f090008;
         public static final int transactionDate=0x7f09001e;
-        public static final int transactionDateTime=0x7f090033;
+        public static final int transactionDateTime=0x7f090035;
         public static final int transactionDesc=0x7f090027;
         public static final int transactionPredefinedValueLayout=0x7f09001f;
         public static final int transactionSecondaryAccountButtom=0x7f09002f;
@@ -81,12 +117,11 @@ public final class R {
         public static final int transactionValue4=0x7f090023;
         public static final int transactionValueCurrency=0x7f090025;
         public static final int transactionValueLayout=0x7f090024;
-        public static final int transaction_list_footer_message=0x7f090034;
     }
     public static final class layout {
         public static final int account_entry_activity=0x7f030000;
         public static final int account_item=0x7f030001;
-        public static final int account_list_footer=0x7f030002;
+        public static final int list_footer=0x7f030002;
         public static final int list_fragment=0x7f030003;
         public static final int main_drawer_navigation_activity=0x7f030004;
         public static final int placeholder_fragment=0x7f030005;
@@ -95,44 +130,124 @@ public final class R {
         public static final int text_spinner_item=0x7f030008;
         public static final int transaction_entry_activity=0x7f030009;
         public static final int transaction_item=0x7f03000a;
-        public static final int transaction_list_footer=0x7f03000b;
     }
     public static final class menu {
         public static final int menu_account_list=0x7f080000;
-        public static final int menu_default=0x7f080001;
-        public static final int menu_transaction_list=0x7f080002;
+        public static final int menu_budget_list=0x7f080001;
+        public static final int menu_default=0x7f080002;
+        public static final int menu_transaction_list=0x7f080003;
     }
     public static final class string {
-        public static final int account_list_footer_text=0x7f060000;
+        public static final int accounts_list_footer_text=0x7f060000;
         public static final int action_account_add=0x7f060001;
-        public static final int action_example=0x7f060002;
-        public static final int action_settings=0x7f060003;
-        public static final int action_transaction_add=0x7f060004;
-        public static final int app_data_folder=0x7f060005;
-        public static final int app_name=0x7f060006;
-        public static final int expenses_list_footer_text=0x7f060007;
-        public static final int navigation_drawer_close=0x7f060008;
-        public static final int navigation_drawer_open=0x7f060009;
-        public static final int revenues_list_footer_text=0x7f06000a;
-        public static final int title_about_section=0x7f06000b;
-        public static final int title_accounts_list_section=0x7f06000c;
-        public static final int title_activity_account=0x7f06000d;
-        public static final int title_activity_transaction=0x7f06000e;
-        public static final int title_budgets=0x7f06000f;
-        public static final int title_budgets_list_section=0x7f060010;
-        public static final int title_settings_section=0x7f060011;
-        public static final int title_statistics_section=0x7f060012;
-        public static final int title_transaction_list_activity=0x7f060013;
-        public static final int title_transactions_expenses=0x7f060014;
-        public static final int title_transactions_list_section=0x7f060015;
-        public static final int title_transactions_revenues=0x7f060016;
-        public static final int title_transactions_transfers=0x7f060017;
-        public static final int transaction_list_footer_text=0x7f060018;
-        public static final int transfers_list_footer_text=0x7f060019;
+        public static final int action_budget_add=0x7f060002;
+        public static final int action_example=0x7f060003;
+        public static final int action_settings=0x7f060004;
+        public static final int action_transaction_add=0x7f060005;
+        public static final int app_data_folder=0x7f060006;
+        public static final int app_name=0x7f060007;
+        public static final int budgets_list_footer_text=0x7f060008;
+        public static final int expenses_list_footer_text=0x7f060009;
+        public static final int list_footer_text=0x7f06000a;
+        public static final int navigation_drawer_close=0x7f06000b;
+        public static final int navigation_drawer_open=0x7f06000c;
+        public static final int revenues_list_footer_text=0x7f06000d;
+        public static final int title_about_section=0x7f06000e;
+        public static final int title_accounts_list_section=0x7f06000f;
+        public static final int title_activity_account=0x7f060010;
+        public static final int title_activity_transaction=0x7f060011;
+        public static final int title_budgets=0x7f060012;
+        public static final int title_budgets_list_section=0x7f060013;
+        public static final int title_settings_section=0x7f060014;
+        public static final int title_statistics_section=0x7f060015;
+        public static final int title_transaction_list_activity=0x7f060016;
+        public static final int title_transactions_expenses=0x7f060017;
+        public static final int title_transactions_list_section=0x7f060018;
+        public static final int title_transactions_revenues=0x7f060019;
+        public static final int title_transactions_transfers=0x7f06001a;
+        public static final int transfers_list_footer_text=0x7f06001b;
     }
     public static final class style {
         /**  Customize your theme here. 
          */
         public static final int AppTheme=0x7f070000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a circleSectorView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #circleSectorView_cAngleEnd com.antso.expensesmanager:cAngleEnd}</code></td><td></td></tr>
+           <tr><td><code>{@link #circleSectorView_cAngleStart com.antso.expensesmanager:cAngleStart}</code></td><td></td></tr>
+           <tr><td><code>{@link #circleSectorView_cFillColor com.antso.expensesmanager:cFillColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #circleSectorView_cRadiusDp com.antso.expensesmanager:cRadiusDp}</code></td><td></td></tr>
+           </table>
+           @see #circleSectorView_cAngleEnd
+           @see #circleSectorView_cAngleStart
+           @see #circleSectorView_cFillColor
+           @see #circleSectorView_cRadiusDp
+         */
+        public static final int[] circleSectorView = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cAngleEnd}
+          attribute's value can be found in the {@link #circleSectorView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.antso.expensesmanager:cAngleEnd
+        */
+        public static final int circleSectorView_cAngleEnd = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cAngleStart}
+          attribute's value can be found in the {@link #circleSectorView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.antso.expensesmanager:cAngleStart
+        */
+        public static final int circleSectorView_cAngleStart = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cFillColor}
+          attribute's value can be found in the {@link #circleSectorView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.antso.expensesmanager:cFillColor
+        */
+        public static final int circleSectorView_cFillColor = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cRadiusDp}
+          attribute's value can be found in the {@link #circleSectorView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.antso.expensesmanager:cRadiusDp
+        */
+        public static final int circleSectorView_cRadiusDp = 0;
+    };
 }

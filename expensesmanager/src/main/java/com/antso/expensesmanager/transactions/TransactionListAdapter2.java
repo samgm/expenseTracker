@@ -1,9 +1,5 @@
 package com.antso.expensesmanager.transactions;
 
-/**
- * Created by asolano on 5/4/2014.
- */
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -21,6 +17,7 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -33,6 +30,7 @@ public class TransactionListAdapter2 extends BaseAdapter {
     public TransactionListAdapter2(Context context, Collection<Transaction> transactions) {
         this.context = context;
         this.transactions = new ArrayList<Transaction>(transactions);
+        Collections.sort(this.transactions, new TransactionByDateComparator());
 
         if(this.transactions.size() > 15) {
             itemNum = 15;
@@ -43,6 +41,7 @@ public class TransactionListAdapter2 extends BaseAdapter {
 
     public void add(Transaction item) {
         transactions.add(item);
+        Collections.sort(this.transactions, new TransactionByDateComparator());
         notifyDataSetChanged();
     }
 
@@ -92,11 +91,16 @@ public class TransactionListAdapter2 extends BaseAdapter {
     }
 
     public void loadMore() {
+        if (itemNum >= transactions.size()) {
+            return;
+        }
+
         if (itemNum + 15 < transactions.size()) {
             itemNum += 15;
         } else {
             itemNum = transactions.size();
         }
+        notifyDataSetChanged();
     }
 
     @Override

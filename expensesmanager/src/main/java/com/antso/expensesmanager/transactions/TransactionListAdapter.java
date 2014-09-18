@@ -1,9 +1,5 @@
 package com.antso.expensesmanager.transactions;
 
-/**
- * Created by asolano on 5/4/2014.
- */
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -21,6 +17,7 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -32,10 +29,13 @@ public class TransactionListAdapter extends BaseAdapter {
     public TransactionListAdapter(Context context, Collection<Transaction> transactions) {
         this.context = context;
         this.transactions = new ArrayList<Transaction>(transactions);
+        Collections.sort(this.transactions, new TransactionByDateComparator());
     }
 
     public void add(Transaction item) {
+        //TODO I may need to add at the top of the list instead than at the end
         transactions.add(item);
+        Collections.sort(this.transactions, new TransactionByDateComparator());
         notifyDataSetChanged();
     }
 

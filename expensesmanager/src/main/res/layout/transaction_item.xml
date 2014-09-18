@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circleSectorview="http://schemas.android.com/apk/res-auto"
+
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
+    <!--<View-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:background="@drawable/quarter_circle"/>-->
+
+    <com.antso.expensesmanager.views.CircleSectorView
+        android:id="@+id/pieCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-30dp"
+        android:layout_marginLeft="-30dp"
+        circleSectorview:cFillColor="#0000ff"
+        circleSectorview:cRadiusDp="30"
+        circleSectorview:cAngleStart="0"
+        circleSectorview:cAngleEnd="360"
+        />
+
+    <com.antso.expensesmanager.views.CircleSectorView
+        android:id="@+id/pieCircle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        circleSectorview:cFillColor="#ff0000"
+        circleSectorview:cRadiusDp="10"
+        circleSectorview:cAngleStart="0"
+        circleSectorview:cAngleEnd="360"
+        />
 
     <TextView
         android:id="@+id/accountName"
+        android:layout_marginLeft="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -29,6 +63,7 @@
 
     <TextView
         android:id="@+id/transactionDesc"
+        android:layout_marginLeft="60dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/accountName"

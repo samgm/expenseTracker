@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.antso.expensesmanager.accounts.AccountListFragment;
+import com.antso.expensesmanager.budgets.BudgetListFragment;
 import com.antso.expensesmanager.enums.DrawerSection;
 import com.antso.expensesmanager.transactions.TransactionsPagerAdapter;
 import com.antso.expensesmanager.utils.PlaceholderFragment;
@@ -154,6 +155,12 @@ public class StartActivity
                         .replace(R.id.container, new SettingsFragment()).commit();
                 break;
             case BUDGETS:
+                mPagerView.setVisibility(View.INVISIBLE);
+                mContainer.setVisibility(View.VISIBLE);
+                getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, new BudgetListFragment()).commit();
+                break;
             case STATISTICS:
             case ABOUT:
                 mPagerView.setVisibility(View.INVISIBLE);

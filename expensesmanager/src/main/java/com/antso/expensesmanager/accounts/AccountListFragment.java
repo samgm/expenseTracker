@@ -5,7 +5,6 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,7 +26,6 @@ import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
 import com.antso.expensesmanager.utils.Constants;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 
 public class AccountListFragment extends ListFragment {
@@ -50,7 +47,7 @@ public class AccountListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View listView = inflater.inflate(R.layout.list_fragment, container, false);
 
-        footerView = (LinearLayout) inflater.inflate(R.layout.account_list_footer, null, false);
+        footerView = (LinearLayout) inflater.inflate(R.layout.list_footer, null, false);
         return listView;
     }
 
@@ -66,41 +63,18 @@ public class AccountListFragment extends ListFragment {
             Collection<Account> accounts = dbHelper.getAccounts();
             for (Account account : accounts) {
                 AccountManager.ACCOUNT_MANAGER
-                        .addAccount(account, dbHelper.getTransactions(account.getId()));
+                        .addAccount(account, dbHelper.getTransactionsByAccount(account.getId()));
             }
             accountListAdapter = new AccountListAdapter(getActivity().getApplicationContext(),
                     AccountManager.ACCOUNT_MANAGER);
 
-            if (footerView != null) {
-                TextView textView = (TextView) footerView.findViewById(R.id.account_list_footer_message);
-                textView.setText(R.string.account_list_footer_text);
+            if (footerView != null && dbHelper.getAccounts().isEmpty()) {
+                TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
+                textView.setText(R.string.accounts_list_footer_text);
                 textView.setTextColor(Color.GRAY);
 
                 getListView().addFooterView(footerView);
                 getListView().setFooterDividersEnabled(true);
-
-                footerView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.i("AccountListFragment", "Account List footer clicked");
-
-    //                // Attach Listener to FooterView. Implement onClick().
-    //                Intent intent = new Intent(getApplicationContext(), AddToDoActivity.class);
-    //                startActivityForResult(intent, ADD_TODO_ITEM_REQUEST);
-
-                        Account account1 = new Account("ACC1", "Account1", BigDecimal.valueOf(1500.00), Color.rgb(0,0,255));
-                        dbHelper.insertAccount(account1);
-                        accountListAdapter.add(account1);
-
-                        Account account2 = new Account("ACC2", "Account2", BigDecimal.valueOf(1600.00), Color.rgb(255,0,255));
-                        dbHelper.insertAccount(account2);
-                        accountListAdapter.add(account2);
-
-                        Account account3 = new Account("ACC3", "Account3", BigDecimal.valueOf(1700.55), Color.rgb(125,125,255));
-                        dbHelper.insertAccount(account3);
-                        accountListAdapter.add(account3);
-                    }
-                });
             }
 
             setListAdapter(accountListAdapter);
