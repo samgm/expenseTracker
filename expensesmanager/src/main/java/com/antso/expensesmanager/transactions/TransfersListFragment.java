@@ -29,9 +29,7 @@ import com.antso.expensesmanager.utils.Constants;
 public class TransfersListFragment extends ListFragment {
 
     private View footerView;
-
     private TransactionListAdapter transactionListAdapter = null;
-    private DatabaseHelper dbHelper = null;
 
     public TransfersListFragment() {
     }
@@ -53,17 +51,15 @@ public class TransfersListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (dbHelper == null) {
-            dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        }
-
         if (transactionListAdapter == null) {
             transactionListAdapter = new TransactionListAdapter(
                     getActivity().getApplicationContext(),
-                    dbHelper.getTransactions(TransactionType.Transfer));
+                    TransactionManager.TRANSACTION_MANAGER
+                            .getTransactions(TransactionType.Transfer));
 
             if (footerView != null &&
-                    dbHelper.getTransactions(TransactionType.Transfer).isEmpty()) {
+                    TransactionManager.TRANSACTION_MANAGER
+                            .getTransactions(TransactionType.Transfer).isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.transfers_list_footer_text);
                 textView.setTextColor(Color.GRAY);
@@ -114,8 +110,7 @@ public class TransfersListFragment extends ListFragment {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
             transactionListAdapter.del(index);
-            dbHelper.deleteTransaction(transaction.getId());
-            dbHelper.deleteTransaction(transaction.getLinkedTransactionId());
+            TransactionManager.TRANSACTION_MANAGER.removeTransaction(transaction);
             Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
@@ -167,12 +162,6 @@ public class TransfersListFragment extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        if (dbHelper != null) {
-            dbHelper.close();
-            dbHelper = null;
-        }
-
         transactionListAdapter = null;
     }
 }

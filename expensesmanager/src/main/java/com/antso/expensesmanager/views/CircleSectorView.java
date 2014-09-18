@@ -105,4 +105,8 @@ public class CircleSectorView extends View {
 //        }
         return result;
     }
+
+    public void setColor(int color) {
+        this.circleFillColor = color;
+    }
 }

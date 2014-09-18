@@ -29,7 +29,6 @@ public class BudgetListFragment extends ListFragment {
     private View footerView;
 
     private BudgetListAdapter budgetListAdapter = null;
-    private DatabaseHelper dbHelper = null;
 
     public BudgetListFragment() {
     }
@@ -51,20 +50,11 @@ public class BudgetListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (dbHelper == null) {
-            dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        }
-
         if (budgetListAdapter == null) {
-            Collection<Budget> budgets = dbHelper.getBudgets();
-            for (Budget budget : budgets) {
-                BudgetManager.BUDGET_MANAGER
-                        .addBudget(budget, dbHelper.getTransactionsByBudget(budget.getId()));
-            }
             budgetListAdapter = new BudgetListAdapter(getActivity().getApplicationContext(),
                     BudgetManager.BUDGET_MANAGER);
 
-            if (footerView != null && dbHelper.getBudgets().isEmpty()) {
+            if (footerView != null && BudgetManager.BUDGET_MANAGER.getBudgetInfo().isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.budgets_list_footer_text);
                 textView.setTextColor(Color.GRAY);
@@ -125,7 +115,6 @@ public class BudgetListFragment extends ListFragment {
             Toast.makeText(getActivity(), "Delete not supported", Toast.LENGTH_LONG).show();
             //TODO support budget delete
 //            budgetListAdapter.del(index);
-//            dbHelper.deleteAccount(account.getId());
 //            Toast.makeText(getActivity(), account.getName() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
@@ -172,12 +161,6 @@ public class BudgetListFragment extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        if (dbHelper != null) {
-            dbHelper.close();
-            dbHelper = null;
-        }
-
         budgetListAdapter = null;
     }
 }

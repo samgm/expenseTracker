@@ -15,12 +15,12 @@ import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 
 public class AccountEntryActivity extends Activity {
 
     private BigDecimal accountValue = BigDecimal.ZERO;
-    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,6 @@ public class AccountEntryActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-
-        if (dbHelper == null) {
-            dbHelper = new DatabaseHelper(getApplicationContext());
-        }
 
 //        final EditText date = (EditText)findViewById(R.id.transactionDate);
 //        date.setText(DateTime.now().toString(Utils.getDatePatten()));
@@ -70,7 +66,7 @@ public class AccountEntryActivity extends Activity {
                         BigDecimal.ONE,
                         1 /*color*/);
 
-                dbHelper.insertAccount(account);
+                AccountManager.ACCOUNT_MANAGER.insertAccount(account);
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("account", new ParcelableAccount(account));

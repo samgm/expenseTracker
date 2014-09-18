@@ -2,6 +2,7 @@ package com.antso.expensesmanager.transactions;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
+import com.antso.expensesmanager.accounts.AccountManager;
+import com.antso.expensesmanager.budgets.BudgetManager;
+import com.antso.expensesmanager.entities.Account;
+import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
+import com.antso.expensesmanager.views.CircleSectorView;
 
 import org.joda.time.DateTime;
 
@@ -115,17 +121,35 @@ public class TransactionListAdapter extends BaseAdapter {
         // corresponds to the user interface elements defined
         // in the layout file
 
+        AccountManager.AccountInfo accountInfo = AccountManager.ACCOUNT_MANAGER.getAccountInfo(transaction.getAccountId());
+        BudgetManager.BudgetInfo budgetInfo = BudgetManager.BUDGET_MANAGER.getBudgetInfo(transaction.getBudgetId());
+
         // Display Title in TextView
-        final TextView accountNameView = (TextView) itemLayout.findViewById(R.id.accountName);
-        accountNameView.setText(transaction.getAccountId());
-        accountNameView.setTextColor(Color.BLACK);
+        if(accountInfo != null) {
+            Account account = accountInfo.account;
+            final TextView accountName = (TextView) itemLayout.findViewById(R.id.accountName);
+            accountName.setText(account.getName());
+            accountName.setTextColor(Color.BLACK);
+
+            final CircleSectorView accountColor = (CircleSectorView) itemLayout.findViewById(R.id.accountColor);
+            accountColor.setColor(account.getColor());
+        }
+
+        if(budgetInfo != null) {
+            Budget budget = budgetInfo.budget;
+            final TextView budgetName = (TextView) itemLayout.findViewById(R.id.budgetName);
+            budgetName.setText(budget.getName());
+            budgetName.setTextColor(Color.BLACK);
+
+            final CircleSectorView budgetColor = (CircleSectorView) itemLayout.findViewById(R.id.budgetColor);
+            budgetColor.setColor(budget.getColor());
+        }
 
         final TextView transactionDateTimeView = (TextView) itemLayout.findViewById(R.id.transactionDateTime);
         DateTime d = transaction.getDateTime();
-        String dateTime = d.getYear() + "-" + d.getMonthOfYear() +  "-" + d.getDayOfMonth() + " "
-                + d.getHourOfDay() + ":" + d.getMinuteOfHour();
+        String dateTime = d.getYear() + "-" + d.getMonthOfYear() +  "-" + d.getDayOfMonth();
         transactionDateTimeView.setText(dateTime);
-        transactionDateTimeView.setTextColor(Color.BLUE);
+        transactionDateTimeView.setTextColor(Color.BLACK);
 
         final TextView transactionDescView = (TextView) itemLayout.findViewById(R.id.transactionDesc);
         transactionDescView.setText(transaction.getDescription());

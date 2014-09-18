@@ -33,7 +33,6 @@ public class AccountListFragment extends ListFragment {
     private View footerView;
 
     private AccountListAdapter accountListAdapter = null;
-    private DatabaseHelper dbHelper = null;
 
     public AccountListFragment() {
     }
@@ -55,20 +54,11 @@ public class AccountListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (dbHelper == null) {
-            dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        }
-
         if (accountListAdapter == null) {
-            Collection<Account> accounts = dbHelper.getAccounts();
-            for (Account account : accounts) {
-                AccountManager.ACCOUNT_MANAGER
-                        .addAccount(account, dbHelper.getTransactionsByAccount(account.getId()));
-            }
             accountListAdapter = new AccountListAdapter(getActivity().getApplicationContext(),
                     AccountManager.ACCOUNT_MANAGER);
 
-            if (footerView != null && dbHelper.getAccounts().isEmpty()) {
+            if (footerView != null && AccountManager.ACCOUNT_MANAGER.getAccountInfo().isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.accounts_list_footer_text);
                 textView.setTextColor(Color.GRAY);
@@ -125,8 +115,8 @@ public class AccountListFragment extends ListFragment {
         if (item.getTitle() == "Edit") {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
-            accountListAdapter.del(index);
-            dbHelper.deleteAccount(account.getId());
+            AccountManager.ACCOUNT_MANAGER.removeAccount(account);
+            accountListAdapter.notifyDataSetChanged();
             Toast.makeText(getActivity(), account.getName() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
@@ -159,7 +149,8 @@ public class AccountListFragment extends ListFragment {
                 final ParcelableAccount pAccount = data.getParcelableExtra("account");
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        accountListAdapter.add(pAccount.getAccount());
+                        AccountManager.ACCOUNT_MANAGER.insertAccount(pAccount.getAccount());
+                        accountListAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -172,12 +163,6 @@ public class AccountListFragment extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        if (dbHelper != null) {
-            dbHelper.close();
-            dbHelper = null;
-        }
-
         accountListAdapter = null;
     }
 }

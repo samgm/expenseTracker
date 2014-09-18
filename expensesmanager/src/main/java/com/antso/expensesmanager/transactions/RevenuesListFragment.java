@@ -22,15 +22,12 @@ import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
-import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.utils.Constants;
 
 public class RevenuesListFragment extends ListFragment {
 
     private View footerView;
-
     private TransactionListAdapter transactionListAdapter = null;
-    private DatabaseHelper dbHelper = null;
 
     public RevenuesListFragment() {
     }
@@ -52,17 +49,15 @@ public class RevenuesListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (dbHelper == null) {
-            dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        }
-
         if (transactionListAdapter == null) {
             transactionListAdapter = new TransactionListAdapter(
                     getActivity().getApplicationContext(),
-                    dbHelper.getTransactions(TransactionDirection.In, true));
+                    TransactionManager.TRANSACTION_MANAGER
+                            .getTransactions(TransactionDirection.In, true));
 
             if (footerView != null &&
-                    dbHelper.getTransactions(TransactionDirection.In, true).isEmpty()) {
+                    TransactionManager.TRANSACTION_MANAGER
+                            .getTransactions(TransactionDirection.In, true).isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.revenues_list_footer_text);
                 textView.setTextColor(Color.GRAY);
@@ -113,7 +108,7 @@ public class RevenuesListFragment extends ListFragment {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
             transactionListAdapter.del(index);
-            dbHelper.deleteTransaction(transaction.getId());
+            TransactionManager.TRANSACTION_MANAGER.removeTransaction(transaction);
             Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
@@ -160,12 +155,6 @@ public class RevenuesListFragment extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        if (dbHelper != null) {
-            dbHelper.close();
-            dbHelper = null;
-        }
-
         transactionListAdapter = null;
     }
 }
