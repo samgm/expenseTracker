@@ -90,7 +90,7 @@ public class TransactionEntryActivity extends Activity {
         if (dbHelper == null) {
             dbHelper = new DatabaseHelper(getApplicationContext());
             accounts = dbHelper.getAccounts();
-            //TODO budgets = dbHelper.getBudgets();
+            budgets = dbHelper.getBudgets();
         }
 
         final EditText date = (EditText)findViewById(R.id.transactionDate);
@@ -99,8 +99,7 @@ public class TransactionEntryActivity extends Activity {
         final AutoCompleteTextView description = (AutoCompleteTextView)findViewById(R.id.transactionDesc);
         final Spinner accountSpinner = (Spinner)findViewById(R.id.transactionAccountSpinner);
         final Spinner accountSecondarySpinner = (Spinner)findViewById(R.id.transactionSecondaryAccountSpinner);
-
-        Spinner budgetSpinner = (Spinner)findViewById(R.id.transactionBudgetSpinner);
+        final Spinner budgetSpinner = (Spinner)findViewById(R.id.transactionBudgetSpinner);
 
         Button confirm = (Button)findViewById(R.id.transactionConfirm);
         Button cancel = (Button)findViewById(R.id.transactionCancel);
@@ -115,10 +114,10 @@ public class TransactionEntryActivity extends Activity {
                             new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                    transactionDate = new DateTime(year, monthOfYear, dayOfMonth, 0, 0);
+                                    transactionDate = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
                                     date.setText(transactionDate.toString(Utils.getDatePatten()));
                                 }
-                            }, now.getYear(), now.getMonthOfYear(), now.getDayOfMonth()
+                            }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
                     );
                     datePicker.show();
                 }
@@ -141,15 +140,18 @@ public class TransactionEntryActivity extends Activity {
                         accounts.toArray(new Account[0])));
         accountSecondarySpinner.setAdapter(
                 new ArrayAdapter<Account>(this, R.layout.text_spinner_item,
-                        accounts.toArray(new Account[0]))
-        );
-
+                        accounts.toArray(new Account[0])));
+        budgetSpinner.setAdapter(
+                new ArrayAdapter<Budget>(this, R.layout.text_spinner_item,
+                budgets.toArray(new Budget[0])));
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Account account = (Account)(accountSpinner.getSelectedItem());
                 Account accountSecondary = (Account)(accountSecondarySpinner.getSelectedItem());
+
+                Budget budget = (Budget)(budgetSpinner.getSelectedItem());
 
                 String valueStr = value.getText().toString();
                 //TODO wash not allowed chars
@@ -166,7 +168,7 @@ public class TransactionEntryActivity extends Activity {
                                 TransactionDirection.Out,
                                 TransactionType.Transfer,
                                 account != null ? account.getId() : "",
-                                "budget",
+                                budget != null ? budget.getId() : "",
                                 transactionValue,
                                 transactionDate);
                         Transaction t2 = new Transaction(
@@ -175,7 +177,7 @@ public class TransactionEntryActivity extends Activity {
                                 TransactionDirection.In,
                                 TransactionType.Transfer,
                                 accountSecondary != null ? accountSecondary.getId() : "",
-                                "budget",
+                                budget != null ? budget.getId() : "",
                                 transactionValue,
                                 transactionDate);
                         t1.setLinkedTransactionId(t2Id);
@@ -194,7 +196,7 @@ public class TransactionEntryActivity extends Activity {
                                 direction,
                                 TransactionType.Single,
                                 account != null ? account.getId() : "",
-                                "budget",
+                                budget != null ? budget.getId() : "",
                                 transactionValue,
                                 transactionDate);
 

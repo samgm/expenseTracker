@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="circleSectorView">
+        <attr name="cRadiusDp" format="integer" />
+        <attr name="cFillColor" format="color" />
+        <attr name="cAngleStart" format="integer" />
+        <attr name="cAngleEnd" format="integer" />
+    </declare-styleable>
+</resources>

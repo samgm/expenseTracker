@@ -24,10 +24,6 @@ public class Account {
         return id;
     }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }

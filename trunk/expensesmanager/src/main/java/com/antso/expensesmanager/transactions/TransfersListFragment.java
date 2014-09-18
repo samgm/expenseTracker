@@ -45,7 +45,7 @@ public class TransfersListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View listView = inflater.inflate(R.layout.list_fragment, container, false);
 
-        footerView = (LinearLayout) inflater.inflate(R.layout.transaction_list_footer, null, false);
+        footerView = (LinearLayout) inflater.inflate(R.layout.list_footer, null, false);
         return listView;
     }
 
@@ -64,7 +64,7 @@ public class TransfersListFragment extends ListFragment {
 
             if (footerView != null &&
                     dbHelper.getTransactions(TransactionType.Transfer).isEmpty()) {
-                TextView textView = (TextView) footerView.findViewById(R.id.transaction_list_footer_message);
+                TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.transfers_list_footer_text);
                 textView.setTextColor(Color.GRAY);
 

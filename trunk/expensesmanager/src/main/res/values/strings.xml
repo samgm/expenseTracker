@@ -13,11 +13,12 @@
     <string name="title_budgets">Budgets</string>
 
     <!-- other strings -->
-    <string name="account_list_footer_text">Tap here to add a new Account</string>
-    <string name="transaction_list_footer_text">Tap here to add a new Transaction</string>
+    <string name="list_footer_text">Default footer text</string>
     <string name="expenses_list_footer_text">Nothing to show here</string>
     <string name="revenues_list_footer_text">Nothing to show here</string>
     <string name="transfers_list_footer_text">Nothing to show here</string>
+    <string name="accounts_list_footer_text">Nothing to show here</string>
+    <string name="budgets_list_footer_text">Nothing to show here</string>
     <string name="title_activity_transaction">TransactionActivity</string>
     <string name="title_activity_account">AccountActivity</string>
 
@@ -48,6 +49,7 @@
     <string name="action_example">Example action</string>
     <string name="action_transaction_add">+</string>
     <string name="action_account_add">+</string>
+    <string name="action_budget_add">+</string>
 
 
 </resources>

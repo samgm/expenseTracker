@@ -12,8 +12,11 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.antso.expensesmanager.accounts.AccountManager;
+import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Account;
+import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
+import com.antso.expensesmanager.enums.BudgetPeriodUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionFrequencyUnit;
 import com.antso.expensesmanager.enums.TransactionType;
@@ -35,6 +38,7 @@ public class SettingsFragment extends Fragment {
 
     private DatabaseHelper dbHelper = null;
     private Map<String, Account> accountsByName;
+    private Map<String, Budget> budgetsByName;
 
     public SettingsFragment() {
     }
@@ -80,13 +84,18 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Account account1 = new Account("ACC1", "Account1", BigDecimal.valueOf(1500.00), Color.rgb(0, 0, 255));
-                dbHelper.insertAccount(account1);
-
                 Account account2 = new Account("ACC2", "Account2", BigDecimal.valueOf(1600.00), Color.rgb(255,0,255));
-                dbHelper.insertAccount(account2);
-
                 Account account3 = new Account("ACC3", "Account3", BigDecimal.valueOf(1700.55), Color.rgb(125,125,255));
+                dbHelper.insertAccount(account1);
+                dbHelper.insertAccount(account2);
                 dbHelper.insertAccount(account3);
+
+                Budget budget1 = new Budget("BG1", "Budget 1", BigDecimal.valueOf(500.00), Color.BLUE, 2, BudgetPeriodUnit.Week, new DateTime(2014, 9, 1, 0, 0));
+                Budget budget2 = new Budget("BG2", "Budget 2", BigDecimal.valueOf(150.00), Color.MAGENTA, 1, BudgetPeriodUnit.Month, new DateTime(2014, 9, 1, 0, 0));
+                Budget budget3 = new Budget("BG3", "Budget 3", BigDecimal.valueOf(55.25), Color.YELLOW, 5, BudgetPeriodUnit.Day, new DateTime(2014, 9, 1, 0, 0));
+                dbHelper.insertBudget(budget1);
+                dbHelper.insertBudget(budget2);
+                dbHelper.insertBudget(budget3);
             }
         });
 
@@ -135,6 +144,7 @@ public class SettingsFragment extends Fragment {
 //                filePath.append("/" + "import.csv");
 
         accountsByName = AccountManager.ACCOUNT_MANAGER.getAccountsByName();
+        budgetsByName = BudgetManager.BUDGET_MANAGER.getBudgetsByName();
         try {
             FileReader fileReader = new FileReader(filePath.toString());
             CSVReader reader = new CSVReader(fileReader);
@@ -200,7 +210,11 @@ public class SettingsFragment extends Fragment {
                 Log. i("TransactionParser", "Error converting account: Account not found {AccountId" + account + "}");
             }
 
-            //TODO convert budget
+            if(budgetsByName.containsKey(budget)) {
+                budget = budgetsByName.get(budget).getId();
+            } else {
+                Log. i("TransactionParser", "Error converting budget: Budget not found {BudgetId" + budget + "}");
+            }
 
             TransactionType type = TransactionType.Single;
             String recurrentStr = values[7];
