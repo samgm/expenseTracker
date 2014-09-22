@@ -1,7 +1,6 @@
 package com.antso.expensesmanager;
 
 import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -22,6 +21,7 @@ import com.antso.expensesmanager.enums.TransactionFrequencyUnit;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
+import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.utils.csv.CSVReader;
 
@@ -83,16 +83,16 @@ public class SettingsFragment extends Fragment {
         testButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Account account1 = new Account("ACC1", "Account1", BigDecimal.valueOf(1500.00), Color.rgb(0, 0, 255));
-                Account account2 = new Account("ACC2", "Account2", BigDecimal.valueOf(1600.00), Color.rgb(255,0,255));
-                Account account3 = new Account("ACC3", "Account3", BigDecimal.valueOf(1700.55), Color.rgb(125,125,255));
+                Account account1 = new Account("ACC1", "Account1", BigDecimal.valueOf(1500.00), MaterialColours.INDIGO_500);
+                Account account2 = new Account("ACC2", "Account2", BigDecimal.valueOf(1600.00), MaterialColours.PINK_500);
+                Account account3 = new Account("ACC3", "Account3", BigDecimal.valueOf(1700.55), MaterialColours.PURPLE_500);
                 dbHelper.insertAccount(account1);
                 dbHelper.insertAccount(account2);
                 dbHelper.insertAccount(account3);
 
-                Budget budget1 = new Budget("BG1", "Budget 1", BigDecimal.valueOf(500.00), Color.BLUE, 2, BudgetPeriodUnit.Week, new DateTime(2014, 9, 1, 0, 0));
-                Budget budget2 = new Budget("BG2", "Budget 2", BigDecimal.valueOf(150.00), Color.MAGENTA, 1, BudgetPeriodUnit.Month, new DateTime(2014, 9, 1, 0, 0));
-                Budget budget3 = new Budget("BG3", "Budget 3", BigDecimal.valueOf(55.25), Color.YELLOW, 5, BudgetPeriodUnit.Day, new DateTime(2014, 9, 1, 0, 0));
+                Budget budget1 = new Budget("BG1", "Budget 1", BigDecimal.valueOf(500.00), MaterialColours.BLUE_500, 2, BudgetPeriodUnit.Week, new DateTime(2014, 9, 1, 0, 0));
+                Budget budget2 = new Budget("BG2", "Budget 2", BigDecimal.valueOf(150.00), MaterialColours.CYAN_500, 1, BudgetPeriodUnit.Month, new DateTime(2014, 9, 1, 0, 0));
+                Budget budget3 = new Budget("BG3", "Budget 3", BigDecimal.valueOf(55.25), MaterialColours.DEEP_ORANGE_500, 5, BudgetPeriodUnit.Day, new DateTime(2014, 9, 1, 0, 0));
                 dbHelper.insertBudget(budget1);
                 dbHelper.insertBudget(budget2);
                 dbHelper.insertBudget(budget3);

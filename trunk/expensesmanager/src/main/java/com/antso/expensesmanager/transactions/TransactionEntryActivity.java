@@ -27,7 +27,9 @@ import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
+import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
+import com.antso.expensesmanager.views.CircleSectorView;
 
 import org.joda.time.DateTime;
 
@@ -54,7 +56,7 @@ public class TransactionEntryActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
-        final LinearLayout color = (LinearLayout)findViewById(R.id.transactionColor);
+        final CircleSectorView color = (CircleSectorView)findViewById(R.id.transactionColor);
         int directionInt = getIntent().getIntExtra("transaction_direction", TransactionDirection.Undef.getIntValue());
         int typeInt = getIntent().getIntExtra("transaction_type", TransactionType.Undef.getIntValue());
         direction = TransactionDirection.valueOf(directionInt);
@@ -62,10 +64,10 @@ public class TransactionEntryActivity extends Activity {
 
         switch (direction) {
             case In:
-                color.setBackgroundColor(Color.GREEN);
+                color.setColor(MaterialColours.GREEN_500);
                 break;
             case Out:
-                color.setBackgroundColor(Color.RED);
+                color.setColor(MaterialColours.RED_500);
                 break;
             case Undef:
                 break;
@@ -73,11 +75,10 @@ public class TransactionEntryActivity extends Activity {
 
         switch (type) {
             case Transfer:
-                color.setBackgroundColor(Color.BLUE);
+                color.setColor(MaterialColours.YELLOW_500);
                 final TextView accountLabel = (TextView)findViewById(R.id.transactionAccountLabel);
                 final LinearLayout secondaryAccountLayout = (LinearLayout)findViewById(R.id.transactionSecondaryAccountLayout);
                 final TextView secondaryAccountLabel = (TextView)findViewById(R.id.transactionSecondaryAccountLabel);
-                accountLabel.setVisibility(View.VISIBLE);
                 secondaryAccountLayout.setVisibility(View.VISIBLE);
                 secondaryAccountLabel.setVisibility(View.VISIBLE);
                 break;

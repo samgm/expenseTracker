@@ -23,11 +23,12 @@ import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.utils.Constants;
+import com.antso.expensesmanager.utils.MaterialColours;
 
 public class RevenuesListFragment extends ListFragment {
 
     private View footerView;
-    private TransactionListAdapter transactionListAdapter = null;
+    private RevenuesTransactionListAdapter transactionListAdapter = null;
 
     public RevenuesListFragment() {
     }
@@ -50,17 +51,16 @@ public class RevenuesListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         if (transactionListAdapter == null) {
-            transactionListAdapter = new TransactionListAdapter(
+            transactionListAdapter = new RevenuesTransactionListAdapter(
                     getActivity().getApplicationContext(),
-                    TransactionManager.TRANSACTION_MANAGER
-                            .getTransactions(TransactionDirection.In, true));
+                    TransactionManager.TRANSACTION_MANAGER);
 
             if (footerView != null &&
                     TransactionManager.TRANSACTION_MANAGER
                             .getTransactions(TransactionDirection.In, true).isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.revenues_list_footer_text);
-                textView.setTextColor(Color.GRAY);
+                textView.setTextColor(MaterialColours.GREY_500);
 
                 getListView().addFooterView(footerView);
                 getListView().setFooterDividersEnabled(true);
@@ -107,8 +107,8 @@ public class RevenuesListFragment extends ListFragment {
         if (item.getTitle() == "Edit") {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
-            transactionListAdapter.del(index);
             TransactionManager.TRANSACTION_MANAGER.removeTransaction(transaction);
+            transactionListAdapter.notifyDataSetChanged();
             Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
@@ -142,7 +142,8 @@ public class RevenuesListFragment extends ListFragment {
                 final ParcelableTransaction pTransaction = data.getParcelableExtra("transaction");
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        transactionListAdapter.add(pTransaction.getTransaction());
+                        TransactionManager.TRANSACTION_MANAGER.insertTransaction(pTransaction.getTransaction());
+                        transactionListAdapter.notifyDataSetChanged();
                     }
                 });
             }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.antso.expensesmanager.R;
+import com.antso.expensesmanager.utils.Utils;
 
 public class CircleSectorView extends View {
 
@@ -35,17 +36,11 @@ public class CircleSectorView extends View {
     public void init(AttributeSet attrs)
     {
         TypedArray attrsArray = getContext().obtainStyledAttributes(attrs, R.styleable.circleSectorView);
-        circleRadius = dpToPx(attrsArray.getInteger(R.styleable.circleSectorView_cRadiusDp, 0));
+        circleRadius = Utils.dpToPx(attrsArray.getInteger(R.styleable.circleSectorView_cRadiusDp, 0), getContext());
         circleFillColor = attrsArray.getColor(R.styleable.circleSectorView_cFillColor, 16777215);
         circleStartAngle = attrsArray.getInteger(R.styleable.circleSectorView_cAngleStart, 0);
         circleEndAngle = attrsArray.getInteger(R.styleable.circleSectorView_cAngleEnd, 360);
         attrsArray.recycle();
-    }
-
-    public int dpToPx(int dp) {
-        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
     }
 
     @Override
@@ -108,5 +103,9 @@ public class CircleSectorView extends View {
 
     public void setColor(int color) {
         this.circleFillColor = color;
+    }
+
+    public int getColor() {
+        return circleFillColor;
     }
 }

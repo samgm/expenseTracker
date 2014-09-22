@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:circleSectorview="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/accountItemLayout"
+    android:id="@+id/budgetItemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
     <com.antso.expensesmanager.views.CircleSectorView
-        android:id="@+id/accountColor"
+        android:id="@+id/budgetColor"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="16dp"
@@ -29,18 +29,20 @@
         android:layout_gravity="center_vertical"
         android:orientation="vertical">
             <TextView
-                android:id="@+id/accountName"
+                android:id="@+id/budgetName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="Account Name">
+                android:textColor="#000000"
+                android:text="Budget Name">
             </TextView>
 
             <TextView
-                android:id="@+id/accountBalance"
+                android:id="@+id/budgetBalance"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+                android:textColor="#000000"
                 android:gravity="left"
                 android:textStyle="bold"
                 android:text="$ 1000.00">
@@ -55,36 +57,30 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_weight="3"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="top"
 
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/accountMonthIn"
+            android:id="@+id/budgetPeriod"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:textSize="14dp"
-            android:text="$ 1000.00">
+            android:textColor="#000000"
+            android:text="2 Weeks">
         </TextView>
 
         <TextView
-            android:id="@+id/accountMonthOut"
+            android:id="@+id/budgetThreshold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:textSize="14dp"
+            android:textColor="#000000"
             android:text="$ 1000.00">
         </TextView>
 
-        <TextView
-            android:id="@+id/accountMonthBalance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:textSize="14dp"
-            android:text="$ 1000.00">
-        </TextView>
     </LinearLayout>
 
 </LinearLayout>
