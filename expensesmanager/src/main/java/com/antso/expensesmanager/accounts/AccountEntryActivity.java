@@ -2,17 +2,20 @@ package com.antso.expensesmanager.accounts;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.ParcelableAccount;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
+import com.antso.expensesmanager.views.ColorPickerDialog;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -37,9 +40,24 @@ public class AccountEntryActivity extends Activity {
 //        final Spinner accountSpinner = (Spinner)findViewById(R.id.transactionAccountSpinner);
 //        Spinner budgetSpinner = (Spinner)findViewById(R.id.transactionBudgetSpinner);
 
+        final LinearLayout color = (LinearLayout)findViewById(R.id.accountColor);
         Button confirm = (Button)findViewById(R.id.transactionConfirm);
         Button cancel = (Button)findViewById(R.id.transactionCancel);
 
+        color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ColorPickerDialog c = new ColorPickerDialog(AccountEntryActivity.this, new ColorPickerDialog.OnColorChangedListener() {
+                    @Override
+                    public void colorChanged(int c) {
+                        if(color != null) {
+                            color.setBackgroundColor(c);
+                        }
+                    }
+                });
+                c.show();
+            }
+        });
 //        value.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
 //            public void onFocusChange(View v, boolean hasFocus) {

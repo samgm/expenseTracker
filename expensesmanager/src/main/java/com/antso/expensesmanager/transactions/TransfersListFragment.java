@@ -4,6 +4,7 @@ import android.app.ListFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -23,13 +24,13 @@ import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
-import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.utils.Constants;
+import com.antso.expensesmanager.utils.MaterialColours;
 
 public class TransfersListFragment extends ListFragment {
 
     private View footerView;
-    private TransactionListAdapter transactionListAdapter = null;
+    private TransfersTransactionListAdapter transactionListAdapter = null;
 
     public TransfersListFragment() {
     }
@@ -52,17 +53,16 @@ public class TransfersListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         if (transactionListAdapter == null) {
-            transactionListAdapter = new TransactionListAdapter(
+            transactionListAdapter = new TransfersTransactionListAdapter(
                     getActivity().getApplicationContext(),
-                    TransactionManager.TRANSACTION_MANAGER
-                            .getTransactions(TransactionType.Transfer));
+                    TransactionManager.TRANSACTION_MANAGER);
 
             if (footerView != null &&
                     TransactionManager.TRANSACTION_MANAGER
                             .getTransactions(TransactionType.Transfer).isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.transfers_list_footer_text);
-                textView.setTextColor(Color.GRAY);
+                textView.setTextColor(MaterialColours.GREY_500);
 
                 getListView().addFooterView(footerView);
                 getListView().setFooterDividersEnabled(true);
@@ -101,17 +101,17 @@ public class TransfersListFragment extends ListFragment {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
 
-        Transaction transaction = (Transaction) transactionListAdapter.getItem(index);
-        if (transaction == null) {
+        Pair<Transaction, Transaction> transactions = (Pair<Transaction, Transaction>) transactionListAdapter.getItem(index);
+        if (transactions == null) {
             return true;
         }
 
         if (item.getTitle() == "Edit") {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
-            transactionListAdapter.del(index);
-            TransactionManager.TRANSACTION_MANAGER.removeTransaction(transaction);
-            Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
+            TransactionManager.TRANSACTION_MANAGER.removeTransaction(transactions.first);
+            transactionListAdapter.notifyDataSetChanged();
+            Toast.makeText(getActivity(), transactions.first.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
         return true;
@@ -148,8 +148,9 @@ public class TransfersListFragment extends ListFragment {
 
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        transactionListAdapter.add(pTransactionOut.getTransaction());
-                        transactionListAdapter.add(pTransactionIn.getTransaction());
+                        TransactionManager.TRANSACTION_MANAGER.insertTransaction(pTransactionOut.getTransaction());
+                        TransactionManager.TRANSACTION_MANAGER.insertTransaction(pTransactionIn.getTransaction());
+                        transactionListAdapter.notifyDataSetChanged();
                     }
                 });
             }

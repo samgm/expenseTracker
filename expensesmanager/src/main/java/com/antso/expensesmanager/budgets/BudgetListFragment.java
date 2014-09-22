@@ -21,6 +21,7 @@ import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.utils.Constants;
+import com.antso.expensesmanager.utils.MaterialColours;
 
 import java.util.Collection;
 
@@ -57,7 +58,7 @@ public class BudgetListFragment extends ListFragment {
             if (footerView != null && BudgetManager.BUDGET_MANAGER.getBudgetInfo().isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.budgets_list_footer_text);
-                textView.setTextColor(Color.GRAY);
+                textView.setTextColor(MaterialColours.GREY_500);
 
                 getListView().addFooterView(footerView);
                 getListView().setFooterDividersEnabled(true);

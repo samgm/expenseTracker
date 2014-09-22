@@ -25,6 +25,7 @@ import com.antso.expensesmanager.entities.ParcelableAccount;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
 import com.antso.expensesmanager.utils.Constants;
+import com.antso.expensesmanager.utils.MaterialColours;
 
 import java.util.Collection;
 
@@ -61,7 +62,7 @@ public class AccountListFragment extends ListFragment {
             if (footerView != null && AccountManager.ACCOUNT_MANAGER.getAccountInfo().isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.accounts_list_footer_text);
-                textView.setTextColor(Color.GRAY);
+                textView.setTextColor(MaterialColours.GREY_500);
 
                 getListView().addFooterView(footerView);
                 getListView().setFooterDividersEnabled(true);

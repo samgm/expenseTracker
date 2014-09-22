@@ -50,6 +50,7 @@
     <string name="action_transaction_add">+</string>
     <string name="action_account_add">+</string>
     <string name="action_budget_add">+</string>
+    <string name="doubleArrow"><![CDATA[<->]]></string>
 
 
 </resources>

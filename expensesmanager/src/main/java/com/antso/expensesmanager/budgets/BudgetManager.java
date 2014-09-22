@@ -3,8 +3,6 @@ package com.antso.expensesmanager.budgets;
 import android.content.Context;
 import android.util.Log;
 
-import com.antso.expensesmanager.accounts.AccountManager;
-import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.BudgetPeriodUnit;

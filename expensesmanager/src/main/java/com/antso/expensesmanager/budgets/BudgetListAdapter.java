@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.utils.Utils;
+import com.antso.expensesmanager.views.CircleSectorView;
 
 
 public class BudgetListAdapter extends BaseAdapter {
@@ -40,57 +41,33 @@ public class BudgetListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //TODO create a proper layout for budgets
-
-        // Get the current ToDoItem
         final BudgetManager.BudgetInfo budgetInfo = budgetManager.getBudgetInfo().get(position);
 
-        //Inflate the View for this ToDoItem
-        // from todo_item.xml.
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        RelativeLayout itemLayout = (RelativeLayout) inflater.inflate(R.layout.account_item, null, false);
+        LinearLayout budgetLayout = (LinearLayout) inflater.inflate(R.layout.budget_item, null, false);
 
-        // Fill in specific ToDoItem data
-        // Remember that the data that goes in this View
-        // corresponds to the user interface elements defined
-        // in the layout file
+        final CircleSectorView color = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColor);
+        color.setColor(budgetInfo.budget.getColor());
 
-        // Display Title in TextView
-        final LinearLayout colorView = (LinearLayout) itemLayout.findViewById(R.id.accountColor);
-        colorView.setBackgroundColor(budgetInfo.budget.getColor());
+        final TextView name = (TextView) budgetLayout.findViewById(R.id.budgetName);
+        name.setText(budgetInfo.budget.getName());
 
-        final TextView nameView = (TextView) itemLayout.findViewById(R.id.accountName);
-        nameView.setText(budgetInfo.budget.getName());
-        nameView.setTextColor(Color.BLACK);
+        final TextView balance = (TextView) budgetLayout.findViewById(R.id.budgetBalance);
+        String balanceStr = Utils.getCurrencyString() + " " +
+                budgetInfo.periodBalance.setScale(2).toPlainString();
+        balance.setText(balanceStr);
 
-        final TextView balanceView = (TextView) itemLayout.findViewById(R.id.accountBalance);
-        String balance = Utils.getCurrencyString() + " " + budgetInfo.budget.getThreshold().setScale(2).toPlainString();
-        balanceView.setText(balance);
+        final TextView period = (TextView) budgetLayout.findViewById(R.id.budgetPeriod);
+        String periodStr = budgetInfo.budget.getPeriodLength() +
+                budgetInfo.budget.getPeriodUnit().getStringValue();
+        period.setText(periodStr);
 
-        final TextView monthInView = (TextView) itemLayout.findViewById(R.id.accountMonthIn);
-        String periodOut = "Expenses " + Utils.getCurrencyString() + " " +
-                budgetInfo.periodOut.setScale(2).toPlainString();
-        monthInView.setText(periodOut);
-        monthInView.setTextColor(Color.BLUE);
-//
-//        final TextView monthOutView = (TextView) itemLayout.findViewById(R.id.accountMonthOut);
-//        String monthOut = "Expenses " + Utils.getCurrencyString() + " " + budgetInfo.monthOut.setScale(2).toPlainString();
-//        monthOutView.setText(monthOut);
-//        monthOutView.setTextColor(Color.RED);
-//
-//        final TextView monthBalanceView = (TextView) itemLayout.findViewById(R.id.accountMonthBalance);
-//        String monthBalance = "Total " + Utils.getCurrencyString() + " " + budgetInfo.monthBalance.setScale(2).toPlainString();
-//        monthBalanceView.setText(monthBalance);
-//        if (budgetInfo.monthBalance.compareTo(BigDecimal.ZERO) > 0) {
-//            monthBalanceView.setTextColor(Color.GREEN);
-//        } else if (budgetInfo.monthBalance.compareTo(BigDecimal.ZERO) < 0) {
-//            monthBalanceView.setTextColor(Color.RED);
-//        } else {
-//            monthBalanceView.setTextColor(Color.GRAY);
-//        }
-        // Return the View you just created
-        return itemLayout;
+        final TextView threshold = (TextView) budgetLayout.findViewById(R.id.budgetThreshold);
+        String thresholdStr = Utils.getCurrencyString() + " " +
+                budgetInfo.budget.getThreshold().setScale(2).toPlainString();
+        threshold.setText(thresholdStr);
 
+        return budgetLayout;
     }
 
 }
