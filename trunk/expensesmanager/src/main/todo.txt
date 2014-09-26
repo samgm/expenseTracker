@@ -1,7 +1,5 @@
 LAYOUT
-//TODO add chart to budget list item
 //TODO add icon to transfer list item
-remove context menu title
 layout budget/budget combo
 cambiare colori app (theme?)
 rimuovere menu ... dalle action bar
@@ -11,10 +9,9 @@ click to pick a color in accoutn e budget screen, initialize account color on en
 add footer nothing to show in accounts/ budget transaction lists
 
 BUDGET
-//TODO review budget entry screen
+1 //TODO review budget entry screen
 
-support for search
-support for auto predict edit box
+1 support for search
 
 EDIT
 //TODO edit support for transactions (in, out, mov)
@@ -22,19 +19,17 @@ EDIT
 //TODO edit support for budget
 
 DELETE
-del cascade for transaction when deleting account
+1 del cascade for transaction when deleting account
 
 CALCULATIONS
-manage transaction explosion all inside transaction manager (explode once for all at app start-up)
-TESTARE //TODO Calculations for budgets partials (missing recurrent transactions)
+1 manage transaction explosion all inside transaction manager (explode once for all at app start-up)
 //create unit test for calculations
 recurrent transaction with repetition number (done with end date)
 
 add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
-loading on scroll for list view with many many items (done PoC see TransactionListAdapter2)
-Use name as id per budget e budget
-Check if budget /budget already exist on insert
-
+Use name as id per budget e budget, Check if account/budget already exist on insert
+budget with many period lenght to be expanded on load and shown as different budgets
+double click to exit
 
 SETTINGS
     configurable currency symbol

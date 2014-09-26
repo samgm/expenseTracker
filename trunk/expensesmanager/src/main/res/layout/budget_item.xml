@@ -16,7 +16,8 @@
         circleSectorview:cFillColor="#ff0000"
         circleSectorview:cRadiusDp="32"
         circleSectorview:cAngleStart="0"
-        circleSectorview:cAngleEnd="360"
+        circleSectorview:cAngleSweep="360"
+        circleSectorview:cStrokeWidth="4"
         />
 
     <LinearLayout

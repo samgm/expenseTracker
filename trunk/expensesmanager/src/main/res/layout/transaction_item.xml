@@ -91,7 +91,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="10"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <TextView
             android:id="@+id/budgetName"
@@ -111,7 +111,7 @@
             circleSectorview:cFillColor="#0000ff"
             circleSectorview:cRadiusDp="10"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
 
         <TextView
@@ -146,7 +146,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="10"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <TextView
             android:id="@+id/accountPrimaryName"
@@ -190,7 +190,7 @@
             circleSectorview:cFillColor="#0000ff"
             circleSectorview:cRadiusDp="10"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
 
 

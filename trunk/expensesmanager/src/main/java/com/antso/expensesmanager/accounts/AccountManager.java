@@ -125,20 +125,20 @@ public enum AccountManager {
                             TransactionManager.explodeRecurrentTransaction(transaction, DateTime.now()));
                 }
             }
-            refresh(DateTime.now(), this.transactions, true);
+            refresh(DateTime.now(), this.transactions, true, false);
         }
 
         public void addTransaction(Transaction transaction) {
             transactions.add(transaction);
-            refresh(DateTime.now(), Collections.singleton(transaction), false);
+            refresh(DateTime.now(), Collections.singleton(transaction), false, false);
         }
 
         public void removeTransaction(Transaction transaction) {
             transactions.remove(transaction);
-            refresh(DateTime.now(), Collections.singleton(transaction.swapDirection()), false);
+            refresh(DateTime.now(), Collections.singleton(transaction), false, true);
         }
 
-        public void refresh(DateTime currentDate, Collection<Transaction> transactions, boolean reset) {
+        public void refresh(DateTime currentDate, Collection<Transaction> transactions, boolean reset, boolean remove) {
             if(reset) {
                 balance = BigDecimal.ZERO;
                 monthOut = BigDecimal.ZERO;
@@ -152,20 +152,25 @@ public enum AccountManager {
                 int transactionMonth = transaction.getDateTime().getMonthOfYear();
                 int transactionYear = transaction.getDateTime().getYear();
 
-                if (transaction.getDirection().equals(TransactionDirection.Out)) {
-                    balance = balance.subtract(transaction.getValue());
+                BigDecimal value = transaction.getValue();
+                if (remove) {
+                    value = value.negate();
+                }
 
-                    if(currentMonth == transactionMonth && currentYear == transactionYear) {
-                        monthBalance = monthBalance.subtract(transaction.getValue());
-                        monthOut = monthOut.add(transaction.getValue());
+                if (transaction.getDirection().equals(TransactionDirection.Out)) {
+                    balance = balance.subtract(value);
+
+                    if (currentMonth == transactionMonth && currentYear == transactionYear) {
+                        monthBalance = monthBalance.subtract(value);
+                        monthOut = monthOut.add(value);
                     }
                 }
                 if (transaction.getDirection().equals(TransactionDirection.In)) {
-                    balance = balance.add(transaction.getValue());
+                    balance = balance.add(value);
 
-                    if(currentMonth == transactionMonth && currentYear == transactionYear) {
-                        monthBalance = monthBalance.add(transaction.getValue());
-                        monthIn = monthIn.add(transaction.getValue());
+                    if (currentMonth == transactionMonth && currentYear == transactionYear) {
+                        monthBalance = monthBalance.add(value);
+                        monthIn = monthIn.add(value);
                     }
                 }
 

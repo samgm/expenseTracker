@@ -16,13 +16,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public enum TransactionManager {
         TRANSACTION_MANAGER;
 
     private DatabaseHelper dbHelper = null;
+    private Set<String> descriptionsArray = null;
 
     private TransactionManager() {
     }
@@ -30,6 +33,14 @@ public enum TransactionManager {
     public void start(Context context) {
         if (dbHelper == null) {
             dbHelper = new DatabaseHelper(context);
+        }
+
+        Collection<Transaction> result = dbHelper.getTransactions();
+        if(descriptionsArray == null) {
+            descriptionsArray = new HashSet<String>();
+            for (Transaction t : result) {
+                descriptionsArray.add(t.getDescription());
+            }
         }
     }
 
@@ -39,6 +50,15 @@ public enum TransactionManager {
             dbHelper.close();
             dbHelper = null;
         }
+    }
+
+    public void insertTransaction(Transaction transaction) {
+        dbHelper.insertTransactions(transaction);
+
+        descriptionsArray.add(transaction.getDescription());
+
+        AccountManager.ACCOUNT_MANAGER.onTransactionAdded(transaction);
+        BudgetManager.BUDGET_MANAGER.onTransactionAdded(transaction);
     }
 
     public void removeTransaction(Transaction transaction) {
@@ -58,13 +78,6 @@ public enum TransactionManager {
 
     public Collection<Transaction> getTransactions(TransactionType type) {
         return dbHelper.getTransactions(type);
-    }
-
-    public void insertTransaction(Transaction transaction) {
-        dbHelper.insertTransactions(transaction);
-
-        AccountManager.ACCOUNT_MANAGER.onTransactionAdded(transaction);
-        BudgetManager.BUDGET_MANAGER.onTransactionAdded(transaction);
     }
 
     public List<Transaction> getOutTransactions() {
@@ -101,8 +114,6 @@ public enum TransactionManager {
 
         return pairedTransactions;
     }
-
-
 
     static public Transaction createRecurrentCopy(Transaction transaction, DateTime date) {
         Transaction t = new Transaction(transaction.getId(),
@@ -197,7 +208,6 @@ public enum TransactionManager {
 
             AccountManager.AccountInfo accountInfo = AccountManager.ACCOUNT_MANAGER.getAccountInfo(account);
             BigDecimal balance = accountInfo.getByDateBalance(accountPeriodDate);
-//            balance = balance.add(in).subtract(out);
 
             TransactionDirection direction;
             if(balance.compareTo(BigDecimal.ZERO) > 0) {
@@ -269,19 +279,16 @@ public enum TransactionManager {
             Transaction tout = new Transaction("ExpensesId", "Expenses", TransactionDirection.Out,
                     TransactionType.Summary, "", "", periodOut, budgetPeriodDate);
 
-//            AccountManager.AccountInfo accountInfo = AccountManager.ACCOUNT_MANAGER.getAccountInfo(account);
-//            BigDecimal balance = accountInfo.getByDateBalance(month.minusMonths(1));
-//            balance = balance.add(in).subtract(out);
-
+            BigDecimal periodBalance = periodIn.subtract(periodOut);
             TransactionDirection direction;
-//            if(balance.compareTo(BigDecimal.ZERO) > 0) {
-//                direction = TransactionDirection.In;
-//            } else {
+            if(periodBalance.compareTo(BigDecimal.ZERO) > 0) {
+                direction = TransactionDirection.In;
+            } else {
                 direction = TransactionDirection.Out;
-//            }
+            }
 
             Transaction ttot = new Transaction("TotalId", "Total", direction,
-                    TransactionType.Summary, "", "", periodIn.subtract(periodOut), budgetPeriodDate);
+                    TransactionType.Summary, "", "", periodBalance, budgetPeriodDate);
 
             resultTransactions.add(0, ttot);
             resultTransactions.add(0, tout);
@@ -290,5 +297,9 @@ public enum TransactionManager {
 
         budgetPeriodDate = periodStart;
         return resultTransactions;
+    }
+
+    public String[] getDescriptionsArray() {
+        return descriptionsArray.toArray(new String[0]);
     }
 }

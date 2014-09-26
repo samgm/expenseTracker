@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.MaterialColours;
+import com.antso.expensesmanager.utils.SpaceTokenizer;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 
@@ -96,7 +98,7 @@ public class TransactionEntryActivity extends Activity {
         final EditText date = (EditText)findViewById(R.id.transactionDate);
         date.setText(Utils.formatDate(DateTime.now()));
         final EditText value = (EditText)findViewById(R.id.transactionValue);
-        final AutoCompleteTextView description = (AutoCompleteTextView)findViewById(R.id.transactionDesc);
+        final MultiAutoCompleteTextView description = (MultiAutoCompleteTextView)findViewById(R.id.transactionDesc);
         final Spinner accountSpinner = (Spinner)findViewById(R.id.transactionAccountSpinner);
         final Spinner accountSecondarySpinner = (Spinner)findViewById(R.id.transactionSecondaryAccountSpinner);
         final Spinner budgetSpinner = (Spinner)findViewById(R.id.transactionBudgetSpinner);
@@ -107,6 +109,11 @@ public class TransactionEntryActivity extends Activity {
 
         Button confirm = (Button)findViewById(R.id.transactionConfirm);
         Button cancel = (Button)findViewById(R.id.transactionCancel);
+
+        description.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.text_spinner_item,
+                TransactionManager.TRANSACTION_MANAGER.getDescriptionsArray()));
+        description.setTokenizer(new SpaceTokenizer());
 
         date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

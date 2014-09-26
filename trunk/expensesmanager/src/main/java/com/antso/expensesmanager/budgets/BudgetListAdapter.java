@@ -48,6 +48,7 @@ public class BudgetListAdapter extends BaseAdapter {
 
         final CircleSectorView color = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColor);
         color.setColor(budgetInfo.budget.getColor());
+        color.setCirclePercentage(budgetInfo.getPercentage());
 
         final TextView name = (TextView) budgetLayout.findViewById(R.id.budgetName);
         name.setText(budgetInfo.budget.getName());

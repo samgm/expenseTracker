@@ -123,20 +123,20 @@ public enum BudgetManager {
                             TransactionManager.explodeRecurrentTransaction(transaction, DateTime.now()));
                 }
             }
-            refresh(DateTime.now(), this.transactions, true);
+            refresh(DateTime.now(), this.transactions, true, false);
         }
 
         public void addTransaction(Transaction transaction) {
             transactions.add(transaction);
-            refresh(DateTime.now(), Collections.singleton(transaction), false);
+            refresh(DateTime.now(), Collections.singleton(transaction), false, false);
         }
 
         public void removeTransaction(Transaction transaction) {
             transactions.remove(transaction);
-            refresh(DateTime.now(), Collections.singleton(transaction.swapDirection()), false);
+            refresh(DateTime.now(), Collections.singleton(transaction), false, true);
         }
 
-        public void refresh(DateTime currentDateTime, Collection<Transaction> transactions, boolean reset) {
+        public void refresh(DateTime currentDateTime, Collection<Transaction> transactions, boolean reset, boolean remove) {
             if (reset) {
                 periodIn = BigDecimal.ZERO;
                 periodOut = BigDecimal.ZERO;
@@ -150,13 +150,19 @@ public enum BudgetManager {
             for (Transaction transaction : transactions) {
                 if(transaction.getDateTime().isAfter(periodStart) &&
                         transaction.getDateTime().isBefore(periodEnd)){
+
+                    BigDecimal value = transaction.getValue();
+                    if (remove) {
+                        value = value.negate();
+                    }
+
                     if (transaction.getDirection().equals(TransactionDirection.Out)) {
-                        periodBalance = periodBalance.subtract(transaction.getValue());
-                        periodOut = periodOut.add(transaction.getValue());
+                        periodBalance = periodBalance.subtract(value);
+                        periodOut = periodOut.add(value);
                     }
                     if (transaction.getDirection().equals(TransactionDirection.In)) {
-                        periodBalance = periodBalance.add(transaction.getValue());
-                        periodIn = periodIn.add(transaction.getValue());
+                        periodBalance = periodBalance.add(value);
+                        periodIn = periodIn.add(value);
                     }
                 }
             }
@@ -190,5 +196,18 @@ public enum BudgetManager {
 
             return  new Pair<DateTime, DateTime>(periodStartOld, periodStart);
         }
+
+        public int getPercentage() {
+            BigDecimal balance = periodOut.subtract(periodIn);
+            if(balance.compareTo(BigDecimal.ZERO) < 0) {
+                return 0;
+            } else {
+                double result = balance.doubleValue();
+                result = result / (budget.getThreshold().doubleValue()) * 100;
+                return (int) result;
+            }
+        }
+
     }
+
 }
