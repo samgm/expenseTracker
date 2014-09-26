@@ -21,7 +21,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color2"
@@ -31,7 +31,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color3"
@@ -41,7 +41,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color4"
@@ -52,7 +52,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
 
     </LinearLayout>
@@ -71,7 +71,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color6"
@@ -81,7 +81,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color7"
@@ -91,7 +91,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color8"
@@ -102,7 +102,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
     </LinearLayout>
 
@@ -121,7 +121,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color10"
@@ -131,7 +131,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color11"
@@ -141,7 +141,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
         <com.antso.expensesmanager.views.CircleSectorView
             android:id="@+id/color12"
@@ -152,7 +152,7 @@
             circleSectorview:cFillColor="#ff0000"
             circleSectorview:cRadiusDp="28"
             circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleEnd="360"
+            circleSectorview:cAngleSweep="360"
             />
     </LinearLayout>
 </LinearLayout>

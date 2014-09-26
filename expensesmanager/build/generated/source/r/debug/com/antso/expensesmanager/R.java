@@ -21,7 +21,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int cAngleEnd=0x7f010003;
+        public static final int cAngleStart=0x7f010002;
         /** <p>Must be an integer value, such as "<code>100</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -29,7 +29,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int cAngleStart=0x7f010002;
+        public static final int cAngleSweep=0x7f010003;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -47,6 +47,14 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int cRadiusDp=0x7f010000;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cStrokeWidth=0x7f010004;
     }
     public static final class color {
         public static final int tab_accent=0x7f050000;
@@ -237,33 +245,22 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #circleSectorView_cAngleEnd com.antso.expensesmanager:cAngleEnd}</code></td><td></td></tr>
            <tr><td><code>{@link #circleSectorView_cAngleStart com.antso.expensesmanager:cAngleStart}</code></td><td></td></tr>
+           <tr><td><code>{@link #circleSectorView_cAngleSweep com.antso.expensesmanager:cAngleSweep}</code></td><td></td></tr>
            <tr><td><code>{@link #circleSectorView_cFillColor com.antso.expensesmanager:cFillColor}</code></td><td></td></tr>
            <tr><td><code>{@link #circleSectorView_cRadiusDp com.antso.expensesmanager:cRadiusDp}</code></td><td></td></tr>
+           <tr><td><code>{@link #circleSectorView_cStrokeWidth com.antso.expensesmanager:cStrokeWidth}</code></td><td></td></tr>
            </table>
-           @see #circleSectorView_cAngleEnd
            @see #circleSectorView_cAngleStart
+           @see #circleSectorView_cAngleSweep
            @see #circleSectorView_cFillColor
            @see #circleSectorView_cRadiusDp
+           @see #circleSectorView_cStrokeWidth
          */
         public static final int[] circleSectorView = {
-            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004
         };
-        /**
-          <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cAngleEnd}
-          attribute's value can be found in the {@link #circleSectorView} array.
-
-
-          <p>Must be an integer value, such as "<code>100</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          @attr name com.antso.expensesmanager:cAngleEnd
-        */
-        public static final int circleSectorView_cAngleEnd = 3;
         /**
           <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cAngleStart}
           attribute's value can be found in the {@link #circleSectorView} array.
@@ -278,6 +275,20 @@ containing a value of this type.
           @attr name com.antso.expensesmanager:cAngleStart
         */
         public static final int circleSectorView_cAngleStart = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cAngleSweep}
+          attribute's value can be found in the {@link #circleSectorView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.antso.expensesmanager:cAngleSweep
+        */
+        public static final int circleSectorView_cAngleSweep = 3;
         /**
           <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cFillColor}
           attribute's value can be found in the {@link #circleSectorView} array.
@@ -307,5 +318,19 @@ containing a value of this type.
           @attr name com.antso.expensesmanager:cRadiusDp
         */
         public static final int circleSectorView_cRadiusDp = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.antso.expensesmanager.R.attr#cStrokeWidth}
+          attribute's value can be found in the {@link #circleSectorView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.antso.expensesmanager:cStrokeWidth
+        */
+        public static final int circleSectorView_cStrokeWidth = 4;
     };
 }
