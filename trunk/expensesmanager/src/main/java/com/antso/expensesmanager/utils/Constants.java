@@ -9,6 +9,7 @@ public class Constants {
     public static final int TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE = 3;
 
     public static final int ACCOUNT_ENTRY_REQUEST_CODE = 4;
+    public static final int BUDGET_ENTRY_REQUEST_CODE = 5;
 
     public static final int EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID = 10;
     public static final int REVENUE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID = 11;

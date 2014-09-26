@@ -48,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20dp"
-            android:text="1000.00"
+            android:text="0.00"
+            android:selectAllOnFocus="true"
             android:numeric="decimal"
             android:gravity="right"
             android:layout_gravity="bottom"/>
@@ -64,6 +65,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
+        android:visibility="gone"
         >
 
         <Button
@@ -96,22 +98,49 @@
             />
     </LinearLayout>
 
-    <MultiAutoCompleteTextView
-        android:id="@+id/transactionDesc"
+    <TextView
+        android:id="@+id/transactionDescLabel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="-16dp"
+        android:textSize="14dp"
+        android:text="Description"
+        android:textStyle="italic"
+        android:gravity="left"
+        android:visibility="visible"/>
+
+        <MultiAutoCompleteTextView
+        android:id="@+id/transactionDesc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
         android:textSize="20dp"
         android:text="Description"
+        android:selectAllOnFocus="true"
         android:gravity="right"/>
+
+    <TextView
+        android:id="@+id/transactionDateLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="-16dp"
+        android:textSize="14dp"
+        android:text="Date"
+        android:textStyle="italic"
+        android:gravity="left"
+        android:visibility="visible"/>
 
     <EditText
         android:id="@+id/transactionDate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
         android:textSize="20dp"
@@ -136,7 +165,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="48dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp">
 
@@ -149,11 +178,12 @@
             android:entries="@array/arrayFakeAccount" />
         />
 
-        <Button
-            android:id="@+id/transactionAccountButtom"
+        <ImageButton
+            android:id="@+id/transactionAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:src="@drawable/ic_action_refresh"
             />
     </LinearLayout>
 
@@ -175,7 +205,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="48dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
         android:visibility="gone">
@@ -189,11 +219,12 @@
             android:entries="@array/arrayFakeAccount" />
         />
 
-        <Button
-            android:id="@+id/transactionSecondaryAccountButtom"
+        <ImageButton
+            android:id="@+id/transactionSecondaryAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:src="@drawable/ic_action_refresh"
             />
     </LinearLayout>
 
@@ -215,7 +246,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="48dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp">
 
@@ -227,11 +258,12 @@
             android:textSize="20dp"
             android:entries="@array/arrayFakeBudget"/>
 
-        <Button
-            android:id="@+id/transactionBudgetButtom"
+        <ImageButton
+            android:id="@+id/transactionBudgetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:src="@drawable/ic_action_refresh"
             />
     </LinearLayout>
 

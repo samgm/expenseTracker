@@ -150,4 +150,13 @@ public class Transaction {
         return description;
     }
 
+    public Transaction swapDirection() {
+        if (this.direction.equals(TransactionDirection.In)) {
+            this.direction = TransactionDirection.Out;
+        } else {
+            this.direction = TransactionDirection.In;
+        }
+
+        return this;
+    }
 }

@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.view.ViewPager;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.antso.expensesmanager.accounts.AccountListFragment;
 import com.antso.expensesmanager.accounts.AccountManager;
@@ -23,6 +25,7 @@ import com.antso.expensesmanager.enums.DrawerSection;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.transactions.TransactionsPagerAdapter;
+import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.PlaceholderFragment;
 
 import java.io.FileNotFoundException;
@@ -46,6 +49,18 @@ public class StartActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
+
+//        private void setActionBarUpTint(int color) {
+//
+//            int upId = getResources().getIdentifier("android:id/up", null, null);
+//            if(upId == 0) return ;
+//
+//            View view = getWindow().getDecorView().findViewById(upId);
+//            if(!(view instanceof ImageView)) return ;
+//
+//            ImageView imageView = (ImageView) view;
+//            imageView.setColorFilter(MaterialColours.WHITE);
+//        }
 
         AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());
         BudgetManager.BUDGET_MANAGER.start(getApplicationContext());

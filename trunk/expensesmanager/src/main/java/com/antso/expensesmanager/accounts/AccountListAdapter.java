@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
+import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
+import com.antso.expensesmanager.views.CircleSectorView;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -45,60 +47,52 @@ public class AccountListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        // Get the current ToDoItem
         final AccountManager.AccountInfo accountInfo = accountManager.getAccountInfo().get(position);
 
-        //Inflate the View for this ToDoItem
-        // from todo_item.xml.
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        RelativeLayout itemLayout = (RelativeLayout) inflater.inflate(R.layout.account_item, null, false);
+        LinearLayout accountLayout = (LinearLayout) inflater.inflate(R.layout.account_item, null, false);
 
-        // Fill in specific ToDoItem data
-        // Remember that the data that goes in this View
-        // corresponds to the user interface elements defined
-        // in the layout file
+        final CircleSectorView color = (CircleSectorView) accountLayout.findViewById(R.id.accountColor);
+        color.setColor(accountInfo.account.getColor());
 
-        // Display Title in TextView
-        final LinearLayout colorView = (LinearLayout) itemLayout.findViewById(R.id.accountColor);
-        colorView.setBackgroundColor(accountInfo.account.getColor());
+        final TextView name = (TextView) accountLayout.findViewById(R.id.accountName);
+        name.setText(accountInfo.account.getName());
+        name.setTextColor(MaterialColours.BLACK);
 
-        final TextView nameView = (TextView) itemLayout.findViewById(R.id.accountName);
-        nameView.setText(accountInfo.account.getName());
-        nameView.setTextColor(Color.BLACK);
-
-        final TextView balanceView = (TextView) itemLayout.findViewById(R.id.accountBalance);
-        String balance = Utils.getCurrencyString() + " " + accountInfo.balance.setScale(2).toPlainString();
-        balanceView.setText(balance);
+        final TextView balance = (TextView) accountLayout.findViewById(R.id.accountBalance);
+        String balanceStr = Utils.getCurrencyString() + " " +
+                accountInfo.balance.setScale(2).toPlainString();
+        balance.setText(balanceStr);
         if(accountInfo.balance.compareTo(BigDecimal.ZERO) >= 0) {
-            balanceView.setTextColor(Color.GREEN);
+            balance.setTextColor(MaterialColours.GREEN_500);
         } else {
-            balanceView.setTextColor(Color.RED);
+            balance.setTextColor(MaterialColours.RED_500);
         }
 
-        final TextView monthInView = (TextView) itemLayout.findViewById(R.id.accountMonthIn);
-        String monthIn = "Revenues " + Utils.getCurrencyString() + " " +
+        final TextView monthIn = (TextView) accountLayout.findViewById(R.id.accountMonthIn);
+        String monthInStr = Utils.getCurrencyString() + " " +
                 accountInfo.monthIn.setScale(2).toPlainString();
-        monthInView.setText(monthIn);
-        monthInView.setTextColor(Color.GREEN);
+        monthIn.setText(monthInStr);
+        monthIn.setTextColor(MaterialColours.GREEN_500);
 
-        final TextView monthOutView = (TextView) itemLayout.findViewById(R.id.accountMonthOut);
-        String monthOut = "Expenses " + Utils.getCurrencyString() + " " + accountInfo.monthOut.setScale(2).toPlainString();
-        monthOutView.setText(monthOut);
-        monthOutView.setTextColor(Color.RED);
+        final TextView monthOut = (TextView) accountLayout.findViewById(R.id.accountMonthOut);
+        String monthOutStr = Utils.getCurrencyString() + " " +
+                accountInfo.monthOut.setScale(2).toPlainString();
+        monthOut.setText(monthOutStr);
+        monthOut.setTextColor(MaterialColours.RED_500);
 
-        final TextView monthBalanceView = (TextView) itemLayout.findViewById(R.id.accountMonthBalance);
-        String monthBalance = "Total " + Utils.getCurrencyString() + " " + accountInfo.monthBalance.setScale(2).toPlainString();
-        monthBalanceView.setText(monthBalance);
+        final TextView monthBalance = (TextView) accountLayout.findViewById(R.id.accountMonthBalance);
+        String monthBalanceStr = Utils.getCurrencyString() + " " +
+                accountInfo.monthBalance.setScale(2).toPlainString();
+        monthBalance.setText(monthBalanceStr);
         if (accountInfo.monthBalance.compareTo(BigDecimal.ZERO) > 0) {
-            monthBalanceView.setTextColor(Color.GREEN);
+            monthBalance.setTextColor(MaterialColours.GREEN_500);
         } else if (accountInfo.monthBalance.compareTo(BigDecimal.ZERO) < 0) {
-            monthBalanceView.setTextColor(Color.RED);
+            monthBalance.setTextColor(MaterialColours.RED_500);
         } else {
-            monthBalanceView.setTextColor(Color.GRAY);
+            monthBalance.setTextColor(MaterialColours.GREY_500);
         }
-        // Return the View you just created
-        return itemLayout;
 
+        return accountLayout;
     }
 }

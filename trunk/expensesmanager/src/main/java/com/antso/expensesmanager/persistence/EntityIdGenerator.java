@@ -38,7 +38,7 @@ public enum EntityIdGenerator {
         EntityInfo info = entities.get(entity);
         String id = "";
         if (withDate) {
-            id = info.prefix + DateTime.now().toString(Utils.getDatePatten()) + info.sequence;
+            id = info.prefix + DateTime.now().toString(Utils.getDatePattenForDB()) + info.sequence;
         } else {
             id = info.prefix + info.sequence;
         }

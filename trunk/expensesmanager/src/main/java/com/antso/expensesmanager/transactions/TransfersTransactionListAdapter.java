@@ -84,8 +84,7 @@ public class TransfersTransactionListAdapter extends BaseAdapter {
 //        }
 
         final TextView transactionDateTime = (TextView) transactionLayout.findViewById(R.id.transactionDateTime);
-        DateTime d = t1.getDateTime();
-        String dateTime = d.getYear() + "-" + d.getMonthOfYear() +  "-" + d.getDayOfMonth();
+        String dateTime = Utils.formatDate(t1.getDateTime());
         transactionDateTime.setText(dateTime);
         transactionDateTime.setTextColor(MaterialColours.BLACK);
 

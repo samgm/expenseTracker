@@ -10,7 +10,8 @@ public enum TransactionType {
     Undef(0, "Undef"),
     Single(1, "Single"),
     Recurrent(2, "Recurrent"),
-    Transfer(3, "Transfer");
+    Transfer(3, "Transfer"),
+    Summary(4, "Summary");
 
     private int intValue;
     private String strValue;

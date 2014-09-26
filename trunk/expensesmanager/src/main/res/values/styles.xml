@@ -2,7 +2,42 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <!--&lt;!&ndash;ACTION BAR&ndash;&gt;-->
+        <!--<item name="android:actionBarStyle">@style/myActionBarStyle</item>-->
+
+        <!--&lt;!&ndash;TAB BAR&ndash;&gt;-->
+        <!--<item name="android:actionBarTabStyle">@style/myActionBarTabStyle</item>-->
+        <!--&lt;!&ndash;uncomment to remove dividers&ndash;&gt;-->
+        <!--<item name="android:actionBarTabBarStyle">@style/myActionBarTabBarStyle</item>-->
+        <!--<item name="android:actionBarTabTextStyle">@style/myActionBarTabTextStyle</item>-->
+
     </style>
+
+    <!--ACTION BAR-->
+    <style name="myActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <!--GREEN_300-->
+        <item name="android:background">#42bd41</item>
+        <item name="android:titleTextStyle">@style/myTitleTextStyle</item>
+    </style>
+
+    <style name="myTitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <!--TAB BAR-->
+    <style name="myActionBarTabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabBar">
+        <item name="android:background">@drawable/tab_bar_background</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="myActionBarTabBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabBar">
+        <item name="android:showDividers">none</item>
+    </style>
+
+    <style name="myActionBarTabTextStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 
 </resources>
