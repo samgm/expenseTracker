@@ -3,7 +3,6 @@ package com.antso.expensesmanager.transactions;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,7 +22,6 @@ import com.antso.expensesmanager.accounts.AccountManager;
 import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
-import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
@@ -76,7 +75,6 @@ public class TransactionEntryActivity extends Activity {
         switch (type) {
             case Transfer:
                 color.setColor(MaterialColours.YELLOW_500);
-                final TextView accountLabel = (TextView)findViewById(R.id.transactionAccountLabel);
                 final LinearLayout secondaryAccountLayout = (LinearLayout)findViewById(R.id.transactionSecondaryAccountLayout);
                 final TextView secondaryAccountLabel = (TextView)findViewById(R.id.transactionSecondaryAccountLabel);
                 secondaryAccountLayout.setVisibility(View.VISIBLE);
@@ -96,12 +94,16 @@ public class TransactionEntryActivity extends Activity {
         }
 
         final EditText date = (EditText)findViewById(R.id.transactionDate);
-        date.setText(DateTime.now().toString(Utils.getDatePatten()));
+        date.setText(Utils.formatDate(DateTime.now()));
         final EditText value = (EditText)findViewById(R.id.transactionValue);
         final AutoCompleteTextView description = (AutoCompleteTextView)findViewById(R.id.transactionDesc);
         final Spinner accountSpinner = (Spinner)findViewById(R.id.transactionAccountSpinner);
         final Spinner accountSecondarySpinner = (Spinner)findViewById(R.id.transactionSecondaryAccountSpinner);
         final Spinner budgetSpinner = (Spinner)findViewById(R.id.transactionBudgetSpinner);
+
+        ImageButton accountChange = (ImageButton)findViewById(R.id.transactionAccountButton);
+        ImageButton accountSecondaryChange = (ImageButton)findViewById(R.id.transactionSecondaryAccountButton);
+        ImageButton budgetChange = (ImageButton)findViewById(R.id.transactionBudgetButton);
 
         Button confirm = (Button)findViewById(R.id.transactionConfirm);
         Button cancel = (Button)findViewById(R.id.transactionCancel);
@@ -117,7 +119,7 @@ public class TransactionEntryActivity extends Activity {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                     transactionDate = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
-                                    date.setText(transactionDate.toString(Utils.getDatePatten()));
+                                    date.setText(Utils.formatDate(transactionDate));
                                 }
                             }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
                     );
@@ -126,13 +128,32 @@ public class TransactionEntryActivity extends Activity {
             }
         });
 
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateTime now = DateTime.now();
+                DatePickerDialog datePicker = new DatePickerDialog(
+                        TransactionEntryActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                transactionDate = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
+                                date.setText(Utils.formatDate(transactionDate));
+                            }
+                        }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
+                );
+                datePicker.show();
+            }
+        });
+
         value.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     String valueStr = value.getText().toString();
-                    //TODO wash not allowed chars
-                    transactionValue = BigDecimal.valueOf(Double.parseDouble(valueStr));
+                    valueStr = Utils.washDecimalNumber(valueStr);
+                    value.setText(valueStr);
+                    transactionValue = BigDecimal.valueOf(Double.parseDouble(valueStr)).setScale(2);
                 }
             }
         });
@@ -147,6 +168,30 @@ public class TransactionEntryActivity extends Activity {
                 new ArrayAdapter<Budget>(this, R.layout.text_spinner_item,
                 budgets.toArray(new Budget[0])));
 
+        accountChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = accountSpinner.getSelectedItemPosition();
+                accountSpinner.setSelection((index + 1) % accountSpinner.getAdapter().getCount());
+            }
+        });
+
+        accountSecondaryChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = accountSecondarySpinner.getSelectedItemPosition();
+                accountSecondarySpinner.setSelection((index + 1) % accountSecondarySpinner.getAdapter().getCount());
+            }
+        });
+
+        budgetChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = budgetSpinner.getSelectedItemPosition();
+                budgetSpinner.setSelection((index + 1) % budgetSpinner.getAdapter().getCount());
+            }
+        });
+
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,9 +201,8 @@ public class TransactionEntryActivity extends Activity {
                 Budget budget = (Budget)(budgetSpinner.getSelectedItem());
 
                 String valueStr = value.getText().toString();
-                //TODO wash not allowed chars
+                valueStr = Utils.washDecimalNumber(valueStr);
                 transactionValue = BigDecimal.valueOf(Double.parseDouble(valueStr));
-                Intent returnIntent = new Intent();
 
                 switch (type) {
                     case Transfer:
@@ -186,8 +230,6 @@ public class TransactionEntryActivity extends Activity {
                         t2.setLinkedTransactionId(t1Id);
                         TransactionManager.TRANSACTION_MANAGER.insertTransaction(t1);
                         TransactionManager.TRANSACTION_MANAGER.insertTransaction(t2);
-                        returnIntent.putExtra("transaction_out", new ParcelableTransaction(t1));
-                        returnIntent.putExtra("transaction_in", new ParcelableTransaction(t2));
                         break;
                     case Single:
                     case Recurrent:
@@ -203,11 +245,10 @@ public class TransactionEntryActivity extends Activity {
                                 transactionDate);
 
                         TransactionManager.TRANSACTION_MANAGER.insertTransaction(transaction);
-                        returnIntent.putExtra("transaction", new ParcelableTransaction(transaction));
                         break;
                 }
 
-                setResult(RESULT_OK, returnIntent);
+                setResult(RESULT_OK);
                 finish();
             }
         });

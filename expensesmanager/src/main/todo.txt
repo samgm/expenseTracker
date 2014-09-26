@@ -1,33 +1,43 @@
-
-account and budget manager are not updated when a new transaction is added, but only at app start-up
-
 LAYOUT
-//TODO review transaction entry screen (for in, out, mov, recurrent)
-//TODO review account entry screen
-//TODO review budget entry screen
-
 //TODO add chart to budget list item
 //TODO add icon to transfer list item
+remove context menu title
+layout budget/budget combo
+cambiare colori app (theme?)
+rimuovere menu ... dalle action bar
+sostituire "+" con icone
+mettere label in grigio (date label campi)
+click to pick a color in accoutn e budget screen, initialize account color on entry screen
+add footer nothing to show in accounts/ budget transaction lists
 
 BUDGET
-//TODO create budget entities support (list DONE, add, del)
+//TODO review budget entry screen
+
+support for search
+support for auto predict edit box
 
 EDIT
 //TODO edit support for transactions (in, out, mov)
 //TODO edit support for budget
-//TODO edit support for account
+//TODO edit support for budget
+
+DELETE
+del cascade for transaction when deleting account
 
 CALCULATIONS
-//TODO Calculations for account DONE, budgets partials (missing recurrent transactions)
+manage transaction explosion all inside transaction manager (explode once for all at app start-up)
+TESTARE //TODO Calculations for budgets partials (missing recurrent transactions)
 //create unit test for calculations
-
-remove context menu title
-add edit e delete as actionbar in the entry activities (all transactions, account, budget)
 recurrent transaction with repetition number (done with end date)
+
+add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
 loading on scroll for list view with many many items (done PoC see TransactionListAdapter2)
-transaction ids may clash in case of transaction has been deleted
-Use name as id per account e budget
-Check if account /budget already exist on insert
+Use name as id per budget e budget
+Check if budget /budget already exist on insert
+
 
 SETTINGS
     configurable currency symbol
+
+LOGGING
+log on db operation failure

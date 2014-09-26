@@ -72,9 +72,9 @@ public class CircleSectorView extends View {
         int wspecSize = MeasureSpec.getSize(widthMeasureSpec);
         int hspecMode = MeasureSpec.getMode(heightMeasureSpec);
         int hspecSize = MeasureSpec.getSize(heightMeasureSpec);
-        Log.d("onMeasure() O::", "measuredHeight =>" + hspecMode + "-" + String.valueOf(hspecSize)
-                + "px measuredWidth => " + wspecMode + "-" + String.valueOf(wspecSize) + "px");
-        Log.d("onMeasure() C::", "measuredHeight =>" + String.valueOf(measuredHeight) + "px measuredWidth => " + String.valueOf(measuredWidth) + "px");
+//        Log.d("onMeasure() O::", "measuredHeight =>" + hspecMode + "-" + String.valueOf(hspecSize)
+//                + "px measuredWidth => " + wspecMode + "-" + String.valueOf(wspecSize) + "px");
+//        Log.d("onMeasure() C::", "measuredHeight =>" + String.valueOf(measuredHeight) + "px measuredWidth => " + String.valueOf(measuredWidth) + "px");
     }
 
     private int measureHeight(int measureSpec) {

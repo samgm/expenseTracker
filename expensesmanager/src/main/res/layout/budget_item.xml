@@ -45,7 +45,7 @@
                 android:textColor="#000000"
                 android:gravity="left"
                 android:textStyle="bold"
-                android:text="$ 1000.00">
+                android:text="$ 0.00">
             </TextView>
         </LinearLayout>
 
@@ -78,7 +78,7 @@
             android:gravity="right"
             android:textSize="14dp"
             android:textColor="#000000"
-            android:text="$ 1000.00">
+            android:text="$ 0.00">
         </TextView>
 
     </LinearLayout>

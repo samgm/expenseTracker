@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.antso.expensesmanager.accounts.AccountEntryActivity">
+    tools:context="com.antso.expensesmanager.budget.BudgetEntryActivity">
 
     <com.antso.expensesmanager.views.CircleSectorView
         android:id="@+id/accountColor"

@@ -2,23 +2,21 @@ package com.antso.expensesmanager.accounts;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
-import com.antso.expensesmanager.entities.ParcelableAccount;
-import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
+import com.antso.expensesmanager.utils.Utils;
+import com.antso.expensesmanager.views.CircleSectorView;
 import com.antso.expensesmanager.views.ColorPickerDialog;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 
 
 public class AccountEntryActivity extends Activity {
@@ -33,16 +31,13 @@ public class AccountEntryActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
-//        final EditText date = (EditText)findViewById(R.id.transactionDate);
-//        date.setText(DateTime.now().toString(Utils.getDatePatten()));
-//        final EditText value = (EditText)findViewById(R.id.transactionValue);
-//        final AutoCompleteTextView description = (AutoCompleteTextView)findViewById(R.id.transactionDesc);
-//        final Spinner accountSpinner = (Spinner)findViewById(R.id.transactionAccountSpinner);
-//        Spinner budgetSpinner = (Spinner)findViewById(R.id.transactionBudgetSpinner);
+        final EditText name = (EditText)findViewById(R.id.accountName);
+        final EditText value = (EditText)findViewById(R.id.accountValue);
 
-        final LinearLayout color = (LinearLayout)findViewById(R.id.accountColor);
-        Button confirm = (Button)findViewById(R.id.transactionConfirm);
-        Button cancel = (Button)findViewById(R.id.transactionCancel);
+        final CircleSectorView color = (CircleSectorView)findViewById(R.id.accountColor);
+
+        final Button confirm = (Button)findViewById(R.id.accountConfirm);
+        final Button cancel = (Button)findViewById(R.id.accountCancel);
 
         color.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,44 +46,43 @@ public class AccountEntryActivity extends Activity {
                     @Override
                     public void colorChanged(int c) {
                         if(color != null) {
-                            color.setBackgroundColor(c);
+                            color.setColor(c);
+                            color.invalidate();
                         }
                     }
                 });
                 c.show();
             }
         });
-//        value.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (!hasFocus) {
-//                    String valueStr = value.getText().toString();
-//                    //TODO wash not allowed chars
-//                    transactionValue = BigDecimal.valueOf(Double.parseDouble(valueStr));
-//                }
-//            }
-//        });
+
+        value.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String valueStr = value.getText().toString();
+                    valueStr = Utils.washDecimalNumber(valueStr);
+                    value.setText(valueStr);
+                    accountValue = BigDecimal.valueOf(Double.parseDouble(valueStr)).setScale(2);
+                }
+            }
+        });
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Account account = (Account)(accountSpinner.getSelectedItem());
-//
-//                String valueStr = value.getText().toString();
-//                //TODO wash not allowed chars
-//                transactionValue = BigDecimal.valueOf(Double.parseDouble(valueStr));
+                String valueStr = value.getText().toString();
+                valueStr = Utils.washDecimalNumber(valueStr);
+                accountValue = BigDecimal.valueOf(Double.parseDouble(valueStr));
 
                 Account account = new Account(
                         EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
-                        "name",
-                        BigDecimal.ONE,
-                        1 /*color*/);
+                        name.getText().toString(),
+                        accountValue,
+                        color.getColor());
 
                 AccountManager.ACCOUNT_MANAGER.insertAccount(account);
 
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("account", new ParcelableAccount(account));
-                setResult(RESULT_OK, returnIntent);
+                setResult(RESULT_OK);
                 finish();
             }
         });
@@ -106,16 +100,12 @@ public class AccountEntryActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_default, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;

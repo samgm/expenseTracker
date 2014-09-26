@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Expense App</string>
-    <string name="app_data_folder">ExpenseApp</string>
+    <string name="app_name">Expenses</string>
+    <string name="app_data_folder">Expenses</string>
+
     <string name="action_settings">Settings</string>
     <string name="title_transaction_list_activity">Transactions</string>
+    <string name="title_activity_transaction_entry">Transactions</string>
+    <string name="title_activity_account_entry">Accounts</string>
+    <string name="title_activity_budget_entry">Budgets</string>
 
     <!-- main tab view names -->
     <string name="title_transactions_revenues">Revenues</string>
@@ -14,13 +18,12 @@
 
     <!-- other strings -->
     <string name="list_footer_text">Default footer text</string>
+    <string name="transaction_list_footer_text">Nothing to show here</string>
     <string name="expenses_list_footer_text">Nothing to show here</string>
     <string name="revenues_list_footer_text">Nothing to show here</string>
     <string name="transfers_list_footer_text">Nothing to show here</string>
     <string name="accounts_list_footer_text">Nothing to show here</string>
     <string name="budgets_list_footer_text">Nothing to show here</string>
-    <string name="title_activity_transaction">TransactionActivity</string>
-    <string name="title_activity_account">AccountActivity</string>
 
     <string-array name="arrayFakeAccount">
         <item>Account 1</item>

@@ -21,11 +21,15 @@
         </activity>
         <activity
             android:name=".transactions.TransactionEntryActivity"
-            android:label="@string/title_activity_transaction" >
+            android:label="@string/title_activity_transaction_entry" >
         </activity>
         <activity
             android:name=".accounts.AccountEntryActivity"
-            android:label="@string/title_activity_account" >
+            android:label="@string/title_activity_account_entry" >
+        </activity>
+        <activity
+            android:name=".budgets.BudgetEntryActivity"
+            android:label="@string/title_activity_budget_entry" >
         </activity>
     </application>
 

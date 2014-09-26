@@ -1,8 +1,8 @@
 package com.antso.expensesmanager.transactions;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.ContextMenu;
@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.entities.ParcelableTransaction;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
@@ -84,10 +83,8 @@ public class TransfersListFragment extends ListFragment {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Choose Action");   // Context-menu title
+        menu.clearHeader();
         menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, "Edit");
         menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, "Delete");
     }
@@ -142,19 +139,14 @@ public class TransfersListFragment extends ListFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE) {
-            if(resultCode == getActivity().RESULT_OK){
-                final ParcelableTransaction pTransactionOut = data.getParcelableExtra("transaction_out");
-                final ParcelableTransaction pTransactionIn = data.getParcelableExtra("transaction_in");
-
+            if(resultCode == Activity.RESULT_OK){
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        TransactionManager.TRANSACTION_MANAGER.insertTransaction(pTransactionOut.getTransaction());
-                        TransactionManager.TRANSACTION_MANAGER.insertTransaction(pTransactionIn.getTransaction());
                         transactionListAdapter.notifyDataSetChanged();
                     }
                 });
             }
-            if (resultCode == getActivity().RESULT_CANCELED) {
+            if (resultCode == Activity.RESULT_CANCELED) {
                 //Do Nothing
             }
         }

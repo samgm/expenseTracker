@@ -93,8 +93,7 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
         }
 
         final TextView transactionDateTime = (TextView) transactionLayout.findViewById(R.id.transactionDateTime);
-        DateTime d = transaction.getDateTime();
-        String dateTime = d.getYear() + "-" + d.getMonthOfYear() +  "-" + d.getDayOfMonth();
+        String dateTime = Utils.formatDate(transaction.getDateTime());
         transactionDateTime.setText(dateTime);
         transactionDateTime.setTextColor(MaterialColours.BLACK);
 
@@ -113,13 +112,7 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
         String balance = Utils.getCurrencyString() + " " +
                 transaction.getValue().setScale(2).toPlainString();
         transactionValue.setText(balance);
-        if(transaction.getDirection().equals(TransactionDirection.In)) {
-            transactionValue.setTextColor(MaterialColours.GREEN_500);
-        } else if(transaction.getDirection().equals(TransactionDirection.Out)) {
-            transactionValue.setTextColor(MaterialColours.RED_500);
-        } else {
-            transactionValue.setTextColor(MaterialColours.YELLOW_500);
-        }
+        transactionValue.setTextColor(MaterialColours.BLACK);
 
         return transactionLayout;
     }

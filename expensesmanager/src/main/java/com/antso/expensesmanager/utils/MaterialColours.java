@@ -5,6 +5,7 @@ import android.graphics.Color;
 public class MaterialColours {
 
     public static final int BLACK = Color.parseColor("#000000");
+    public static final int WHITE = Color.parseColor("#ffffff");
 
     //Red
     public static final int RED_500 = Color.parseColor("#e51c23");

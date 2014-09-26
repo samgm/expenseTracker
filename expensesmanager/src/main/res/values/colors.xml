@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <!--was ff9ecfbf-->
+    <color name="tab_accent">#9c27b0</color>
+    <color name="tab_background">#ff4ba587</color>
+
+
+    <color name="white">#ffffff</color>
+</resources>

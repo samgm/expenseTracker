@@ -52,6 +52,10 @@ public class Utils {
         return new LocalTime(hour, min, sec).toDateTime(yyyyMMddToDate(yyyyMMdd));
     }
 
+    public static String getDatePattenForDB() {
+        return "yyyyMMddhhmmss";
+    }
+
     public static String getDatePatten() {
         return "MM/dd/yyyy";
     }
@@ -82,6 +86,43 @@ public class Utils {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
+    }
+
+    public static String washDecimalNumber(String valueStr) {
+        if (valueStr.isEmpty()) {
+            return "0.00";
+        }
+        return valueStr;
+    }
+
+    public static String formatDate(DateTime date) {
+        if (date.getDayOfMonth() == DateTime.now().getDayOfMonth() &&
+            date.getWeekOfWeekyear() == DateTime.now().getWeekOfWeekyear() &&
+            date.getMonthOfYear() == DateTime.now().getMonthOfYear() &&
+            date.getYear() == DateTime.now().getYear()) {
+                return "Today";
+        } else if (date.getWeekOfWeekyear() == DateTime.now().getWeekOfWeekyear() &&
+                   date.getMonthOfYear() == DateTime.now().getMonthOfYear() &&
+                   date.getYear() == DateTime.now().getYear()) {
+            return date.toString(DateTimeFormat.forPattern("EEEE"));
+        } else if (date.getYear() == DateTime.now().getYear()) {
+            return date.toString(DateTimeFormat.forPattern("E dd MMM"));
+        } else {
+            return date.toString(DateTimeFormat.forPattern("dd MMM yyyy"));
+        }
+    }
+
+    public static String formatDateMonthYearOnly(DateTime date) {
+        if (date.getDayOfMonth() == DateTime.now().getDayOfMonth() &&
+                date.getWeekOfWeekyear() == DateTime.now().getWeekOfWeekyear() &&
+                date.getMonthOfYear() == DateTime.now().getMonthOfYear() &&
+                date.getYear() == DateTime.now().getYear()) {
+            return "Today";
+        } else if (date.getYear() == DateTime.now().getYear()) {
+            return date.toString(DateTimeFormat.forPattern("MMM"));
+        } else {
+            return date.toString(DateTimeFormat.forPattern("MMM yyyy"));
+        }
     }
 
 }
