@@ -34,23 +34,24 @@ import java.util.List;
 
 
 public class ExpensesTransactionListAdapter extends BaseAdapter {
-
     private final TransactionManager transactionManager;
+    private volatile List<Transaction> transactions;
     private final Context context;
 
     public ExpensesTransactionListAdapter(Context context, TransactionManager transactionManager) {
-        this.context = context;
         this.transactionManager = transactionManager;
+        this.context = context;
+        this.transactions = transactionManager.getOutTransactions();
     }
 
     @Override
     public int getCount() {
-        return transactionManager.getOutTransactions().size();
+        return transactions.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return transactionManager.getOutTransactions().get(pos);
+        return transactions.get(pos);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Transaction transaction = transactionManager.getOutTransactions().get(position);
+        final Transaction transaction = transactions.get(position);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout transactionLayout = (LinearLayout) inflater.inflate(R.layout.transaction_item, null, false);
@@ -117,4 +118,18 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
         return transactionLayout;
     }
 
+    public void resetSearch() {
+        transactions = transactionManager.getOutTransactions();
+    }
+
+    public void search(String text) {
+        List<Transaction> found = new ArrayList<Transaction>();
+        for (Transaction t : transactions) {
+            if (t.getDescription().toUpperCase().contains(text.toUpperCase())) {
+                found.add(t);
+            }
+        }
+
+        transactions = found;
+    }
 }

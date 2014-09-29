@@ -50,9 +50,14 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
-    <string name="action_transaction_add">+</string>
-    <string name="action_account_add">+</string>
-    <string name="action_budget_add">+</string>
+
+    <string name="title_search_transaction_dialog">Type something to search</string>
+
+    <string name="action_transaction_add">Add</string>
+    <string name="action_transaction_search">Search</string>
+    <string name="action_transaction_search_undo">Undo</string>
+    <string name="action_account_add">Add</string>
+    <string name="action_budget_add">Add</string>
     <string name="doubleArrow"><![CDATA[<->]]></string>
 
 

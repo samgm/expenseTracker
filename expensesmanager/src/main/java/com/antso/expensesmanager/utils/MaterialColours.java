@@ -2,6 +2,9 @@ package com.antso.expensesmanager.utils;
 
 import android.graphics.Color;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MaterialColours {
 
     public static final int BLACK = Color.parseColor("#000000");
@@ -309,7 +312,7 @@ public class MaterialColours {
 
     //Blue Grey
     public static final int BLUE_GREY_500 = Color.parseColor("#607d8b");
-//    50#eceff1
+    //    50#eceff1
 //    100#cfd8dc
 //    200#b0bec5
 //    300#90a4ae
@@ -319,6 +322,49 @@ public class MaterialColours {
 //    700#455a64
 //    800#37474f
 //            900#263238
+
+
+    public static ArrayList<Integer> getAccountColors() {
+        ArrayList<Integer> budgetColors = new ArrayList<Integer>(12);
+        budgetColors.add(MaterialColours.PINK_500);
+        budgetColors.add(MaterialColours.PURPLE_500);
+        budgetColors.add(MaterialColours.INDIGO_500);
+        budgetColors.add(MaterialColours.BLUE_500);
+        budgetColors.add(MaterialColours.LIGHT_BLUE_500);
+        budgetColors.add(MaterialColours.CYAN_500);
+        budgetColors.add(MaterialColours.TEAL_500);
+        budgetColors.add(MaterialColours.LIGHT_GREEN_500);
+        budgetColors.add(MaterialColours.LIME_500);
+        budgetColors.add(MaterialColours.AMBER_500);
+        budgetColors.add(MaterialColours.ORANGE_500);
+        budgetColors.add(MaterialColours.BROWN_500);
+
+        return budgetColors;
+    }
+
+    public static ArrayList<Integer> getBudgetColors() {
+        ArrayList<Integer> budgetColors = new ArrayList<Integer>(12);
+        budgetColors.add(MaterialColours.PINK_500);
+        budgetColors.add(MaterialColours.PURPLE_500);
+        budgetColors.add(MaterialColours.INDIGO_500);
+        budgetColors.add(MaterialColours.BLUE_500);
+        budgetColors.add(MaterialColours.LIGHT_BLUE_500);
+        budgetColors.add(MaterialColours.CYAN_500);
+        budgetColors.add(MaterialColours.TEAL_500);
+        budgetColors.add(MaterialColours.LIGHT_GREEN_500);
+        budgetColors.add(MaterialColours.LIME_500);
+        budgetColors.add(MaterialColours.AMBER_500);
+        budgetColors.add(MaterialColours.ORANGE_500);
+        budgetColors.add(MaterialColours.BROWN_500);
+
+        return budgetColors;
+    }
+
+
+
+
+
+
 
 }
 
