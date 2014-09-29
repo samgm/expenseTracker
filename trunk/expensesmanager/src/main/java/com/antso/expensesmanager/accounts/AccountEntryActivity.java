@@ -12,6 +12,7 @@ import android.widget.EditText;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
+import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 import com.antso.expensesmanager.views.ColorPickerDialog;
@@ -35,6 +36,7 @@ public class AccountEntryActivity extends Activity {
         final EditText value = (EditText)findViewById(R.id.accountValue);
 
         final CircleSectorView color = (CircleSectorView)findViewById(R.id.accountColor);
+        color.setColor(MaterialColours.getAccountColors().get(0));
 
         final Button confirm = (Button)findViewById(R.id.accountConfirm);
         final Button cancel = (Button)findViewById(R.id.accountCancel);
@@ -50,7 +52,7 @@ public class AccountEntryActivity extends Activity {
                             color.invalidate();
                         }
                     }
-                });
+                }, MaterialColours.getAccountColors());
                 c.show();
             }
         });

@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class ColorPickerDialog extends Dialog implements View.OnClickListener {
+    private ArrayList<Integer> colors;
 
     public interface OnColorChangedListener {
         void colorChanged(int color);
@@ -30,9 +31,11 @@ public class ColorPickerDialog extends Dialog implements View.OnClickListener {
 
     private OnColorChangedListener mListener;
 
-    public ColorPickerDialog(Context context, OnColorChangedListener listener) {
+    public ColorPickerDialog(Context context, OnColorChangedListener listener,
+                             ArrayList<Integer> colors) {
         super(context);
-        mListener = listener;
+        this.mListener = listener;
+        this.colors = colors;
     }
 
     @Override
@@ -41,45 +44,28 @@ public class ColorPickerDialog extends Dialog implements View.OnClickListener {
 
         setContentView(R.layout.color_picker);
 
-        List<CircleSectorView> colors = new ArrayList<CircleSectorView>();
-        colors.add((CircleSectorView) findViewById(R.id.color1));
-        colors.add((CircleSectorView) findViewById(R.id.color2));
-        colors.add((CircleSectorView) findViewById(R.id.color3));
-        colors.add((CircleSectorView) findViewById(R.id.color4));
-        colors.add((CircleSectorView) findViewById(R.id.color5));
-        colors.add((CircleSectorView) findViewById(R.id.color6));
-        colors.add((CircleSectorView) findViewById(R.id.color7));
-        colors.add((CircleSectorView) findViewById(R.id.color8));
-        colors.add((CircleSectorView) findViewById(R.id.color9));
-        colors.add((CircleSectorView) findViewById(R.id.color10));
-        colors.add((CircleSectorView) findViewById(R.id.color11));
-        colors.add((CircleSectorView) findViewById(R.id.color12));
+        List<CircleSectorView> colorsView = new ArrayList<CircleSectorView>();
+        colorsView.add((CircleSectorView) findViewById(R.id.color1));
+        colorsView.add((CircleSectorView) findViewById(R.id.color2));
+        colorsView.add((CircleSectorView) findViewById(R.id.color3));
+        colorsView.add((CircleSectorView) findViewById(R.id.color4));
+        colorsView.add((CircleSectorView) findViewById(R.id.color5));
+        colorsView.add((CircleSectorView) findViewById(R.id.color6));
+        colorsView.add((CircleSectorView) findViewById(R.id.color7));
+        colorsView.add((CircleSectorView) findViewById(R.id.color8));
+        colorsView.add((CircleSectorView) findViewById(R.id.color9));
+        colorsView.add((CircleSectorView) findViewById(R.id.color10));
+        colorsView.add((CircleSectorView) findViewById(R.id.color11));
+        colorsView.add((CircleSectorView) findViewById(R.id.color12));
 
-        colors.get(0).setColor(MaterialColours.PINK_500);
-        colors.get(1).setColor(MaterialColours.PURPLE_500);
-        colors.get(2).setColor(MaterialColours.INDIGO_500);
-        colors.get(3).setColor(MaterialColours.BLUE_500);
-        colors.get(4).setColor(MaterialColours.LIGHT_BLUE_500);
-        colors.get(5).setColor(MaterialColours.CYAN_500);
-        colors.get(6).setColor(MaterialColours.TEAL_500);
-        colors.get(7).setColor(MaterialColours.LIGHT_GREEN_500);
-        colors.get(8).setColor(MaterialColours.LIME_500);
-        colors.get(9).setColor(MaterialColours.AMBER_500);
-        colors.get(10).setColor(MaterialColours.ORANGE_500);
-        colors.get(11).setColor(MaterialColours.BROWN_500);
-
-        for (CircleSectorView v : colors) {
+        int i = 0;
+        for (Integer color : colors) {
+            colorsView.get(i).setColor(color);
+            i++;
+        }
+        for (CircleSectorView v : colorsView) {
             v.setOnClickListener(this);
         }
-
-        //static final int LIME_500 = Color.parseColor("#cddc39");
-        //static final int AMBER_500 = Color.parseColor("#ffc107");
-        //static final int ORANGE_500 = Color.parseColor("#ff9800");
-        //static final int BROWN_500 = Color.parseColor("#795548");
-
-
-
-//        setContentView(new ColorPickerView2(getContext(), listener));
 
         setTitle("Pick a Color");
     }

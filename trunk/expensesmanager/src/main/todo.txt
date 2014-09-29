@@ -2,16 +2,13 @@ LAYOUT
 //TODO add icon to transfer list item
 layout budget/budget combo
 cambiare colori app (theme?)
-rimuovere menu ... dalle action bar
-sostituire "+" con icone
 mettere label in grigio (date label campi)
-click to pick a color in accoutn e budget screen, initialize account color on entry screen
 add footer nothing to show in accounts/ budget transaction lists
 
-BUDGET
-1 //TODO review budget entry screen
+1 support for search --> extend to transfer and revenue
+make account and budget scrollable
+update transaction layout and make it as account and budget
 
-1 support for search
 
 EDIT
 //TODO edit support for transactions (in, out, mov)

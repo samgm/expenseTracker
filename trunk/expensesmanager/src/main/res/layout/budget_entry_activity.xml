@@ -6,21 +6,50 @@
     android:orientation="vertical"
     tools:context="com.antso.expensesmanager.budget.BudgetEntryActivity">
 
-    <com.antso.expensesmanager.views.CircleSectorView
-        android:id="@+id/accountColor"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="6dp"
         android:layout_marginLeft="16dp"
-        circleSectorview:cFillColor="#ff0000"
-        circleSectorview:cRadiusDp="32"
-        circleSectorview:cAngleStart="0"
-        circleSectorview:cAngleSweep="360"
-        />
+        android:layout_marginRight="16dp">
+
+        <com.antso.expensesmanager.views.CircleSectorView
+            android:id="@+id/budgetColor"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            circleSectorview:cFillColor="#ff0000"
+            circleSectorview:cRadiusDp="32"
+            circleSectorview:cAngleStart="0"
+            circleSectorview:cAngleSweep="360"
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="32dp"
+                android:text="Create Budget"
+                android:textColor="@color/black"
+                android:gravity="right"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="16dp"
+                android:text="Tap the circle to change the color"
+                android:gravity="right"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/accountNameLabel"
+        android:id="@+id/budgetNameLabel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -33,7 +62,7 @@
         android:visibility="visible"/>
 
     <LinearLayout
-        android:id="@+id/accountNameLayout"
+        android:id="@+id/budgetNameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -42,12 +71,12 @@
         android:layout_marginRight="16dp">
 
         <EditText
-            android:id="@+id/accountName"
+            android:id="@+id/budgetName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:textSize="20dp"
-            android:text="Account Name"
+            android:text="Name"
             android:selectAllOnFocus="true"
             android:gravity="right"
             android:layout_gravity="bottom"/>
@@ -55,7 +84,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/accountValueLabel"
+        android:id="@+id/budgetThresholdValueLabel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -68,16 +97,17 @@
         android:visibility="visible"/>
 
     <LinearLayout
-        android:id="@+id/accountValueLayout"
+        android:id="@+id/budgetThresholdLayout"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="6dp"
         android:layout_centerHorizontal="true">
 
         <TextView
-            android:id="@+id/accountValueCurrency"
+            android:id="@+id/budgetThresholdCurrency"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
@@ -86,7 +116,7 @@
             android:gravity="center"/>
 
         <EditText
-            android:id="@+id/accountValue"
+            android:id="@+id/budgetThreshold"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -97,8 +127,77 @@
             android:gravity="right"/>
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/budgetPeriodLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="-16dp"
+        android:textSize="14dp"
+        android:text="Every"
+        android:textStyle="italic"
+        android:gravity="left"/>
+
     <LinearLayout
-        android:id="@+id/transactionConfirmButtonsLayout"
+        android:id="@+id/budgetPeriodLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="6dp">
+
+        <Spinner
+            android:id="@+id/budgetPeriodLenghtSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="6"
+            android:textSize="20dp"
+            android:entries="@array/arrayFakeAccount" />
+        />
+
+        <Spinner
+            android:id="@+id/budgetPeriodUnitSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            android:textSize="20sp"
+            android:entries="@array/arrayFakeAccount" />
+        />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/budgetDateLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="-16dp"
+        android:textSize="14dp"
+        android:text="Starting"
+        android:textStyle="italic"
+        android:gravity="left"
+        android:visibility="visible"/>
+
+    <EditText
+        android:id="@+id/budgetStartDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="6dp"
+        android:textSize="20dp"
+        android:text="dd/mm/yyy"
+        android:gravity="right"/>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/budgetConfirmButtonsLayout"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -109,14 +208,14 @@
         android:layout_centerHorizontal="true">
 
         <Button
-            android:id="@+id/accountConfirm"
+            android:id="@+id/budgetConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Add"/>
 
         <Button
-            android:id="@+id/accountCancel"
+            android:id="@+id/budgetCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

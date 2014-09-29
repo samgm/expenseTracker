@@ -13,20 +13,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antso.expensesmanager.R;
+import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.MaterialColours;
+import com.antso.expensesmanager.views.TransactionSearchDialog;
 
 public class ExpensesListFragment extends ListFragment {
 
     private View footerView;
+    private static Menu optionMenu;
 
     private ExpensesTransactionListAdapter transactionListAdapter = null;
 
@@ -50,6 +54,13 @@ public class ExpensesListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        if (optionMenu != null) {
+            MenuItem searchUndoItem = optionMenu.findItem(R.id.action_transaction_search_undo);
+            searchUndoItem.setVisible(false);
+            MenuItem searchItem = optionMenu.findItem(R.id.action_transaction_search);
+            searchItem.setVisible(true);
+        }
+
         if (transactionListAdapter == null) {
             transactionListAdapter = new ExpensesTransactionListAdapter(
                     getActivity().getApplicationContext(),
@@ -68,6 +79,9 @@ public class ExpensesListFragment extends ListFragment {
             }
 
             setListAdapter(transactionListAdapter);
+        } else {
+            transactionListAdapter.resetSearch();
+            transactionListAdapter.notifyDataSetChanged();
         }
 
         registerForContextMenu(getListView());
@@ -117,7 +131,7 @@ public class ExpensesListFragment extends ListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_transaction_list, menu);
-
+        this.optionMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -128,6 +142,34 @@ public class ExpensesListFragment extends ListFragment {
             Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
             intent.putExtra("transaction_direction", TransactionDirection.Out.getIntValue());
             startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_ENTRY_REQUEST_CODE);
+            return true;
+        }
+
+        if (id == R.id.action_transaction_search) {
+            final TransactionSearchDialog dialog = new TransactionSearchDialog(getActivity(),
+                    new TransactionSearchDialog.OnDialogDismissed() {
+                        @Override
+                        public void onDismissed(Boolean confirm, String searchText) {
+                            if (confirm) {
+                                transactionListAdapter.search(searchText);
+                                transactionListAdapter.notifyDataSetChanged();
+                                MenuItem searchItem = optionMenu.findItem(R.id.action_transaction_search);
+                                searchItem.setVisible(false);
+                                MenuItem undoSearchItem = optionMenu.findItem(R.id.action_transaction_search_undo);
+                                undoSearchItem.setVisible(true);
+                            }
+                        }
+                    });
+            dialog.show();
+            return true;
+        }
+
+        if (id == R.id.action_transaction_search_undo) {
+            item.setVisible(false);
+            MenuItem searchItem = optionMenu.findItem(R.id.action_transaction_search);
+            searchItem.setVisible(true);
+            transactionListAdapter.resetSearch();
+            transactionListAdapter.notifyDataSetChanged();
             return true;
         }
 
