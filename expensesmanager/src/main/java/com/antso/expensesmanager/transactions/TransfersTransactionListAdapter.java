@@ -63,7 +63,6 @@ public class TransfersTransactionListAdapter extends BaseAdapter {
         accountAndBudget.setVisibility(View.GONE);
 
         AccountManager.AccountInfo accountInfo = AccountManager.ACCOUNT_MANAGER.getAccountInfo(t1.getAccountId());
-//        BudgetManager.BudgetInfo budgetInfo = BudgetManager.BUDGET_MANAGER.getBudgetInfo(t1.getBudgetId());
 
         if(accountInfo != null) {
             Account account = accountInfo.account;
@@ -74,16 +73,6 @@ public class TransfersTransactionListAdapter extends BaseAdapter {
             final CircleSectorView accountColor = (CircleSectorView) transactionLayout.findViewById(R.id.accountColor);
             accountColor.setColor(account.getColor());
         }
-
-//        if(budgetInfo != null) {
-//            Budget budget = budgetInfo.budget;
-//            final TextView budgetName = (TextView) transactionLayout.findViewById(R.id.budgetName);
-//            budgetName.setText(budget.getName());
-//            budgetName.setTextColor(MaterialColours..BLACK);
-//
-//            final CircleSectorView budgetColor = (CircleSectorView) transactionLayout.findViewById(R.id.budgetColor);
-//            budgetColor.setColor(budget.getColor());
-//        }
 
         final TextView transactionDateTime = (TextView) transactionLayout.findViewById(R.id.transactionDateTime);
         String dateTime = Utils.formatDate(t1.getDateTime());
@@ -106,8 +95,9 @@ public class TransfersTransactionListAdapter extends BaseAdapter {
         return transactionLayout;
     }
 
-    public void resetSearch() {
+    public void reset() {
         transactions = transactionManager.getTransferTransactions();
+        notifyDataSetChanged();
     }
 
     public void search(String text) {
@@ -119,5 +109,6 @@ public class TransfersTransactionListAdapter extends BaseAdapter {
         }
 
         transactions = found;
+        notifyDataSetChanged();
     }
 }

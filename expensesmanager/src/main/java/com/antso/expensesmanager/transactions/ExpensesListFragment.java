@@ -72,8 +72,7 @@ public class ExpensesListFragment extends ListFragment {
 
             setListAdapter(transactionListAdapter);
         } else {
-            transactionListAdapter.resetSearch();
-            transactionListAdapter.notifyDataSetChanged();
+            transactionListAdapter.reset();
         }
 
         registerForContextMenu(getListView());
@@ -81,9 +80,16 @@ public class ExpensesListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView list, View v, int position, long id) {
-        Object item = getListView().getItemAtPosition(position);
-        if (item != null) {
-            Toast.makeText(getActivity(), item.toString(), Toast.LENGTH_LONG).show();
+        Transaction transaction = (Transaction)getListView().getItemAtPosition(position);
+        if (transaction != null) {
+            Toast.makeText(getActivity(), transaction.toString(), Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
+            intent.putExtra("transaction_id", transaction.getId());
+            getActivity().startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_EDIT_REQUEST_CODE);
+
+
+
         }
     }
 
@@ -113,7 +119,7 @@ public class ExpensesListFragment extends ListFragment {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
             TransactionManager.TRANSACTION_MANAGER.removeTransaction(transaction);
-            transactionListAdapter.notifyDataSetChanged();
+            transactionListAdapter.reset();
             Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
@@ -153,7 +159,7 @@ public class ExpensesListFragment extends ListFragment {
         if (id == R.id.action_transaction_add) {
             Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
             intent.putExtra("transaction_direction", TransactionDirection.Out.getIntValue());
-            startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_ENTRY_REQUEST_CODE);
+            getActivity().startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_ENTRY_REQUEST_CODE);
             return true;
         }
 
@@ -164,7 +170,6 @@ public class ExpensesListFragment extends ListFragment {
                         public void onDismissed(Boolean confirm, String searchText) {
                             if (confirm) {
                                 transactionListAdapter.search(searchText);
-                                transactionListAdapter.notifyDataSetChanged();
                                 searching = true;
                                 getActivity().invalidateOptionsMenu();
                             }
@@ -175,8 +180,7 @@ public class ExpensesListFragment extends ListFragment {
         }
 
         if (id == R.id.action_transaction_search_undo) {
-            transactionListAdapter.resetSearch();
-            transactionListAdapter.notifyDataSetChanged();
+            transactionListAdapter.reset();
             searching = false;
             getActivity().invalidateOptionsMenu();
             return true;
@@ -187,11 +191,12 @@ public class ExpensesListFragment extends ListFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.EXPENSE_TRANSACTION_ENTRY_REQUEST_CODE) {
+        if (requestCode == Constants.EXPENSE_TRANSACTION_ENTRY_REQUEST_CODE ||
+                requestCode == Constants.EXPENSE_TRANSACTION_EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        transactionListAdapter.notifyDataSetChanged();
+                        transactionListAdapter.reset();
                     }
                 });
             }

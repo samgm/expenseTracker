@@ -25,6 +25,7 @@ import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.MaterialColours;
+import com.antso.expensesmanager.views.TransactionSearchDialog;
 
 public class TransfersListFragment extends ListFragment {
 
@@ -73,8 +74,7 @@ public class TransfersListFragment extends ListFragment {
 
             setListAdapter(transactionListAdapter);
         } else {
-            transactionListAdapter.resetSearch();
-            transactionListAdapter.notifyDataSetChanged();
+            transactionListAdapter.reset();
         }
 
         registerForContextMenu(getListView());
@@ -114,7 +114,7 @@ public class TransfersListFragment extends ListFragment {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
             TransactionManager.TRANSACTION_MANAGER.removeTransaction(transactions.first);
-            transactionListAdapter.notifyDataSetChanged();
+            transactionListAdapter.reset();
             Toast.makeText(getActivity(), transactions.first.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
@@ -159,6 +159,29 @@ public class TransfersListFragment extends ListFragment {
             return true;
         }
 
+        if (id == R.id.action_transaction_search) {
+            final TransactionSearchDialog dialog = new TransactionSearchDialog(getActivity(),
+                    new TransactionSearchDialog.OnDialogDismissed() {
+                        @Override
+                        public void onDismissed(Boolean confirm, String searchText) {
+                            if (confirm) {
+                                transactionListAdapter.search(searchText);
+                                searching = true;
+                                getActivity().invalidateOptionsMenu();
+                            }
+                        }
+                    });
+            dialog.show();
+            return true;
+        }
+
+        if (id == R.id.action_transaction_search_undo) {
+            transactionListAdapter.reset();
+            searching = false;
+            getActivity().invalidateOptionsMenu();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -169,7 +192,7 @@ public class TransfersListFragment extends ListFragment {
             if(resultCode == Activity.RESULT_OK){
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        transactionListAdapter.notifyDataSetChanged();
+                        transactionListAdapter.reset();
                     }
                 });
             }

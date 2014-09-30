@@ -23,6 +23,7 @@ import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.MaterialColours;
+import com.antso.expensesmanager.views.TransactionSearchDialog;
 
 public class RevenuesListFragment extends ListFragment {
 
@@ -71,8 +72,7 @@ public class RevenuesListFragment extends ListFragment {
 
             setListAdapter(transactionListAdapter);
         } else {
-            transactionListAdapter.resetSearch();
-            transactionListAdapter.notifyDataSetChanged();
+            transactionListAdapter.reset();
         }
 
         registerForContextMenu(getListView());
@@ -112,7 +112,7 @@ public class RevenuesListFragment extends ListFragment {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
             TransactionManager.TRANSACTION_MANAGER.removeTransaction(transaction);
-            transactionListAdapter.notifyDataSetChanged();
+            transactionListAdapter.reset();
             Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
         }
 
@@ -152,7 +152,30 @@ public class RevenuesListFragment extends ListFragment {
         if (id == R.id.action_transaction_add) {
             Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
             intent.putExtra("transaction_direction", TransactionDirection.In.getIntValue());
-            startActivityForResult(intent, Constants.REVENUE_TRANSACTION_ENTRY_REQUEST_CODE);
+            getActivity().startActivityForResult(intent, Constants.REVENUE_TRANSACTION_ENTRY_REQUEST_CODE);
+            return true;
+        }
+
+        if (id == R.id.action_transaction_search) {
+            final TransactionSearchDialog dialog = new TransactionSearchDialog(getActivity(),
+                    new TransactionSearchDialog.OnDialogDismissed() {
+                        @Override
+                        public void onDismissed(Boolean confirm, String searchText) {
+                            if (confirm) {
+                                transactionListAdapter.search(searchText);
+                                searching = true;
+                                getActivity().invalidateOptionsMenu();
+                            }
+                        }
+                    });
+            dialog.show();
+            return true;
+        }
+
+        if (id == R.id.action_transaction_search_undo) {
+            transactionListAdapter.reset();
+            searching = false;
+            getActivity().invalidateOptionsMenu();
             return true;
         }
 
@@ -165,7 +188,7 @@ public class RevenuesListFragment extends ListFragment {
             if(resultCode == Activity.RESULT_OK){
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        transactionListAdapter.notifyDataSetChanged();
+                        transactionListAdapter.reset();
                     }
                 });
             }

@@ -4,32 +4,47 @@ layout budget/budget combo
 cambiare colori app (theme?)
 mettere label in grigio (date label campi)
 add footer nothing to show in accounts/ budget transaction lists
-
-1 support for search --> extend to transfer and revenue
+remove footer on something added (for all the lists)
 make account and budget scrollable
 update transaction layout and make it as account and budget
+layout drawer (icon + separators)
 
+1 entry for recurrent transactions
+1 del cascade for transaction when deleting account (budget?)
+1 check on entry (null pointer on fields not set)
+1 add constrain to create at least 1 account and 1 budget (or create automatically and make not deletable)
 
 EDIT
 //TODO edit support for transactions (in, out, mov)
 //TODO edit support for budget
-//TODO edit support for budget
+//TODO edit support for account
 
 DELETE
-1 del cascade for transaction when deleting account
 
 CALCULATIONS
 1 manage transaction explosion all inside transaction manager (explode once for all at app start-up)
 //create unit test for calculations
-recurrent transaction with repetition number (done with end date)
 
-add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
-Use name as id per budget e budget, Check if account/budget already exist on insert
-budget with many period lenght to be expanded on load and shown as different budgets
 double click to exit
+save state on entry/edit activities
 
 SETTINGS
     configurable currency symbol
+    default budget
+    default account
+    import from csv
+    export to csv
+    debug?
 
 LOGGING
 log on db operation failure
+
+ENHANCEMENTS
+    add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
+    recurrent transaction with repetition number (done with end date)
+    Use name as id per budget e budget, Check if account/budget already exist on insert
+    budget with many period length to be expanded on load and shown as different budgets
+    backup on google
+    quick transaction entry (with settings)
+    transaction reminder / pending transaction for recurrents
+    statistics

@@ -118,8 +118,9 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
         return transactionLayout;
     }
 
-    public void resetSearch() {
+    public void reset() {
         transactions = transactionManager.getOutTransactions();
+        notifyDataSetChanged();
     }
 
     public void search(String text) {
@@ -129,7 +130,8 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
                 found.add(t);
             }
         }
-
         transactions = found;
+
+        notifyDataSetChanged();
     }
 }

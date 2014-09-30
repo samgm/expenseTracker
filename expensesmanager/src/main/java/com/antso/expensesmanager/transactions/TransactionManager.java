@@ -72,6 +72,10 @@ public enum TransactionManager {
         BudgetManager.BUDGET_MANAGER.onTransactionDeleted(transaction);
     }
 
+    public Transaction getTransactionById(String id) {
+        return dbHelper.getTransactionsById(id);
+    }
+
     public Collection<Transaction> getTransactions(TransactionDirection direction, boolean noTransfer) {
         return dbHelper.getTransactions(direction, noTransfer);
     }

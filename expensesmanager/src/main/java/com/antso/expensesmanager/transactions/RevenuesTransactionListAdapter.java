@@ -114,8 +114,9 @@ public class RevenuesTransactionListAdapter extends BaseAdapter {
         return transactionLayout;
     }
 
-    public void resetSearch() {
+    public void reset() {
         transactions = transactionManager.getInTransactions();
+        notifyDataSetChanged();
     }
 
     public void search(String text) {
@@ -127,6 +128,7 @@ public class RevenuesTransactionListAdapter extends BaseAdapter {
         }
 
         transactions = found;
+        notifyDataSetChanged();
     }
 
 }
