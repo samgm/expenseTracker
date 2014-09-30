@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.antso.expensesmanager.R;
 
 public class TransactionPagerHostFragment extends Fragment implements ActionBar.TabListener  {
-    private ViewPager mPagerView;
+    private volatile ViewPager mPagerView;
     private TransactionsPagerAdapter mTransactionsPagerAdapter;
     private Context context;
 
@@ -35,8 +35,8 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
         View view = inflater.inflate(R.layout.transaction_pagerer_host_fragment, container, false);
 
         mTransactionsPagerAdapter = new TransactionsPagerAdapter(this.getChildFragmentManager());
-
         mPagerView = (ViewPager) view.findViewById(R.id.pager);
+        mPagerView.setAdapter(mTransactionsPagerAdapter);
         mPagerView.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -45,19 +45,17 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
                 }
             }
         });
-        mPagerView.setAdapter(mTransactionsPagerAdapter);
 
-        if (activity.getActionBar().getTabCount() != mTransactionsPagerAdapter.getCount()) {
-            activity.getActionBar().removeAllTabs();
-            for (int i = 0; i < mTransactionsPagerAdapter.getCount(); i++) {
-                activity.getActionBar().addTab(activity.getActionBar().newTab()
-                                .setText(this.getPageTitle(i))
-                                .setTabListener(this));
-            }
+        activity.getActionBar().removeAllTabs();
+        for (int i = 0; i < mTransactionsPagerAdapter.getCount(); i++) {
+            activity.getActionBar().addTab(activity.getActionBar().newTab()
+                            .setText(this.getPageTitle(i))
+                            .setTabListener(this));
         }
 
         activity.getActionBar().setSelectedNavigationItem(0);
 
+        mPagerView.forceLayout();
         return view;
     }
 
