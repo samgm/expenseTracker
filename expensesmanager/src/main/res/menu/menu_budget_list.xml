@@ -2,9 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.antso.expensesmanager.budgets.BudgetListFragment" >
 
-    <item android:id="@+id/action_budget_add"
-        android:title="@string/action_budget_add"
-        android:icon="@drawable/ic_action_new"
-        android:showAsAction="withText|ifRoom" />
+    <group
+        android:id="@+id/budget_menu_group">
 
+        <item android:id="@+id/action_budget_add"
+            android:title="@string/action_budget_add"
+            android:icon="@drawable/ic_action_new"
+            android:showAsAction="withText|ifRoom" />
+    </group>
 </menu>

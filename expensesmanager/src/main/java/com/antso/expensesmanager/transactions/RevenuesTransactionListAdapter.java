@@ -24,25 +24,30 @@ import com.antso.expensesmanager.views.CircleSectorView;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class RevenuesTransactionListAdapter extends BaseAdapter {
-
     private final TransactionManager transactionManager;
+    private volatile List<Transaction> transactions;
     private final Context context;
 
     public RevenuesTransactionListAdapter(Context context, TransactionManager transactionManager) {
         this.context = context;
         this.transactionManager = transactionManager;
+        this.transactions = transactionManager.getInTransactions();
+
     }
 
     @Override
     public int getCount() {
-        return transactionManager.getInTransactions().size();
+        return transactions.size();
     }
 
     @Override
     public Object getItem(int pos) {
-        return transactionManager.getInTransactions().get(pos);
+        return transactions.get(pos);
     }
 
     @Override
@@ -52,7 +57,7 @@ public class RevenuesTransactionListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Transaction transaction = transactionManager.getInTransactions().get(position);
+        final Transaction transaction = transactions.get(position);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout transactionLayout = (LinearLayout) inflater.inflate(R.layout.transaction_item, null, false);
@@ -107,6 +112,21 @@ public class RevenuesTransactionListAdapter extends BaseAdapter {
         transactionValue.setTextColor(MaterialColours.BLACK);
 
         return transactionLayout;
+    }
+
+    public void resetSearch() {
+        transactions = transactionManager.getInTransactions();
+    }
+
+    public void search(String text) {
+        List<Transaction> found = new ArrayList<Transaction>();
+        for (Transaction t : transactions) {
+            if (t.getDescription().toUpperCase().contains(text.toUpperCase())) {
+                found.add(t);
+            }
+        }
+
+        transactions = found;
     }
 
 }

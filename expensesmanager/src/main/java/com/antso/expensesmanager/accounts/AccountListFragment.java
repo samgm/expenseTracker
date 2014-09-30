@@ -1,9 +1,9 @@
 package com.antso.expensesmanager.accounts;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -36,6 +36,7 @@ public class AccountListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -123,6 +124,16 @@ public class AccountListFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_account_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.setGroupVisible(R.id.account_menu_group, true);
+        menu.setGroupVisible(R.id.budget_menu_group, false);
+        menu.setGroupVisible(R.id.transaction_menu_group, false);
+        menu.setGroupVisible(R.id.default_menu_group, false);
+
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.antso.expensesmanager.transactions;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -13,14 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.utils.Constants;
@@ -30,7 +28,7 @@ import com.antso.expensesmanager.views.TransactionSearchDialog;
 public class ExpensesListFragment extends ListFragment {
 
     private View footerView;
-    private static Menu optionMenu;
+    private boolean searching = false;
 
     private ExpensesTransactionListAdapter transactionListAdapter = null;
 
@@ -40,6 +38,7 @@ public class ExpensesListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -53,13 +52,7 @@ public class ExpensesListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if (optionMenu != null) {
-            MenuItem searchUndoItem = optionMenu.findItem(R.id.action_transaction_search_undo);
-            searchUndoItem.setVisible(false);
-            MenuItem searchItem = optionMenu.findItem(R.id.action_transaction_search);
-            searchItem.setVisible(true);
-        }
+        searching = false;
 
         if (transactionListAdapter == null) {
             transactionListAdapter = new ExpensesTransactionListAdapter(
@@ -75,7 +68,6 @@ public class ExpensesListFragment extends ListFragment {
 
                 getListView().addFooterView(footerView);
                 getListView().setFooterDividersEnabled(true);
-
             }
 
             setListAdapter(transactionListAdapter);
@@ -131,8 +123,28 @@ public class ExpensesListFragment extends ListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_transaction_list, menu);
-        this.optionMenu = menu;
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.setGroupVisible(R.id.account_menu_group, false);
+        menu.setGroupVisible(R.id.budget_menu_group, false);
+        menu.setGroupVisible(R.id.transaction_menu_group, true);
+        menu.setGroupVisible(R.id.default_menu_group, false);
+
+        MenuItem searchUndoItem = menu.findItem(R.id.action_transaction_search_undo);
+        MenuItem searchItem = menu.findItem(R.id.action_transaction_search);
+        if (searching) {
+            searchUndoItem.setVisible(true);
+            searchItem.setVisible(false);
+        } else {
+            searchUndoItem.setVisible(false);
+            searchItem.setVisible(true);
+        }
+
+
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -153,10 +165,8 @@ public class ExpensesListFragment extends ListFragment {
                             if (confirm) {
                                 transactionListAdapter.search(searchText);
                                 transactionListAdapter.notifyDataSetChanged();
-                                MenuItem searchItem = optionMenu.findItem(R.id.action_transaction_search);
-                                searchItem.setVisible(false);
-                                MenuItem undoSearchItem = optionMenu.findItem(R.id.action_transaction_search_undo);
-                                undoSearchItem.setVisible(true);
+                                searching = true;
+                                getActivity().invalidateOptionsMenu();
                             }
                         }
                     });
@@ -165,11 +175,10 @@ public class ExpensesListFragment extends ListFragment {
         }
 
         if (id == R.id.action_transaction_search_undo) {
-            item.setVisible(false);
-            MenuItem searchItem = optionMenu.findItem(R.id.action_transaction_search);
-            searchItem.setVisible(true);
             transactionListAdapter.resetSearch();
             transactionListAdapter.notifyDataSetChanged();
+            searching = false;
+            getActivity().invalidateOptionsMenu();
             return true;
         }
 
