@@ -301,6 +301,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
+    public Transaction getTransactionsById(String id) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
+                transactionColumns,
+                TRANSACTION_FIELD_ID + " = ?", new String[] { id },
+                null, null,
+                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+
+        if(cursor.moveToNext()) {
+            return cursorToTransaction(cursor);
+        }
+
+        return null;
+    }
+
     public Collection<Transaction> getTransactionsByAccount(String accountId) {
         SQLiteDatabase db = getWritableDatabase();
 

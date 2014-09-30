@@ -1,7 +1,9 @@
 package com.antso.expensesmanager;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +20,8 @@ import com.antso.expensesmanager.enums.DrawerSection;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.transactions.TransactionPagerHostFragment;
 import com.antso.expensesmanager.utils.PlaceholderFragment;
+
+import java.util.List;
 
 public class StartActivity
     extends FragmentActivity
@@ -57,6 +61,21 @@ public class StartActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //This is required because of a bug of the support library that doesn't notify nested fragments;
+        //This also required to call getActivity.startActivityForResult instead of just
+        //startActivityForResult to avoid getting shifted resultCode
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 
     @Override

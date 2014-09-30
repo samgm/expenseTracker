@@ -50,12 +50,16 @@ public enum AccountManager {
 
     public void onTransactionAdded(Transaction transaction) {
         AccountInfo accountInfo = accounts.get(transaction.getAccountId());
-        accountInfo.addTransaction(transaction);
+        if (accountInfo != null) {
+            accountInfo.addTransaction(transaction);
+        }
     }
 
     public void onTransactionDeleted(Transaction transaction) {
         AccountInfo accountInfo = accounts.get(transaction.getAccountId());
-        accountInfo.removeTransaction(transaction);
+        if (accountInfo != null) {
+            accountInfo.removeTransaction(transaction);
+        }
     }
 
     public void insertAccount(Account account) {

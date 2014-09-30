@@ -3,6 +3,7 @@ package com.antso.expensesmanager.transactions;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.antso.expensesmanager.R;
+
+import java.util.List;
 
 public class TransactionPagerHostFragment extends Fragment implements ActionBar.TabListener  {
     private volatile ViewPager mPagerView;
@@ -69,6 +72,22 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
                 return context.getString(R.string.title_transactions_revenues);
         }
         return null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //This is required because of a bug of the support library that doesn't notify nested fragments;
+        //This also required to call getActivity.startActivityForResult instead of just
+        // //startActivityForResult to avoid getting shifted resultCode
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+
     }
 
     @Override

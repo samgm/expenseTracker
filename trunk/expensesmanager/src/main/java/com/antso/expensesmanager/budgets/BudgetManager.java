@@ -52,12 +52,16 @@ public enum BudgetManager {
 
     public void onTransactionAdded(Transaction transaction) {
         BudgetInfo budgetInfo = budgets.get(transaction.getBudgetId());
-        budgetInfo.addTransaction(transaction);
+        if (budgetInfo != null) {
+            budgetInfo.addTransaction(transaction);
+        }
     }
 
     public void onTransactionDeleted(Transaction transaction) {
         BudgetInfo budgetInfo= budgets.get(transaction.getBudgetId());
-        budgetInfo.removeTransaction(transaction);
+        if (budgetInfo != null) {
+            budgetInfo.removeTransaction(transaction);
+        }
     }
 
     private void addBudget(Budget budget) {
@@ -144,6 +148,9 @@ public enum BudgetManager {
             }
 
             Pair<DateTime, DateTime> periodStartEnd = getPeriodStartEnd(currentDateTime);
+            if (periodStartEnd == null) {
+                return;
+            }
             DateTime periodStart = periodStartEnd.first;
             DateTime periodEnd = periodStartEnd.second;
 
@@ -173,6 +180,9 @@ public enum BudgetManager {
             DateTime start = budget.getPeriodStart();
             int periodLength = budget.getPeriodLength();
             BudgetPeriodUnit periodUnit = budget.getPeriodUnit();
+            if (periodUnit.equals(BudgetPeriodUnit.Undef)) {
+                return  null;
+            }
             DateTime periodStart = start;
             DateTime periodStartOld = start;
             while (periodStart.isBefore(currentDateTime)) {

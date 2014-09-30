@@ -8,6 +8,8 @@ import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Collection;
+
 /**
  * Created by asolano on 5/11/2014.
  */
