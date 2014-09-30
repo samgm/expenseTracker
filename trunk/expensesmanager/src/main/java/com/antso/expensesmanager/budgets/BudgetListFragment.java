@@ -1,7 +1,7 @@
 package com.antso.expensesmanager.budgets;
 
 import android.app.Activity;
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -56,6 +56,7 @@ public class BudgetListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
 
         if (budgetListAdapter == null) {
             budgetListAdapter = new BudgetListAdapter(getActivity().getApplicationContext(),
@@ -130,6 +131,16 @@ public class BudgetListFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_budget_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.setGroupVisible(R.id.account_menu_group, false);
+        menu.setGroupVisible(R.id.budget_menu_group, true);
+        menu.setGroupVisible(R.id.transaction_menu_group, false);
+        menu.setGroupVisible(R.id.default_menu_group, false);
+
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override

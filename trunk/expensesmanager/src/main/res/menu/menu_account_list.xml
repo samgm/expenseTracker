@@ -2,8 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.antso.expensesmanager.accounts.AccountEntryActivity" >
 
-    <item android:id="@+id/action_account_add"
-        android:title="@string/action_account_add"
-        android:icon="@drawable/ic_action_new"
-        android:showAsAction="withText|ifRoom" />
+    <group
+        android:id="@+id/account_menu_group">
+
+        <item android:id="@+id/action_account_add"
+            android:title="@string/action_account_add"
+            android:icon="@drawable/ic_action_new"
+            android:showAsAction="withText|ifRoom" />
+    </group>
 </menu>

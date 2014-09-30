@@ -1,9 +1,9 @@
 package com.antso.expensesmanager.transactions;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -27,6 +27,8 @@ import com.antso.expensesmanager.utils.MaterialColours;
 public class RevenuesListFragment extends ListFragment {
 
     private View footerView;
+	private boolean searching = false;
+
     private RevenuesTransactionListAdapter transactionListAdapter = null;
 
     public RevenuesListFragment() {
@@ -35,6 +37,7 @@ public class RevenuesListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -48,6 +51,7 @@ public class RevenuesListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        searching = false;
 
         if (transactionListAdapter == null) {
             transactionListAdapter = new RevenuesTransactionListAdapter(
@@ -66,6 +70,9 @@ public class RevenuesListFragment extends ListFragment {
             }
 
             setListAdapter(transactionListAdapter);
+        } else {
+            transactionListAdapter.resetSearch();
+            transactionListAdapter.notifyDataSetChanged();
         }
 
         registerForContextMenu(getListView());
@@ -115,8 +122,28 @@ public class RevenuesListFragment extends ListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_transaction_list, menu);
-
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.setGroupVisible(R.id.account_menu_group, false);
+        menu.setGroupVisible(R.id.budget_menu_group, false);
+        menu.setGroupVisible(R.id.transaction_menu_group, true);
+        menu.setGroupVisible(R.id.default_menu_group, false);
+
+        MenuItem searchUndoItem = menu.findItem(R.id.action_transaction_search_undo);
+        MenuItem searchItem = menu.findItem(R.id.action_transaction_search);
+        if (searching) {
+            searchUndoItem.setVisible(true);
+            searchItem.setVisible(false);
+        } else {
+            searchUndoItem.setVisible(false);
+            searchItem.setVisible(true);
+        }
+
+
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override

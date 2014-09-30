@@ -1,0 +1,91 @@
+package com.antso.expensesmanager.transactions;
+
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.antso.expensesmanager.R;
+
+public class TransactionPagerHostFragment extends Fragment implements ActionBar.TabListener  {
+    private ViewPager mPagerView;
+    private TransactionsPagerAdapter mTransactionsPagerAdapter;
+    private Context context;
+
+    public TransactionPagerHostFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final FragmentActivity activity = getActivity();
+        context = activity.getApplicationContext();
+
+        View view = inflater.inflate(R.layout.transaction_pagerer_host_fragment, container, false);
+
+        mTransactionsPagerAdapter = new TransactionsPagerAdapter(this.getChildFragmentManager());
+
+        mPagerView = (ViewPager) view.findViewById(R.id.pager);
+        mPagerView.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                if (activity.getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS) {
+                    activity.getActionBar().setSelectedNavigationItem(position);
+                }
+            }
+        });
+        mPagerView.setAdapter(mTransactionsPagerAdapter);
+
+        if (activity.getActionBar().getTabCount() != mTransactionsPagerAdapter.getCount()) {
+            activity.getActionBar().removeAllTabs();
+            for (int i = 0; i < mTransactionsPagerAdapter.getCount(); i++) {
+                activity.getActionBar().addTab(activity.getActionBar().newTab()
+                                .setText(this.getPageTitle(i))
+                                .setTabListener(this));
+            }
+        }
+
+        activity.getActionBar().setSelectedNavigationItem(0);
+
+        return view;
+    }
+
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return context.getString(R.string.title_transactions_expenses);
+            case 1:
+                return context.getString(R.string.title_transactions_transfers);
+            case 2:
+                return context.getString(R.string.title_transactions_revenues);
+        }
+        return null;
+    }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        mPagerView.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+    }
+
+}
