@@ -12,32 +12,76 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <com.antso.expensesmanager.views.CircleSectorView
+                android:id="@+id/transactionColor"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                circleSectorview:cFillColor="#ff0000"
+                circleSectorview:cRadiusDp="32"
+                circleSectorview:cAngleStart="0"
+                circleSectorview:cAngleSweep="360"
+                />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="30sp"
+                    android:text="Create Transaction"
+                    android:textColor="@color/black"
+                    android:gravity="right"/>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:text=""
+                    android:gravity="right"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/transactionAmountLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="-16dp"
+            android:textSize="14sp"
+            android:text="Amount"
+            android:textStyle="italic"
+            android:gravity="left"
+            android:visibility="visible"/>
+
+        <LinearLayout
         android:id="@+id/accountAndBudgetLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="6dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="80dp"
         android:layout_marginRight="16dp">
-
-        <com.antso.expensesmanager.views.CircleSectorView
-            android:id="@+id/transactionColor"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            circleSectorview:cFillColor="#ff0000"
-            circleSectorview:cRadiusDp="32"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
-            />
 
         <TextView
             android:id="@+id/transactionValueCurrency"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:textSize="20dp"
+            android:layout_weight="6"
+            android:textSize="20sp"
             android:text="$"
             android:gravity="center"
             android:layout_gravity="bottom"/>
@@ -47,7 +91,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="0.00"
             android:selectAllOnFocus="true"
             android:numeric="decimal"
@@ -105,7 +149,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:text="Description"
         android:textStyle="italic"
         android:gravity="left"
@@ -118,7 +162,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="Description"
         android:selectAllOnFocus="true"
         android:gravity="right"/>
@@ -130,7 +174,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:text="Date"
         android:textStyle="italic"
         android:gravity="left"
@@ -143,7 +187,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="dd/mm/yyy"
         android:gravity="right"/>
 
@@ -154,7 +198,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:text="Account"
         android:textStyle="italic"
         android:gravity="left"
@@ -174,7 +218,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="10"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:entries="@array/arrayFakeAccount" />
         />
 
@@ -193,7 +237,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:text="To"
         android:textStyle="italic"
         android:gravity="left"
@@ -214,7 +258,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="10"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:entries="@array/arrayFakeAccount" />
         />
 
@@ -233,7 +277,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
-        android:textSize="14dp"
+        android:textSize="14sp"
         android:text="Budget"
         android:textStyle="italic"
         android:gravity="left"
@@ -253,7 +297,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_weight="10"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:entries="@array/arrayFakeBudget"/>
 
         <ImageButton
@@ -265,14 +309,112 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/transactionConfirmButtonsLayout"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp">
+        android:layout_marginBottom="6dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/transactionRecurrentCheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/transactionRecurrentLabel"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="14sp"
+            android:text="Recurrent"
+            android:textStyle="italic"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/transactionRecurrentDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/transactionRecurrentFrequencyLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="-16dp"
+            android:textSize="14sp"
+            android:text="Every"
+            android:textStyle="italic"
+            android:gravity="left"/>
+
+        <LinearLayout
+            android:id="@+id/transactionRecurrentLayout"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp">
+
+            <Spinner
+                android:id="@+id/transactionFrequencyUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:textSize="20sp"
+                android:entries="@array/arrayFakeFreqUnit" />
+            />
+            <Spinner
+                android:id="@+id/transactionFrequency"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="8"
+                android:textSize="20sp"
+                android:entries="@array/arrayFakeFreq" />
+            />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/transactionRecurrentDateLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="-16dp"
+            android:textSize="14sp"
+            android:text="Until"
+            android:textStyle="italic"
+            android:gravity="left"/>
+
+        <EditText
+            android:id="@+id/transactionRecurrentStartDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp"
+            android:textSize="20dp"
+            android:text="dd/mm/yyy"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+    android:id="@+id/transactionConfirmButtonsLayout"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp">
 
         <Button
             android:id="@+id/transactionConfirm"
@@ -291,4 +433,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
 </ScrollView>

@@ -1,9 +1,9 @@
 package com.antso.expensesmanager.budgets;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.support.v4.app.ListFragment;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -20,16 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.accounts.AccountEntryActivity;
-import com.antso.expensesmanager.accounts.AccountManager;
-import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
-import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
+import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.MaterialColours;
-
-import java.util.Collection;
+import com.antso.expensesmanager.views.BudgetChooseDialog;
 
 public class BudgetListFragment extends ListFragment {
 
@@ -62,7 +58,7 @@ public class BudgetListFragment extends ListFragment {
             budgetListAdapter = new BudgetListAdapter(getActivity().getApplicationContext(),
                     BudgetManager.BUDGET_MANAGER);
 
-            if (footerView != null && BudgetManager.BUDGET_MANAGER.getBudgetInfo().isEmpty()) {
+            if (footerView != null && BudgetManager.BUDGET_MANAGER.size() == 0) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.budgets_list_footer_text);
                 textView.setTextColor(MaterialColours.GREY_500);
@@ -111,7 +107,7 @@ public class BudgetListFragment extends ListFragment {
         int index = info.position;
 
         BudgetManager.BudgetInfo budgetInfo = (BudgetManager.BudgetInfo) budgetListAdapter.getItem(index);
-        Budget budget = budgetInfo.budget;
+        final Budget budget = budgetInfo.budget;
         if (budget == null) {
             return true;
         }
@@ -119,9 +115,36 @@ public class BudgetListFragment extends ListFragment {
         if (item.getTitle() == "Edit") {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
-            BudgetManager.BUDGET_MANAGER.removeBudget(budget);
-            budgetListAdapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), budget.getName() + " Deleted", Toast.LENGTH_LONG).show();
+            if(BudgetManager.BUDGET_MANAGER.size() <= 1) {
+                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.title_error_dialog)
+                        .setMessage(R.string.error_cannot_delete_last_budget)
+                        .setNeutralButton(R.string.got_it, null)
+                        .create();
+                dialog.show();
+                return true;
+            }
+            //choose budget to reassign
+            BudgetChooseDialog dialog = new BudgetChooseDialog(
+                    R.string.title_budget_chooser_dialog,
+                    R.string.message_budget_chooser_dialog,
+                    getActivity(),
+                    new BudgetChooseDialog.OnDialogDismissed() {
+                        @Override
+                        public void onDismissed(boolean confirm, String selectedBudgetId) {
+                            if (confirm) {
+                                //TODO
+                                TransactionManager.TRANSACTION_MANAGER
+                                        .replaceBudget(budget.getId(), selectedBudgetId);
+                                BudgetManager.BUDGET_MANAGER.removeBudget(budget);
+                                budgetListAdapter.notifyDataSetChanged();
+                                Toast.makeText(getActivity(), budget.getName() + " Deleted", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, budget);
+            dialog.show();
+            return true;
+
         }
 
         return true;

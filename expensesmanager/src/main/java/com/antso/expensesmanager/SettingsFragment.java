@@ -107,13 +107,14 @@ public class SettingsFragment extends Fragment {
                         id,
                         "Desc of " + id,
                         TransactionDirection.Out,
-                        TransactionType.Recurrent,
+                        TransactionType.Single,
                         "ACC1",
                         "budget",
                         BigDecimal.valueOf(100.50),
                         new DateTime(2012, 1, 30, 0, 0));
+                t.setRecurrent(true);
                 t.setFrequency(1);
-                t.setFrequencyUnit(TransactionFrequencyUnit.Monthly);
+                t.setFrequencyUnit(TransactionFrequencyUnit.Month);
                 t.setEndDate(DateTime.now());
                 dbHelper.insertTransactions(t);
             }
@@ -182,7 +183,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private Transaction parseTransaction(String values[]) {
-        // ID | Type | Name | Value | Date | Budget | Account | Recurrent | Frequency | End | ID_TRANSFER |
+        // ID | Type | Name | Value | Date | Budget | Account | SingleRecurrent | Frequency | End | ID_TRANSFER |
         // 1423 | Expenses | Cena Jappo Kaoru | -70.0 | 15/04/2014 | Entertainment | BNL | No |  |  |  |
         // 1386 | Revenues | Prelievo Bancomat | 60.0 | 06/03/2014 |  | Wallet | No |  |  | -2 |
         // 1387 | Expenses | Prelievo Bancomat | -60.0 | 06/03/2014 |  | BNL | No |  |  | 1386 |
@@ -224,11 +225,17 @@ public class SettingsFragment extends Fragment {
             if (!linkedId.isEmpty()) {
                 type = TransactionType.Transfer;
             }
+
+            boolean recurrent = false;
             if (recurrentStr.equals("Yes")) {
-                type = TransactionType.Recurrent;
+                recurrent = true;
             }
 
-            return new Transaction(id, name, direction, type, account, budget, value, date);
+            Transaction t = new Transaction(id, name, direction, type, account, budget, value, date);
+            if (recurrent) {
+                t.setRecurrent(true);
+            }
+            return t;
         } catch (Exception e) {
             Log.e("TransactionParser", "Exception converting account", e);
         }

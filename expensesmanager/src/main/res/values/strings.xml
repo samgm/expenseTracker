@@ -39,6 +39,17 @@
         <item>Color 2</item>
         <item>Color 3</item>
     </string-array>
+    <string-array name="arrayFakeFreqUnit">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
+    <integer-array name="arrayFakeFreq">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
 
     <string name="title_transactions_list_section">Transactions</string>
     <string name="title_accounts_list_section">Accounts</string>
@@ -57,5 +68,15 @@
     <string name="action_budget_add">Add</string>
     <string name="doubleArrow"><![CDATA[<->]]></string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="title_error_dialog">Error</string>
+    <string name="error_cannot_delete_last_account">There is only this account remaining. You cannot delete it</string>
+    <string name="error_cannot_delete_last_budget">There is only this budget remaining. You cannot delete it</string>
+    <string name="title_account_chooser_dialog">Delete account</string>
+    <string name="message_account_chooser_dialog">If you want to delete the account, select a new one to move transactions on or delete all the transaction for the account</string>
+    <string name="title_budget_chooser_dialog">Delete budget</string>
+    <string name="message_budget_chooser_dialog">If you want to delete the budget, select a new one to move transactions on</string>
+    <string name="got_it">Ok, got it</string>
+    <string name="cancel">Don\'t do that</string>
+    <string name="delete_all">Yes, delete all</string>
+    <string name="delete_and_move">Move and delete</string>
 </resources>

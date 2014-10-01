@@ -33,6 +33,7 @@ public class Transaction {
 
     private String linkedTransactionId;
 
+    private boolean recurrent;
     private int frequency;
     private TransactionFrequencyUnit frequencyUnit;
     private DateTime endDate;
@@ -85,8 +86,16 @@ public class Transaction {
         return accountId;
     }
 
+    public void setAccount(String accountId) {
+        this.accountId = accountId;
+    }
+
     public String getBudgetId() {
         return budgetId;
+    }
+
+    public void setBudget(String budgetId) {
+        this.budgetId = budgetId;
     }
 
     public BigDecimal getValue() {
@@ -103,6 +112,14 @@ public class Transaction {
 
     public void setLinkedTransactionId(String transactionId) {
         linkedTransactionId = transactionId;
+    }
+
+    public void setRecurrent(boolean recurrent) {
+        this.recurrent = recurrent;
+    }
+
+    public boolean getRecurrent() {
+        return recurrent;
     }
 
     public void setFrequency(int frequency) {

@@ -2,12 +2,12 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!--&lt;!&ndash;ACTION BAR&ndash;&gt;-->
-        <!--<item name="android:actionBarStyle">@style/myActionBarStyle</item>-->
+        <!--ACTION BAR-->
+        <item name="android:actionBarStyle">@style/myActionBarStyle</item>
 
-        <!--&lt;!&ndash;TAB BAR&ndash;&gt;-->
+        <!--TAB BAR-->
         <!--<item name="android:actionBarTabStyle">@style/myActionBarTabStyle</item>-->
-        <!--&lt;!&ndash;uncomment to remove dividers&ndash;&gt;-->
+        <!--uncomment to remove dividers-->
         <!--<item name="android:actionBarTabBarStyle">@style/myActionBarTabBarStyle</item>-->
         <!--<item name="android:actionBarTabTextStyle">@style/myActionBarTabTextStyle</item>-->
 
@@ -15,8 +15,8 @@
 
     <!--ACTION BAR-->
     <style name="myActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <!--GREEN_300-->
-        <item name="android:background">#42bd41</item>
+
+        <item name="android:background">@color/green_hangout</item>
         <item name="android:titleTextStyle">@style/myTitleTextStyle</item>
     </style>
 
