@@ -5,10 +5,10 @@ import java.util.Map;
 
 public enum TransactionFrequencyUnit {
     Undef(0, "Undef"),
-    Daily(1, "Daily"),
-    Weekly(2, "Weekly"),
-    Monthly(3, "Monthly"),
-    Yearly(4, "Yearly");
+    Day(1, "Day"),
+    Week(2, "Week"),
+    Month(3, "Month"),
+    Year(4, "Year");
 
     private int intValue;
     private String strValue;
@@ -37,6 +37,11 @@ public enum TransactionFrequencyUnit {
         }
 
         return reverseMap.get(value);
+    }
+
+    public static TransactionFrequencyUnit[] valuesButUndef() {
+        return new TransactionFrequencyUnit[] {
+                Day, Week, Month, Year };
     }
 
 }

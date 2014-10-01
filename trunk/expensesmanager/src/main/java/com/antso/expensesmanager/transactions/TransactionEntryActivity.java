@@ -7,8 +7,10 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,6 +26,7 @@ import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
+import com.antso.expensesmanager.enums.TransactionFrequencyUnit;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.AccountSpinnerAdapter;
@@ -43,6 +46,7 @@ public class TransactionEntryActivity extends Activity {
 
     private DateTime transactionDate = DateTime.now();
     private BigDecimal transactionValue = BigDecimal.ZERO;
+    private DateTime endDate = DateTime.now();
 
     private Collection<Account> accounts;
     private AccountSpinnerAdapter accountSpinnerAdapter;
@@ -55,7 +59,7 @@ public class TransactionEntryActivity extends Activity {
     private Transaction editTransaction;
 
     private CircleSectorView color;
-    private EditText date;
+    private EditText transactionDateText;
     private EditText value;
     private MultiAutoCompleteTextView description;
     private Spinner accountSpinner;
@@ -64,6 +68,12 @@ public class TransactionEntryActivity extends Activity {
     private ImageButton accountChange;
     private ImageButton accountSecondaryChange;
     private ImageButton budgetChange;
+    private CheckBox recurrent;
+    private LinearLayout recurrentDetails;
+    private Spinner frequencySpinner;
+    private Spinner frequencyUnitSpinner;
+    private EditText endDateText;
+
     private Button confirm;
     private Button cancel;
 
@@ -77,19 +87,19 @@ public class TransactionEntryActivity extends Activity {
 
         if (accounts == null) {
             accounts = AccountManager.ACCOUNT_MANAGER.getAccounts();
-            accountSpinnerAdapter = new AccountSpinnerAdapter(this, R.layout.text_spinner_item,
+            accountSpinnerAdapter = AccountSpinnerAdapter.create(this, R.layout.text_spinner_item,
                     accounts.toArray(new Account[0]));
         }
 
         if (budgets == null) {
             budgets = BudgetManager.BUDGET_MANAGER.getBudgets();
-            budgetSpinnerAdapter = new BudgetSpinnerAdapter(this, R.layout.text_spinner_item,
-                            budgets.toArray(new Budget[0]));
+            budgetSpinnerAdapter = BudgetSpinnerAdapter.create(this, R.layout.text_spinner_item,
+                    budgets.toArray(new Budget[0]));
         }
 
         //Creating view
         color = (CircleSectorView) findViewById(R.id.transactionColor);
-        date = (EditText) findViewById(R.id.transactionDate);
+        transactionDateText = (EditText) findViewById(R.id.transactionDate);
         value = (EditText) findViewById(R.id.transactionValue);
         description = (MultiAutoCompleteTextView) findViewById(R.id.transactionDesc);
         accountSpinner = (Spinner) findViewById(R.id.transactionAccountSpinner);
@@ -99,6 +109,12 @@ public class TransactionEntryActivity extends Activity {
         accountChange = (ImageButton) findViewById(R.id.transactionAccountButton);
         accountSecondaryChange = (ImageButton) findViewById(R.id.transactionSecondaryAccountButton);
         budgetChange = (ImageButton) findViewById(R.id.transactionBudgetButton);
+
+        recurrent = (CheckBox) findViewById(R.id.transactionRecurrentCheckbox);
+        recurrentDetails = (LinearLayout) findViewById(R.id.transactionRecurrentDetailsLayout);
+        frequencySpinner = (Spinner) findViewById(R.id.transactionFrequency);
+        frequencyUnitSpinner = (Spinner) findViewById(R.id.transactionFrequencyUnit);
+        endDateText = (EditText) findViewById(R.id.transactionRecurrentStartDate);
 
         confirm = (Button) findViewById(R.id.transactionConfirm);
         cancel = (Button) findViewById(R.id.transactionCancel);
@@ -112,12 +128,18 @@ public class TransactionEntryActivity extends Activity {
         accountSecondarySpinner.setAdapter(accountSpinnerAdapter);
         budgetSpinner.setAdapter(budgetSpinnerAdapter);
 
-        date.setOnFocusChangeListener(onDateFocusChanged());
-        date.setOnClickListener(onDateClick());
+        transactionDateText.setOnFocusChangeListener(onDateFocusChanged());
+        transactionDateText.setOnClickListener(onDateClick());
         value.setOnFocusChangeListener(onValueFocusChanged());
         accountChange.setOnClickListener(onAccountChangeClick());
         accountSecondaryChange.setOnClickListener(onAccountSecondaryChangeClick());
         budgetChange.setOnClickListener(onBudgetChangeClick());
+
+        recurrent.setOnClickListener(onRecurrentClick());
+        frequencySpinner.setAdapter(frequencySpinnerAdapter());
+        frequencySpinner.setOnItemSelectedListener(onFrequencySpinnerSelected());
+        endDateText.setOnClickListener(onEndDateClick());
+        endDateText.setOnFocusChangeListener(onEndDateFocusChanged());
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +178,7 @@ public class TransactionEntryActivity extends Activity {
             direction = TransactionDirection.valueOf(directionInt);
             int typeInt = getIntent().getIntExtra("transaction_type", TransactionType.Undef.getIntValue());
             type = TransactionType.valueOf(typeInt);
+            endDateText.setText(Utils.formatDate(endDate));
 
             switch (direction) {
                 case In:
@@ -177,12 +200,11 @@ public class TransactionEntryActivity extends Activity {
                     secondaryAccountLabel.setVisibility(View.VISIBLE);
                     break;
                 case Single:
-                case Recurrent:
                 case Undef:
                     break;
             }
 
-            date.setText(Utils.formatDate(DateTime.now()));
+            transactionDateText.setText(Utils.formatDate(DateTime.now()));
         } else {
             //init for edit
             isOrderEdit = true;
@@ -192,9 +214,13 @@ public class TransactionEntryActivity extends Activity {
             color.setColor(MaterialColours.RED_500);
             description.setText(editTransaction.getDescription());
             value.setText(editTransaction.getValue().toString());
-            date.setText(Utils.formatDate(editTransaction.getDateTime()));
+            transactionDateText.setText(Utils.formatDate(editTransaction.getDateTime()));
             accountSpinner.setSelection(accountSpinnerAdapter.getIndexById(editTransaction.getAccountId()));
             budgetSpinner.setSelection(budgetSpinnerAdapter.getIndexById(editTransaction.getBudgetId()));
+//TODO
+//            frequencySpinner.setSelection(frequencySpinnerAdapter().getIndexById(editTransaction.getAccountId()));
+//            frequencyUnitSpinner.setSelection(budgetSpinnerAdapter.getIndexById(editTransaction.getBudgetId()));
+            endDateText.setText(Utils.formatDate(editTransaction.getEndDate()));
         }
 
     }
@@ -307,8 +333,99 @@ public class TransactionEntryActivity extends Activity {
         };
     }
 
-    private void createNewTransactionAndSave() {
+    private View.OnClickListener onRecurrentClick() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox checkBox = (CheckBox)v;
+                recurrentDetails.setVisibility(checkBox.isChecked() ? View.VISIBLE : View.GONE);
+            }
+        };
+    }
 
+    private ArrayAdapter<TransactionFrequencyUnit> frequencySpinnerAdapter() {
+        return new ArrayAdapter<TransactionFrequencyUnit>(this, R.layout.text_spinner_item,
+                TransactionFrequencyUnit.valuesButUndef());
+    }
+
+    private AdapterView.OnItemSelectedListener onFrequencySpinnerSelected() {
+        return new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TransactionFrequencyUnit unit = TransactionFrequencyUnit.valueOf(position + 1);
+                Integer[] lengthArray = null;
+                switch (unit) {
+                    case Day:
+                        lengthArray = Utils.DaySingleValues;
+                        break;
+                    case Week:
+                        lengthArray = Utils.WeekValues;
+                        break;
+                    case Month:
+                        lengthArray = Utils.MonthValues;
+                        break;
+                    case Year:
+                        lengthArray = Utils.YearValues;
+                        break;
+                    case Undef:
+                    default:
+                        lengthArray = new Integer[0];
+                        break;
+                }
+
+                frequencyUnitSpinner.setAdapter(new ArrayAdapter<Integer>(TransactionEntryActivity.this,
+                        R.layout.text_spinner_item, lengthArray));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        };
+    }
+
+    private View.OnFocusChangeListener onEndDateFocusChanged() {
+        return new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    DateTime now = DateTime.now();
+                    DatePickerDialog datePicker = new DatePickerDialog(
+                            TransactionEntryActivity.this,
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                    endDate = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
+                                    endDateText.setText(Utils.formatDate(endDate));
+                                }
+                            }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
+                    );
+                    datePicker.show();
+                }
+            }
+        };
+    }
+
+    private View.OnClickListener onEndDateClick() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateTime now = DateTime.now();
+                DatePickerDialog datePicker = new DatePickerDialog(
+                        TransactionEntryActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                endDate = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
+                                endDateText.setText(Utils.formatDate(endDate));
+                            }
+                        }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
+                );
+                datePicker.show();
+            }
+        };
+    }
+
+    private void createNewTransactionAndSave() {
         switch (type) {
             case Transfer:
                 String t1Id = EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Transaction.class);
@@ -320,7 +437,6 @@ public class TransactionEntryActivity extends Activity {
                 TransactionManager.TRANSACTION_MANAGER.insertTransaction(pair.second);
                 break;
             case Single:
-            case Recurrent:
             case Undef:
                 String tId = EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Transaction.class);
 
@@ -335,6 +451,7 @@ public class TransactionEntryActivity extends Activity {
 
         switch (type) {
             case Transfer:
+// TODO
 //                Pair<Transaction, Transaction> pair = createTransferTransaction(t1Id, t2Id);
 //
 //                TransactionManager.TRANSACTION_MANAGER.removeTransaction(editTransaction);
@@ -344,7 +461,6 @@ public class TransactionEntryActivity extends Activity {
 //                TransactionManager.TRANSACTION_MANAGER.insertTransaction(pair.second);
                 break;
             case Single:
-            case Recurrent:
             case Undef:
                 Transaction newTransaction = createSingleTransaction(editTransaction.getId());
 
@@ -379,7 +495,18 @@ public class TransactionEntryActivity extends Activity {
                 transactionDate);
         t1.setLinkedTransactionId(t2Id);
         t2.setLinkedTransactionId(t1Id);
-
+        if(recurrent.isChecked()) {
+            TransactionFrequencyUnit frequencyUnit = (TransactionFrequencyUnit) (frequencySpinner.getSelectedItem());
+            Integer frequency = (Integer) (frequencyUnitSpinner.getSelectedItem());
+            t1.setRecurrent(true);
+            t1.setFrequency(frequency);
+            t1.setFrequencyUnit(frequencyUnit);
+            t1.setEndDate(endDate);
+            t2.setRecurrent(true);
+            t2.setFrequency(frequency);
+            t2.setFrequencyUnit(frequencyUnit);
+            t2.setEndDate(endDate);
+        }
         return new Pair<Transaction, Transaction>(t1, t2);
     }
 
@@ -387,7 +514,7 @@ public class TransactionEntryActivity extends Activity {
         Account account = (Account) (accountSpinner.getSelectedItem());
         Budget budget = (Budget) (budgetSpinner.getSelectedItem());
 
-        return new Transaction(
+        Transaction t = new Transaction(
                 id,
                 description.getText().toString(),
                 direction,
@@ -396,5 +523,14 @@ public class TransactionEntryActivity extends Activity {
                 budget != null ? budget.getId() : "",
                 transactionValue,
                 transactionDate);
+        if(recurrent.isChecked()) {
+            TransactionFrequencyUnit frequencyUnit = (TransactionFrequencyUnit) (frequencySpinner.getSelectedItem());
+            Integer frequency = (Integer) (frequencyUnitSpinner.getSelectedItem());
+            t.setRecurrent(true);
+            t.setFrequency(frequency);
+            t.setFrequencyUnit(frequencyUnit);
+            t.setEndDate(endDate);
+        }
+        return t;
     }
 }

@@ -15,7 +15,6 @@ public class TransactionSearchDialog extends Dialog {
         void onDismissed(Boolean confirm, String searchText);
     }
 
-    private String searchText = null;
     private OnDialogDismissed dismissListener;
 
     public TransactionSearchDialog(Context context, OnDialogDismissed dismissListener) {
@@ -27,7 +26,7 @@ public class TransactionSearchDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.transaction_search);
+        setContentView(R.layout.transaction_search_dialog);
 
         setTitle(R.string.title_search_transaction_dialog);
         final EditText text = (EditText) findViewById(R.id.searchDescription);
@@ -54,9 +53,5 @@ public class TransactionSearchDialog extends Dialog {
             }
         });
 
-    }
-
-    public String getSearchText() {
-        return searchText;
     }
 }

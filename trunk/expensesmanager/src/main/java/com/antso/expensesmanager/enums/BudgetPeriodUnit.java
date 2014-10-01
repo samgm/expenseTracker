@@ -39,9 +39,9 @@ public enum BudgetPeriodUnit {
         return reverseMap.get(value);
     }
 
-//    public static String[] getValuesNoUndef() {
-//        String[] result =
-//        for (BudgetPeriodUnit unit : BudgetPeriodUnit.values()) {
-//        }
-//    }
+    public static BudgetPeriodUnit[] valuesButUndef() {
+        return new BudgetPeriodUnit[] {
+                Day, Week, Month, Year };
+    }
+
 }

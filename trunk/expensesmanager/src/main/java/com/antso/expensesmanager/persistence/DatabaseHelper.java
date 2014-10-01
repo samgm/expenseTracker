@@ -86,6 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String TRANSACTION_FIELD_DATE = "Date";
     final static String TRANSACTION_FIELD_TIME = "Time";
     final static String TRANSACTION_FIELD_LINKED_TRANSACTION_ID = "LinkedTransactionId";
+    final static String TRANSACTION_FIELD_RECURRENT = "Recurrent";
     final static String TRANSACTION_FIELD_FREQUENCY = "Frequency";
     final static String TRANSACTION_FIELD_FREQUENCY_UNIT = "FrequencyUnit";
     final static String TRANSACTION_FIELD_END = "End";
@@ -101,6 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             TRANSACTION_FIELD_DATE,
             TRANSACTION_FIELD_TIME,
             TRANSACTION_FIELD_LINKED_TRANSACTION_ID,
+            TRANSACTION_FIELD_RECURRENT,
             TRANSACTION_FIELD_FREQUENCY,
             TRANSACTION_FIELD_FREQUENCY_UNIT,
             TRANSACTION_FIELD_END,
@@ -118,6 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + TRANSACTION_FIELD_DATE + " INTEGER NOT NULL, "
                     + TRANSACTION_FIELD_TIME + " INTEGER NOT NULL, "
                     + TRANSACTION_FIELD_LINKED_TRANSACTION_ID + " TEXT, "
+                    + TRANSACTION_FIELD_RECURRENT + " INTEGER NOT NULL, "
                     + TRANSACTION_FIELD_FREQUENCY + " INTEGER, "
                     + TRANSACTION_FIELD_FREQUENCY_UNIT + " INTEGER, "
                     + TRANSACTION_FIELD_END + " INTEGER, "
@@ -133,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long transactions = DatabaseUtils.queryNumEntries(db, TRANSACTION_TABLE_NAME);
 
         EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Account.class, "A", accounts, true);
-        EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Budget.class, "B", accounts, true);
+        EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Budget.class, "B", budgets, true);
         EntityIdGenerator.ENTITY_ID_GENERATOR.registerEntity(Transaction.class, "T", transactions, true);
     }
 
@@ -261,6 +264,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyMMdd(transaction.getDateTime()));
         values.put(TRANSACTION_FIELD_TIME, Utils.dateTimeTohhMMss(transaction.getDateTime()));
         values.put(TRANSACTION_FIELD_LINKED_TRANSACTION_ID, transaction.getLinkedTransactionId());
+        values.put(TRANSACTION_FIELD_RECURRENT, transaction.getRecurrent());
         values.put(TRANSACTION_FIELD_FREQUENCY, transaction.getFrequency());
         values.put(TRANSACTION_FIELD_FREQUENCY_UNIT, transaction.getFrequencyUnit().getIntValue());
         values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyMMdd(transaction.getEndDate()));
@@ -279,10 +283,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Utils.yyyyMMddhhMMssToDateTime(cursor.getInt(7), cursor.getInt(8)));
 
         transaction.setLinkedTransactionId(cursor.getString(9));
-        transaction.setFrequency(cursor.getInt(10));
-        transaction.setFrequencyUnit(TransactionFrequencyUnit.valueOf(cursor.getInt(11)));
-        transaction.setEndDate(Utils.yyyyMMddToDate(cursor.getInt(12)));
-        transaction.setRepetitionNum(cursor.getInt(13));
+        transaction.setRecurrent(cursor.getInt(10) == 1);
+        transaction.setFrequency(cursor.getInt(11));
+        transaction.setFrequencyUnit(TransactionFrequencyUnit.valueOf(cursor.getInt(12)));
+        transaction.setEndDate(Utils.yyyyMMddToDate(cursor.getInt(13)));
+        transaction.setRepetitionNum(cursor.getInt(14));
 
         return transaction;
     }
@@ -358,7 +363,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String directionStr = directionInt.toString();
         Integer typeInt = TransactionType.Transfer.getIntValue();
         String typeStr = typeInt.toString();
-        Cursor cursor = null;
+        Cursor cursor;
         if (noTransfer) {
             cursor = db.query(TRANSACTION_TABLE_NAME,
                     transactionColumns,

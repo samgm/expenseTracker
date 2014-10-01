@@ -5,21 +5,21 @@ cambiare colori app (theme?)
 mettere label in grigio (date label campi)
 add footer nothing to show in accounts/ budget transaction lists
 remove footer on something added (for all the lists)
-make account and budget scrollable
-update transaction layout and make it as account and budget
 layout drawer (icon + separators)
+move ok action on the right and cancel on the left
+layout spinner items (margin + colored circle?
+add recurrent icon on recurrent transaction list
+add transfer icon
 
-1 entry for recurrent transactions
-1 del cascade for transaction when deleting account (budget?)
-1 check on entry (null pointer on fields not set)
-1 add constrain to create at least 1 account and 1 budget (or create automatically and make not deletable)
+1 refactoring entry activity
+1 check on entry (null pointer on fields not set, all the entry screens)
 
 EDIT
-//TODO edit support for transactions (in, out, mov)
 //TODO edit support for budget
 //TODO edit support for account
+//TODO edit support for transactions (in DONE, out, mov)
 
-DELETE
+
 
 CALCULATIONS
 1 manage transaction explosion all inside transaction manager (explode once for all at app start-up)

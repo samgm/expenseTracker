@@ -12,18 +12,38 @@ public class AccountSpinnerAdapter extends ArrayAdapter<Account> {
 
     private Map<String, Integer> idToIndex;
 
-    public AccountSpinnerAdapter(Context context, int resource, Account[] objects) {
-        super(context, resource, objects);
+    protected AccountSpinnerAdapter(Context context, int resource, Account[] accounts) {
+        super(context, resource, accounts);
 
-        idToIndex = new HashMap<String, Integer>(objects.length);
+        idToIndex = new HashMap<String, Integer>(accounts.length);
         int i = 0;
-        for (Account account : objects) {
+        for (Account account : accounts) {
             idToIndex.put(account.getId(), i);
             i++;
         }
     }
 
     public int getIndexById(String id) {
-        return idToIndex.get(id);
+        Integer index = idToIndex.get(id);
+        return (index != null) ? index : 0;
     }
+
+    public static AccountSpinnerAdapter create(Context context, int resource, Account[] accounts) {
+        return new AccountSpinnerAdapter(context, resource, accounts);
+    }
+
+    public static AccountSpinnerAdapter create(Context context, int resource, Account[] accounts,
+                                               Account excludeAccount) {
+        Account[] finalAccounts = new Account[accounts.length - 1];
+        int i = 0;
+        for (Account account : accounts) {
+            if (!account.getId().equals(excludeAccount.getId()) && i < finalAccounts.length) {
+                finalAccounts[i] = account;
+                i++;
+            }
+        }
+
+        return new AccountSpinnerAdapter(context, resource, finalAccounts);
+    }
+
 }

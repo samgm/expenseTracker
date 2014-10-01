@@ -33,10 +33,6 @@ public class BudgetEntryActivity extends Activity {
     private BigDecimal budgetThreshold = BigDecimal.ZERO;
     private DateTime startDate = DateTime.now();
 
-    private Integer[] dayValues = new Integer[] {1, 2, 3, 4, 5, 6, 7};
-    private Integer[] weekValues = new Integer[] {1, 2, 3, 4, 5};
-    private Integer[] monthValues = new Integer[] {1, 2, 3, 4, 6};
-    private Integer[] yearValues = new Integer[] {1, 2};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,24 +123,24 @@ public class BudgetEntryActivity extends Activity {
 
         periodUnitSpinner.setAdapter(
                 new ArrayAdapter<BudgetPeriodUnit>(this, R.layout.text_spinner_item,
-                        BudgetPeriodUnit.values()));
+                        BudgetPeriodUnit.valuesButUndef()));
         periodUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                BudgetPeriodUnit unit = BudgetPeriodUnit.valueOf(position);
+                BudgetPeriodUnit unit = BudgetPeriodUnit.valueOf(position + 1);
                 Integer[] lengthArray = null;
                 switch (unit) {
                     case Day:
-                        lengthArray = dayValues;
+                        lengthArray = Utils.DayValues;
                         break;
                     case Week:
-                        lengthArray = weekValues;
+                        lengthArray = Utils.WeekValues;
                         break;
                     case Month:
-                        lengthArray = monthValues;
+                        lengthArray = Utils.MonthValues;
                         break;
                     case Year:
-                        lengthArray = yearValues;
+                        lengthArray = Utils.YearValues;
                         break;
                     case Undef:
                     default:
@@ -158,7 +154,6 @@ public class BudgetEntryActivity extends Activity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 

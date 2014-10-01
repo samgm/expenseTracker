@@ -1,6 +1,7 @@
 package com.antso.expensesmanager.accounts;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -21,8 +22,10 @@ import android.widget.Toast;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
+import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.MaterialColours;
+import com.antso.expensesmanager.views.AccountChooserDialog;
 
 public class AccountListFragment extends ListFragment {
 
@@ -55,7 +58,7 @@ public class AccountListFragment extends ListFragment {
             accountListAdapter = new AccountListAdapter(getActivity().getApplicationContext(),
                     AccountManager.ACCOUNT_MANAGER);
 
-            if (footerView != null && AccountManager.ACCOUNT_MANAGER.getAccountInfo().isEmpty()) {
+            if (footerView != null && AccountManager.ACCOUNT_MANAGER.size() == 0) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.accounts_list_footer_text);
                 textView.setTextColor(MaterialColours.GREY_500);
@@ -104,7 +107,7 @@ public class AccountListFragment extends ListFragment {
         int index = info.position;
 
         AccountManager.AccountInfo accountInfo = (AccountManager.AccountInfo) accountListAdapter.getItem(index);
-        Account account = accountInfo.account;
+        final Account account = accountInfo.account;
         if (account == null) {
             return true;
         }
@@ -112,9 +115,40 @@ public class AccountListFragment extends ListFragment {
         if (item.getTitle() == "Edit") {
             Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
-            AccountManager.ACCOUNT_MANAGER.removeAccount(account);
-            accountListAdapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), account.getName() + " Deleted", Toast.LENGTH_LONG).show();
+            if(AccountManager.ACCOUNT_MANAGER.size() <= 1) {
+                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.title_error_dialog)
+                        .setMessage(R.string.error_cannot_delete_last_account)
+                        .setNeutralButton(R.string.got_it, null)
+                        .create();
+                dialog.show();
+                return true;
+            }
+
+            //choose account to reassign or del cascade
+            AccountChooserDialog dialog = new AccountChooserDialog(
+                    R.string.title_account_chooser_dialog,
+                    R.string.message_account_chooser_dialog,
+                    getActivity(),
+                    new AccountChooserDialog.OnDialogDismissed() {
+                        @Override
+                        public void onDismissed(boolean confirm, boolean move, String selectedAccountId) {
+                            if (confirm) {
+                                if (move) {
+                                    TransactionManager.TRANSACTION_MANAGER
+                                            .replaceAccount(account.getId(), selectedAccountId);
+                                } else {
+                                    TransactionManager.TRANSACTION_MANAGER
+                                            .removeTransactionByAccount(account.getId());
+                                }
+                                AccountManager.ACCOUNT_MANAGER.removeAccount(account);
+                                accountListAdapter.notifyDataSetChanged();
+                                Toast.makeText(getActivity(), account.getName() + " Deleted", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, account);
+            dialog.show();
+            return true;
         }
 
         return true;

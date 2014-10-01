@@ -9,4 +9,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 
+    <color name="green_400">#2baf2b</color>
+    <color name="green_hangout">#53ab3a</color>
+
 </resources>
