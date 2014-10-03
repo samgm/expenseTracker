@@ -33,7 +33,7 @@
 //        dest.writeString(transaction.getAccountId());
 //        dest.writeString(transaction.getBudgetId());
 //        dest.writeDouble(transaction.getValue().doubleValue());
-//        dest.writeString(transaction.getDateTime().toString(Utils.getDatePatten()));
+//        dest.writeString(transaction.getDate().toString(Utils.getDatePatten()));
 //        dest.writeString(transaction.getLinkedTransactionId());
 //    }
 //

@@ -106,8 +106,9 @@ public class StartActivity
                     .replace(R.id.container, new AccountListFragment()).commit();
                 break;
             case SETTINGS:
-                fragmentManager.beginTransaction()
-                        .replace(R.id.container, new SettingsFragment()).commit();
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.container, new SettingsFragment()).commit();
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case BUDGETS:
                 mContainer.setVisibility(View.VISIBLE);

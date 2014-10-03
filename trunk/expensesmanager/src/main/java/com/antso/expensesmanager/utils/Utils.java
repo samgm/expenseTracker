@@ -1,6 +1,5 @@
 package com.antso.expensesmanager.utils;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
@@ -9,11 +8,9 @@ import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.util.Collection;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 
-/**
- * Created by asolano on 5/11/2014.
- */
 public class Utils {
     static public DateTime DEFAULT_DATE = new DateTime(1970, 1, 1, 0, 0);
 
@@ -87,12 +84,14 @@ public class Utils {
 
     public static int dpToPx(int dp, Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        @SuppressWarnings("UnnecessaryLocalVariable")
         int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return px;
     }
 
     public static int pxToDp(int px, Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        @SuppressWarnings("UnnecessaryLocalVariable")
         int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return dp;
     }
@@ -101,6 +100,16 @@ public class Utils {
         if (valueStr.isEmpty()) {
             return "0.00";
         }
+
+//        int index = valueStr.indexOf(".");
+//        if (index == -1) {
+//            valueStr = valueStr + ".00";
+//        } else if (valueStr.length() - index > 2) {
+//            valueStr = valueStr.substring(0, index + 2);
+//        } else if (valueStr.length() - index < 2) {
+//
+//        }
+
         return valueStr;
     }
 
@@ -134,4 +143,10 @@ public class Utils {
         }
     }
 
+    public static boolean isBeforeOrEqual(DateTime d1, DateTime d2) {
+        d1 = d1.withTimeAtStartOfDay();
+        d2 = d2.withTimeAtStartOfDay();
+
+        return (d1.isBefore(d2) || d1.isEqual(d2));
+    }
 }

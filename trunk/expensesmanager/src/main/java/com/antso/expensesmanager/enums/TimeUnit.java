@@ -3,7 +3,7 @@ package com.antso.expensesmanager.enums;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum BudgetPeriodUnit {
+public enum TimeUnit {
     Undef(0, "Undef"),
     Day(1, "Day"),
     Week(2, "Week"),
@@ -12,9 +12,9 @@ public enum BudgetPeriodUnit {
 
     private int intValue;
     private String strValue;
-    private static Map<Integer, BudgetPeriodUnit> reverseMap = null;
+    private static Map<Integer, TimeUnit> reverseMap = null;
 
-    BudgetPeriodUnit(int intValue, String strValue) {
+    TimeUnit(int intValue, String strValue) {
         this.intValue = intValue;
         this.strValue = strValue;
     }
@@ -27,10 +27,10 @@ public enum BudgetPeriodUnit {
         return intValue;
     }
 
-    public static BudgetPeriodUnit valueOf(int value) {
+    public static TimeUnit valueOf(int value) {
         if (reverseMap == null) {
-            reverseMap = new HashMap<Integer, BudgetPeriodUnit>();
-            for(BudgetPeriodUnit val : BudgetPeriodUnit.values()) {
+            reverseMap = new HashMap<Integer, TimeUnit>();
+            for(TimeUnit val : TimeUnit.values()) {
                 reverseMap.put(val.intValue, val);
             }
 
@@ -39,8 +39,8 @@ public enum BudgetPeriodUnit {
         return reverseMap.get(value);
     }
 
-    public static BudgetPeriodUnit[] valuesButUndef() {
-        return new BudgetPeriodUnit[] {
+    public static TimeUnit[] valuesButUndef() {
+        return new TimeUnit[] {
                 Day, Week, Month, Year };
     }
 

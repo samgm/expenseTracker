@@ -1,25 +1,25 @@
 LAYOUT
 //TODO add icon to transfer list item
-layout budget/budget combo
 cambiare colori app (theme?)
 mettere label in grigio (date label campi)
 add footer nothing to show in accounts/ budget transaction lists
 remove footer on something added (for all the lists)
 layout drawer (icon + separators)
 move ok action on the right and cancel on the left
-layout spinner items (margin + colored circle?
-add recurrent icon on recurrent transaction list
-add transfer icon
+layout account/budget spinner items (margin + colored circle?)
+add transfer icon on compact view (by account/budget)
+show recurrent icon even on auto generated transactions
+
+OTHER
+move all the string to strings.xml (from layout and code)
+fix crashes on screen rotation
 
 1 refactoring entry activity
-1 check on entry (null pointer on fields not set, all the entry screens)
+ButtonChangeSpinner -> AccountButtonChangeSpinner + BudgetButtonChangeSpinner
 
 EDIT
-//TODO edit support for budget
-//TODO edit support for account
-//TODO edit support for transactions (in DONE, out, mov)
-
-
+//TODO edit support for budget + refactoring as per transactions
+//TODO edit support for account + refactoring as per transactions
 
 CALCULATIONS
 1 manage transaction explosion all inside transaction manager (explode once for all at app start-up)
@@ -32,19 +32,26 @@ SETTINGS
     configurable currency symbol
     default budget
     default account
+
     import from csv
     export to csv
+
     debug?
 
 LOGGING
 log on db operation failure
 
 ENHANCEMENTS
-    add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
-    recurrent transaction with repetition number (done with end date)
-    Use name as id per budget e budget, Check if account/budget already exist on insert
-    budget with many period length to be expanded on load and shown as different budgets
-    backup on google
-    quick transaction entry (with settings)
-    transaction reminder / pending transaction for recurrents
-    statistics
+1    recurrent transaction with no end date
+
+2    quick transaction entry (with settings)
+3    backup on google
+4    statistics
+
+5    add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
+
+6    transaction reminder / pending transaction for recurrent
+7    Use name as id per budget e budget, Check if account/budget already exist on insert
+8    budget with many period length to be expanded on load and shown as different budgets
+9    recurrent transaction with repetition number (done with end date)
+

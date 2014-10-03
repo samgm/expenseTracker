@@ -1,9 +1,8 @@
-package com.antso.expensesmanager.utils;
+package com.antso.expensesmanager.adapters;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
-import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 
 import java.util.HashMap;
@@ -25,7 +24,12 @@ public class BudgetSpinnerAdapter extends ArrayAdapter<Budget> {
     }
 
     public int getIndexById(String id) {
-        return idToIndex.get(id);
+        if(id == null) {
+            return 0;
+        }
+
+        Integer index = idToIndex.get(id);
+        return (index != null) ? index : 0;
     }
 
     public static BudgetSpinnerAdapter create(Context context, int resource, Budget[] budgets) {

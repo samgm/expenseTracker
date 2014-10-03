@@ -85,7 +85,7 @@ public class AccountTransactionListAdapter extends AbstractTransactionListAdapte
         }
 
         final TextView transactionDateTime = (TextView) transactionLayout.findViewById(R.id.transactionDateTime);
-        DateTime d = transaction.getDateTime();
+        DateTime d = transaction.getDate();
         if (transaction.getType().equals(TransactionType.Summary)) {
             transactionDateTime.setText(Utils.formatDateMonthYearOnly(d));
         } else {

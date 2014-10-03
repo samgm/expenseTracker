@@ -1,4 +1,4 @@
-package com.antso.expensesmanager.utils;
+package com.antso.expensesmanager.adapters;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
@@ -24,6 +24,9 @@ public class AccountSpinnerAdapter extends ArrayAdapter<Account> {
     }
 
     public int getIndexById(String id) {
+        if(id == null) {
+            return 0;
+        }
         Integer index = idToIndex.get(id);
         return (index != null) ? index : 0;
     }

@@ -6,9 +6,8 @@ import android.util.Pair;
 
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
-import com.antso.expensesmanager.enums.BudgetPeriodUnit;
+import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
-import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.MaterialColours;
@@ -51,7 +50,7 @@ public enum BudgetManager {
 
     private void createDefaultBudget() {
         Budget budget = new Budget("DEFAULT_BUDGET", "Budget", BigDecimal.ZERO, MaterialColours.GREY_500,
-                1, BudgetPeriodUnit.Month, DateTime.now());
+                1, TimeUnit.Month, DateTime.now());
         dbHelper.insertBudget(budget);
         addBudget(budget);
     }
@@ -172,8 +171,8 @@ public enum BudgetManager {
             DateTime periodEnd = periodStartEnd.second;
 
             for (Transaction transaction : transactions) {
-                if(transaction.getDateTime().isAfter(periodStart) &&
-                        transaction.getDateTime().isBefore(periodEnd)){
+                if(transaction.getDate().isAfter(periodStart) &&
+                        transaction.getDate().isBefore(periodEnd)){
 
                     BigDecimal value = transaction.getValue();
                     if (remove) {
@@ -196,8 +195,8 @@ public enum BudgetManager {
             int iterationNum = 1;
             DateTime start = budget.getPeriodStart();
             int periodLength = budget.getPeriodLength();
-            BudgetPeriodUnit periodUnit = budget.getPeriodUnit();
-            if (periodUnit.equals(BudgetPeriodUnit.Undef)) {
+            TimeUnit periodUnit = budget.getPeriodUnit();
+            if (periodUnit.equals(TimeUnit.Undef)) {
                 return  null;
             }
             DateTime periodStart = start;

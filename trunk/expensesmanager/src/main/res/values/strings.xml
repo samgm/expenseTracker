@@ -60,6 +60,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
+
     <string name="title_search_transaction_dialog">Type something to search</string>
     <string name="action_transaction_add">Add</string>
     <string name="action_transaction_search">Search</string>
@@ -79,4 +80,5 @@
     <string name="cancel">Don\'t do that</string>
     <string name="delete_all">Yes, delete all</string>
     <string name="delete_and_move">Move and delete</string>
+    <string name="title_activity_debug">Debug</string>
 </resources>

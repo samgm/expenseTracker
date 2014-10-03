@@ -15,7 +15,6 @@ import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
-import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
@@ -85,7 +84,7 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
         }
 
         final TextView transactionDateTime = (TextView) transactionLayout.findViewById(R.id.transactionDateTime);
-        String dateTime = Utils.formatDate(transaction.getDateTime());
+        String dateTime = Utils.formatDate(transaction.getDate());
         transactionDateTime.setText(dateTime);
         transactionDateTime.setTextColor(MaterialColours.BLACK);
 
