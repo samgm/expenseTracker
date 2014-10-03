@@ -82,9 +82,12 @@ public class TransfersListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView list, View v, int position, long id) {
-        Object item = getListView().getItemAtPosition(position);
-        if (item != null) {
-            Toast.makeText(getActivity(), item.toString(), Toast.LENGTH_LONG).show();
+        Pair<Transaction, Transaction> pair =
+                (Pair<Transaction, Transaction>)getListView().getItemAtPosition(position);
+        if (pair != null) {
+            Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
+            intent.putExtra("transaction_id", pair.first.getId());
+            getActivity().startActivityForResult(intent, Constants.TRANSFER_TRANSACTION_EDIT_REQUEST_CODE);
         }
     }
 
@@ -111,7 +114,7 @@ public class TransfersListFragment extends ListFragment {
         }
 
         if (item.getTitle() == "Edit") {
-            Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Long press on the transaction to Edit", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
             TransactionManager.TRANSACTION_MANAGER.removeTransaction(transactions.first);
             transactionListAdapter.reset();
@@ -188,7 +191,8 @@ public class TransfersListFragment extends ListFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE) {
+        if (requestCode == Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE ||
+                requestCode == Constants.TRANSFER_TRANSACTION_EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {

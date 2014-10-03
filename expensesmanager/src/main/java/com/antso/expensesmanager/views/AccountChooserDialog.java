@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.accounts.AccountManager;
 import com.antso.expensesmanager.entities.Account;
-import com.antso.expensesmanager.utils.AccountSpinnerAdapter;
+import com.antso.expensesmanager.adapters.AccountSpinnerAdapter;
 
 public class AccountChooserDialog implements DialogInterface.OnClickListener{
     private AlertDialog dialog;

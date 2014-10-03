@@ -11,9 +11,9 @@ import android.util.Log;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
-import com.antso.expensesmanager.enums.BudgetPeriodUnit;
+import com.antso.expensesmanager.enums.TimeUnit;
+import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
-import com.antso.expensesmanager.enums.TransactionFrequencyUnit;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.Utils;
 
@@ -232,7 +232,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Budget budget = new Budget(cursor.getString(0), cursor.getString(1),
                     BigDecimal.valueOf(cursor.getDouble(2)), cursor.getInt(3),
                     cursor.getInt(5),
-                    BudgetPeriodUnit.valueOf(cursor.getInt(4)),
+                    TimeUnit.valueOf(cursor.getInt(4)),
                     Utils.yyyyMMddToDate(cursor.getInt(6)));
             budgets.add(budget);
         }
@@ -261,8 +261,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TRANSACTION_FIELD_ACCOUNT_ID, transaction.getAccountId());
         values.put(TRANSACTION_FIELD_BUDGET_ID, transaction.getBudgetId());
         values.put(TRANSACTION_FIELD_VALUE, transaction.getValue().doubleValue());
-        values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyMMdd(transaction.getDateTime()));
-        values.put(TRANSACTION_FIELD_TIME, Utils.dateTimeTohhMMss(transaction.getDateTime()));
+        values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyMMdd(transaction.getDate()));
+        values.put(TRANSACTION_FIELD_TIME, Utils.dateTimeTohhMMss(transaction.getDate()));
         values.put(TRANSACTION_FIELD_LINKED_TRANSACTION_ID, transaction.getLinkedTransactionId());
         values.put(TRANSACTION_FIELD_RECURRENT, transaction.getRecurrent());
         values.put(TRANSACTION_FIELD_FREQUENCY, transaction.getFrequency());
@@ -285,7 +285,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         transaction.setLinkedTransactionId(cursor.getString(9));
         transaction.setRecurrent(cursor.getInt(10) == 1);
         transaction.setFrequency(cursor.getInt(11));
-        transaction.setFrequencyUnit(TransactionFrequencyUnit.valueOf(cursor.getInt(12)));
+        transaction.setFrequencyUnit(TimeUnit.valueOf(cursor.getInt(12)));
         transaction.setEndDate(Utils.yyyyMMddToDate(cursor.getInt(13)));
         transaction.setRepetitionNum(cursor.getInt(14));
 
@@ -410,6 +410,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TRANSACTION_TABLE_NAME,
                 TRANSACTION_FIELD_ID + " = ?",
                 new String[] { id });
+    }
+
+    public void updateTransaction(Transaction transaction) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TRANSACTION_FIELD_DESC, transaction.getDescription());
+        values.put(TRANSACTION_FIELD_DIRECTION, transaction.getDirection().getIntValue());
+        values.put(TRANSACTION_FIELD_TYPE, transaction.getType().getIntValue());
+        values.put(TRANSACTION_FIELD_ACCOUNT_ID, transaction.getAccountId());
+        values.put(TRANSACTION_FIELD_BUDGET_ID, transaction.getBudgetId());
+        values.put(TRANSACTION_FIELD_VALUE, transaction.getValue().doubleValue());
+        values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyMMdd(transaction.getDate()));
+        values.put(TRANSACTION_FIELD_TIME, Utils.dateTimeTohhMMss(transaction.getDate()));
+        values.put(TRANSACTION_FIELD_LINKED_TRANSACTION_ID, transaction.getLinkedTransactionId());
+        values.put(TRANSACTION_FIELD_RECURRENT, transaction.getRecurrent());
+        values.put(TRANSACTION_FIELD_FREQUENCY, transaction.getFrequency());
+        values.put(TRANSACTION_FIELD_FREQUENCY_UNIT, transaction.getFrequencyUnit().getIntValue());
+        values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyMMdd(transaction.getEndDate()));
+        values.put(TRANSACTION_FIELD_REPETITION_NUM, transaction.getRepetitionNum());
+
+        db.update(TRANSACTION_TABLE_NAME, values,
+                TRANSACTION_FIELD_ID + " = ?",
+                new String[] { transaction.getId() });
     }
 
 }

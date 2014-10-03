@@ -8,6 +8,6 @@ public class TransactionByDateComparator implements Comparator<Transaction>{
 
     @Override
     public int compare(Transaction lhs, Transaction rhs) {
-        return rhs.getDateTime().compareTo(lhs.getDateTime());
+        return rhs.getDate().compareTo(lhs.getDate());
     }
 }

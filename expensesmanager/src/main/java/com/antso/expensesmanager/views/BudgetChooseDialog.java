@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Budget;
-import com.antso.expensesmanager.utils.BudgetSpinnerAdapter;
+import com.antso.expensesmanager.adapters.BudgetSpinnerAdapter;
 
 public class BudgetChooseDialog implements DialogInterface.OnClickListener{
     private AlertDialog dialog;

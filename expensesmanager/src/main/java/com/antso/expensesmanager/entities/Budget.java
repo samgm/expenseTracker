@@ -1,6 +1,6 @@
 package com.antso.expensesmanager.entities;
 
-import com.antso.expensesmanager.enums.BudgetPeriodUnit;
+import com.antso.expensesmanager.enums.TimeUnit;
 
 import org.joda.time.DateTime;
 
@@ -17,12 +17,12 @@ public class Budget {
     private BigDecimal threshold;
     private int color;
 
-    private BudgetPeriodUnit periodUnit;
+    private TimeUnit periodUnit;
     private int periodLength;
     private DateTime periodStart;
 
     public Budget(final String id, final String name, final BigDecimal threshold,
-                   final int color, final int periodLength, final BudgetPeriodUnit periodUnit,
+                   final int color, final int periodLength, final TimeUnit periodUnit,
                    final DateTime periodStart) {
         this.id = id;
         this.name = name;
@@ -50,7 +50,7 @@ public class Budget {
         return color;
     }
 
-    public BudgetPeriodUnit getPeriodUnit() {
+    public TimeUnit getPeriodUnit() {
         return periodUnit;
     }
 

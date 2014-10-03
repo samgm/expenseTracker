@@ -6,7 +6,6 @@ import android.util.Log;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
-import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.MaterialColours;
@@ -167,8 +166,8 @@ public enum AccountManager {
             for (Transaction transaction : transactions) {
                 int currentMonth = currentDate.getMonthOfYear();
                 int currentYear = currentDate.getYear();
-                int transactionMonth = transaction.getDateTime().getMonthOfYear();
-                int transactionYear = transaction.getDateTime().getYear();
+                int transactionMonth = transaction.getDate().getMonthOfYear();
+                int transactionYear = transaction.getDate().getYear();
 
                 BigDecimal value = transaction.getValue();
                 if (remove) {

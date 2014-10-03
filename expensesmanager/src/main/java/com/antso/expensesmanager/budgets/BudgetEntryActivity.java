@@ -16,7 +16,7 @@ import android.widget.Spinner;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Budget;
-import com.antso.expensesmanager.enums.BudgetPeriodUnit;
+import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
@@ -50,7 +50,7 @@ public class BudgetEntryActivity extends Activity {
         color.setColor(MaterialColours.getBudgetColors().get(0));
 
         final Spinner periodLengthSpinner = (Spinner)findViewById(R.id.budgetPeriodLenghtSpinner);
-        final Spinner periodUnitSpinner = (Spinner)findViewById(R.id.budgetPeriodUnitSpinner);
+        final Spinner periodUnitSpinner = (Spinner)findViewById(R.id.TimeUnitSpinner);
 
         final Button confirm = (Button)findViewById(R.id.budgetConfirm);
         final Button cancel = (Button)findViewById(R.id.budgetCancel);
@@ -122,12 +122,12 @@ public class BudgetEntryActivity extends Activity {
         });
 
         periodUnitSpinner.setAdapter(
-                new ArrayAdapter<BudgetPeriodUnit>(this, R.layout.text_spinner_item,
-                        BudgetPeriodUnit.valuesButUndef()));
+                new ArrayAdapter<TimeUnit>(this, R.layout.text_spinner_item,
+                        TimeUnit.valuesButUndef()));
         periodUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                BudgetPeriodUnit unit = BudgetPeriodUnit.valueOf(position + 1);
+                TimeUnit unit = TimeUnit.valueOf(position + 1);
                 Integer[] lengthArray = null;
                 switch (unit) {
                     case Day:
@@ -163,9 +163,9 @@ public class BudgetEntryActivity extends Activity {
                 String valueStr = value.getText().toString();
                 valueStr = Utils.washDecimalNumber(valueStr);
                 budgetThreshold = BigDecimal.valueOf(Double.parseDouble(valueStr));
-                BudgetPeriodUnit periodUnit = (BudgetPeriodUnit)periodUnitSpinner.getSelectedItem();
+                TimeUnit periodUnit = (TimeUnit)periodUnitSpinner.getSelectedItem();
                 if(periodUnit == null) {
-                    periodUnit = BudgetPeriodUnit.Undef;
+                    periodUnit = TimeUnit.Undef;
                 }
                 Integer length = (Integer)periodLengthSpinner.getSelectedItem();
                 if (length == null) {

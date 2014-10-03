@@ -9,6 +9,7 @@ import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
+import com.antso.expensesmanager.utils.Utils;
 
 import org.joda.time.DateTime;
 
@@ -44,7 +45,6 @@ public enum TransactionManager {
         }
     }
 
-
     public void stop() {
         if (dbHelper != null) {
             dbHelper.close();
@@ -70,6 +70,18 @@ public enum TransactionManager {
 
         AccountManager.ACCOUNT_MANAGER.onTransactionDeleted(transaction);
         BudgetManager.BUDGET_MANAGER.onTransactionDeleted(transaction);
+    }
+
+    public void updateTransaction(Transaction transaction) {
+        Transaction oldTransaction = dbHelper.getTransactionsById(transaction.getId());
+        dbHelper.updateTransaction(transaction);
+
+        descriptionsArray.add(transaction.getDescription());
+
+        AccountManager.ACCOUNT_MANAGER.onTransactionDeleted(oldTransaction);
+        BudgetManager.BUDGET_MANAGER.onTransactionDeleted(oldTransaction);
+        AccountManager.ACCOUNT_MANAGER.onTransactionAdded(transaction);
+        BudgetManager.BUDGET_MANAGER.onTransactionAdded(transaction);
     }
 
     public void replaceAccount(String fromAccountId, String toAccountId) {
@@ -168,11 +180,14 @@ public enum TransactionManager {
     static public Collection<Transaction> explodeRecurrentTransaction(Transaction transaction,
                                                                 DateTime currentDate) {
         //TODO support transaction with repetition num instead of end-date and viceversa
+        //TODO support transaction with no end-date or repetition num
+
         int iterationNum = 1;
         DateTime newDate = getNextTransactionDate(transaction, iterationNum);
         Collection<Transaction> transactions = new ArrayList<Transaction>();
 
-        while (newDate.isBefore(transaction.getEndDate()) && newDate.isBefore(currentDate)) {
+        while (Utils.isBeforeOrEqual(newDate, transaction.getEndDate()) &&
+                Utils.isBeforeOrEqual(newDate, currentDate)) {
             transactions.add(TransactionManager.createRecurrentCopy(transaction, newDate));
             iterationNum++;
             newDate = getNextTransactionDate(transaction, iterationNum);
@@ -182,7 +197,7 @@ public enum TransactionManager {
     }
 
     static private DateTime getNextTransactionDate(Transaction transaction, int step) {
-        DateTime start = transaction.getDateTime();
+        DateTime start = transaction.getDate();
         switch (transaction.getFrequencyUnit()) {
             case Day:
                 return start.plusDays(transaction.getFrequency() * step);
@@ -222,8 +237,8 @@ public enum TransactionManager {
         List<Transaction> resultTransactions = new ArrayList<Transaction>();
 
         for(Transaction transaction : transactions) {
-            if (transaction.getDateTime().getMonthOfYear() == accountPeriodDate.getMonthOfYear() &&
-                    transaction.getDateTime().getYear() == accountPeriodDate.getYear()) {
+            if (transaction.getDate().getMonthOfYear() == accountPeriodDate.getMonthOfYear() &&
+                    transaction.getDate().getYear() == accountPeriodDate.getYear()) {
                 if (transaction.getDirection().equals(TransactionDirection.In)) {
                     in = in.add(transaction.getValue());
                 }
@@ -293,8 +308,8 @@ public enum TransactionManager {
         DateTime periodEnd = periodStartEnd.second;
 
         for (Transaction transaction : transactions) {
-            if(transaction.getDateTime().isAfter(periodStart) &&
-                    transaction.getDateTime().isBefore(periodEnd)){
+            if(transaction.getDate().isAfter(periodStart) &&
+                    transaction.getDate().isBefore(periodEnd)){
                 if (transaction.getDirection().equals(TransactionDirection.Out)) {
                     periodOut = periodOut.add(transaction.getValue());
                 }
@@ -333,6 +348,7 @@ public enum TransactionManager {
     }
 
     public String[] getDescriptionsArray() {
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         return descriptionsArray.toArray(new String[0]);
     }
 

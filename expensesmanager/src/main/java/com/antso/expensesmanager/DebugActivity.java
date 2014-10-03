@@ -1,23 +1,19 @@
 package com.antso.expensesmanager;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import com.antso.expensesmanager.accounts.AccountManager;
 import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
-import com.antso.expensesmanager.enums.BudgetPeriodUnit;
+import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
-import com.antso.expensesmanager.enums.TransactionFrequencyUnit;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
@@ -34,30 +30,29 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 
-public class SettingsFragment extends Fragment {
+public class DebugActivity extends Activity {
 
     private DatabaseHelper dbHelper = null;
     private Map<String, Account> accountsByName;
     private Map<String, Budget> budgetsByName;
 
-    public SettingsFragment() {
+    public DebugActivity() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.debug_activity);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        FrameLayout layout = (FrameLayout)inflater.inflate(R.layout.settings_fragment, container, false);
+        if (dbHelper == null) {
+            dbHelper = new DatabaseHelper(getApplicationContext());
+        }
 
-        Button clearDataButton = (Button)layout.findViewById(R.id.clearDataButton);
-        Button importMyMoneyButton = (Button)layout.findViewById(R.id.importFromMyMoneyButton);
-        Button exportButton = (Button)layout.findViewById(R.id.exportButton);
-        Button testButton1 = (Button)layout.findViewById(R.id.testButton1);
-        Button testButton2 = (Button)layout.findViewById(R.id.testButton2);
+        Button clearDataButton = (Button)findViewById(R.id.clearDataButton);
+        Button importMyMoneyButton = (Button)findViewById(R.id.importFromMyMoneyButton);
+        Button exportButton = (Button)findViewById(R.id.exportButton);
+        Button testButton1 = (Button)findViewById(R.id.testButton1);
+        Button testButton2 = (Button)findViewById(R.id.testButton2);
 
         clearDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,9 +85,9 @@ public class SettingsFragment extends Fragment {
                 dbHelper.insertAccount(account2);
                 dbHelper.insertAccount(account3);
 
-                Budget budget1 = new Budget("BG1", "Budget 1", BigDecimal.valueOf(500.00), MaterialColours.BLUE_500, 2, BudgetPeriodUnit.Week, new DateTime(2014, 9, 1, 0, 0));
-                Budget budget2 = new Budget("BG2", "Budget 2", BigDecimal.valueOf(150.00), MaterialColours.CYAN_500, 1, BudgetPeriodUnit.Month, new DateTime(2014, 9, 1, 0, 0));
-                Budget budget3 = new Budget("BG3", "Budget 3", BigDecimal.valueOf(55.25), MaterialColours.DEEP_ORANGE_500, 5, BudgetPeriodUnit.Day, new DateTime(2014, 9, 1, 0, 0));
+                Budget budget1 = new Budget("BG1", "Budget 1", BigDecimal.valueOf(500.00), MaterialColours.BLUE_500, 2, TimeUnit.Week, new DateTime(2014, 9, 1, 0, 0));
+                Budget budget2 = new Budget("BG2", "Budget 2", BigDecimal.valueOf(150.00), MaterialColours.CYAN_500, 1, TimeUnit.Month, new DateTime(2014, 9, 1, 0, 0));
+                Budget budget3 = new Budget("BG3", "Budget 3", BigDecimal.valueOf(55.25), MaterialColours.DEEP_ORANGE_500, 5, TimeUnit.Day, new DateTime(2014, 9, 1, 0, 0));
                 dbHelper.insertBudget(budget1);
                 dbHelper.insertBudget(budget2);
                 dbHelper.insertBudget(budget3);
@@ -114,22 +109,11 @@ public class SettingsFragment extends Fragment {
                         new DateTime(2012, 1, 30, 0, 0));
                 t.setRecurrent(true);
                 t.setFrequency(1);
-                t.setFrequencyUnit(TransactionFrequencyUnit.Month);
+                t.setFrequencyUnit(TimeUnit.Month);
                 t.setEndDate(DateTime.now());
                 dbHelper.insertTransactions(t);
             }
         });
-
-        return layout;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (dbHelper == null) {
-            dbHelper = new DatabaseHelper(getActivity().getApplicationContext());
-        }
     }
 
     @Override

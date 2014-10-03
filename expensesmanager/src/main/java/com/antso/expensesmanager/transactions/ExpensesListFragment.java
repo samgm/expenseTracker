@@ -82,14 +82,9 @@ public class ExpensesListFragment extends ListFragment {
     public void onListItemClick(ListView list, View v, int position, long id) {
         Transaction transaction = (Transaction)getListView().getItemAtPosition(position);
         if (transaction != null) {
-            Toast.makeText(getActivity(), transaction.toString(), Toast.LENGTH_LONG).show();
-
             Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
             intent.putExtra("transaction_id", transaction.getId());
             getActivity().startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_EDIT_REQUEST_CODE);
-
-
-
         }
     }
 
@@ -116,7 +111,7 @@ public class ExpensesListFragment extends ListFragment {
         }
 
         if (item.getTitle() == "Edit") {
-            Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Long press on the transaction to Edit", Toast.LENGTH_LONG).show();
         } else if(item.getTitle() == "Delete") {
             TransactionManager.TRANSACTION_MANAGER.removeTransaction(transaction);
             transactionListAdapter.reset();
