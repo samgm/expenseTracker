@@ -3,14 +3,12 @@ package com.antso.expensesmanager.transactions;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.budgets.BudgetListAdapter;
-import com.antso.expensesmanager.budgets.BudgetManager;
+import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
 
 // Used to show a list of activities, for example when clicking on an account
@@ -27,8 +25,8 @@ public class TransactionListActivity extends ListActivity {
         getActionBar().setHomeButtonEnabled(true);
 
         Bundle params = getIntent().getExtras();
-        String accountId = params.getString("account_id");
-        String budgetId = params.getString("budget_id");
+        String accountId = params.getString(IntentParamNames.ACCOUNT_ID);
+        String budgetId = params.getString(IntentParamNames.BUDGET_ID);
 
         if(accountId != null) {
             transactionListAdapter = new AccountTransactionListAdapter(getApplicationContext(),

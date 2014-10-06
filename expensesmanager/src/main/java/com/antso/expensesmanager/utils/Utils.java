@@ -20,7 +20,7 @@ public class Utils {
     public static Integer[] MonthValues = new Integer[] {1, 2, 3, 4, 6};
     public static Integer[] YearValues = new Integer[] {1, 2};
 
-    public static int dateTimeToyyyMMdd(DateTime date) {
+    public static int dateTimeToyyyyMMdd(DateTime date) {
         int y = date.getYear() * 10000;
         int m = date.getMonthOfYear() * 100;
         int d = date.getDayOfMonth();

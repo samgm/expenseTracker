@@ -12,7 +12,6 @@ import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TimeUnit;
-import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.Utils;
@@ -180,6 +179,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(ACCOUNT_TABLE_NAME, null, values);
     }
 
+    public void updateAccount(Account account) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(ACCOUNT_FIELD_NAME, account.getName());
+        values.put(ACCOUNT_FIELD_COLOR, account.getColor());
+        values.put(ACCOUNT_FIELD_INITIAL_BALANCE, account.getInitialBalance().doubleValue());
+
+        db.update(ACCOUNT_TABLE_NAME, values,
+                ACCOUNT_FIELD_ID + " = ?", new String[]{account.getId()});
+    }
+
     public Collection<Account> getAccounts() {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -216,9 +227,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(BUDGET_FIELD_COLOR, budget.getColor());
         values.put(BUDGET_FIELD_PERIOD_UNIT, budget.getPeriodUnit().getIntValue());
         values.put(BUDGET_FIELD_PERIOD_LENGTH, budget.getPeriodLength());
-        values.put(BUDGET_FIELD_PERIOD_START, Utils.dateTimeToyyyMMdd(budget.getPeriodStart()));
+        values.put(BUDGET_FIELD_PERIOD_START, Utils.dateTimeToyyyyMMdd(budget.getPeriodStart()));
 
         db.insert(BUDGET_TABLE_NAME, null, values);
+    }
+
+    public void updateBudget(Budget budget) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(BUDGET_FIELD_NAME, budget.getName());
+        values.put(BUDGET_FIELD_THRESHOLD, budget.getThreshold().doubleValue());
+        values.put(BUDGET_FIELD_COLOR, budget.getColor());
+        values.put(BUDGET_FIELD_PERIOD_UNIT, budget.getPeriodUnit().getIntValue());
+        values.put(BUDGET_FIELD_PERIOD_LENGTH, budget.getPeriodLength());
+        values.put(BUDGET_FIELD_PERIOD_START, Utils.dateTimeToyyyyMMdd(budget.getPeriodStart()));
+
+        db.update(BUDGET_TABLE_NAME, values,
+                BUDGET_FIELD_ID + " = ?", new String[] { budget.getId() });
     }
 
     public Collection<Budget> getBudgets() {
@@ -261,13 +287,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TRANSACTION_FIELD_ACCOUNT_ID, transaction.getAccountId());
         values.put(TRANSACTION_FIELD_BUDGET_ID, transaction.getBudgetId());
         values.put(TRANSACTION_FIELD_VALUE, transaction.getValue().doubleValue());
-        values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyMMdd(transaction.getDate()));
+        values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyyMMdd(transaction.getDate()));
         values.put(TRANSACTION_FIELD_TIME, Utils.dateTimeTohhMMss(transaction.getDate()));
         values.put(TRANSACTION_FIELD_LINKED_TRANSACTION_ID, transaction.getLinkedTransactionId());
         values.put(TRANSACTION_FIELD_RECURRENT, transaction.getRecurrent());
         values.put(TRANSACTION_FIELD_FREQUENCY, transaction.getFrequency());
         values.put(TRANSACTION_FIELD_FREQUENCY_UNIT, transaction.getFrequencyUnit().getIntValue());
-        values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyMMdd(transaction.getEndDate()));
+        values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyyMMdd(transaction.getEndDate()));
         values.put(TRANSACTION_FIELD_REPETITION_NUM, transaction.getRepetitionNum());
 
         db.insert(TRANSACTION_TABLE_NAME, null, values);
@@ -422,13 +448,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TRANSACTION_FIELD_ACCOUNT_ID, transaction.getAccountId());
         values.put(TRANSACTION_FIELD_BUDGET_ID, transaction.getBudgetId());
         values.put(TRANSACTION_FIELD_VALUE, transaction.getValue().doubleValue());
-        values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyMMdd(transaction.getDate()));
+        values.put(TRANSACTION_FIELD_DATE, Utils.dateTimeToyyyyMMdd(transaction.getDate()));
         values.put(TRANSACTION_FIELD_TIME, Utils.dateTimeTohhMMss(transaction.getDate()));
         values.put(TRANSACTION_FIELD_LINKED_TRANSACTION_ID, transaction.getLinkedTransactionId());
         values.put(TRANSACTION_FIELD_RECURRENT, transaction.getRecurrent());
         values.put(TRANSACTION_FIELD_FREQUENCY, transaction.getFrequency());
         values.put(TRANSACTION_FIELD_FREQUENCY_UNIT, transaction.getFrequencyUnit().getIntValue());
-        values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyMMdd(transaction.getEndDate()));
+        values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyyMMdd(transaction.getEndDate()));
         values.put(TRANSACTION_FIELD_REPETITION_NUM, transaction.getRepetitionNum());
 
         db.update(TRANSACTION_TABLE_NAME, values,

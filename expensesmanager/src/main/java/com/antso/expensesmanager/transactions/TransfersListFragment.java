@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +23,7 @@ import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.Constants;
+import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.views.TransactionSearchDialog;
 
@@ -47,7 +47,7 @@ public class TransfersListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View listView = inflater.inflate(R.layout.list_fragment, container, false);
 
-        footerView = (LinearLayout) inflater.inflate(R.layout.list_footer, null, false);
+        footerView = inflater.inflate(R.layout.list_footer, null, false);
         return listView;
     }
 
@@ -85,18 +85,24 @@ public class TransfersListFragment extends ListFragment {
         Pair<Transaction, Transaction> pair =
                 (Pair<Transaction, Transaction>)getListView().getItemAtPosition(position);
         if (pair != null) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
-            intent.putExtra("transaction_id", pair.first.getId());
-            getActivity().startActivityForResult(intent, Constants.TRANSFER_TRANSACTION_EDIT_REQUEST_CODE);
+            startEditTransactionActivity(pair);
         }
+    }
+
+    private void startEditTransactionActivity(Pair<Transaction, Transaction> transactionPair) {
+        Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
+        intent.putExtra(IntentParamNames.TRANSACTION_ID, transactionPair.first.getId());
+        getActivity().startActivityForResult(intent, Constants.TRANSFER_TRANSACTION_EDIT_REQUEST_CODE);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.clearHeader();
-        menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, "Edit");
-        menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, "Delete");
+        menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0,
+                getText(R.string.action_transaction_edit));
+        menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1,
+                getText(R.string.action_transaction_delete));
     }
 
     @Override
@@ -108,17 +114,19 @@ public class TransfersListFragment extends ListFragment {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
 
-        Pair<Transaction, Transaction> transactions = (Pair<Transaction, Transaction>) transactionListAdapter.getItem(index);
+        Pair<Transaction, Transaction> transactions =
+                (Pair<Transaction, Transaction>) transactionListAdapter.getItem(index);
         if (transactions == null) {
             return true;
         }
 
-        if (item.getTitle() == "Edit") {
-            Toast.makeText(getActivity(), "Long press on the transaction to Edit", Toast.LENGTH_LONG).show();
-        } else if(item.getTitle() == "Delete") {
+        if (item.getTitle() == getText(R.string.action_transaction_edit)) {
+            startEditTransactionActivity(transactions);
+        } else if(item.getTitle() == getText(R.string.action_transaction_delete)) {
             TransactionManager.TRANSACTION_MANAGER.removeTransaction(transactions.first);
             transactionListAdapter.reset();
-            Toast.makeText(getActivity(), transactions.first.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), transactions.first.getDescription() +
+                    getText(R.string.message_transaction_deleted), Toast.LENGTH_LONG).show();
         }
 
         return true;
@@ -156,8 +164,8 @@ public class TransfersListFragment extends ListFragment {
         int id = item.getItemId();
         if (id == R.id.action_transaction_add) {
             Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
-            intent.putExtra("transaction_direction", TransactionDirection.Undef.getIntValue());
-            intent.putExtra("transaction_type", TransactionType.Transfer.getIntValue());
+            intent.putExtra(IntentParamNames.TRANSACTION_DIRECTION, TransactionDirection.Undef.getIntValue());
+            intent.putExtra(IntentParamNames.TRANSACTION_TYPE, TransactionType.Transfer.getIntValue());
             startActivityForResult(intent, Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE);
             return true;
         }

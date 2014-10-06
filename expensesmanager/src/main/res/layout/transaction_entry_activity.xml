@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -35,12 +35,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/transactionEntryTitle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_gravity="center_vertical"
                     android:textSize="30sp"
-                    android:text="Create Transaction"
+                    android:text="@string/transaction_entry_title"
                     android:textColor="@color/black"
                     android:gravity="right"/>
                 <TextView
@@ -62,7 +63,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="-16dp"
             android:textSize="14sp"
-            android:text="Amount"
+            android:text="@string/amount_label"
             android:textStyle="italic"
             android:gravity="left"
             android:visibility="visible"/>
@@ -82,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:textSize="20sp"
-            android:text="$"
+            android:text="@string/currency"
             android:gravity="center"
             android:layout_gravity="bottom"/>
 
@@ -92,54 +93,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="20sp"
-            android:text="0.00"
+            android:text="@string/value_0_00"
             android:selectAllOnFocus="true"
             android:numeric="decimal"
             android:gravity="right"
             android:layout_gravity="bottom"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/transactionPredefinedValueLayout"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="6dp"
-        android:visibility="gone"
-        >
-
-        <Button
-            android:id="@+id/transactionValue1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="$ 1"/>
-
-        <Button
-            android:id="@+id/transactionValue2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="$ 2"/>
-
-        <Button
-            android:id="@+id/transactionValue3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="$ 5"/>
-
-        <Button
-            android:id="@+id/transactionValue4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="$ 10"
-            />
     </LinearLayout>
 
     <TextView
@@ -150,7 +109,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
         android:textSize="14sp"
-        android:text="Description"
+        android:text="@string/description_label"
         android:textStyle="italic"
         android:gravity="left"
         android:visibility="visible"/>
@@ -163,7 +122,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
         android:textSize="20sp"
-        android:text="Description"
+        android:text="@string/description"
         android:selectAllOnFocus="true"
         android:gravity="right"/>
 
@@ -175,7 +134,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
         android:textSize="14sp"
-        android:text="Date"
+        android:text="@string/date_label"
         android:textStyle="italic"
         android:gravity="left"
         android:visibility="visible"/>
@@ -188,7 +147,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="6dp"
         android:textSize="20sp"
-        android:text="dd/mm/yyy"
+        android:text="@string/date"
         android:gravity="right"/>
 
     <TextView
@@ -199,7 +158,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
         android:textSize="14sp"
-        android:text="Account"
+        android:text="@string/account_label"
         android:textStyle="italic"
         android:gravity="left"
         android:visibility="visible"/>
@@ -215,19 +174,19 @@
 
         <Spinner
             android:id="@+id/transactionAccountSpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="10"
             android:textSize="20sp"
             android:entries="@array/arrayFakeAccount" />
-        />
 
         <ImageButton
             android:id="@+id/transactionAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_refresh"
-            />
+            android:contentDescription="@string/placeholder"
+            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 
     <TextView
@@ -238,7 +197,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
         android:textSize="14sp"
-        android:text="To"
+        android:text="@string/to_label"
         android:textStyle="italic"
         android:gravity="left"
         android:visibility="gone"/>
@@ -255,19 +214,19 @@
 
         <Spinner
             android:id="@+id/transactionSecondaryAccountSpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="10"
             android:textSize="20sp"
             android:entries="@array/arrayFakeAccount" />
-        />
 
         <ImageButton
             android:id="@+id/transactionSecondaryAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_refresh"
-            />
+            android:contentDescription="@string/placeholder"
+            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 
     <TextView
@@ -278,7 +237,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
         android:textSize="14sp"
-        android:text="Budget"
+        android:text="@string/budget_label"
         android:textStyle="italic"
         android:gravity="left"
         android:visibility="visible"/>
@@ -294,7 +253,7 @@
 
         <Spinner
             android:id="@+id/transactionBudgetSpinner"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="10"
             android:textSize="20sp"
@@ -305,7 +264,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_refresh"
-            />
+            android:contentDescription="@string/placeholder"
+            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 
     <LinearLayout
@@ -328,7 +288,7 @@
             android:layout_marginLeft="16dp"
             android:layout_gravity="center_vertical"
             android:textSize="14sp"
-            android:text="Recurrent"
+            android:text="@string/recurrent_label"
             android:textStyle="italic"/>
 
     </LinearLayout>
@@ -348,7 +308,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="-16dp"
             android:textSize="14sp"
-            android:text="Every"
+            android:text="@string/every_label"
             android:textStyle="italic"
             android:gravity="left"/>
 
@@ -368,7 +328,6 @@
                 android:layout_weight="8"
                 android:textSize="20sp"
                 android:entries="@array/arrayFakeFreq" />
-            />
             <Spinner
                 android:id="@+id/transactionFrequencyUnit"
                 android:layout_width="wrap_content"
@@ -376,7 +335,6 @@
                 android:layout_weight="2"
                 android:textSize="20sp"
                 android:entries="@array/arrayFakeFreqUnit" />
-            />
 
         </LinearLayout>
 
@@ -388,7 +346,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="-16dp"
             android:textSize="14sp"
-            android:text="Until"
+            android:text="@string/until_label"
             android:textStyle="italic"
             android:gravity="left"/>
 
@@ -399,8 +357,8 @@
             android:layout_marginLeft="80dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="6dp"
-            android:textSize="20dp"
-            android:text="dd/mm/yyy"
+            android:textSize="20sp"
+            android:text="@string/date"
             android:gravity="right"/>
 
     </LinearLayout>
@@ -414,21 +372,24 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp">
-
-        <Button
-            android:id="@+id/transactionConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add"/>
+    android:layout_marginBottom="6dp"
+    style="?android:attr/buttonBarStyle">
 
         <Button
             android:id="@+id/transactionCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel"/>
+            android:text="@string/button_cancel_label"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+            android:id="@+id/transactionConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_confirm_add_label"
+            style="?android:attr/buttonBarButtonStyle"/>
 
     </LinearLayout>
 

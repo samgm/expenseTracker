@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +21,7 @@ import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.utils.Constants;
+import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.views.TransactionSearchDialog;
 
@@ -45,7 +45,7 @@ public class ExpensesListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View listView = inflater.inflate(R.layout.list_fragment, container, false);
 
-        footerView = (LinearLayout) inflater.inflate(R.layout.list_footer, null, false);
+        footerView = inflater.inflate(R.layout.list_footer, null, false);
         return listView;
     }
 
@@ -82,18 +82,24 @@ public class ExpensesListFragment extends ListFragment {
     public void onListItemClick(ListView list, View v, int position, long id) {
         Transaction transaction = (Transaction)getListView().getItemAtPosition(position);
         if (transaction != null) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
-            intent.putExtra("transaction_id", transaction.getId());
-            getActivity().startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_EDIT_REQUEST_CODE);
+            startEditTransactionActivity(transaction);
         }
+    }
+
+    private void startEditTransactionActivity(Transaction transaction) {
+        Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
+        intent.putExtra(IntentParamNames.TRANSACTION_ID, transaction.getId());
+        getActivity().startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_EDIT_REQUEST_CODE);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.clearHeader();
-        menu.add(Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, "Edit");
-        menu.add(Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, "Delete");
+        menu.add(Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0,
+                getText(R.string.action_transaction_edit));
+        menu.add(Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1,
+                getText(R.string.action_transaction_delete));
     }
 
     @Override
@@ -110,12 +116,13 @@ public class ExpensesListFragment extends ListFragment {
             return true;
         }
 
-        if (item.getTitle() == "Edit") {
-            Toast.makeText(getActivity(), "Long press on the transaction to Edit", Toast.LENGTH_LONG).show();
-        } else if(item.getTitle() == "Delete") {
+        if (item.getTitle() == getText(R.string.action_transaction_edit)) {
+            startEditTransactionActivity(transaction);
+        } else if(item.getTitle() == getText(R.string.action_transaction_delete)) {
             TransactionManager.TRANSACTION_MANAGER.removeTransaction(transaction);
             transactionListAdapter.reset();
-            Toast.makeText(getActivity(), transaction.getDescription() + " Deleted", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), transaction.getDescription() +
+                    getText(R.string.message_transaction_deleted), Toast.LENGTH_LONG).show();
         }
 
         return true;
@@ -153,7 +160,7 @@ public class ExpensesListFragment extends ListFragment {
         int id = item.getItemId();
         if (id == R.id.action_transaction_add) {
             Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
-            intent.putExtra("transaction_direction", TransactionDirection.Out.getIntValue());
+            intent.putExtra(IntentParamNames.TRANSACTION_DIRECTION, TransactionDirection.Out.getIntValue());
             getActivity().startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_ENTRY_REQUEST_CODE);
             return true;
         }

@@ -27,7 +27,7 @@ public class Transaction {
     private String budgetId;
 
     private BigDecimal value;
-    private DateTime dateTime;
+    private DateTime date;
 
     private String linkedTransactionId;
 
@@ -46,7 +46,7 @@ public class Transaction {
             final String accountId,
             final String budgetId,
             final BigDecimal value,
-            final DateTime dateTime) {
+            final DateTime date) {
         this.id = id;
         this.description = description;
         this.direction = direction;
@@ -54,7 +54,7 @@ public class Transaction {
         this.accountId = accountId;
         this.budgetId = budgetId;
         this.value = value;
-        this.dateTime = dateTime;
+        this.date = date;
 
         this.linkedTransactionId = "";
         this.frequency = 0;
@@ -101,7 +101,7 @@ public class Transaction {
     }
 
     public DateTime getDate() {
-        return dateTime;
+        return date;
     }
 
     public String getLinkedTransactionId() {

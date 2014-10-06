@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.accounts.AccountManager;
@@ -21,11 +22,11 @@ import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
-import com.antso.expensesmanager.utils.Settings;
+import com.antso.expensesmanager.utils.IntentParamNames;
+import com.antso.expensesmanager.utils.SpaceTokenizer;
 import com.antso.expensesmanager.views_helpers.ButtonChangeSpinner;
 import com.antso.expensesmanager.views_helpers.DateEditText;
-import com.antso.expensesmanager.utils.SpaceTokenizer;
-import com.antso.expensesmanager.views_helpers.TransactionFrequencySpinner;
+import com.antso.expensesmanager.views_helpers.FrequencySpinner;
 import com.antso.expensesmanager.views_helpers.TransactionLayout;
 import com.antso.expensesmanager.views_helpers.ValueEditText;
 
@@ -44,14 +45,14 @@ public class TransactionEntryActivity extends Activity {
     private ButtonChangeSpinner accountSpinner;
     private ButtonChangeSpinner accountSecondarySpinner;
     private ButtonChangeSpinner budgetSpinner;
-    private TransactionFrequencySpinner recurrentFrequency;
+    private FrequencySpinner recurrentFrequency;
 
     private Collection<Account> accounts;
     private AccountSpinnerAdapter accountSpinnerAdapter;
     private Collection<Budget> budgets;
     private BudgetSpinnerAdapter budgetSpinnerAdapter;
 
-    private boolean isOrderEdit;
+    private boolean isEdit;
     private Transaction loadedTransaction1;
     private Transaction loadedTransaction2;
 
@@ -61,7 +62,7 @@ public class TransactionEntryActivity extends Activity {
         layout = new TransactionLayout(this);
         endDateEditText = new DateEditText(this);
         dateEditText = new DateEditText(this);
-        recurrentFrequency = new TransactionFrequencySpinner(this);
+        recurrentFrequency = new FrequencySpinner(this);
         accountSpinner = new ButtonChangeSpinner(this);
         accountSecondarySpinner = new ButtonChangeSpinner(this);
         budgetSpinner = new ButtonChangeSpinner(this);
@@ -75,10 +76,6 @@ public class TransactionEntryActivity extends Activity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-
-        //TEST
-        String str = Settings.getDefaultAccountId(this);
-        //End of TEST
 
         if (accounts == null) {
             accounts = AccountManager.ACCOUNT_MANAGER.getAccounts();
@@ -108,19 +105,17 @@ public class TransactionEntryActivity extends Activity {
         budgetSpinner.createView(R.id.transactionBudgetSpinner, R.id.transactionBudgetButton,
                 budgetSpinnerAdapter);
 
-        recurrentFrequency.createView(R.id.transactionFrequencyUnit, R.id.transactionFrequency);
+        recurrentFrequency.createView(R.id.transactionFrequencyUnit, R.id.transactionFrequency, true);
         dateEditText.createView(R.id.transactionDate, DateTime.now());
         endDateEditText.createView(R.id.transactionRecurrentStartDate, DateTime.now());
-
-
         description.setAdapter(new ArrayAdapter<String>(this, R.layout.text_spinner_item,
                 TransactionManager.TRANSACTION_MANAGER.getDescriptionsArray()));
         description.setTokenizer(new SpaceTokenizer());
 
         //Get params and load defaults
-        String id = getIntent().getStringExtra("transaction_id");
-        int direction = getIntent().getIntExtra("transaction_direction", TransactionDirection.Undef.getIntValue());
-        int type  = getIntent().getIntExtra("transaction_type", TransactionType.Undef.getIntValue());
+        String id = getIntent().getStringExtra(IntentParamNames.TRANSACTION_ID);
+        int direction = getIntent().getIntExtra(IntentParamNames.TRANSACTION_DIRECTION, TransactionDirection.Undef.getIntValue());
+        int type  = getIntent().getIntExtra(IntentParamNames.TRANSACTION_TYPE, TransactionType.Undef.getIntValue());
 
         loadTransactions(id, type, direction);
 
@@ -137,13 +132,20 @@ public class TransactionEntryActivity extends Activity {
             accountSecondarySpinner.setSelection(accountSpinnerAdapter.getIndexById(loadedTransaction2.getAccountId()));
         }
 
-        Button confirm = (Button) findViewById(R.id.transactionConfirm);
-        Button cancel = (Button) findViewById(R.id.transactionCancel);
-
+        final TextView title = (TextView) findViewById(R.id.transactionEntryTitle);
+        final Button confirm = (Button) findViewById(R.id.transactionConfirm);
+        final Button cancel = (Button) findViewById(R.id.transactionCancel);
+        if (isEdit) {
+            title.setText(R.string.transaction_edit_title);
+            confirm.setText(R.string.button_confirm_edit_label);
+        } else {
+            title.setText(R.string.transaction_entry_title);
+            confirm.setText(R.string.button_confirm_add_label);
+        }
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isOrderEdit) {
+                if (!isEdit) {
                     createNewTransactionAndSave();
                 } else {
                     updateTransactionAndSave();
@@ -183,10 +185,10 @@ public class TransactionEntryActivity extends Activity {
 
     private void loadTransactions(String id, int type, int direction) {
         if (id == null || id.isEmpty()) {
-            isOrderEdit = false;
+            isEdit = false;
             loadedTransaction1 = new Transaction(
                     null,
-                    "description",
+                    this.getString(R.string.description),
                     TransactionDirection.valueOf(direction),
                     TransactionType.valueOf(type),
                     null,
@@ -195,7 +197,7 @@ public class TransactionEntryActivity extends Activity {
                     DateTime.now());
             loadedTransaction1.setEndDate(DateTime.now());
         } else {
-            isOrderEdit = true;
+            isEdit = true;
             loadedTransaction1 = TransactionManager.TRANSACTION_MANAGER.getTransactionById(id);
             String linkedTransactionId = loadedTransaction1.getLinkedTransactionId();
             if (linkedTransactionId != null && !linkedTransactionId.isEmpty()) {

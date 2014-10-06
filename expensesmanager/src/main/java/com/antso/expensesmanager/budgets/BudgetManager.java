@@ -87,6 +87,12 @@ public enum BudgetManager {
         addBudget(budget);
     }
 
+    public void updateBudget(Budget budget) {
+        dbHelper.updateBudget(budget);
+        budgets.remove(budget.getId());
+        addBudget(budget);
+    }
+
     public void removeBudget(Budget budget) {
         budgets.remove(budget.getId());
         dbHelper.deleteBudget(budget.getId());

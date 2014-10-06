@@ -77,6 +77,12 @@ public enum AccountManager {
         addAccount(account);
     }
 
+    public void updateAccount(Account account) {
+        dbHelper.updateAccount(account);
+        accounts.remove(account.getId());
+        addAccount(account);
+    }
+
     public void removeAccount(Account account) {
         accounts.remove(account.getId());
         dbHelper.deleteAccount(account.getId());
@@ -157,7 +163,7 @@ public enum AccountManager {
 
         public void refresh(DateTime currentDate, Collection<Transaction> transactions, boolean reset, boolean remove) {
             if(reset) {
-                balance = BigDecimal.ZERO;
+                balance = account.getInitialBalance();
                 monthOut = BigDecimal.ZERO;
                 monthIn = BigDecimal.ZERO;
                 monthBalance = BigDecimal.ZERO;

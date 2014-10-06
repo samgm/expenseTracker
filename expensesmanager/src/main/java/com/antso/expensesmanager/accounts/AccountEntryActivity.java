@@ -8,21 +8,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
+import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
-import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 import com.antso.expensesmanager.views.ColorPickerDialog;
+import com.antso.expensesmanager.views_helpers.ValueEditText;
 
 import java.math.BigDecimal;
 
 
 public class AccountEntryActivity extends Activity {
+    private ValueEditText value;
+    private CircleSectorView color;
+    private EditText name;
 
-    private BigDecimal accountValue = BigDecimal.ZERO;
+    private Account loadedAccount;
+    private boolean isEdit;
+
+    public AccountEntryActivity() {
+        super();
+
+        value = new ValueEditText(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +44,17 @@ public class AccountEntryActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
-        final EditText name = (EditText)findViewById(R.id.accountName);
-        final EditText value = (EditText)findViewById(R.id.accountValue);
-
-        final CircleSectorView color = (CircleSectorView)findViewById(R.id.accountColor);
-        color.setColor(MaterialColours.getAccountColors().get(0));
-
-        final Button confirm = (Button)findViewById(R.id.accountConfirm);
-        final Button cancel = (Button)findViewById(R.id.accountCancel);
-
+        //Creating view
+        color = (CircleSectorView)findViewById(R.id.accountColor);
+        name = (EditText)findViewById(R.id.accountName);
+        value.createView(R.id.accountValue, BigDecimal.ZERO);
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ColorPickerDialog c = new ColorPickerDialog(AccountEntryActivity.this, new ColorPickerDialog.OnColorChangedListener() {
                     @Override
                     public void colorChanged(int c) {
-                        if(color != null) {
+                        if (color != null) {
                             color.setColor(c);
                             color.invalidate();
                         }
@@ -57,32 +64,46 @@ public class AccountEntryActivity extends Activity {
             }
         });
 
-        value.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    String valueStr = value.getText().toString();
-                    valueStr = Utils.washDecimalNumber(valueStr);
-                    value.setText(valueStr);
-                    accountValue = BigDecimal.valueOf(Double.parseDouble(valueStr)).setScale(2);
-                }
-            }
-        });
 
+        //Get params and load defaults
+        String id = getIntent().getStringExtra(IntentParamNames.ACCOUNT_ID);
+        loadAccount(id);
+
+        color.setColor(loadedAccount.getColor());
+        name.setText(loadedAccount.getName());
+        value.setValue(loadedAccount.getInitialBalance());
+
+        final TextView title = (TextView) findViewById(R.id.accountEntryTitle);
+        final Button confirm = (Button)findViewById(R.id.accountConfirm);
+        final Button cancel = (Button)findViewById(R.id.accountCancel);
+        if (isEdit) {
+            title.setText(R.string.account_edit_title);
+            confirm.setText(R.string.button_confirm_edit_label);
+        } else {
+            title.setText(R.string.account_entry_title);
+            confirm.setText(R.string.button_confirm_add_label);
+        }
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String valueStr = value.getText().toString();
-                valueStr = Utils.washDecimalNumber(valueStr);
-                accountValue = BigDecimal.valueOf(Double.parseDouble(valueStr));
+                if (isEdit) {
+                    Account account = new Account(
+                            loadedAccount.getId(),
+                            name.getText().toString(),
+                            value.getValue(),
+                            color.getColor());
 
-                Account account = new Account(
-                        EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
-                        name.getText().toString(),
-                        accountValue,
-                        color.getColor());
+                    AccountManager.ACCOUNT_MANAGER.updateAccount(account);
 
-                AccountManager.ACCOUNT_MANAGER.insertAccount(account);
+                } else {
+                    Account account = new Account(
+                            EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
+                            name.getText().toString(),
+                            value.getValue(),
+                            color.getColor());
+
+                    AccountManager.ACCOUNT_MANAGER.insertAccount(account);
+                }
 
                 setResult(RESULT_OK);
                 finish();
@@ -99,6 +120,19 @@ public class AccountEntryActivity extends Activity {
         });
     }
 
+    private void loadAccount(String id) {
+        if (id == null || id.isEmpty()) {
+            isEdit = false;
+            loadedAccount = new Account(
+                    null,
+                    getText(R.string.name).toString(),
+                    BigDecimal.ZERO,
+                    MaterialColours.getAccountColors().get(0));
+        } else {
+            isEdit = true;
+            loadedAccount = AccountManager.ACCOUNT_MANAGER.getAccountInfo(id).account;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

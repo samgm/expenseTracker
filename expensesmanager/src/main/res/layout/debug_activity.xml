@@ -4,19 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.antso.expensesmanager.DebugActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/settingTitle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_settings_section" />
-
     <Button
         android:id="@+id/importFromMyMoneyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Import from myMoney"
+        android:text="@string/debug_import_button"
         android:layout_gravity="left" />
 
     <Button
@@ -24,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="Export"
+        android:text="@string/debug_export_button"
         android:layout_gravity="left" />
 
     <Button
@@ -32,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
-        android:text="Test Add Accounts"
+        android:text="@string/debug_add_account_button"
         android:layout_gravity="left" />
 
     <Button
@@ -40,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
-        android:text="Test Add Transaction"
+        android:text="@string/debug_add_transactione_button"
         android:layout_gravity="left" />
 
     <Button
@@ -48,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="260dp"
-        android:text="Clear Data"
+        android:text="@string/debug_clear_data_button"
         android:layout_gravity="left" />
 
 </FrameLayout>

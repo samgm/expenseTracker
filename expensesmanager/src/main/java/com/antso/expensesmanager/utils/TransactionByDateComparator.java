@@ -1,4 +1,4 @@
-package com.antso.expensesmanager.transactions;
+package com.antso.expensesmanager.utils;
 
 import com.antso.expensesmanager.entities.Transaction;
 
