@@ -33,20 +33,20 @@
                 android:id="@+id/budgetName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textColor="#000000"
-                android:text="Budget Name">
+                android:text="@string/budget">
             </TextView>
 
             <TextView
                 android:id="@+id/budgetBalance"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textColor="#000000"
                 android:gravity="left"
                 android:textStyle="bold"
-                android:text="$ 0.00">
+                android:text="@string/currency_value_0_00">
             </TextView>
         </LinearLayout>
 
@@ -67,9 +67,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textColor="#000000"
-            android:text="2 Weeks">
+            android:text="@string/budget_period">
         </TextView>
 
         <TextView
@@ -77,9 +77,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textColor="#000000"
-            android:text="$ 0.00">
+            android:text="@string/currency_value_0_00">
         </TextView>
 
     </LinearLayout>

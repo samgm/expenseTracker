@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:circleSectorview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.antso.expensesmanager.accounts.AccountEntryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
     <LinearLayout
@@ -34,12 +34,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/accountEntryTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_gravity="center_vertical"
-                android:textSize="32dp"
-                android:text="Create Account"
+                android:textSize="32sp"
+                android:text="@string/account_entry_title"
                 android:textColor="@color/black"
                 android:gravity="right"/>
             <TextView
@@ -47,8 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_gravity="center_vertical"
-                android:textSize="16dp"
-                android:text="Tap the circle to change the color"
+                android:textSize="16sp"
+                android:text="@string/change_color_message"
                 android:gravity="right"/>
         </LinearLayout>
     </LinearLayout>
@@ -60,8 +61,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
-        android:textSize="14dp"
-        android:text="Name"
+        android:textSize="14sp"
+        android:text="@string/name_label"
         android:textStyle="italic"
         android:gravity="left"
         android:visibility="visible"/>
@@ -79,8 +80,8 @@
             android:id="@+id/accountName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Name"
+            android:textSize="20sp"
+            android:text="@string/name"
             android:selectAllOnFocus="true"
             android:gravity="right"
             android:layout_gravity="bottom"/>
@@ -94,8 +95,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
-        android:textSize="14dp"
-        android:text="Balance"
+        android:textSize="14sp"
+        android:text="@string/balance_label"
         android:textStyle="italic"
         android:gravity="left"
         android:visibility="visible"/>
@@ -106,16 +107,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
-        android:layout_marginRight="16dp"
-        android:layout_centerHorizontal="true">
+        android:layout_marginRight="16dp">
 
         <TextView
             android:id="@+id/accountValueCurrency"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:textSize="20dp"
-            android:text="$"
+            android:textSize="20sp"
+            android:text="@string/currency"
             android:gravity="center"/>
 
         <EditText
@@ -123,8 +123,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="20dp"
-            android:text="0.00"
+            android:textSize="20sp"
+            android:text="@string/value_0_00"
             android:selectAllOnFocus="true"
             android:numeric="decimal"
             android:gravity="right"/>
@@ -139,21 +139,23 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
-        android:layout_centerHorizontal="true">
-
-        <Button
-            android:id="@+id/accountConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add"/>
+        style="?android:attr/buttonBarStyle">
 
         <Button
             android:id="@+id/accountCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel"/>
+            android:text="@string/button_cancel_label"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+            android:id="@+id/accountConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_confirm_add_label"
+            style="?android:attr/buttonBarButtonStyle"/>
 
     </LinearLayout>
 

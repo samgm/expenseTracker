@@ -10,25 +10,22 @@ layout account/budget spinner items (margin + colored circle?)
 add transfer icon on compact view (by account/budget)
 show recurrent icon even on auto generated transactions
 
-OTHER
-move all the string to strings.xml (from layout and code)
-fix crashes on screen rotation
+FIXES
+on N5 crash when opening recurrent view
 
-1 refactoring entry activity
-ButtonChangeSpinner -> AccountButtonChangeSpinner + BudgetButtonChangeSpinner
-
-EDIT
-//TODO edit support for budget + refactoring as per transactions
-//TODO edit support for account + refactoring as per transactions
 
 CALCULATIONS
 1 manage transaction explosion all inside transaction manager (explode once for all at app start-up)
 //create unit test for calculations
 
 double click to exit
-save state on entry/edit activities
+
+OTHER
+statistics coming soon activity
+about activity
 
 SETTINGS
+once done move all the strings to strings.xml / constants
     configurable currency symbol
     default budget
     default account
@@ -42,7 +39,8 @@ LOGGING
 log on db operation failure
 
 ENHANCEMENTS
-1    recurrent transaction with no end date
+1    save state on entry/edit activities
+1   recurrent transaction with no end date
 
 2    quick transaction entry (with settings)
 3    backup on google
@@ -55,3 +53,4 @@ ENHANCEMENTS
 8    budget with many period length to be expanded on load and shown as different budgets
 9    recurrent transaction with repetition number (done with end date)
 
+support multi language enum strings

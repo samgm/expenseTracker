@@ -32,18 +32,18 @@
                 android:id="@+id/accountName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="Account Name">
+                android:textSize="20sp"
+                android:text="@string/account">
             </TextView>
 
             <TextView
                 android:id="@+id/accountBalance"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="left"
                 android:textStyle="bold"
-                android:text="$ 0.00">
+                android:text="@string/currency_value_0_00">
             </TextView>
         </LinearLayout>
 
@@ -64,8 +64,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textSize="14dp"
-            android:text="$ 0.00">
+            android:textSize="14sp"
+            android:text="@string/currency_value_0_00">
         </TextView>
 
         <TextView
@@ -73,8 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textSize="14dp"
-            android:text="$ 0.00">
+            android:textSize="14sp"
+            android:text="@string/currency_value_0_00">
         </TextView>
 
         <TextView
@@ -82,8 +82,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:textSize="14dp"
-            android:text="$ 0.00">
+            android:textSize="14sp"
+            android:text="@string/currency_value_0_00">
         </TextView>
     </LinearLayout>
 

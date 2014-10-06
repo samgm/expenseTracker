@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +23,7 @@ import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.Constants;
+import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.views.AccountChooserDialog;
 
@@ -46,7 +46,7 @@ public class AccountListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View listView = inflater.inflate(R.layout.list_fragment, container, false);
 
-        footerView = (LinearLayout) inflater.inflate(R.layout.list_footer, null, false);
+        footerView = inflater.inflate(R.layout.list_footer, null, false);
         return listView;
     }
 
@@ -82,7 +82,7 @@ public class AccountListFragment extends ListFragment {
             Intent intent = new Intent(getActivity(), TransactionListActivity.class);
 
             Bundle params = new Bundle();
-            params.putString("account_id", selectedAccount.getId());
+            params.putString(IntentParamNames.ACCOUNT_ID, selectedAccount.getId());
             intent.putExtras(params);
             startActivity(intent);
         }
@@ -92,8 +92,8 @@ public class AccountListFragment extends ListFragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.clearHeader();
-        menu.add(Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, "Edit");
-        menu.add(Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, "Delete");
+        menu.add(Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, getText(R.string.action_account_edit));
+        menu.add(Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, getText(R.string.action_account_delete));
     }
 
     @Override
@@ -112,9 +112,11 @@ public class AccountListFragment extends ListFragment {
             return true;
         }
 
-        if (item.getTitle() == "Edit") {
-            Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
-        } else if(item.getTitle() == "Delete") {
+        if (item.getTitle() == getText(R.string.action_account_edit)) {
+            Intent intent = new Intent(getActivity().getApplicationContext(), AccountEntryActivity.class);
+            intent.putExtra(IntentParamNames.ACCOUNT_ID, account.getId());
+            getActivity().startActivityForResult(intent, Constants.ACCOUNT_EDIT_REQUEST_CODE);
+        } else if(item.getTitle() == getText(R.string.action_account_delete)) {
             if(AccountManager.ACCOUNT_MANAGER.size() <= 1) {
                 AlertDialog dialog = new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.title_error_dialog)
@@ -143,7 +145,9 @@ public class AccountListFragment extends ListFragment {
                                 }
                                 AccountManager.ACCOUNT_MANAGER.removeAccount(account);
                                 accountListAdapter.notifyDataSetChanged();
-                                Toast.makeText(getActivity(), account.getName() + " Deleted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), account.getName() +
+                                        getText(R.string.message_account_deleted),
+                                        Toast.LENGTH_LONG).show();
                             }
                         }
                     }, account);
@@ -184,7 +188,8 @@ public class AccountListFragment extends ListFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.ACCOUNT_ENTRY_REQUEST_CODE) {
+        if (requestCode == Constants.ACCOUNT_ENTRY_REQUEST_CODE ||
+                requestCode == Constants.ACCOUNT_EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {

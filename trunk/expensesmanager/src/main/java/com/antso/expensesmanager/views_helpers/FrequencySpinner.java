@@ -11,7 +11,7 @@ import com.antso.expensesmanager.adapters.TimeUnitSpinnerAdapter;
 import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.utils.Utils;
 
-public class TransactionFrequencySpinner {
+public class FrequencySpinner {
     private final Activity parentActivity;
 
     private Spinner unitSpinner;
@@ -19,20 +19,25 @@ public class TransactionFrequencySpinner {
     private TimeUnitSpinnerAdapter unitSpinnerAdapter;
     private IntegerArraySpinnerAdapter currentValueSpinnerAdapter;
 
-    private IntegerArraySpinnerAdapter singleDayValuesAdapter;
+    private IntegerArraySpinnerAdapter dayValuesAdapter;
     private IntegerArraySpinnerAdapter weekValuesAdapter;
     private IntegerArraySpinnerAdapter monthValuesAdapter;
     private IntegerArraySpinnerAdapter yearValuesAdapter;
 
-    public TransactionFrequencySpinner(Activity parentActivity) {
+    public FrequencySpinner(Activity parentActivity) {
         this.parentActivity = parentActivity;
     }
 
-    public void createView(int unitSpinnerViewId, int valueSpinnerViewId) {
+    public void createView(int unitSpinnerViewId, int valueSpinnerViewId, boolean singleDayValue) {
         unitSpinnerAdapter = TimeUnitSpinnerAdapter.create(parentActivity,
                 R.layout.text_spinner_item);
-        singleDayValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
-                R.layout.text_spinner_item, Utils.DaySingleValues);
+        if(singleDayValue) {
+            dayValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
+                    R.layout.text_spinner_item, Utils.DaySingleValues);
+        } else {
+            dayValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
+                    R.layout.text_spinner_item, Utils.DayValues);
+        }
         weekValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
                 R.layout.text_spinner_item, Utils.WeekValues);
         monthValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
@@ -40,7 +45,7 @@ public class TransactionFrequencySpinner {
         yearValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
                 R.layout.text_spinner_item, Utils.YearValues);
 
-        currentValueSpinnerAdapter = singleDayValuesAdapter;
+        currentValueSpinnerAdapter = dayValuesAdapter;
 
         this.unitSpinner = (Spinner) parentActivity.findViewById(unitSpinnerViewId);
         this.valueSpinner = (Spinner) parentActivity.findViewById(valueSpinnerViewId);
@@ -63,7 +68,7 @@ public class TransactionFrequencySpinner {
                 TimeUnit unit = TimeUnit.valueOf(position + 1);
                 switch (unit) {
                     case Day:
-                        currentValueSpinnerAdapter = singleDayValuesAdapter;
+                        currentValueSpinnerAdapter = dayValuesAdapter;
                         break;
                     case Week:
                         currentValueSpinnerAdapter = weekValuesAdapter;

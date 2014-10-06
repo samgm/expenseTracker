@@ -1,27 +1,26 @@
 package com.antso.expensesmanager.budgets;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
+import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
-import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 import com.antso.expensesmanager.views.ColorPickerDialog;
+import com.antso.expensesmanager.views_helpers.DateEditText;
+import com.antso.expensesmanager.views_helpers.FrequencySpinner;
+import com.antso.expensesmanager.views_helpers.ValueEditText;
 
 import org.joda.time.DateTime;
 
@@ -29,10 +28,22 @@ import java.math.BigDecimal;
 
 
 public class BudgetEntryActivity extends Activity {
+    private CircleSectorView color;
+    private EditText name;
+    private ValueEditText budgetThreshold;
+    private DateEditText startDateEditText;
+    private FrequencySpinner period;
 
-    private BigDecimal budgetThreshold = BigDecimal.ZERO;
-    private DateTime startDate = DateTime.now();
+    private Budget loadedBudget;
+    private boolean isEdit;
 
+    public BudgetEntryActivity() {
+        super();
+
+        budgetThreshold = new ValueEditText(this);
+        startDateEditText = new DateEditText(this);
+        period = new FrequencySpinner(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +53,12 @@ public class BudgetEntryActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
-        final EditText name = (EditText)findViewById(R.id.budgetName);
-        final EditText value = (EditText)findViewById(R.id.budgetThreshold);
-        final EditText date = (EditText)findViewById(R.id.budgetStartDate);
-        date.setText(Utils.formatDate(DateTime.now()));
-        final CircleSectorView color = (CircleSectorView)findViewById(R.id.budgetColor);
-        color.setColor(MaterialColours.getBudgetColors().get(0));
-
-        final Spinner periodLengthSpinner = (Spinner)findViewById(R.id.budgetPeriodLenghtSpinner);
-        final Spinner periodUnitSpinner = (Spinner)findViewById(R.id.TimeUnitSpinner);
-
-        final Button confirm = (Button)findViewById(R.id.budgetConfirm);
-        final Button cancel = (Button)findViewById(R.id.budgetCancel);
-
+        //Creating view
+        name = (EditText)findViewById(R.id.budgetName);
+        color = (CircleSectorView)findViewById(R.id.budgetColor);
+        budgetThreshold.createView(R.id.budgetThreshold, BigDecimal.ZERO);
+        startDateEditText.createView(R.id.budgetStartDate, DateTime.now());
+        period.createView(R.id.TimeUnitSpinner, R.id.budgetPeriodLenghtSpinner, false);
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,116 +75,50 @@ public class BudgetEntryActivity extends Activity {
             }
         });
 
-        value.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    String valueStr = value.getText().toString();
-                    valueStr = Utils.washDecimalNumber(valueStr);
-                    value.setText(valueStr);
-                    budgetThreshold = BigDecimal.valueOf(Double.parseDouble(valueStr)).setScale(2);
-                }
-            }
-        });
+        //Get params and load defaults
+        String id = getIntent().getStringExtra(IntentParamNames.BUDGET_ID);
+        loadBudget(id);
 
-        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    DateTime now = DateTime.now();
-                    DatePickerDialog datePicker = new DatePickerDialog(
-                            BudgetEntryActivity.this,
-                            new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                    startDate = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
-                                    date.setText(Utils.formatDate(startDate));
-                                }
-                            }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
-                    );
-                    datePicker.show();
-                }
-            }
-        });
+        color.setColor(loadedBudget.getColor());
+        name.setText(loadedBudget.getName());
+        budgetThreshold.setValue(loadedBudget.getThreshold());
+        period.setUnit(loadedBudget.getPeriodUnit());
+        period.setValue(loadedBudget.getPeriodLength());
+        startDateEditText.setDate(loadedBudget.getPeriodStart());
 
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DateTime now = DateTime.now();
-                DatePickerDialog datePicker = new DatePickerDialog(
-                        BudgetEntryActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                startDate = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
-                                date.setText(Utils.formatDate(startDate));
-                            }
-                        }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
-                );
-                datePicker.show();
-            }
-        });
-
-        periodUnitSpinner.setAdapter(
-                new ArrayAdapter<TimeUnit>(this, R.layout.text_spinner_item,
-                        TimeUnit.valuesButUndef()));
-        periodUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                TimeUnit unit = TimeUnit.valueOf(position + 1);
-                Integer[] lengthArray = null;
-                switch (unit) {
-                    case Day:
-                        lengthArray = Utils.DayValues;
-                        break;
-                    case Week:
-                        lengthArray = Utils.WeekValues;
-                        break;
-                    case Month:
-                        lengthArray = Utils.MonthValues;
-                        break;
-                    case Year:
-                        lengthArray = Utils.YearValues;
-                        break;
-                    case Undef:
-                    default:
-                        lengthArray = new Integer[0];
-                        break;
-                }
-
-                periodLengthSpinner.setAdapter(new ArrayAdapter<Integer>(BudgetEntryActivity.this,
-                                R.layout.text_spinner_item, lengthArray));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
+        final TextView title = (TextView) findViewById(R.id.budgetEntryTitle);
+        final Button confirm = (Button)findViewById(R.id.budgetConfirm);
+        final Button cancel = (Button)findViewById(R.id.budgetCancel);
+        if (isEdit) {
+            title.setText(R.string.budget_edit_title);
+            confirm.setText(R.string.button_confirm_edit_label);
+        } else {
+            title.setText(R.string.budget_entry_title);
+            confirm.setText(R.string.button_confirm_add_label);
+        }
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String valueStr = value.getText().toString();
-                valueStr = Utils.washDecimalNumber(valueStr);
-                budgetThreshold = BigDecimal.valueOf(Double.parseDouble(valueStr));
-                TimeUnit periodUnit = (TimeUnit)periodUnitSpinner.getSelectedItem();
-                if(periodUnit == null) {
-                    periodUnit = TimeUnit.Undef;
-                }
-                Integer length = (Integer)periodLengthSpinner.getSelectedItem();
-                if (length == null) {
-                    length = 0;
-                }
+                if (isEdit) {
+                    Budget budget = new Budget(
+                            loadedBudget.getId(),
+                            name.getText().toString(),
+                            budgetThreshold.getValue(),
+                            color.getColor(),
+                            period.getValue(), period.getUnit(),
+                            startDateEditText.getDate());
+                    BudgetManager.BUDGET_MANAGER.updateBudget(budget);
 
-                Budget budget = new Budget(
-                        EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Budget.class),
-                        name.getText().toString(),
-                        budgetThreshold,
-                        color.getColor(),
-                        length, periodUnit,
-                        startDate);
-
-                BudgetManager.BUDGET_MANAGER.insertBudget(budget);
+                } else {
+                    Budget budget = new Budget(
+                            EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Budget.class),
+                            name.getText().toString(),
+                            budgetThreshold.getValue(),
+                            color.getColor(),
+                            period.getValue(), period.getUnit(),
+                            startDateEditText.getDate());
+                    BudgetManager.BUDGET_MANAGER.insertBudget(budget);
+                }
 
                 setResult(RESULT_OK);
                 finish();
@@ -197,6 +135,22 @@ public class BudgetEntryActivity extends Activity {
         });
     }
 
+    private void loadBudget(String id) {
+        if (id == null || id.isEmpty()) {
+            isEdit = false;
+            loadedBudget = new Budget(
+                    null,
+                    getText(R.string.name).toString(),
+                    BigDecimal.ZERO,
+                    MaterialColours.getAccountColors().get(0),
+                    1,
+                    TimeUnit.Month,
+                    DateTime.now());
+        } else {
+            isEdit = true;
+            loadedBudget = BudgetManager.BUDGET_MANAGER.getBudgetInfo(id).budget;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

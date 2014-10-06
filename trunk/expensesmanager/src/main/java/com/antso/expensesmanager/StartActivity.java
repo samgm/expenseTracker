@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.antso.expensesmanager.accounts.AccountListFragment;
@@ -19,6 +18,7 @@ import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.enums.DrawerSection;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.transactions.TransactionPagerHostFragment;
+import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.PlaceholderFragment;
 
 import java.util.List;
@@ -31,6 +31,7 @@ public class StartActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
     private FrameLayout mContainer;
+    private int lastPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class StartActivity
         BudgetManager.BUDGET_MANAGER.start(getApplicationContext());
         TransactionManager.TRANSACTION_MANAGER.start(getApplicationContext());
 
-        mTitle = getTitle();
+//        mTitle = getTitle();
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -76,6 +77,10 @@ public class StartActivity
                 fragment.onActivityResult(requestCode, resultCode, data);
             }
         }
+
+        if (requestCode == Constants.START_SETTINGS_ACTIVITY_REQUEST_CODE) {
+            mNavigationDrawerFragment.selectItem(lastPosition);
+        }
     }
 
     @Override
@@ -97,26 +102,38 @@ public class StartActivity
 
         switch (DrawerSection.valueOf(position)) {
             case TRANSACTIONS:
+                mTitle = getTitle();
+                lastPosition = position;
                 getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new TransactionPagerHostFragment()).commit();
                break;
             case ACCOUNTS:
+                mTitle = getText(R.string.title_accounts_list_section);
+                lastPosition = position;
                 fragmentManager.beginTransaction()
                     .replace(R.id.container, new AccountListFragment()).commit();
                 break;
-            case SETTINGS:
-//                fragmentManager.beginTransaction()
-//                        .replace(R.id.container, new SettingsFragment()).commit();
-                startActivity(new Intent(this, SettingsActivity.class));
-                break;
             case BUDGETS:
-                mContainer.setVisibility(View.VISIBLE);
+                mTitle = getText(R.string.title_budgets_list_section);
+                lastPosition = position;
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new BudgetListFragment()).commit();
                 break;
             case STATISTICS:
+                mTitle = getText(R.string.title_statistics_section);
+                lastPosition = position;
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .commit();
+                break;
+            case SETTINGS:
+                startActivityForResult(new Intent(this, SettingsActivity.class),
+                        Constants.START_SETTINGS_ACTIVITY_REQUEST_CODE);
+                break;
             case ABOUT:
+                mTitle = getText(R.string.title_about_section);
+                lastPosition = position;
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                         .commit();

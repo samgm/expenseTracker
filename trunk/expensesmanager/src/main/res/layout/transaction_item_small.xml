@@ -22,7 +22,7 @@
             android:layout_gravity="left"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="$">
+            android:text="@string/currency">
         </TextView>
 
         <TextView
@@ -33,7 +33,7 @@
             android:gravity="right"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="15250.00">
+            android:text="@string/value_15250_00">
         </TextView>
     </LinearLayout>
 
@@ -42,13 +42,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true">
+
         <ImageView
             android:id="@+id/transactionRecurrent"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_action_refresh"
-            />
+            android:contentDescription="@string/placeholder"/>
         <TextView
             android:id="@+id/transactionDateTime"
             android:layout_width="85dp"
@@ -57,7 +58,7 @@
             android:textStyle="italic"
             android:layout_gravity="center_vertical"
             android:gravity="right"
-            android:text="2014-May-11">
+            android:text="@string/date">
         </TextView>
     </LinearLayout>
 
@@ -70,7 +71,7 @@
         android:layout_toLeftOf="@id/transactionDateLayout"
         android:layout_gravity="left"
         android:textSize="18sp"
-        android:text="Description">
+        android:text="@string/description">
     </TextView>
 
 </RelativeLayout>

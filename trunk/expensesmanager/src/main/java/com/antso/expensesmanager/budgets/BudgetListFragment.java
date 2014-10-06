@@ -2,9 +2,9 @@ package com.antso.expensesmanager.budgets;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.support.v4.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -20,10 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antso.expensesmanager.R;
+import com.antso.expensesmanager.accounts.AccountEntryActivity;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.Constants;
+import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.views.BudgetChooseDialog;
 
@@ -82,7 +84,7 @@ public class BudgetListFragment extends ListFragment {
             Intent intent = new Intent(getActivity(), TransactionListActivity.class);
 
             Bundle params = new Bundle();
-            params.putString("budget_id", selectedBudget.getId());
+            params.putString(IntentParamNames.BUDGET_ID, selectedBudget.getId());
             intent.putExtras(params);
             startActivity(intent);
         }
@@ -92,8 +94,8 @@ public class BudgetListFragment extends ListFragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.clearHeader();
-        menu.add(Constants.BUDGET_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, "Edit");
-        menu.add(Constants.BUDGET_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, "Delete");
+        menu.add(Constants.BUDGET_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, getText(R.string.action_budget_edit));
+        menu.add(Constants.BUDGET_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, getText(R.string.action_budget_delete));
     }
 
     @Override
@@ -112,9 +114,11 @@ public class BudgetListFragment extends ListFragment {
             return true;
         }
 
-        if (item.getTitle() == "Edit") {
-            Toast.makeText(getActivity(), "Edit not supported", Toast.LENGTH_LONG).show();
-        } else if(item.getTitle() == "Delete") {
+        if (item.getTitle() == getText(R.string.action_budget_edit)) {
+            Intent intent = new Intent(getActivity().getApplicationContext(), BudgetEntryActivity.class);
+            intent.putExtra(IntentParamNames.BUDGET_ID, budget.getId());
+            getActivity().startActivityForResult(intent, Constants.BUDGET_EDIT_REQUEST_CODE);
+        } else if(item.getTitle() == getText(R.string.action_budget_delete)) {
             if(BudgetManager.BUDGET_MANAGER.size() <= 1) {
                 AlertDialog dialog = new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.title_error_dialog)
@@ -133,12 +137,13 @@ public class BudgetListFragment extends ListFragment {
                         @Override
                         public void onDismissed(boolean confirm, String selectedBudgetId) {
                             if (confirm) {
-                                //TODO
                                 TransactionManager.TRANSACTION_MANAGER
                                         .replaceBudget(budget.getId(), selectedBudgetId);
                                 BudgetManager.BUDGET_MANAGER.removeBudget(budget);
                                 budgetListAdapter.notifyDataSetChanged();
-                                Toast.makeText(getActivity(), budget.getName() + " Deleted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), budget.getName() +
+                                        getText(R.string.message_budget_deleted),
+                                        Toast.LENGTH_LONG).show();
                             }
                         }
                     }, budget);
@@ -180,7 +185,8 @@ public class BudgetListFragment extends ListFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.BUDGET_ENTRY_REQUEST_CODE) {
+        if (requestCode == Constants.BUDGET_ENTRY_REQUEST_CODE ||
+                requestCode == Constants.BUDGET_EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {

@@ -2,24 +2,12 @@ package com.antso.expensesmanager.views;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Shader;
-import android.graphics.SweepGradient;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.utils.MaterialColours;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ColorPickerDialog extends Dialog implements View.OnClickListener {
@@ -67,7 +55,7 @@ public class ColorPickerDialog extends Dialog implements View.OnClickListener {
             v.setOnClickListener(this);
         }
 
-        setTitle("Pick a Color");
+        setTitle(R.string.title_color_picker_dialog);
     }
 
     @Override

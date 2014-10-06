@@ -3,12 +3,14 @@ package com.antso.expensesmanager.transactions;
 import android.content.Context;
 import android.util.Pair;
 
+import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.accounts.AccountManager;
 import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
+import com.antso.expensesmanager.utils.TransactionByDateComparator;
 import com.antso.expensesmanager.utils.Utils;
 
 import org.joda.time.DateTime;
@@ -28,10 +30,18 @@ public enum TransactionManager {
     private DatabaseHelper dbHelper = null;
     private Set<String> descriptionsArray = null;
 
+    private String revenueSummaryDescription = "";
+    private String expenseSummaryDescription = "";
+    private String totalSummaryDescription = "";
+
     private TransactionManager() {
     }
 
     public void start(Context context) {
+        revenueSummaryDescription = context.getText(R.string.revenue_label).toString();
+        expenseSummaryDescription = context.getText(R.string.expense_label).toString();
+        totalSummaryDescription = context.getText(R.string.total_label).toString();
+
         if (dbHelper == null) {
             dbHelper = new DatabaseHelper(context);
         }
@@ -250,9 +260,9 @@ public enum TransactionManager {
         }
 
         if(!resultTransactions.isEmpty()) {
-            Transaction tin = new Transaction("RevenueId", "Revenue", TransactionDirection.In,
+            Transaction tin = new Transaction("RevenueId", revenueSummaryDescription, TransactionDirection.In,
                     TransactionType.Summary, "", "", in, accountPeriodDate);
-            Transaction tout = new Transaction("ExpensesId", "Expenses", TransactionDirection.Out,
+            Transaction tout = new Transaction("ExpensesId", expenseSummaryDescription, TransactionDirection.Out,
                     TransactionType.Summary, "", "", out, accountPeriodDate);
 
             AccountManager.AccountInfo accountInfo = AccountManager.ACCOUNT_MANAGER.getAccountInfo(account);
@@ -265,7 +275,7 @@ public enum TransactionManager {
                 direction = TransactionDirection.Out;
             }
 
-            Transaction ttot = new Transaction("TotalId", "Total", direction,
+            Transaction ttot = new Transaction("TotalId", totalSummaryDescription, direction,
                     TransactionType.Summary, "", "", balance, accountPeriodDate);
 
             resultTransactions.add(0, ttot);
@@ -322,9 +332,9 @@ public enum TransactionManager {
 
 
         if(!resultTransactions.isEmpty()) {
-            Transaction tin = new Transaction("RevenueId", "Revenue", TransactionDirection.In,
+            Transaction tin = new Transaction("RevenueId", revenueSummaryDescription, TransactionDirection.In,
                     TransactionType.Summary, "", "", periodIn, budgetPeriodDate);
-            Transaction tout = new Transaction("ExpensesId", "Expenses", TransactionDirection.Out,
+            Transaction tout = new Transaction("ExpensesId", expenseSummaryDescription, TransactionDirection.Out,
                     TransactionType.Summary, "", "", periodOut, budgetPeriodDate);
 
             BigDecimal periodBalance = periodIn.subtract(periodOut);
@@ -335,7 +345,7 @@ public enum TransactionManager {
                 direction = TransactionDirection.Out;
             }
 
-            Transaction ttot = new Transaction("TotalId", "Total", direction,
+            Transaction ttot = new Transaction("TotalId", totalSummaryDescription, direction,
                     TransactionType.Summary, "", "", periodBalance, budgetPeriodDate);
 
             resultTransactions.add(0, ttot);

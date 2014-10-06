@@ -20,13 +20,17 @@ import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.utils.csv.CSVReader;
+import com.antso.expensesmanager.utils.csv.CSVWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Map;
 
 
@@ -71,7 +75,7 @@ public class DebugActivity extends Activity {
         exportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                exportData();
             }
         });
 
@@ -226,4 +230,184 @@ public class DebugActivity extends Activity {
 
         return null;
     }
+    private void exportData() {
+        exportTransactionData();
+        exportAccountData();
+        exportBudgetData();
+    }
+
+    private void exportTransactionData() {
+        StringBuffer filePath = new StringBuffer();
+        filePath.append(Environment.getExternalStorageDirectory());
+        filePath.append("/" + getText(R.string.app_data_folder));
+        filePath.append("transactions_export_");
+        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(".csv");
+
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(filePath.toString());
+       } catch (IOException e) {
+            Log.e("DataExport", "Exception raised opening file to write data", e);
+            return;
+        }
+
+        CSVWriter writer = new CSVWriter(fileWriter);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        Collection<Transaction> transactions = dbHelper.getTransactions();
+        for (Transaction t : transactions) {
+            String[] tString = new String[14];
+            tString[0] = t.getId();
+            tString[1] = t.getDescription();
+            tString[2] = t.getDirection().getStringValue();
+            tString[3] = t.getType().getStringValue();
+            tString[4] = t.getAccountId();
+            tString[5] = t.getBudgetId();
+            tString[6] = t.getValue().setScale(2).toPlainString();
+            tString[7] = String.valueOf(Utils.dateTimeToyyyyMMdd(t.getDate()));
+            tString[8] = t.getLinkedTransactionId();
+            tString[9] = String.valueOf(t.getRecurrent());
+            tString[10] = String.valueOf(t.getFrequency());
+            tString[11] = t.getFrequencyUnit().getStringValue();
+            tString[12] = String.valueOf(Utils.dateTimeToyyyyMMdd(t.getEndDate()));
+            tString[13] = String.valueOf(t.getRepetitionNum());
+
+            writer.writeNext(tString);
+        }
+
+        try {
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            Log.e("DataExport", "Exception raised closing file to write data", e);
+            return;
+        }
+    }
+
+    private void exportAccountData() {
+        StringBuffer filePath = new StringBuffer();
+        filePath.append(Environment.getExternalStorageDirectory());
+        filePath.append("/" + getText(R.string.app_data_folder));
+        filePath.append("/" + "accounts_export_");
+        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(".csv");
+
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(filePath.toString());
+        } catch (IOException e) {
+            Log.e("DataExport", "Exception raised opening file to write data", e);
+            return;
+        }
+
+        CSVWriter writer = new CSVWriter(fileWriter);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        Collection<Account> accounts = dbHelper.getAccounts();
+        for (Account a : accounts) {
+            String[] aString = new String[4];
+
+            aString[0] = a.getId();
+            aString[1] = a.getName();
+            aString[2] = a.getInitialBalance().setScale(2).toPlainString();
+            aString[3] = String.valueOf(a.getColor());
+
+            writer.writeNext(aString);
+        }
+
+        try {
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            Log.e("DataExport", "Exception raised closing file to write data", e);
+            return;
+        }
+    }
+
+    private void exportBudgetData() {
+        StringBuffer filePath = new StringBuffer();
+        filePath.append(Environment.getExternalStorageDirectory());
+        filePath.append("/" + getText(R.string.app_data_folder));
+        filePath.append("/" + "budgets_export_");
+        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(".csv");
+
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(filePath.toString());
+        } catch (IOException e) {
+            Log.e("DataExport", "Exception raised opening file to write data", e);
+            return;
+        }
+
+        CSVWriter writer = new CSVWriter(fileWriter);
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        Collection<Budget> budgets = dbHelper.getBudgets();
+        for (Budget b : budgets) {
+            String[] bString = new String[7];
+
+            bString[0] = b.getId();
+            bString[1] = b.getName();
+            bString[2] = b.getThreshold().setScale(2).toPlainString();
+            bString[3] = String.valueOf(b.getColor());
+            bString[4] = b.getPeriodUnit().getStringValue();
+            bString[5] = String.valueOf(b.getPeriodLength());
+            bString[6] = String.valueOf(Utils.dateTimeToyyyyMMdd(b.getPeriodStart()));
+
+            writer.writeNext(bString);
+        }
+
+        try {
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            Log.e("DataExport", "Exception raised closing file to write data", e);
+            return;
+        }
+    }
+
+    private void importData() {
+        StringBuffer filePath = new StringBuffer();
+        filePath.append(Environment.getExternalStorageDirectory());
+        filePath.append("/MyMoney/MyMoney.csv");
+//                filePath.append("/" + R.string.app_data_folder);
+//                filePath.append("/" + "import.csv");
+
+        accountsByName = AccountManager.ACCOUNT_MANAGER.getAccountsByName();
+        budgetsByName = BudgetManager.BUDGET_MANAGER.getBudgetsByName();
+        try {
+            FileReader fileReader = new FileReader(filePath.toString());
+            CSVReader reader = new CSVReader(fileReader);
+            String[] values = reader.readNext();
+            values = reader.readNext();
+            while (values != null) {
+                StringBuffer message = new StringBuffer();
+                for (String val : values) {
+                    message.append(val + " | ");
+                }
+
+                Log.i("CVSReader", message.toString());
+                Transaction t1 = parseTransaction(values);
+                Transaction t2 = null;
+                if (t1.getType().equals(TransactionType.Transfer)) {
+                    values = reader.readNext();
+                    t2 = parseTransaction(values);
+                    t1.setLinkedTransactionId(t2.getId());
+                    t2.setLinkedTransactionId(t1.getId());
+                }
+
+                dbHelper.insertTransactions(t1);
+                if(t2 != null) {
+                    dbHelper.insertTransactions(t2);
+                }
+
+                values = reader.readNext();
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
