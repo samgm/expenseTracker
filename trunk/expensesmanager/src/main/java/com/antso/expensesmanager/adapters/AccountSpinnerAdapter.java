@@ -1,9 +1,15 @@
 package com.antso.expensesmanager.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
+import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
+import com.antso.expensesmanager.views.CircleSectorView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,9 +17,13 @@ import java.util.Map;
 public class AccountSpinnerAdapter extends ArrayAdapter<Account> {
 
     private Map<String, Integer> idToIndex;
+    private LayoutInflater mInflater;
+
 
     protected AccountSpinnerAdapter(Context context, int resource, Account[] accounts) {
         super(context, resource, accounts);
+
+        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         idToIndex = new HashMap<String, Integer>(accounts.length);
         int i = 0;
@@ -49,4 +59,38 @@ public class AccountSpinnerAdapter extends ArrayAdapter<Account> {
         return new AccountSpinnerAdapter(context, resource, finalAccounts);
     }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return createView(position, convertView, parent,
+                R.layout.account_spinner_item,
+                R.id.accountSpinnerItemText,
+                R.id.accountSpinnerItemColor);
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return createView(position, convertView, parent,
+                R.layout.account_spinner_dropdown_item,
+                R.id.accountSpinnerDropdownItemText,
+                R.id.accountSpinnerDropdownItemColor);
+    }
+
+    private View createView(int position, View convertView, ViewGroup parent,
+                            int viewId, int textId, int colorId) {
+        View view;
+        if (convertView != null) {
+            view = convertView;
+        } else {
+            view = mInflater.inflate(viewId, parent, false);
+        }
+
+        Account account = getItem(position);
+        TextView name = (TextView)view.findViewById(textId);
+        name.setText(account.getName());
+
+        CircleSectorView color = (CircleSectorView)view.findViewById(colorId);
+        color.setColor(account.getColor());
+
+        return view;
+    }
 }

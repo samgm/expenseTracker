@@ -61,7 +61,7 @@ public class ExpensesListFragment extends ListFragment {
 
             if (footerView != null &&
                     TransactionManager.TRANSACTION_MANAGER
-                            .getTransactions(TransactionDirection.Out, true).isEmpty()) {
+                            .getOutTransactions().isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.expenses_list_footer_text);
                 textView.setTextColor(MaterialColours.GREY_500);

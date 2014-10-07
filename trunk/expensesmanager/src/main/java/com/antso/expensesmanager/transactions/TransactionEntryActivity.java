@@ -23,6 +23,7 @@ import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.IntentParamNames;
+import com.antso.expensesmanager.utils.Settings;
 import com.antso.expensesmanager.utils.SpaceTokenizer;
 import com.antso.expensesmanager.views_helpers.ButtonChangeSpinner;
 import com.antso.expensesmanager.views_helpers.DateEditText;
@@ -130,6 +131,9 @@ public class TransactionEntryActivity extends Activity {
         endDateEditText.setDate(loadedTransaction1.getEndDate());
         if (loadedTransaction2 != null) {
             accountSecondarySpinner.setSelection(accountSpinnerAdapter.getIndexById(loadedTransaction2.getAccountId()));
+        } else {
+            accountSecondarySpinner.setSelection(accountSpinnerAdapter.getIndexById(
+                    Settings.getDefaultAccountId(this)));
         }
 
         final TextView title = (TextView) findViewById(R.id.transactionEntryTitle);
@@ -191,8 +195,8 @@ public class TransactionEntryActivity extends Activity {
                     this.getString(R.string.description),
                     TransactionDirection.valueOf(direction),
                     TransactionType.valueOf(type),
-                    null,
-                    null,
+                    Settings.getDefaultAccountId(this),
+                    Settings.getDefaultBudgetId(this),
                     BigDecimal.ZERO,
                     DateTime.now());
             loadedTransaction1.setEndDate(DateTime.now());

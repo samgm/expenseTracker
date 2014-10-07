@@ -3,6 +3,8 @@ package com.antso.expensesmanager.utils;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
+import com.antso.expensesmanager.R;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -78,8 +80,13 @@ public class Utils {
         return DateTimeFormat.forPattern(Utils.getDatePattenEU());
     }
 
-    public static String getCurrencyString() {
-        return "$";
+    public static String getCurrencyString(Context context) {
+        String curr = Settings.getCurrencySymbol(context);
+        if (curr != null) {
+            return curr.substring(0, 1);
+        }
+
+        return context.getText(R.string.currency).toString();
     }
 
     public static int dpToPx(int dp, Context context) {

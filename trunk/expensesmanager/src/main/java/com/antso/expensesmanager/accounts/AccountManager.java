@@ -23,6 +23,7 @@ import java.util.Map;
 public enum AccountManager {
         ACCOUNT_MANAGER;
 
+    private boolean started;
     private Map<String, AccountInfo> accounts;
     private DatabaseHelper dbHelper = null;
 
@@ -31,6 +32,10 @@ public enum AccountManager {
     }
 
     public void start(Context context) {
+        if (started) {
+            return;
+        }
+
         if (dbHelper == null) {
             dbHelper = new DatabaseHelper(context);
 
@@ -43,6 +48,8 @@ public enum AccountManager {
                 createDefaultAccount();
             }
         }
+
+        started = true;
     }
 
     private void createDefaultAccount() {
@@ -52,6 +59,9 @@ public enum AccountManager {
     }
 
     public void stop() {
+        accounts.clear();
+        started = false;
+
         if (dbHelper != null) {
             dbHelper.close();
             dbHelper = null;

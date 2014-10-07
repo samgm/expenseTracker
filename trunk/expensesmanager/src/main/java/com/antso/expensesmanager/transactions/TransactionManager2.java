@@ -19,30 +19,43 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.BrokenBarrierException;
 
-public enum TransactionManager {
+public enum TransactionManager2 {
         TRANSACTION_MANAGER;
 
-    private boolean started = false;
-
+    private boolean started;
     private DatabaseHelper dbHelper = null;
     private Set<String> descriptionsArray = null;
+
+    private List<Transaction> transactions = null;
+
+    private Map<String, Transaction> transactionsById = null;
+    private Map<String, List<Transaction>> transactionsByAccount = null;
+    private Map<String, List<Transaction>> transactionsByBudget = null;
+    private List<Transaction> inTransactions = null;
+    private List<Transaction> outTransactions = null;
+    private List<Transaction> transferTransactions = null;
+
 
     private String revenueSummaryDescription = "";
     private String expenseSummaryDescription = "";
     private String totalSummaryDescription = "";
 
-    private TransactionManager() {
+    private TransactionManager2() {
     }
 
     public void start(Context context) {
         if (started) {
             return;
         }
+
         revenueSummaryDescription = context.getText(R.string.revenue_label).toString();
         expenseSummaryDescription = context.getText(R.string.expense_label).toString();
         totalSummaryDescription = context.getText(R.string.total_label).toString();
@@ -51,31 +64,68 @@ public enum TransactionManager {
             dbHelper = new DatabaseHelper(context);
         }
 
-        Collection<Transaction> result = dbHelper.getTransactions();
         if(descriptionsArray == null) {
             descriptionsArray = new HashSet<String>();
-            for (Transaction t : result) {
-                descriptionsArray.add(t.getDescription());
-            }
+        }
+
+//        transactionsById = new HashMap<String, Transaction>();
+//        transactionsByAccount = new HashMap<String, List<Transaction>>();
+//        transactionsByBudget = new HashMap<String, List<Transaction>>();
+        inTransactions = new ArrayList<Transaction>();
+        outTransactions = new ArrayList<Transaction>();
+        transferTransactions = new ArrayList<Transaction>();
+
+        for (Transaction t : dbHelper.getTransactions()) {
+            addTransaction(t);
         }
 
         started = true;
     }
 
     public void stop() {
-        descriptionsArray.clear();
-        started = false;
-
         if (dbHelper != null) {
             dbHelper.close();
             dbHelper = null;
         }
     }
 
+    private void addTransaction(Transaction t) {
+        transactions.add(t);
+        descriptionsArray.add(t.getDescription());
+
+        switch (t.getType()) {
+            case Single:
+                switch (t.getDirection()) {
+                    case In:
+                        inTransactions.add(t);
+                        break;
+                    case Out:
+                        outTransactions.add(t);
+                        break;
+                    case Undef:
+                        break;
+                }
+                break;
+            case Transfer:
+                transferTransactions.add(t);
+            case Summary:
+            case Undef:
+                break;
+        }
+    }
+
+    private void delTransaction(Transaction t) {
+        inTransactions.remove(t);
+        outTransactions.remove(t);
+        transferTransactions.remove(t);
+
+        transactions.remove(t);
+    }
+
     public void insertTransaction(Transaction transaction) {
         dbHelper.insertTransactions(transaction);
 
-        descriptionsArray.add(transaction.getDescription());
+        addTransaction(transaction);
 
         AccountManager.ACCOUNT_MANAGER.onTransactionAdded(transaction);
         BudgetManager.BUDGET_MANAGER.onTransactionAdded(transaction);
@@ -84,8 +134,11 @@ public enum TransactionManager {
     public void removeTransaction(Transaction transaction) {
         if(transaction.getLinkedTransactionId() != null &&
                 !transaction.getLinkedTransactionId().isEmpty()) {
-            dbHelper.deleteTransaction(transaction.getLinkedTransactionId());
+            Transaction linkedTransaction = getTransactionById(transaction.getLinkedTransactionId());
+            delTransaction(linkedTransaction);
+            dbHelper.deleteTransaction(linkedTransaction.getId());
         }
+        delTransaction(transaction);
         dbHelper.deleteTransaction(transaction.getId());
 
         AccountManager.ACCOUNT_MANAGER.onTransactionDeleted(transaction);
@@ -96,7 +149,8 @@ public enum TransactionManager {
         Transaction oldTransaction = dbHelper.getTransactionsById(transaction.getId());
         dbHelper.updateTransaction(transaction);
 
-        descriptionsArray.add(transaction.getDescription());
+        delTransaction(oldTransaction);
+        addTransaction(transaction);
 
         AccountManager.ACCOUNT_MANAGER.onTransactionDeleted(oldTransaction);
         BudgetManager.BUDGET_MANAGER.onTransactionDeleted(oldTransaction);
@@ -208,7 +262,7 @@ public enum TransactionManager {
 
         while (Utils.isBeforeOrEqual(newDate, transaction.getEndDate()) &&
                 Utils.isBeforeOrEqual(newDate, currentDate)) {
-            transactions.add(TransactionManager.createRecurrentCopy(transaction, newDate));
+            transactions.add(TransactionManager2.createRecurrentCopy(transaction, newDate));
             iterationNum++;
             newDate = getNextTransactionDate(transaction, iterationNum);
         }

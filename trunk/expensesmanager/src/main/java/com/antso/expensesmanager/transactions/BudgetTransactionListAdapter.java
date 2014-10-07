@@ -105,7 +105,7 @@ public class BudgetTransactionListAdapter extends AbstractTransactionListAdapter
         transactionDesc.setTextColor(MaterialColours.BLACK);
 
         final TextView transactionCurrency = (TextView) transactionLayout.findViewById(R.id.transactionCurrency);
-        transactionCurrency.setText(Utils.getCurrencyString());
+        transactionCurrency.setText(Utils.getCurrencyString(context));
         transactionCurrency.setTextColor(MaterialColours.BLACK);
 
         final TextView transactionValue = (TextView) transactionLayout.findViewById(R.id.transactionValue);

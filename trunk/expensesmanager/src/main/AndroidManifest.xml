@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.antso.expensesmanager" >
+    package="com.antso.expensesmanager"
+    android:versionCode="1"
+    android:versionName="@string/app_version">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-sdk
+        android:minSdkVersion="16">
+    </uses-sdk>
 
     <application
         android:allowBackup="true"
@@ -21,7 +27,7 @@
         </activity>
         <activity
             android:name=".transactions.TransactionListActivity"
-            android:label="@string/title_transaction_list_activity" >
+            android:label="@string/title_default_transaction_list_activity" >
         </activity>
         <activity
             android:name=".transactions.TransactionEntryActivity"
@@ -42,11 +48,10 @@
         <activity
             android:name=".DebugActivity"
             android:label="@string/title_activity_debug" >
-
-            <intent-filter>
-                <action android:name=".DebugActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name=".DebugActivity" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+            <!--</intent-filter>-->
         </activity>
     </application>
 

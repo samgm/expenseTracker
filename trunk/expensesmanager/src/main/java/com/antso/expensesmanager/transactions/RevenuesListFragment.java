@@ -61,7 +61,7 @@ public class RevenuesListFragment extends ListFragment {
 
             if (footerView != null &&
                     TransactionManager.TRANSACTION_MANAGER
-                            .getTransactions(TransactionDirection.In, true).isEmpty()) {
+                            .getInTransactions().isEmpty()) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.revenues_list_footer_text);
                 textView.setTextColor(MaterialColours.GREY_500);
