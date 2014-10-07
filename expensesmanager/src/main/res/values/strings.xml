@@ -3,9 +3,12 @@
 
     <string name="app_name">Expenses</string>
     <string name="app_data_folder">Expenses</string>
+    <string name="app_version">0.1.0</string>
 
     <!--Transaction List Activity-->
-    <string name="title_transaction_list_activity">Transactions</string>
+    <string name="title_default_transaction_list_activity">Transactions</string>
+    <string name="title_accounts_transaction_list_activity">Account Transactions</string>
+    <string name="title_budgets_transaction_list_activity">Budget Transactions</string>
 
     <!--Transaction entry activity-->
     <string name="title_activity_transaction_entry">Transactions</string>
@@ -48,6 +51,7 @@
 
     <!--Dialogs-->
     <string name="title_error_dialog">Error</string>
+    <string name="title_confirm_dialog">Confirm</string>
     <string name="title_account_chooser_dialog">Delete account</string>
     <string name="title_budget_chooser_dialog">Delete budget</string>
     <string name="title_search_transaction_dialog">Type something to search</string>
@@ -57,14 +61,29 @@
     <string name="cancel">Don\'t do that</string>
     <string name="delete_all">Yes, delete all</string>
     <string name="delete_and_move">Move and delete</string>
+    <string name="sure_go_on">Yes, proceed</string>
     <string name="title_activity_debug">Debug</string>
 
     <!--Debug activity-->
-    <string name="debug_import_button">Import from myMoney</string>
+    <string name="debug_import_from_mymoney_button">Import from myMoney</string>
+    <string name="debug_import_button">Import</string>
     <string name="debug_export_button">Export</string>
     <string name="debug_add_account_button">Test Add Accounts</string>
     <string name="debug_add_transactione_button">Test Add Transaction</string>
     <string name="debug_clear_data_button">Clear Data</string>
+
+    <!--About activity-->
+    <string name="button_feedback_label">Tap here to send your feedback</string>
+    <string name="app_version_label">Version</string>
+    <string name="app_version_postfix">(beta)</string>
+    <string name="app_author_full">Author: Antonio Solano</string>
+    <string name="app_feedback_mail">asolanoit@gmail.com</string>
+    <string name="app_feedback_mail_subjejct">Expenses feedback report</string>
+    <string name="app_feedback_mail_body">Write here your feedback</string>
+
+    <!--Statistics activity-->
+    <string name="statistics_message">Statistics on your expenses are coming soon!!!</string>
+
 
     <!--Transaction Entry layout titles-->
     <string name="transaction_entry_title">Create Transaction</string>
@@ -88,6 +107,7 @@
     <string name="accounts_list_footer_text">Nothing to show here</string>
     <string name="budgets_list_footer_text">Nothing to show here</string>
 
+    <string name="message_existing_all_data_will_be_deleted">If you proceed all the existing data will be deleted. Are you sure you want to go?</string>
     <string name="error_cannot_delete_last_account">There is only this account remaining. You cannot delete it</string>
     <string name="error_cannot_delete_last_budget">There is only this budget remaining. You cannot delete it</string>
     <string name="message_account_chooser_dialog">If you want to delete the account, select a new one to move transactions on or delete all the transaction for the account</string>
@@ -95,6 +115,8 @@
     <string name="message_account_deleted">" Deleted"</string>
     <string name="message_budget_deleted">" Deleted"</string>
     <string name="message_transaction_deleted">" Deleted"</string>
+
+    <string name="message_click_again_to_exit">"Click again to exit"</string>
 
     <!--Layout Screen Fields -->
     <string name="empty"></string>

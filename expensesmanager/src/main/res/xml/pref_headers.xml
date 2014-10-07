@@ -6,12 +6,12 @@
         android:fragment="com.antso.expensesmanager.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
 
-    <header
-        android:fragment="com.antso.expensesmanager.SettingsActivity$NotificationPreferenceFragment"
-        android:title="@string/pref_header_notifications" />
+    <!--<header-->
+        <!--android:fragment="com.antso.expensesmanager.SettingsActivity$NotificationPreferenceFragment"-->
+        <!--android:title="@string/pref_header_notifications" />-->
 
     <header
-        android:fragment="com.antso.expensesmanager.SettingsActivity$DataSyncPreferenceFragment"
-        android:title="@string/pref_header_data_sync" />
+        android:fragment="com.antso.expensesmanager.SettingsActivity$DataImportExportPreferenceFragment"
+        android:title="@string/pref_header_data_import_export" />
 
 </preference-headers>

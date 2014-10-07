@@ -25,6 +25,7 @@ import java.util.Map;
 public enum BudgetManager {
         BUDGET_MANAGER;
 
+    private boolean started;
     private Map<String, BudgetInfo> budgets;
     private DatabaseHelper dbHelper = null;
 
@@ -33,6 +34,10 @@ public enum BudgetManager {
     }
 
     public void start(Context context) {
+        if (started) {
+            return;
+        }
+
         if (dbHelper == null) {
             dbHelper = new DatabaseHelper(context);
 
@@ -46,6 +51,8 @@ public enum BudgetManager {
             }
 
         }
+
+        started = true;
     }
 
     private void createDefaultBudget() {
@@ -56,6 +63,9 @@ public enum BudgetManager {
     }
 
     public void stop() {
+        budgets.clear();
+        started = false;
+
         if (dbHelper != null) {
             dbHelper.close();
             dbHelper = null;

@@ -29,11 +29,13 @@ public class TransactionListActivity extends ListActivity {
         String budgetId = params.getString(IntentParamNames.BUDGET_ID);
 
         if(accountId != null) {
+            setTitle(R.string.title_accounts_transaction_list_activity);
             transactionListAdapter = new AccountTransactionListAdapter(getApplicationContext(),
                     TransactionManager.TRANSACTION_MANAGER,
                     accountId);
         }
         if(budgetId != null) {
+            setTitle(R.string.title_budgets_transaction_list_activity);
             transactionListAdapter = new BudgetTransactionListAdapter(getApplicationContext(),
                     TransactionManager.TRANSACTION_MANAGER,
                     budgetId);

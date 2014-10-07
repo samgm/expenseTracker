@@ -54,7 +54,7 @@ public class BudgetListAdapter extends BaseAdapter {
         name.setText(budgetInfo.budget.getName());
 
         final TextView balance = (TextView) budgetLayout.findViewById(R.id.budgetBalance);
-        String balanceStr = Utils.getCurrencyString() + " " +
+        String balanceStr = Utils.getCurrencyString(context) + " " +
                 budgetInfo.periodBalance.setScale(2).toPlainString();
         balance.setText(balanceStr);
 
@@ -64,7 +64,7 @@ public class BudgetListAdapter extends BaseAdapter {
         period.setText(periodStr);
 
         final TextView threshold = (TextView) budgetLayout.findViewById(R.id.budgetThreshold);
-        String thresholdStr = Utils.getCurrencyString() + " " +
+        String thresholdStr = Utils.getCurrencyString(context) + " " +
                 budgetInfo.budget.getThreshold().setScale(2).toPlainString();
         threshold.setText(thresholdStr);
 

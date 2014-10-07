@@ -108,7 +108,7 @@ public class TransfersTransactionListAdapter extends BaseAdapter {
         transactionDesc.setTextColor(MaterialColours.BLACK);
 
         final TextView transactionValue = (TextView) transactionLayout.findViewById(R.id.transactionValue);
-        String balance = Utils.getCurrencyString() + " " +
+        String balance = Utils.getCurrencyString(context) + " " +
                 t1.getValue().setScale(2).toPlainString();
         transactionValue.setText(balance);
         transactionValue.setTextColor(MaterialColours.BLACK);

@@ -2,49 +2,43 @@ LAYOUT
 //TODO add icon to transfer list item
 cambiare colori app (theme?)
 mettere label in grigio (date label campi)
-add footer nothing to show in accounts/ budget transaction lists
 remove footer on something added (for all the lists)
 layout drawer (icon + separators)
-move ok action on the right and cancel on the left
-layout account/budget spinner items (margin + colored circle?)
+change drawer and back icons with whit ones
 add transfer icon on compact view (by account/budget)
-show recurrent icon even on auto generated transactions
+show recurrent icon even on auto generated transactions (change background color)
+change about image with a bigger one
+?change button container to be light green???
 
-FIXES
-on N5 crash when opening recurrent view
+data import/export
+    select what to import if multiple export exist
 
-
-CALCULATIONS
-1 manage transaction explosion all inside transaction manager (explode once for all at app start-up)
-//create unit test for calculations
-
-double click to exit
-
-OTHER
-statistics coming soon activity
-about activity
 
 SETTINGS
-once done move all the strings to strings.xml / constants
-    configurable currency symbol
-    default budget
-    default account
+    default account for transfer
 
-    import from csv
-    export to csv
 
-    debug?
+---------------------------------------------------------------
+ BUGS
+---------------------------------------------------------------
+    MINOR   Sometimes footer is not shown
+    MINOR   Sometimes action bar menus are not shown
+    MINOR   log on db operation failure
 
-LOGGING
-log on db operation failure
+---------------------------------------------------------------
+ ENHANCEMENTS
+---------------------------------------------------------------
+0    CALCULATIONS
+     create unit test for calculations
+     manage transaction explosion all inside transaction manager (explode once for all at app start-up)
+     store recurrent transaction and allow editing series or single instance
 
-ENHANCEMENTS
 1    save state on entry/edit activities
-1   recurrent transaction with no end date
+1    recurrent transaction with no end date
 
 2    quick transaction entry (with settings)
 3    backup on google
-4    statistics
+4    statistics (http://android-graphview.org/)
 
 5    add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
 
@@ -53,4 +47,5 @@ ENHANCEMENTS
 8    budget with many period length to be expanded on load and shown as different budgets
 9    recurrent transaction with repetition number (done with end date)
 
-support multi language enum strings
+support multi language enum string
+

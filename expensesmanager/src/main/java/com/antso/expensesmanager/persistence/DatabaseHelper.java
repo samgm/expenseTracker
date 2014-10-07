@@ -191,7 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ACCOUNT_FIELD_ID + " = ?", new String[]{account.getId()});
     }
 
-    public Collection<Account> getAccounts() {
+    public List<Account> getAccounts() {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.query(ACCOUNT_TABLE_NAME,
@@ -247,7 +247,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 BUDGET_FIELD_ID + " = ?", new String[] { budget.getId() });
     }
 
-    public Collection<Budget> getBudgets() {
+    public List<Budget> getBudgets() {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.query(BUDGET_TABLE_NAME,
@@ -318,11 +318,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transaction;
     }
 
-    public Collection<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
-                transactionColumns, null, new String[] {}, null, null, null);
+                transactionColumns, null, new String[] {}, null, null,
+                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
 
         List<Transaction> transactions = new ArrayList<Transaction>();
         while (cursor.moveToNext()) {
@@ -338,8 +339,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
                 transactionColumns,
                 TRANSACTION_FIELD_ID + " = ?", new String[] { id },
-                null, null,
-                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+                null, null, null);
 
         if(cursor.moveToNext()) {
             return cursorToTransaction(cursor);
@@ -348,7 +348,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public Collection<Transaction> getTransactionsByAccount(String accountId) {
+    public List<Transaction> getTransactionsByAccount(String accountId) {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
@@ -365,7 +365,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
-    public Collection<Transaction> getTransactionsByBudget(String budgetId) {
+    public List<Transaction> getTransactionsByBudget(String budgetId) {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
@@ -382,7 +382,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
-    public Collection<Transaction> getTransactions(TransactionDirection direction, boolean noTransfer) {
+    public List<Transaction> getTransactions(TransactionDirection direction, boolean noTransfer) {
         SQLiteDatabase db = getWritableDatabase();
 
         Integer directionInt = direction.getIntValue();
@@ -412,7 +412,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
-    public Collection<Transaction> getTransactions(TransactionType type) {
+    public List<Transaction> getTransactions(TransactionType type) {
         SQLiteDatabase db = getWritableDatabase();
 
         Integer typeInt = type.getIntValue();

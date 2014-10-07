@@ -3,6 +3,7 @@ package com.antso.expensesmanager;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.antso.expensesmanager.accounts.AccountListFragment;
 import com.antso.expensesmanager.accounts.AccountManager;
@@ -19,7 +21,6 @@ import com.antso.expensesmanager.enums.DrawerSection;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.transactions.TransactionPagerHostFragment;
 import com.antso.expensesmanager.utils.Constants;
-import com.antso.expensesmanager.utils.PlaceholderFragment;
 
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class StartActivity
     private FrameLayout mContainer;
     private int lastPosition = 0;
 
+    private boolean backToExitPressedOnce;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +44,6 @@ public class StartActivity
         AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());
         BudgetManager.BUDGET_MANAGER.start(getApplicationContext());
         TransactionManager.TRANSACTION_MANAGER.start(getApplicationContext());
-
-//        mTitle = getTitle();
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -124,7 +125,7 @@ public class StartActivity
                 mTitle = getText(R.string.title_statistics_section);
                 lastPosition = position;
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .replace(R.id.container, new StatisticsFragment())
                         .commit();
                 break;
             case SETTINGS:
@@ -135,10 +136,28 @@ public class StartActivity
                 mTitle = getText(R.string.title_about_section);
                 lastPosition = position;
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .replace(R.id.container, new AboutFragment())
                         .commit();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        backToExitPressedOnce = true;
+        Toast.makeText(this, R.string.message_click_again_to_exit, Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                backToExitPressedOnce = false;
+            }
+        }, 5000);
     }
 
     @Override
