@@ -23,6 +23,7 @@ import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.DataExporter;
+import com.antso.expensesmanager.views.SpinnerChooserDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,8 +76,11 @@ public class SettingsActivity extends PreferenceActivity {
         }
         //noinspection deprecation
         ListPreference accountsList = (ListPreference) findPreference("accounts_list");
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         accountsList.setEntries(accountNames.toArray(new String[0]));
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         accountsList.setEntryValues(accountIds.toArray(new String[0]));
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         accountsList.setDefaultValue(accountIds.toArray(new String[0])[0]);
 
         //Budget list
@@ -88,8 +92,11 @@ public class SettingsActivity extends PreferenceActivity {
         }
         //noinspection deprecation
         ListPreference budgetList = (ListPreference) findPreference("budgets_list");
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         budgetList.setEntries(budgetNames.toArray(new String[0]));
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         budgetList.setEntryValues(budgetIds.toArray(new String[0]));
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
         budgetList.setDefaultValue(accountIds.toArray(new String[0])[0]);
 
         //Currency Symbol
@@ -106,7 +113,7 @@ public class SettingsActivity extends PreferenceActivity {
         addPreferencesFromResource(R.xml.pref_data_import_export);
 
         //noinspection deprecation
-        final Preference importData = (Preference) findPreference("import_data");
+        final Preference importData = findPreference("import_data");
         importData.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -116,7 +123,7 @@ public class SettingsActivity extends PreferenceActivity {
         });
 
         //noinspection deprecation
-        Preference exportData = (Preference) findPreference("export_data");
+        Preference exportData = findPreference("export_data");
         exportData.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -228,9 +235,42 @@ public class SettingsActivity extends PreferenceActivity {
     }
 
     private void importData() {
-        final DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        final DataExporter exporter = new DataExporter(SettingsActivity.this);
+        final String[] imports = exporter.getDataImports();
+        if (imports.length == 0) {
+            AlertDialog dialog = new AlertDialog.Builder(getApplicationContext())
+                    .setTitle(R.string.title_sorry_dialog)
+                    .setMessage(R.string.message_nothing_to_import_dialog)
+                    .setNeutralButton(R.string.got_it, null)
+                    .create();
+            dialog.show();
+            return;
+        }
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
+        if (imports.length == 1) {
+            confirmAndImport(exporter, imports[0]);
+            return;
+        }
+
+        final SpinnerChooserDialog importChooser = new SpinnerChooserDialog(
+                R.string.title_import_chooser_dialog,
+                R.string.message_import_chooser_dialog,
+                this,
+                new SpinnerChooserDialog.OnDialogDismissed() {
+                    @Override
+                    public void onDismissed(boolean confirm, final String selectedDate) {
+                        if(!confirm) {
+                            return;
+                        }
+                        confirmAndImport(exporter, selectedDate);
+                    }
+                }, imports);
+        importChooser.show();
+    }
+
+    private void confirmAndImport(final DataExporter exporter, final String selectedDate) {
+        final DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+        AlertDialog dialog = new AlertDialog.Builder(SettingsActivity.this)
                 .setTitle(R.string.title_confirm_dialog)
                 .setMessage(R.string.message_existing_all_data_will_be_deleted)
                 .setPositiveButton(R.string.sure_go_on, new DialogInterface.OnClickListener() {
@@ -241,10 +281,7 @@ public class SettingsActivity extends PreferenceActivity {
                         AccountManager.ACCOUNT_MANAGER.stop();
 
                         dbHelper.deleteDatabase();
-
-                        DataExporter exporter = new DataExporter(SettingsActivity.this);
-                        exporter.importData();
-
+                        exporter.importData(selectedDate);
 
                         AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());
                         BudgetManager.BUDGET_MANAGER.start(getApplicationContext());
@@ -255,7 +292,6 @@ public class SettingsActivity extends PreferenceActivity {
                 .create();
         dialog.show();
     }
-
     private void exportData() {
         DataExporter exporter = new DataExporter(this);
         exporter.exportData();

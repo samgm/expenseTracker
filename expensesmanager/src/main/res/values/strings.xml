@@ -52,13 +52,16 @@
     <!--Dialogs-->
     <string name="title_error_dialog">Error</string>
     <string name="title_confirm_dialog">Confirm</string>
+    <string name="title_sorry_dialog">Sorry</string>
     <string name="title_account_chooser_dialog">Delete account</string>
     <string name="title_budget_chooser_dialog">Delete budget</string>
     <string name="title_search_transaction_dialog">Type something to search</string>
     <string name="title_color_picker_dialog">Pick a Color"</string>
+    <string name="title_import_chooser_dialog">Import data</string>
 
     <string name="got_it">Ok, got it</string>
     <string name="cancel">Don\'t do that</string>
+    <string name="import_this">Import this</string>
     <string name="delete_all">Yes, delete all</string>
     <string name="delete_and_move">Move and delete</string>
     <string name="sure_go_on">Yes, proceed</string>
@@ -115,6 +118,8 @@
     <string name="message_account_deleted">" Deleted"</string>
     <string name="message_budget_deleted">" Deleted"</string>
     <string name="message_transaction_deleted">" Deleted"</string>
+    <string name="message_import_chooser_dialog">"Select the date you want to import"</string>
+    <string name="message_nothing_to_import_dialog">"Nothing to import"</string>
 
     <string name="message_click_again_to_exit">"Click again to exit"</string>
 

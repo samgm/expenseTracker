@@ -17,21 +17,36 @@ import com.antso.expensesmanager.utils.csv.CSVWriter;
 
 import org.joda.time.DateTime;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DataExporter {
 
     private final Context context;
+    private final String budgetFilePrefix = "budgets_export_";
+    private final String accountFilePrefix = "accounts_export_";
+    private final String transactionFilePrefix = "transactions_export_";
+    private final String appFolderPath;
+
 
     public DataExporter(final Context context) {
         this.context = context;
+        String appFolder = context.getText(R.string.app_data_folder).toString();
+        appFolderPath = String.valueOf(Environment.getExternalStorageDirectory()) + "/" + appFolder;
     }
 
     public void exportData() {
+        File appFolder = new File(appFolderPath);
+        if (!appFolder.exists()) {
+            appFolder.mkdir();
+        }
         exportTransactionData();
         exportAccountData();
         exportBudgetData();
@@ -39,9 +54,8 @@ public class DataExporter {
 
     private void exportTransactionData() {
         StringBuilder filePath = new StringBuilder();
-        filePath.append(Environment.getExternalStorageDirectory());
-        filePath.append("/").append(context.getText(R.string.app_data_folder));
-        filePath.append("/" + "transactions_export_");
+        filePath.append(appFolderPath);
+        filePath.append("/").append(transactionFilePrefix);
         filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
         filePath.append(".csv");
 
@@ -86,9 +100,8 @@ public class DataExporter {
 
     private void exportAccountData() {
         StringBuilder filePath = new StringBuilder();
-        filePath.append(Environment.getExternalStorageDirectory());
-        filePath.append("/").append(context.getText(R.string.app_data_folder));
-        filePath.append("/" + "accounts_export_");
+        filePath.append(appFolderPath);
+        filePath.append("/").append(accountFilePrefix);
         filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
         filePath.append(".csv");
 
@@ -124,8 +137,7 @@ public class DataExporter {
 
     private void exportBudgetData() {
         StringBuilder filePath = new StringBuilder();
-        filePath.append(Environment.getExternalStorageDirectory());
-        filePath.append("/").append(context.getText(R.string.app_data_folder));
+        filePath.append(appFolderPath);
         filePath.append("/" + "budgets_export_");
         filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
         filePath.append(".csv");
@@ -163,18 +175,22 @@ public class DataExporter {
         }
     }
 
-    public void importData() {
-        importAccountData();
-        importBudgetData();
-        importTransactionData();
+    public void importData(String importDate) {
+        File appFolder = new File(appFolderPath);
+        if (!appFolder.exists()) {
+            return;
+        }
+
+        importAccountData(importDate);
+        importBudgetData(importDate);
+        importTransactionData(importDate);
     }
 
-    private void importTransactionData() {
+    private void importTransactionData(String importDate) {
         StringBuilder filePath = new StringBuilder();
-        filePath.append(Environment.getExternalStorageDirectory());
-        filePath.append("/").append(context.getText(R.string.app_data_folder));
-        filePath.append("/" + "transactions_export_");
-        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(appFolderPath);
+        filePath.append("/").append(transactionFilePrefix);
+        filePath.append(importDate);
         filePath.append(".csv");
 
         FileReader fileReader;
@@ -218,12 +234,11 @@ public class DataExporter {
         }
     }
 
-    private void importAccountData() {
+    private void importAccountData(String importDate) {
         StringBuilder filePath = new StringBuilder();
-        filePath.append(Environment.getExternalStorageDirectory());
-        filePath.append("/").append(context.getText(R.string.app_data_folder));
-        filePath.append("/" + "accounts_export_");
-        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(appFolderPath);
+        filePath.append("/").append(accountFilePrefix);
+        filePath.append(importDate);
         filePath.append(".csv");
 
         FileReader fileReader;
@@ -256,12 +271,11 @@ public class DataExporter {
         }
     }
 
-    private void importBudgetData() {
+    private void importBudgetData(String importDate) {
         StringBuilder filePath = new StringBuilder();
-        filePath.append(Environment.getExternalStorageDirectory());
-        filePath.append("/").append(context.getText(R.string.app_data_folder));
-        filePath.append("/" + "budgets_export_");
-        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(appFolderPath);
+        filePath.append("/").append(budgetFilePrefix);
+        filePath.append(importDate);
         filePath.append(".csv");
 
         FileReader fileReader;
@@ -303,5 +317,42 @@ public class DataExporter {
             message.append(val).append(" | ");
         }
         Log.i("CVSReader", message.toString());
+    }
+
+    public String[] getDataImports() {
+        File appFolder = new File(appFolderPath);
+        if (!appFolder.exists()) {
+            return new String[0];
+        }
+
+        Map<String, Integer> dates = new HashMap<String, Integer>();
+        File f = new File(appFolderPath);
+        File files[] = f.listFiles();
+        for (File file : files) {
+            String name = file.getName();
+            if(name.contains(accountFilePrefix)) {
+                name = name.replace(accountFilePrefix, "").replace(".csv", "");
+                int i = (dates.containsKey(name)) ? dates.get(name) + 1 : 1;
+                dates.put(name, i);
+            } else  if(name.contains(budgetFilePrefix)) {
+                name = name.replace(budgetFilePrefix, "").replace(".csv", "");
+                int i = (dates.containsKey(name)) ? dates.get(name) + 1 : 1;
+                dates.put(name, i);
+            } else  if(name.contains(transactionFilePrefix)) {
+                name = name.replace(transactionFilePrefix, "").replace(".csv", "");
+                int i = (dates.containsKey(name)) ? dates.get(name) + 1 : 1;
+                dates.put(name, i);
+            }
+        }
+
+        ArrayList<String> result = new ArrayList<String>();
+        for (String date : dates.keySet()) {
+            if (dates.get(date) == 3) {
+                result.add(date);
+            }
+        }
+
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
+        return result.toArray(new String[0]);
     }
 }

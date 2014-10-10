@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.hardware.usb.UsbAccessory;
 import android.util.Log;
 
 import com.antso.expensesmanager.entities.Account;
@@ -15,6 +16,8 @@ import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.Utils;
+
+import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -365,12 +368,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
+    public List<Transaction> getTransactionsByAccountAndDate(String accountId, DateTime date) {
+        SQLiteDatabase db = getWritableDatabase();
+        String dateStr = String.valueOf(Utils.dateTimeToyyyyMMdd(date) / 100);
+        dateStr = dateStr + "%";
+
+        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
+                transactionColumns,
+                TRANSACTION_FIELD_ACCOUNT_ID + " = ? AND " +
+                TRANSACTION_FIELD_DATE + " LIKE ?", new String[] { accountId, dateStr },
+                null, null,
+                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        while (cursor.moveToNext()) {
+            transactions.add(cursorToTransaction(cursor));
+        }
+
+        return transactions;
+    }
+
     public List<Transaction> getTransactionsByBudget(String budgetId) {
         SQLiteDatabase db = getWritableDatabase();
 
         Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
                 transactionColumns,
                 TRANSACTION_FIELD_BUDGET_ID + " = ?", new String[] { budgetId },
+                null, null,
+                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+
+        List<Transaction> transactions = new ArrayList<Transaction>();
+        while (cursor.moveToNext()) {
+            transactions.add(cursorToTransaction(cursor));
+        }
+
+        return transactions;
+    }
+
+    public List<Transaction> getTransactionsByBudgetAndDate(String budgetId, DateTime start, DateTime end) {
+        SQLiteDatabase db = getWritableDatabase();
+        String startStr = String.valueOf(Utils.dateTimeToyyyyMMdd(start));
+        String endStr = String.valueOf(Utils.dateTimeToyyyyMMdd(end));
+
+        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
+                transactionColumns,
+                TRANSACTION_FIELD_BUDGET_ID + " = ? AND " +
+                TRANSACTION_FIELD_DATE + " >= ? AND " +
+                TRANSACTION_FIELD_DATE + " < ?",
+                new String[] { budgetId, startStr, endStr },
                 null, null,
                 TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
 

@@ -177,8 +177,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="10"
-            android:textSize="20sp"
-            android:entries="@array/arrayFakeAccount" />
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/transactionAccountButton"
@@ -217,8 +216,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="10"
-            android:textSize="20sp"
-            android:entries="@array/arrayFakeAccount" />
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/transactionSecondaryAccountButton"
@@ -256,8 +254,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="10"
-            android:textSize="20sp"
-            android:entries="@array/arrayFakeBudget"/>
+            android:textSize="20sp"/>
 
         <ImageButton
             android:id="@+id/transactionBudgetButton"
@@ -326,15 +323,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="8"
-                android:textSize="20sp"
-                android:entries="@array/arrayFakeFreq" />
+                android:textSize="20sp"/>
             <Spinner
                 android:id="@+id/transactionFrequencyUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="2"
-                android:textSize="20sp"
-                android:entries="@array/arrayFakeFreqUnit" />
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
@@ -369,10 +364,6 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginBottom="6dp"
     style="?android:attr/buttonBarStyle">
 
         <Button
@@ -381,6 +372,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/button_cancel_label"
+            android:background="@drawable/button_background"
             style="?android:attr/buttonBarButtonStyle"/>
 
         <Button
@@ -389,6 +381,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/button_confirm_add_label"
+            android:background="@drawable/button_background"
             style="?android:attr/buttonBarButtonStyle"/>
 
     </LinearLayout>

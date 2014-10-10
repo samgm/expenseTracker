@@ -236,7 +236,8 @@ public enum BudgetManager {
                 iterationNum++;
             }
 
-            return  new Pair<DateTime, DateTime>(periodStartOld, periodStart);
+            return  new Pair<DateTime, DateTime>(periodStartOld.withTimeAtStartOfDay(),
+                    periodStart.withTimeAtStartOfDay());
         }
 
         public int getPercentage() {

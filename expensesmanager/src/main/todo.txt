@@ -1,22 +1,26 @@
+TESTARE su nexus No such directory on export
+
+
 LAYOUT
-//TODO add icon to transfer list item
 cambiare colori app (theme?)
+    change selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
 mettere label in grigio (date label campi)
 remove footer on something added (for all the lists)
-layout drawer (icon + separators)
-change drawer and back icons with whit ones
+
+layout drawer (icon + separators) need a custom adapter
+    text black
+    icons
+
+add icon to transfer list item
 add transfer icon on compact view (by account/budget)
 show recurrent icon even on auto generated transactions (change background color)
+
 change about image with a bigger one
-?change button container to be light green???
 
-data import/export
-    select what to import if multiple export exist
-
-
-SETTINGS
-    default account for transfer
-
+URGENT
+move long taking stuff on async task
+*TransactionListAdapter, make load asynch
+check result with MyMoney
 
 ---------------------------------------------------------------
  BUGS
@@ -48,4 +52,47 @@ SETTINGS
 9    recurrent transaction with repetition number (done with end date)
 
 support multi language enum string
+setting for screen to start on
+setting for default secondary account for transfer
 
+
+---------------------------------------------------------------
+ EULA
+---------------------------------------------------------------
+    www.rocketlawyer.com
+    Templates:
+    Vedi EULA su Google Play per Facebook/Dropbox
+    http://www.makingmoneywithandroid.com/2011/05/how-to-eula-android-app/
+    http://www.vbdotnetforums.com/intellectual-property-discussion/4196-eula-example.html
+
+
+
+
+
+
+
+
+
+Here's a correct table of percentages to hex values. E.g. for 50% white you'd use #80FFFFFF.
+
+100% — FF
+95% — F2
+90% — E6
+85% — D9
+80% — CC
+75% — BF
+70% — B3
+65% — A6
+60% — 99
+55% — 8C
+50% — 80
+45% — 73
+40% — 66
+35% — 59
+30% — 4D
+25% — 40
+20% — 33
+15% — 26
+10% — 1A
+5% — 0D
+0% — 00

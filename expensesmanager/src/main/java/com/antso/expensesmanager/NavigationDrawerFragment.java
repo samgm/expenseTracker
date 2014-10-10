@@ -21,6 +21,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.antso.expensesmanager.adapters.DrawerAdapter;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -96,19 +98,19 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_transactions_list_section),
-                        getString(R.string.title_accounts_list_section),
-                        getString(R.string.title_budgets_list_section),
-                        getString(R.string.title_statistics_section),
-                        getString(R.string.title_settings_section),
-                        getString(R.string.title_about_section),
 
-                }));
+        mDrawerListView.setAdapter(DrawerAdapter.create(
+                    getActionBar().getThemedContext(),
+                    R.layout.drawer_item,
+                    new DrawerItem[]{
+                            new DrawerItem(R.drawable.ic_expenses_transfer, R.string.title_transactions_list_section, false),
+                            new DrawerItem(R.drawable.ic_expenses_account, R.string.title_accounts_list_section, false),
+                            new DrawerItem(R.drawable.ic_expenses_budget, R.string.title_budgets_list_section, true),
+                            new DrawerItem(R.drawable.ic_expenses_statistics, R.string.title_statistics_section, true),
+                            new DrawerItem(R.drawable.ic_action_settings, R.string.title_settings_section, false),
+                            new DrawerItem(R.drawable.ic_action_about, R.string.title_about_section, false)
+                    }));
+
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -246,6 +248,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SimplifiableIfStatement
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -275,5 +278,18 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+
+    public class DrawerItem {
+        public int icon;
+        public int text;
+        public boolean separator;
+
+        public DrawerItem(int icon, int text, boolean separator) {
+            this.icon = icon;
+            this.text = text;
+            this.separator = separator;
+        }
+
     }
 }

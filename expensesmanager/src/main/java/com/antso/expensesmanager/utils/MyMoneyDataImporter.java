@@ -9,6 +9,7 @@ import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.entities.Transaction;
+import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
@@ -21,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Map;
 
 public class MyMoneyDataImporter {
@@ -42,6 +44,7 @@ public class MyMoneyDataImporter {
 
         accountsByName = AccountManager.ACCOUNT_MANAGER.getAccountsByName();
         budgetsByName = BudgetManager.BUDGET_MANAGER.getBudgetsByName();
+
         try {
             FileReader fileReader = new FileReader(filePath.toString());
             CSVReader reader = new CSVReader(fileReader);
@@ -67,7 +70,6 @@ public class MyMoneyDataImporter {
                 if(t2 != null) {
                     dbHelper.insertTransactions(t2);
                 }
-
                 values = reader.readNext();
             }
 
@@ -104,13 +106,24 @@ public class MyMoneyDataImporter {
             if(accountsByName.containsKey(account)) {
                 account = accountsByName.get(account).getId();
             } else {
-                Log. i("TransactionParser", "Error converting account: Account not found {AccountId" + account + "}");
+                Account defAccount = new Account(EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
+                        account, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0));
+                AccountManager.ACCOUNT_MANAGER.insertAccount(defAccount);
+                accountsByName.put(defAccount.getName(), defAccount);
+                account = defAccount.getId();
+                Log. i("TransactionParser", "Error converting account: Account not found {AccountId" + account + "} created default");
             }
 
             if(budgetsByName.containsKey(budget)) {
                 budget = budgetsByName.get(budget).getId();
             } else {
-                Log. i("TransactionParser", "Error converting budget: Budget not found {BudgetId" + budget + "}");
+                Budget defBudget = new Budget(EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Budget.class),
+                        budget, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0),
+                        1, TimeUnit.Month, new DateTime(2000, 1, 1, 0, 0));
+                BudgetManager.BUDGET_MANAGER.insertBudget(defBudget);
+                budgetsByName.put(defBudget.getName(), defBudget);
+                budget = defBudget.getId();
+                Log. i("TransactionParser", "Error converting budget: Budget not found {BudgetId" + budget + "} created default");
             }
 
             TransactionType type = TransactionType.Single;
@@ -129,7 +142,16 @@ public class MyMoneyDataImporter {
 
             Transaction t = new Transaction(id, name, direction, type, account, budget, value, date);
             if (recurrent) {
+                String frequency[] = values[8].split(" ");
+                String end = values[9];
+                int freq = Integer.parseInt(frequency[0]);
+                TimeUnit unit = TimeUnit.valueOf(frequency[1]);
+                DateTime enddate = DateTime.parse(end, Utils.getDateFormatterEU());
+
                 t.setRecurrent(true);
+                t.setFrequency(freq);
+                t.setFrequencyUnit(unit);
+                t.setEndDate(enddate);
             }
             return t;
         } catch (Exception e) {

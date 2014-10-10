@@ -156,4 +156,25 @@ public class Utils {
 
         return (d1.isBefore(d2) || d1.isEqual(d2));
     }
+
+    public static boolean isAfterOrEqual(DateTime d1, DateTime d2) {
+        d1 = d1.withTimeAtStartOfDay();
+        d2 = d2.withTimeAtStartOfDay();
+
+        return (d1.isAfter(d2) || d1.isEqual(d2));
+    }
+
+    public static boolean isBefore(DateTime d1, DateTime d2) {
+        d1 = d1.withTimeAtStartOfDay();
+        d2 = d2.withTimeAtStartOfDay();
+
+        return d1.isBefore(d2);
+    }
+
+    public static boolean isAfter(DateTime d1, DateTime d2) {
+        d1 = d1.withTimeAtStartOfDay();
+        d2 = d2.withTimeAtStartOfDay();
+
+        return d1.isAfter(d2);
+    }
 }
