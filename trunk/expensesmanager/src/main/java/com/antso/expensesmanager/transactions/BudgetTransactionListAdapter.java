@@ -1,6 +1,7 @@
 package com.antso.expensesmanager.transactions;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,13 +46,23 @@ public class BudgetTransactionListAdapter extends AbstractTransactionListAdapter
             return;
         }
 
-        Collection<Transaction> loaded = transactionManager.getBudgetNextPeriodTransactions(budget);
-        if (loaded.size() != 0) {
-            transactions.addAll(loaded);
-            notifyDataSetChanged();
-        } else {
-            nothingMoreToLoad = true;
-        }
+        new AsyncTask<Void, Void,  Collection<Transaction>>() {
+            @Override
+            protected  Collection<Transaction> doInBackground(Void... params) {
+                return transactionManager.getBudgetNextPeriodTransactions(budget);
+            }
+
+            @Override
+            protected void onPostExecute(Collection<Transaction> loaded) {
+                super.onPostExecute(transactions);
+                if (loaded.size() != 0) {
+                    transactions.addAll(loaded);
+                    notifyDataSetChanged();
+                } else {
+                    nothingMoreToLoad = true;
+                }
+            }
+        }.execute();
     }
 
     @Override

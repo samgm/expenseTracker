@@ -2,15 +2,19 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!--ACTION BAR BACK ICON-->
+        <item name="android:homeAsUpIndicator">@drawable/ic_action_previous_item</item>
         <!--ACTION BAR-->
         <item name="android:actionBarStyle">@style/myActionBarStyle</item>
 
         <!--TAB BAR-->
-        <!--<item name="android:actionBarTabStyle">@style/myActionBarTabStyle</item>-->
+        <item name="android:actionBarTabStyle">@style/myActionBarTabStyle</item>
         <!--uncomment to remove dividers-->
-        <!--<item name="android:actionBarTabBarStyle">@style/myActionBarTabBarStyle</item>-->
-        <!--<item name="android:actionBarTabTextStyle">@style/myActionBarTabTextStyle</item>-->
+        <item name="android:actionBarTabBarStyle">@style/myActionBarTabBarStyle</item>
+        <item name="android:actionBarTabTextStyle">@style/myActionBarTabTextStyle</item>
 
+        <!--DRAWER BACKGROUND-->
+        <item name="android:activatedBackgroundIndicator">@drawable/drawer_background</item>
     </style>
 
     <!--ACTION BAR-->

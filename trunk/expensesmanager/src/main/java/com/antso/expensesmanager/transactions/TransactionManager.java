@@ -1,6 +1,7 @@
 package com.antso.expensesmanager.transactions;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 
 import com.antso.expensesmanager.R;
@@ -36,6 +37,8 @@ public enum TransactionManager {
     private String expenseSummaryDescription = "";
     private String totalSummaryDescription = "";
 
+    private DateTime firstTransactionDate = DateTime.now();
+
     private TransactionManager() {
     }
 
@@ -56,6 +59,9 @@ public enum TransactionManager {
             descriptionsArray = new HashSet<String>();
             for (Transaction t : result) {
                 descriptionsArray.add(t.getDescription());
+                if(firstTransactionDate.isAfter(t.getDate())) {
+                    firstTransactionDate = t.getDate();
+                }
             }
         }
 
@@ -148,26 +154,53 @@ public enum TransactionManager {
     }
 
     public List<Transaction> getOutTransactions() {
+        long start = System.currentTimeMillis();
         List<Transaction> transactions = new ArrayList<Transaction>(
                 getTransactions(TransactionDirection.Out, true)
         );
+
+        long sorting = System.currentTimeMillis();
         Collections.sort(transactions, new TransactionByDateComparator());
+
+        long end = System.currentTimeMillis();
+        Log.i("EXPENSES", "BUDGET_MANAGER getOutTransactions " +
+                " S:" + start +
+                " C:" + sorting + "{" + (sorting - start) + "}" +
+                " E:" + end + "{" + (end - sorting) + "} {" + (end - start) + "}");
         return transactions;
     }
 
     public List<Transaction> getInTransactions() {
+        long start = System.currentTimeMillis();
         List<Transaction> transactions = new ArrayList<Transaction>(
                 getTransactions(TransactionDirection.In, true)
         );
+
+        long sorting = System.currentTimeMillis();
         Collections.sort(transactions, new TransactionByDateComparator());
+
+        long end = System.currentTimeMillis();
+        Log.i("EXPENSES", "BUDGET_MANAGER getInTransactions " +
+                " S:" + start +
+                " C:" + sorting + "{" + (sorting - start) + "}" +
+                " E:" + end + "{" + (end - sorting) + "} {" + (end - start) + "}");
         return transactions;
     }
 
     public List<Pair<Transaction, Transaction>> getTransferTransactions() {
+        long start = System.currentTimeMillis();
         List<Transaction> transactions = new ArrayList<Transaction>(
                 getTransactions(TransactionType.Transfer)
         );
+
+        long sorting = System.currentTimeMillis();
         Collections.sort(transactions, new TransactionByDateComparator());
+
+        long end = System.currentTimeMillis();
+        Log.i("EXPENSES", "BUDGET_MANAGER getTransferTransactions " +
+                " S:" + start +
+                " C:" + sorting + "{" + (sorting - start) + "}" +
+                " E:" + end + "{" + (end - sorting) + "} {" + (end - start) + "}");
 
         List<Pair<Transaction, Transaction>> pairedTransactions =
                 new ArrayList<Pair<Transaction, Transaction>>(transactions.size() / 2);
@@ -214,6 +247,7 @@ public enum TransactionManager {
         }
 
         return transactions;
+        //TODO add performance traces
     }
 
     static private DateTime getNextTransactionDate(Transaction transaction, int step) {
@@ -238,8 +272,9 @@ public enum TransactionManager {
     }
 
     public List<Transaction> getAccountNextPeriodTransactions(String account) {
+        //TODO add performance traces
         List<Transaction> transactions = new ArrayList<Transaction>(
-                dbHelper.getTransactionsByAccount(account)
+                dbHelper.getTransactionsByAccountAndDate(account, accountPeriodDate)
         );
 
         Collection<Transaction> exploded = new ArrayList<Transaction>();
@@ -269,7 +304,7 @@ public enum TransactionManager {
             }
         }
 
-        if(!resultTransactions.isEmpty()) {
+        if(!resultTransactions.isEmpty() || Utils.isBefore(firstTransactionDate, accountPeriodDate)) {
             Transaction tin = new Transaction("RevenueId", revenueSummaryDescription, TransactionDirection.In,
                     TransactionType.Summary, "", "", in, accountPeriodDate);
             Transaction tout = new Transaction("ExpensesId", expenseSummaryDescription, TransactionDirection.Out,
@@ -304,8 +339,18 @@ public enum TransactionManager {
     }
 
     public Collection<Transaction> getBudgetNextPeriodTransactions(String budget) {
+        //TODO add performance traces
+        BudgetManager.BudgetInfo budgetInfo = BudgetManager.BUDGET_MANAGER.getBudgetInfo(budget);
+        Pair<DateTime, DateTime> periodStartEnd = budgetInfo.getPeriodStartEnd(budgetPeriodDate);
+        DateTime periodStart = periodStartEnd.first;
+        DateTime periodEnd = periodStartEnd.second;
+
+        if(periodStart.isEqual(periodEnd)) {
+            return Collections.emptyList();
+        }
+
         List<Transaction> transactions = new ArrayList<Transaction>(
-                dbHelper.getTransactionsByBudget(budget)
+                dbHelper.getTransactionsByBudgetAndDate(budget, periodStart, periodEnd)
         );
 
         Collection<Transaction> exploded = new ArrayList<Transaction>();
@@ -321,15 +366,10 @@ public enum TransactionManager {
         BigDecimal periodIn = BigDecimal.ZERO;
         BigDecimal periodOut = BigDecimal.ZERO;
         List<Transaction> resultTransactions = new ArrayList<Transaction>();
-        BudgetManager.BudgetInfo budgetInfo = BudgetManager.BUDGET_MANAGER.getBudgetInfo(budget);
-
-        Pair<DateTime, DateTime> periodStartEnd = budgetInfo.getPeriodStartEnd(budgetPeriodDate);
-        DateTime periodStart = periodStartEnd.first;
-        DateTime periodEnd = periodStartEnd.second;
 
         for (Transaction transaction : transactions) {
-            if(transaction.getDate().isAfter(periodStart) &&
-                    transaction.getDate().isBefore(periodEnd)){
+            if(Utils.isAfterOrEqual(transaction.getDate(), periodStart) &&
+                    Utils.isBefore(transaction.getDate(), periodEnd)){
                 if (transaction.getDirection().equals(TransactionDirection.Out)) {
                     periodOut = periodOut.add(transaction.getValue());
                 }
@@ -340,8 +380,7 @@ public enum TransactionManager {
             }
         }
 
-
-        if(!resultTransactions.isEmpty()) {
+        if(!resultTransactions.isEmpty() || Utils.isBefore(firstTransactionDate, periodStart)) {
             Transaction tin = new Transaction("RevenueId", revenueSummaryDescription, TransactionDirection.In,
                     TransactionType.Summary, "", "", periodIn, budgetPeriodDate);
             Transaction tout = new Transaction("ExpensesId", expenseSummaryDescription, TransactionDirection.Out,

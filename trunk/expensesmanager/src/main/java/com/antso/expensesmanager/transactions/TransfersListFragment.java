@@ -61,9 +61,7 @@ public class TransfersListFragment extends ListFragment {
                     getActivity().getApplicationContext(),
                     TransactionManager.TRANSACTION_MANAGER);
 
-            if (footerView != null &&
-                    TransactionManager.TRANSACTION_MANAGER
-                            .getTransferTransactions().isEmpty()) {
+            if (footerView != null && transactionListAdapter.getCount() == 0) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.transfers_list_footer_text);
                 textView.setTextColor(MaterialColours.GREY_500);

@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,19 +22,10 @@ import com.antso.expensesmanager.utils.DataExporter;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.MyMoneyDataImporter;
 import com.antso.expensesmanager.utils.Utils;
-import com.antso.expensesmanager.utils.csv.CSVReader;
-import com.antso.expensesmanager.utils.csv.CSVWriter;
 
 import org.joda.time.DateTime;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Map;
 
 
 public class DebugActivity extends Activity {
@@ -72,14 +61,12 @@ public class DebugActivity extends Activity {
         importMyMoneyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyMoneyDataImporter importer = new MyMoneyDataImporter(DebugActivity.this);
+                importer.importData();
+
                 TransactionManager.TRANSACTION_MANAGER.stop();
                 BudgetManager.BUDGET_MANAGER.stop();
                 AccountManager.ACCOUNT_MANAGER.stop();
-
-                dbHelper.deleteDatabase();
-
-                MyMoneyDataImporter importer = new MyMoneyDataImporter(DebugActivity.this);
-                importer.importData();
 
                 AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());
                 BudgetManager.BUDGET_MANAGER.start(getApplicationContext());
@@ -102,8 +89,9 @@ public class DebugActivity extends Activity {
 
                                 dbHelper.deleteDatabase();
 
+                                String date = String.valueOf(Utils.dateTimeToyyyyMMdd(DateTime.now()));
                                 DataExporter exporter = new DataExporter(DebugActivity.this);
-                                exporter.importData();
+                                exporter.importData(date);
 
 
                                 AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());

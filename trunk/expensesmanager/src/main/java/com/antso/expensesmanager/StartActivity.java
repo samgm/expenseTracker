@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -41,9 +42,23 @@ public class StartActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
 
+        long start = System.currentTimeMillis();
         AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());
+        long end = System.currentTimeMillis();
+        Log.i("EXPENSES", "ACCOUNT_MANAGER Start begin " + start);
+        Log.i("EXPENSES", "ACCOUNT_MANAGER Start end " + end + "{" + (end - start) + "}");
+
+        start = System.currentTimeMillis();
         BudgetManager.BUDGET_MANAGER.start(getApplicationContext());
+        end = System.currentTimeMillis();
+        Log.i("EXPENSES", "BUDGET_MANAGER Start begin " + start);
+        Log.i("EXPENSES", "BUDGET_MANAGER Start end " + end + "{" + (end - start) + "}");
+
+        start = System.currentTimeMillis();
         TransactionManager.TRANSACTION_MANAGER.start(getApplicationContext());
+        end = System.currentTimeMillis();
+        Log.i("EXPENSES", "TRANSACTION_MANAGER Start begin " + start);
+        Log.i("EXPENSES", "TRANSACTION_MANAGER Start end " + end + "{" + (end - start) + "}");
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);

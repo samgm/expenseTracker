@@ -1,8 +1,13 @@
 package com.antso.expensesmanager.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
+import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.enums.TimeUnit;
 
 import java.util.HashMap;
@@ -11,9 +16,12 @@ import java.util.Map;
 public class TimeUnitSpinnerAdapter extends ArrayAdapter<TimeUnit> {
 
     private Map<TimeUnit, Integer> valueToIndex;
+    private LayoutInflater mInflater;
 
     protected TimeUnitSpinnerAdapter(Context context, int resource, TimeUnit timeUnits[]) {
         super(context, resource, timeUnits);
+
+        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         valueToIndex = new HashMap<TimeUnit, Integer>(timeUnits.length);
         int i = 0;
@@ -35,4 +43,35 @@ public class TimeUnitSpinnerAdapter extends ArrayAdapter<TimeUnit> {
     public static TimeUnitSpinnerAdapter create(Context context, int resource) {
         return new TimeUnitSpinnerAdapter(context, resource, TimeUnit.valuesButUndef());
     }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return createView(position, convertView, parent,
+                R.layout.text_spinner_item,
+                R.id.textSpinnerItem);
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return createView(position, convertView, parent,
+                R.layout.text_spinner_dropdown_item,
+                R.id.textSpinnerDropdownItem);
+    }
+
+    private View createView(int position, View convertView, ViewGroup parent,
+                            int viewId, int textId) {
+        View view;
+        if (convertView != null) {
+            view = convertView;
+        } else {
+            view = mInflater.inflate(viewId, parent, false);
+        }
+
+        TimeUnit timeUnit = getItem(position);
+        TextView name = (TextView)view.findViewById(textId);
+        name.setText(timeUnit.getStringValue());
+
+        return view;
+    }
+
 }
