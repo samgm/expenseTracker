@@ -20,8 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum AccountManager {
-        ACCOUNT_MANAGER;
+public class AccountManager {
+    private static volatile AccountManager instance = null;
 
     private boolean started;
     private Map<String, AccountInfo> accounts;
@@ -31,7 +31,18 @@ public enum AccountManager {
         accounts = new HashMap<String, AccountInfo>();
     }
 
+    public static synchronized AccountManager ACCOUNT_MANAGER() {
+        if (instance == null) {
+            instance = new AccountManager();
+        }
+
+        return instance;
+    }
+
     public void start(Context context) {
+        long start = System.currentTimeMillis();
+        Log.i("EXPENSES OBS", "ACCOUNT_MANAGER(" + this + ") Start begin " + start);
+
         if (started) {
             return;
         }
@@ -50,6 +61,9 @@ public enum AccountManager {
         }
 
         started = true;
+
+        long end = System.currentTimeMillis();
+        Log.i("EXPENSES OBS", "ACCOUNT_MANAGER(" + this + ") Start end " + end + "{" + (end - start) + "}");
     }
 
     private void createDefaultAccount() {
@@ -103,7 +117,8 @@ public enum AccountManager {
     }
 
     private void addAccount(Account account) {
-        Collection<Transaction> transactions = dbHelper.getTransactionsByAccount(account.getId());
+        Collection<Transaction> transactions = TransactionManager.TRANSACTION_MANAGER()
+                .getTransactionByAccount(account.getId());
         AccountInfo accountInfo = new AccountInfo(account, transactions);
         accounts.put(account.getId(), accountInfo);
     }
@@ -145,11 +160,9 @@ public enum AccountManager {
         public BigDecimal monthIn;
         public BigDecimal monthOut;
         public BigDecimal monthBalance;
-        public Map<String, BigDecimal> byMonthBalances;
 
         public AccountInfo(Account account, Collection<Transaction> transactions) {
             this.account = account;
-            this.byMonthBalances = new HashMap<String, BigDecimal>();
 
             for (Transaction transaction : transactions) {
                 this.transactions.add(transaction);
@@ -206,19 +219,8 @@ public enum AccountManager {
                         monthIn = monthIn.add(value);
                     }
                 }
-
-                //TODO manage update on byMonthBalances when refresh with reset == false
-                String key = transactionYear + "_" + transactionMonth;
-                byMonthBalances.put(key, balance);
             }
 
-        }
-
-        public BigDecimal getByDateBalance(DateTime dateTime) {
-            String key = dateTime.getYear() + "_" + dateTime.getMonthOfYear();
-            BigDecimal result = byMonthBalances.get(key);
-
-            return (result != null) ? result : BigDecimal.ZERO;
         }
     }
 }

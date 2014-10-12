@@ -58,8 +58,7 @@ public class TransfersListFragment extends ListFragment {
 
         if (transactionListAdapter == null) {
             transactionListAdapter = new TransfersTransactionListAdapter(
-                    getActivity().getApplicationContext(),
-                    TransactionManager.TRANSACTION_MANAGER);
+                    getActivity().getApplicationContext());
 
             if (footerView != null && transactionListAdapter.getCount() == 0) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
@@ -72,7 +71,7 @@ public class TransfersListFragment extends ListFragment {
 
             setListAdapter(transactionListAdapter);
         } else {
-            transactionListAdapter.reset();
+            transactionListAdapter.resetSearch();
         }
 
         registerForContextMenu(getListView());
@@ -121,8 +120,7 @@ public class TransfersListFragment extends ListFragment {
         if (item.getTitle() == getText(R.string.action_transaction_edit)) {
             startEditTransactionActivity(transactions);
         } else if(item.getTitle() == getText(R.string.action_transaction_delete)) {
-            TransactionManager.TRANSACTION_MANAGER.removeTransaction(transactions.first);
-            transactionListAdapter.reset();
+            TransactionManager.TRANSACTION_MANAGER().removeTransaction(transactions.first);
             Toast.makeText(getActivity(), transactions.first.getDescription() +
                     getText(R.string.message_transaction_deleted), Toast.LENGTH_LONG).show();
         }
@@ -185,7 +183,7 @@ public class TransfersListFragment extends ListFragment {
         }
 
         if (id == R.id.action_transaction_search_undo) {
-            transactionListAdapter.reset();
+            transactionListAdapter.resetSearch();
             searching = false;
             getActivity().invalidateOptionsMenu();
             return true;
@@ -200,11 +198,7 @@ public class TransfersListFragment extends ListFragment {
         if (requestCode == Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE ||
                 requestCode == Constants.TRANSFER_TRANSACTION_EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        transactionListAdapter.reset();
-                    }
-                });
+                transactionListAdapter.resetSearch();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Do Nothing
@@ -215,6 +209,12 @@ public class TransfersListFragment extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        transactionListAdapter.onDestroy();
         transactionListAdapter = null;
     }
 }

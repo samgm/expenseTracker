@@ -79,14 +79,14 @@ public class TransactionEntryActivity extends Activity {
         getActionBar().setHomeButtonEnabled(true);
 
         if (accounts == null) {
-            accounts = AccountManager.ACCOUNT_MANAGER.getAccounts();
+            accounts = AccountManager.ACCOUNT_MANAGER().getAccounts();
             //noinspection ToArrayCallWithZeroLengthArrayArgument
             accountSpinnerAdapter = AccountSpinnerAdapter.create(this, R.layout.text_spinner_item,
                     accounts.toArray(new Account[0]));
         }
 
         if (budgets == null) {
-            budgets = BudgetManager.BUDGET_MANAGER.getBudgets();
+            budgets = BudgetManager.BUDGET_MANAGER().getBudgets();
             //noinspection ToArrayCallWithZeroLengthArrayArgument
             budgetSpinnerAdapter = BudgetSpinnerAdapter.create(this, R.layout.text_spinner_item,
                     budgets.toArray(new Budget[0]));
@@ -110,7 +110,7 @@ public class TransactionEntryActivity extends Activity {
         dateEditText.createView(R.id.transactionDate, DateTime.now());
         endDateEditText.createView(R.id.transactionRecurrentStartDate, DateTime.now());
         description.setAdapter(new ArrayAdapter<String>(this, R.layout.text_spinner_item,
-                TransactionManager.TRANSACTION_MANAGER.getDescriptionsArray()));
+                TransactionManager.TRANSACTION_MANAGER().getDescriptionsArray()));
         description.setTokenizer(new SpaceTokenizer());
 
         //Get params and load defaults
@@ -202,10 +202,10 @@ public class TransactionEntryActivity extends Activity {
             loadedTransaction1.setEndDate(DateTime.now());
         } else {
             isEdit = true;
-            loadedTransaction1 = TransactionManager.TRANSACTION_MANAGER.getTransactionById(id);
+            loadedTransaction1 = TransactionManager.TRANSACTION_MANAGER().getTransactionById(id);
             String linkedTransactionId = loadedTransaction1.getLinkedTransactionId();
             if (linkedTransactionId != null && !linkedTransactionId.isEmpty()) {
-                loadedTransaction2 = TransactionManager.TRANSACTION_MANAGER.getTransactionById(linkedTransactionId);
+                loadedTransaction2 = TransactionManager.TRANSACTION_MANAGER().getTransactionById(linkedTransactionId);
             }
         }
     }
@@ -218,8 +218,8 @@ public class TransactionEntryActivity extends Activity {
 
                 Pair<Transaction, Transaction> pair = createTransferTransaction(t1Id, t2Id);
 
-                TransactionManager.TRANSACTION_MANAGER.insertTransaction(pair.first);
-                TransactionManager.TRANSACTION_MANAGER.insertTransaction(pair.second);
+                TransactionManager.TRANSACTION_MANAGER().insertTransaction(pair.first);
+                TransactionManager.TRANSACTION_MANAGER().insertTransaction(pair.second);
                 break;
             case Single:
             case Undef:
@@ -227,7 +227,7 @@ public class TransactionEntryActivity extends Activity {
 
                 Transaction t = createSingleTransaction(tId);
 
-                TransactionManager.TRANSACTION_MANAGER.insertTransaction(t);
+                TransactionManager.TRANSACTION_MANAGER().insertTransaction(t);
                 break;
         }
     }
@@ -237,12 +237,12 @@ public class TransactionEntryActivity extends Activity {
             case Transfer:
                 Pair<Transaction, Transaction> pair = createTransferTransaction(
                         loadedTransaction1.getId(), loadedTransaction2.getId());
-                TransactionManager.TRANSACTION_MANAGER.updateTransaction(pair.first);
-                TransactionManager.TRANSACTION_MANAGER.updateTransaction(pair.second);
+                TransactionManager.TRANSACTION_MANAGER().updateTransaction(pair.first);
+                TransactionManager.TRANSACTION_MANAGER().updateTransaction(pair.second);
                 break;
             case Single:
                 Transaction newTransaction = createSingleTransaction(loadedTransaction1.getId());
-                TransactionManager.TRANSACTION_MANAGER.updateTransaction(newTransaction);
+                TransactionManager.TRANSACTION_MANAGER().updateTransaction(newTransaction);
                 break;
             case Undef:
                 break;
@@ -274,7 +274,7 @@ public class TransactionEntryActivity extends Activity {
                 dateEditText.getDate());
         t1.setLinkedTransactionId(t2Id);
         t2.setLinkedTransactionId(t1Id);
-        if(loadedTransaction1.getRecurrent()) {
+        if(layout.isRecurrent()) {
             t1.setRecurrent(true);
             t1.setFrequency(recurrentFrequency.getValue());
             t1.setFrequencyUnit(recurrentFrequency.getUnit());
@@ -300,7 +300,7 @@ public class TransactionEntryActivity extends Activity {
                 budget != null ? budget.getId() : "",
                 value.getValue(),
                 dateEditText.getDate());
-        if(loadedTransaction1.getRecurrent()) {
+        if(layout.isRecurrent()) {
             t.setRecurrent(true);
             t.setFrequency(recurrentFrequency.getValue());
             t.setFrequencyUnit(recurrentFrequency.getUnit());

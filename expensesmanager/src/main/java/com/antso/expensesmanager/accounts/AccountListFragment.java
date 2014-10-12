@@ -56,9 +56,9 @@ public class AccountListFragment extends ListFragment {
 
         if (accountListAdapter == null) {
             accountListAdapter = new AccountListAdapter(getActivity().getApplicationContext(),
-                    AccountManager.ACCOUNT_MANAGER);
+                    AccountManager.ACCOUNT_MANAGER());
 
-            if (footerView != null && AccountManager.ACCOUNT_MANAGER.size() == 0) {
+            if (footerView != null && AccountManager.ACCOUNT_MANAGER().size() == 0) {
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.accounts_list_footer_text);
                 textView.setTextColor(MaterialColours.GREY_500);
@@ -117,7 +117,7 @@ public class AccountListFragment extends ListFragment {
             intent.putExtra(IntentParamNames.ACCOUNT_ID, account.getId());
             getActivity().startActivityForResult(intent, Constants.ACCOUNT_EDIT_REQUEST_CODE);
         } else if(item.getTitle() == getText(R.string.action_account_delete)) {
-            if(AccountManager.ACCOUNT_MANAGER.size() <= 1) {
+            if(AccountManager.ACCOUNT_MANAGER().size() <= 1) {
                 AlertDialog dialog = new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.title_error_dialog)
                         .setMessage(R.string.error_cannot_delete_last_account)
@@ -137,13 +137,13 @@ public class AccountListFragment extends ListFragment {
                         public void onDismissed(boolean confirm, boolean move, String selectedAccountId) {
                             if (confirm) {
                                 if (move) {
-                                    TransactionManager.TRANSACTION_MANAGER
+                                    TransactionManager.TRANSACTION_MANAGER()
                                             .replaceAccount(account.getId(), selectedAccountId);
                                 } else {
-                                    TransactionManager.TRANSACTION_MANAGER
+                                    TransactionManager.TRANSACTION_MANAGER()
                                             .removeTransactionByAccount(account.getId());
                                 }
-                                AccountManager.ACCOUNT_MANAGER.removeAccount(account);
+                                AccountManager.ACCOUNT_MANAGER().removeAccount(account);
                                 accountListAdapter.notifyDataSetChanged();
                                 Toast.makeText(getActivity(), account.getName() +
                                         getText(R.string.message_account_deleted),
@@ -206,6 +206,12 @@ public class AccountListFragment extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
         accountListAdapter = null;
     }
+
 }

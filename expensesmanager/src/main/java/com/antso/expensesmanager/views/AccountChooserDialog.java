@@ -32,7 +32,7 @@ public class AccountChooserDialog implements DialogInterface.OnClickListener{
         spinner = (Spinner) view.findViewById(R.id.chooserSpinner);
         msg.setText(message);
         spinner.setAdapter(AccountSpinnerAdapter.create(context, R.layout.text_spinner_item,
-                AccountManager.ACCOUNT_MANAGER.getAccounts().toArray(new Account[0]), accountToDelete));
+                AccountManager.ACCOUNT_MANAGER().getAccounts().toArray(new Account[0]), accountToDelete));
 
         dialog = new AlertDialog.Builder(context)
                 .setTitle(title)

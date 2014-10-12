@@ -93,7 +93,7 @@ public class AccountEntryActivity extends Activity {
                             value.getValue(),
                             color.getColor());
 
-                    AccountManager.ACCOUNT_MANAGER.updateAccount(account);
+                    AccountManager.ACCOUNT_MANAGER().updateAccount(account);
 
                 } else {
                     Account account = new Account(
@@ -102,7 +102,7 @@ public class AccountEntryActivity extends Activity {
                             value.getValue(),
                             color.getColor());
 
-                    AccountManager.ACCOUNT_MANAGER.insertAccount(account);
+                    AccountManager.ACCOUNT_MANAGER().insertAccount(account);
                 }
 
                 setResult(RESULT_OK);
@@ -130,7 +130,7 @@ public class AccountEntryActivity extends Activity {
                     MaterialColours.getAccountColors().get(0));
         } else {
             isEdit = true;
-            loadedAccount = AccountManager.ACCOUNT_MANAGER.getAccountInfo(id).account;
+            loadedAccount = AccountManager.ACCOUNT_MANAGER().getAccountInfo(id).account;
         }
     }
 

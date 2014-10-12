@@ -22,7 +22,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Map;
 
 public class MyMoneyDataImporter {
@@ -42,16 +41,18 @@ public class MyMoneyDataImporter {
 
         DatabaseHelper dbHelper = new DatabaseHelper(context);
 
-        accountsByName = AccountManager.ACCOUNT_MANAGER.getAccountsByName();
-        budgetsByName = BudgetManager.BUDGET_MANAGER.getBudgetsByName();
+        accountsByName = AccountManager.ACCOUNT_MANAGER().getAccountsByName();
+        budgetsByName = BudgetManager.BUDGET_MANAGER().getBudgetsByName();
 
         try {
             FileReader fileReader = new FileReader(filePath.toString());
             CSVReader reader = new CSVReader(fileReader);
+            //Required to jump header
+            @SuppressWarnings("UnusedAssignment")
             String[] values = reader.readNext();
             values = reader.readNext();
             while (values != null) {
-                StringBuffer message = new StringBuffer();
+                StringBuilder message = new StringBuilder();
                 for (String val : values) {
                     message.append(val).append(" | ");
                 }
@@ -108,7 +109,7 @@ public class MyMoneyDataImporter {
             } else {
                 Account defAccount = new Account(EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
                         account, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0));
-                AccountManager.ACCOUNT_MANAGER.insertAccount(defAccount);
+                AccountManager.ACCOUNT_MANAGER().insertAccount(defAccount);
                 accountsByName.put(defAccount.getName(), defAccount);
                 account = defAccount.getId();
                 Log. i("TransactionParser", "Error converting account: Account not found {AccountId" + account + "} created default");
@@ -120,7 +121,7 @@ public class MyMoneyDataImporter {
                 Budget defBudget = new Budget(EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Budget.class),
                         budget, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0),
                         1, TimeUnit.Month, new DateTime(2000, 1, 1, 0, 0));
-                BudgetManager.BUDGET_MANAGER.insertBudget(defBudget);
+                BudgetManager.BUDGET_MANAGER().insertBudget(defBudget);
                 budgetsByName.put(defBudget.getName(), defBudget);
                 budget = defBudget.getId();
                 Log. i("TransactionParser", "Error converting budget: Budget not found {BudgetId" + budget + "} created default");
@@ -142,16 +143,22 @@ public class MyMoneyDataImporter {
 
             Transaction t = new Transaction(id, name, direction, type, account, budget, value, date);
             if (recurrent) {
+                t.setRecurrent(true);
+
                 String frequency[] = values[8].split(" ");
-                String end = values[9];
                 int freq = Integer.parseInt(frequency[0]);
                 TimeUnit unit = TimeUnit.valueOf(frequency[1]);
-                DateTime enddate = DateTime.parse(end, Utils.getDateFormatterEU());
-
-                t.setRecurrent(true);
                 t.setFrequency(freq);
                 t.setFrequencyUnit(unit);
-                t.setEndDate(enddate);
+
+                String end = values[9];
+                if (end != null && !end.isEmpty()) {
+                    DateTime enddate = DateTime.parse(end, Utils.getDateFormatterEU());
+                    t.setEndDate(enddate);
+                } else {
+                    //TODO remove when no end transaction supported
+                    t.setEndDate(new DateTime(2100, 1, 1, 0, 0));
+                }
             }
             return t;
         } catch (Exception e) {

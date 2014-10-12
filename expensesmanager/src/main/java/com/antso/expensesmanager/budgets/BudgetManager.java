@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public enum BudgetManager {
-        BUDGET_MANAGER;
+public class BudgetManager {
+    private static volatile BudgetManager instance = null;
 
     private boolean started;
     private Map<String, BudgetInfo> budgets;
@@ -33,7 +33,18 @@ public enum BudgetManager {
         budgets = new HashMap<String, BudgetInfo>();
     }
 
+    public static synchronized BudgetManager BUDGET_MANAGER() {
+        if (instance == null) {
+            instance = new BudgetManager();
+        }
+
+        return instance;
+    }
+
     public void start(Context context) {
+        long start = System.currentTimeMillis();
+        Log.i("EXPENSES OBS", "BUDGET_MANAGER(" + this + ") Start begin " + start);
+
         if (started) {
             return;
         }
@@ -43,7 +54,7 @@ public enum BudgetManager {
 
             Collection<Budget> budgets = dbHelper.getBudgets();
             for (Budget budget : budgets) {
-                BudgetManager.BUDGET_MANAGER.addBudget(budget);
+                addBudget(budget);
             }
 
             if (budgets.size() == 0) {
@@ -53,6 +64,9 @@ public enum BudgetManager {
         }
 
         started = true;
+
+        long end = System.currentTimeMillis();
+        Log.i("EXPENSES OBS", "BUDGET_MANAGER(" + this + ") Start end " + end + "{" + (end - start) + "}");
     }
 
     private void createDefaultBudget() {
@@ -87,7 +101,8 @@ public enum BudgetManager {
     }
 
     private void addBudget(Budget budget) {
-        Collection<Transaction> transactions = dbHelper.getTransactionsByBudget(budget.getId());
+        Collection<Transaction> transactions = TransactionManager.TRANSACTION_MANAGER()
+                .getTransactionByBudget(budget.getId());
         BudgetInfo budgetInfo = new BudgetInfo(budget, transactions);
         budgets.put(budget.getId(), budgetInfo);
     }

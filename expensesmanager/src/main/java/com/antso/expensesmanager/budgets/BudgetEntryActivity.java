@@ -107,7 +107,7 @@ public class BudgetEntryActivity extends Activity {
                             color.getColor(),
                             period.getValue(), period.getUnit(),
                             startDateEditText.getDate());
-                    BudgetManager.BUDGET_MANAGER.updateBudget(budget);
+                    BudgetManager.BUDGET_MANAGER().updateBudget(budget);
 
                 } else {
                     Budget budget = new Budget(
@@ -117,7 +117,7 @@ public class BudgetEntryActivity extends Activity {
                             color.getColor(),
                             period.getValue(), period.getUnit(),
                             startDateEditText.getDate());
-                    BudgetManager.BUDGET_MANAGER.insertBudget(budget);
+                    BudgetManager.BUDGET_MANAGER().insertBudget(budget);
                 }
 
                 setResult(RESULT_OK);
@@ -148,7 +148,7 @@ public class BudgetEntryActivity extends Activity {
                     DateTime.now());
         } else {
             isEdit = true;
-            loadedBudget = BudgetManager.BUDGET_MANAGER.getBudgetInfo(id).budget;
+            loadedBudget = BudgetManager.BUDGET_MANAGER().getBudgetInfo(id).budget;
         }
     }
 

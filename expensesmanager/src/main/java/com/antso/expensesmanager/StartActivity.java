@@ -1,7 +1,9 @@
 package com.antso.expensesmanager;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -42,23 +44,22 @@ public class StartActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
 
-        long start = System.currentTimeMillis();
-        AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());
-        long end = System.currentTimeMillis();
-        Log.i("EXPENSES", "ACCOUNT_MANAGER Start begin " + start);
-        Log.i("EXPENSES", "ACCOUNT_MANAGER Start end " + end + "{" + (end - start) + "}");
+        final ProgressDialog progress = ProgressDialog.show(this, "","", true);
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void[] params) {
+                TransactionManager.TRANSACTION_MANAGER().start(getApplicationContext());
+                AccountManager.ACCOUNT_MANAGER().start(getApplicationContext());
+                BudgetManager.BUDGET_MANAGER().start(getApplicationContext());
+                return null;
+            }
 
-        start = System.currentTimeMillis();
-        BudgetManager.BUDGET_MANAGER.start(getApplicationContext());
-        end = System.currentTimeMillis();
-        Log.i("EXPENSES", "BUDGET_MANAGER Start begin " + start);
-        Log.i("EXPENSES", "BUDGET_MANAGER Start end " + end + "{" + (end - start) + "}");
-
-        start = System.currentTimeMillis();
-        TransactionManager.TRANSACTION_MANAGER.start(getApplicationContext());
-        end = System.currentTimeMillis();
-        Log.i("EXPENSES", "TRANSACTION_MANAGER Start begin " + start);
-        Log.i("EXPENSES", "TRANSACTION_MANAGER Start end " + end + "{" + (end - start) + "}");
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                progress.dismiss();
+            }
+        }.execute();
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -177,9 +178,9 @@ public class StartActivity
 
     @Override
     protected void onDestroy() {
-        AccountManager.ACCOUNT_MANAGER.stop();
-        BudgetManager.BUDGET_MANAGER.stop();
-        TransactionManager.TRANSACTION_MANAGER.stop();
+        AccountManager.ACCOUNT_MANAGER().stop();
+        BudgetManager.BUDGET_MANAGER().stop();
+        TransactionManager.TRANSACTION_MANAGER().stop();
 
         super.onDestroy();
     }
