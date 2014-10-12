@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antso.expensesmanager.R;
@@ -24,12 +23,9 @@ import com.antso.expensesmanager.transactions.TransactionListActivity;
 import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.IntentParamNames;
-import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.views.AccountChooserDialog;
 
 public class AccountListFragment extends ListFragment {
-
-    private View footerView;
 
     private AccountListAdapter accountListAdapter = null;
 
@@ -44,10 +40,7 @@ public class AccountListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View listView = inflater.inflate(R.layout.list_fragment, container, false);
-
-        footerView = inflater.inflate(R.layout.list_footer, null, false);
-        return listView;
+        return inflater.inflate(R.layout.list_fragment, container, false);
     }
 
     @Override
@@ -57,16 +50,6 @@ public class AccountListFragment extends ListFragment {
         if (accountListAdapter == null) {
             accountListAdapter = new AccountListAdapter(getActivity().getApplicationContext(),
                     AccountManager.ACCOUNT_MANAGER());
-
-            if (footerView != null && AccountManager.ACCOUNT_MANAGER().size() == 0) {
-                TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
-                textView.setText(R.string.accounts_list_footer_text);
-                textView.setTextColor(MaterialColours.GREY_500);
-
-                getListView().addFooterView(footerView);
-                getListView().setFooterDividersEnabled(true);
-            }
-
             setListAdapter(accountListAdapter);
         }
 
@@ -144,7 +127,6 @@ public class AccountListFragment extends ListFragment {
                                             .removeTransactionByAccount(account.getId());
                                 }
                                 AccountManager.ACCOUNT_MANAGER().removeAccount(account);
-                                accountListAdapter.notifyDataSetChanged();
                                 Toast.makeText(getActivity(), account.getName() +
                                         getText(R.string.message_account_deleted),
                                         Toast.LENGTH_LONG).show();
@@ -191,11 +173,7 @@ public class AccountListFragment extends ListFragment {
         if (requestCode == Constants.ACCOUNT_ENTRY_REQUEST_CODE ||
                 requestCode == Constants.ACCOUNT_EDIT_REQUEST_CODE) {
             if(resultCode == Activity.RESULT_OK){
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        accountListAdapter.notifyDataSetChanged();
-                    }
-                });
+                //Do Nothing
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Do Nothing
@@ -211,6 +189,7 @@ public class AccountListFragment extends ListFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        accountListAdapter.onDestroy();
         accountListAdapter = null;
     }
 

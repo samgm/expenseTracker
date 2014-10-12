@@ -2,7 +2,9 @@ package com.antso.expensesmanager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -61,16 +63,32 @@ public class DebugActivity extends Activity {
         importMyMoneyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyMoneyDataImporter importer = new MyMoneyDataImporter(DebugActivity.this);
-                importer.importData();
+                final ProgressDialog progress = ProgressDialog
+                        .show(DebugActivity.this, "", getText(R.string.working));
 
-                TransactionManager.TRANSACTION_MANAGER().stop();
-                BudgetManager.BUDGET_MANAGER().stop();
-                AccountManager.ACCOUNT_MANAGER().stop();
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        MyMoneyDataImporter importer = new MyMoneyDataImporter(DebugActivity.this);
+                        importer.importData();
 
-                AccountManager.ACCOUNT_MANAGER().start(getApplicationContext());
-                BudgetManager.BUDGET_MANAGER().start(getApplicationContext());
-                TransactionManager.TRANSACTION_MANAGER().start(getApplicationContext());
+                        BudgetManager.BUDGET_MANAGER().stop();
+                        AccountManager.ACCOUNT_MANAGER().stop();
+                        TransactionManager.TRANSACTION_MANAGER().stop();
+
+                        TransactionManager.TRANSACTION_MANAGER().start(getApplicationContext());
+                        AccountManager.ACCOUNT_MANAGER().start(getApplicationContext());
+                        BudgetManager.BUDGET_MANAGER().start(getApplicationContext());
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        progress.dismiss();
+                    }
+                }.execute();
             }
         });
 

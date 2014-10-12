@@ -27,7 +27,7 @@ import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.views.TransactionSearchDialog;
 
-public class TransfersListFragment extends ListFragment {
+public class TransfersListFragment extends ListFragment implements HandlingFooterFragment {
 
     private View footerView;
 	private boolean searching = false;
@@ -58,15 +58,16 @@ public class TransfersListFragment extends ListFragment {
 
         if (transactionListAdapter == null) {
             transactionListAdapter = new TransfersTransactionListAdapter(
-                    getActivity().getApplicationContext());
+                    getActivity().getApplicationContext(), this);
 
             if (footerView != null && transactionListAdapter.getCount() == 0) {
+                footerView.setVisibility(View.GONE);
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.transfers_list_footer_text);
                 textView.setTextColor(MaterialColours.GREY_500);
 
                 getListView().addFooterView(footerView);
-                getListView().setFooterDividersEnabled(true);
+                getListView().setFooterDividersEnabled(false);
             }
 
             setListAdapter(transactionListAdapter);
@@ -216,5 +217,15 @@ public class TransfersListFragment extends ListFragment {
         super.onDestroyView();
         transactionListAdapter.onDestroy();
         transactionListAdapter = null;
+    }
+
+    @Override
+    public void showFooter() {
+        footerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideFooter() {
+        footerView.setVisibility(View.GONE);
     }
 }
