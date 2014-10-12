@@ -60,37 +60,28 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.antso.expensesmanager" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="c88ec48e-2d07-4d71-a219-dfca3f39b621" name="Default" comment="added icons on the drawer&#10;changed app style (wip)&#10;changes spinners item view (added margins and graph)&#10;perf improvements on retrieving transactions&#10;added perf traces&#10;support to create app folder on data export&#10;mymoney import support recurrent transaction and create missing budget/aaccounts">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AbstractAccountBudgetTransactionListAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionUpdateEvent.java" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\ExpenseManager\trunk\expensesmanager\src\main\java\com\antso\expensesmanager\transactions\TransactionManager2.java" afterPath="" />
+    <list default="true" readonly="true" id="c88ec48e-2d07-4d71-a219-dfca3f39b621" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/HandlingFooterFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AbstractTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AbstractTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views/AccountChooserDialog.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views/AccountChooserDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountEntryActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountEntryActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListFragment.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountManager.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AccountTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AccountTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views/BudgetChooseDialog.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views/BudgetChooseDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetEntryActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetEntryActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListFragment.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetManager.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BudgetTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BudgetTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/persistence/DatabaseHelper.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/persistence/DatabaseHelper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/DebugActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/DebugActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesListFragment.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesListFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/MyMoneyDataImporter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/MyMoneyDataImporter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/build/generated/source/r/debug/com/antso/expensesmanager/R.java" afterPath="$PROJECT_DIR$/expensesmanager/build/generated/source/r/debug/com/antso/expensesmanager/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesListFragment.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesListFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/SettingsActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/SettingsActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/StartActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/StartActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views_helpers/TransactionLayout.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views_helpers/TransactionLayout.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionManager.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionPagerHostFragment.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionPagerHostFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersListFragment.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersListFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersTransactionListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/res/layout/start_activity.xml" afterPath="$PROJECT_DIR$/expensesmanager/src/main/res/layout/start_activity.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/expensesmanager/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/todo.txt" afterPath="$PROJECT_DIR$/expensesmanager/src/main/todo.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -155,71 +146,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="todo.txt" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="todo.txt" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="88" max-vertical-offset="1785">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.8015564" vertical-offset="202" max-vertical-offset="1921">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransactionManager.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionManager.java">
+      <file leaf-file-name="StartActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/StartActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.91604936" vertical-offset="6004" max-vertical-offset="9554">
-              <caret line="377" column="0" selection-start-line="354" selection-start-column="0" selection-end-line="377" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1237#1245#0" expanded="true" />
-                <element signature="e#1309#1322#0" expanded="true" />
-                <element signature="e#1386#1399#0" expanded="true" />
-                <element signature="e#1468#1481#0" expanded="true" />
-                <element signature="e#1551#1572#0" expanded="true" />
-                <element signature="e#1659#1692#0" expanded="true" />
-                <element signature="e#1778#1811#0" expanded="true" />
-                <element signature="e#2627#2666#0" expanded="true" />
-                <element signature="e#2715#2754#0" expanded="true" />
-                <element signature="e#2801#2838#0" expanded="true" />
-                <element signature="e#10477#10490#0" expanded="true" />
-                <element signature="e#11229#11242#0" expanded="true" />
-                <element signature="e#14192#14205#0" expanded="true" />
-                <element signature="e#15898#15911#0" expanded="true" />
-                <element signature="e#16117#16130#0" expanded="true" />
-                <element signature="e#16642#16655#0" expanded="true" />
-                <element signature="e#19988#20001#0" expanded="true" />
-                <element signature="e#20208#20221#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TransactionType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/enums/TransactionType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
-              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#513#514#0" expanded="false" />
-                <element signature="e#544#545#0" expanded="false" />
-                <element signature="e#576#577#0" expanded="false" />
-                <element signature="e#607#608#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AccountManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1887" max-vertical-offset="3536">
-              <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
-              <folding>
-                <element signature="e#3309#3310#0" expanded="true" />
-                <element signature="e#3347#3348#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="2482" max-vertical-offset="2805">
+              <caret line="185" column="0" selection-start-line="182" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1285,8 +1227,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/expensesmanager/build/generated/source/r/debug/com/antso/expensesmanager/R.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/ButtonChangeSpinner.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/TransactionFrequencySpinner.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/TransactionLayout.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/ValueEditText.java" />
@@ -1319,8 +1259,6 @@
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/values/strings_settings_activity.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/Settings.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/xml/pref_general.xml" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListAdapter.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/DataImportFakeActivity.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/DataImportExportFakeActivity.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/IntentParamNames.java" />
@@ -1333,7 +1271,6 @@
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/BudgetSpinnerAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views/ImportChooserDialog.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views/SpinnerChooserDialog.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/drawable/drawer_background.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/main_drawer_navigation_activity.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/AndroidManifest.xml" />
@@ -1358,34 +1295,39 @@
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BudgetTransactionListAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AccountTransactionListAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/Utils.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionUpdateEvent.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/persistence/DatabaseHelper.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AbstractAccountBudgetTransactionListAdapter.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/DebugActivity.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountEntryActivity.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetEntryActivity.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesTransactionListAdapter.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesTransactionListAdapter.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersTransactionListAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views/AccountChooserDialog.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views/BudgetChooseDialog.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/MyMoneyDataImporter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionPagerHostFragment.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/views_helpers/TransactionLayout.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesListFragment.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesListFragment.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersListFragment.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/start_activity.xml" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/HandlingFooterFragment.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AbstractTransactionListAdapter.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesTransactionListAdapter.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesTransactionListAdapter.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersTransactionListAdapter.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesListFragment.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersListFragment.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesListFragment.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/DebugActivity.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionManager.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountManager.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetManager.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/StartActivity.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListAdapter.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListFragment.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListFragment.java" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountManager.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/StartActivity.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/todo.txt" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionManager.java" />
       </list>
     </option>
   </component>
@@ -1484,130 +1426,6 @@
               <option name="myItemId" value="ExpensesManager" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android API 19 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="os" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1678,66 +1496,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trunk" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="expensesmanager" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values-w820dp" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trunk" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="expensesmanager" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1768,36 +1526,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trunk" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="expensesmanager" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2420,7 +2148,11 @@
       <created>1412948180209</created>
       <updated>1412948180209</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="performance improvements&#10;loading progress dialog&#10;transaction manager is now observable&#10;fixed my money import bug (no end recurrent transactions">
+      <created>1413098790607</created>
+      <updated>1413098790607</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2445,11 +2177,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32608697" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26172465" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26923078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2460,20 +2193,19 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33779263" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2625418" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27591974" sideWeight="0.6620469" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5234114" sideWeight="0.6620469" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32857144" sideWeight="0.6369138" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27231467" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27231467" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26923078" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32967034" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2624" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -2513,14 +2245,15 @@
     <MESSAGE value="account and budget entry activity completely refactored&#10;support for account/budget edit&#10;support for transfers and revenues transaction edit&#10;removed magic strings&#10;support for data export/import (work in progress)" />
     <MESSAGE value="added preferences and used saved values&#10;added support for export import data (almost completed)&#10;added double click to exit&#10;added hidden debug menu&#10;changed launcher icon&#10;new account/budget spinner layout" />
     <MESSAGE value="added icons on the drawer&#10;changed app style (wip)&#10;changes spinners item view (added margins and graph)&#10;perf improvements on retrieving transactions&#10;added perf traces&#10;support to create app folder on data export&#10;mymoney import support recurrent transaction and create missing budget/aaccounts" />
-    <option name="LAST_COMMIT_MESSAGE" value="added icons on the drawer&#10;changed app style (wip)&#10;changes spinners item view (added margins and graph)&#10;perf improvements on retrieving transactions&#10;added perf traces&#10;support to create app folder on data export&#10;mymoney import support recurrent transaction and create missing budget/aaccounts" />
+    <MESSAGE value="performance improvements&#10;loading progress dialog&#10;transaction manager is now observable&#10;fixed my money import bug (no end recurrent transactions" />
+    <option name="LAST_COMMIT_MESSAGE" value="performance improvements&#10;loading progress dialog&#10;transaction manager is now observable&#10;fixed my money import bug (no end recurrent transactions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListAdapter.java</url>
-          <line>38</line>
+          <line>40</line>
           <properties />
           <option name="timeStamp" value="179" />
         </line-breakpoint>
@@ -2530,58 +2263,14 @@
           <properties />
           <option name="timeStamp" value="394" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/MyMoneyDataImporter.java</url>
-          <line>37</line>
-          <properties />
-          <option name="timeStamp" value="400" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="464" />
+      <option name="time" value="471" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/statistics_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4960212" vertical-offset="0" max-vertical-offset="408">
-          <caret line="11" column="39" selection-start-line="11" selection-start-column="38" selection-end-line="11" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/StatisticsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="55" max-vertical-offset="459">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/widget/Toast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="631" max-vertical-offset="6715">
-          <caret line="75" column="28" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/preference/PreferenceActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="23600" max-vertical-offset="24769">
-          <caret line="1468" column="16" selection-start-line="1468" selection-start-column="16" selection-end-line="1468" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/xml/pref_headers.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.056478404" vertical-offset="0" max-vertical-offset="602">
-          <caret line="2" column="56" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/xml/pref_notification.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.056478404" vertical-offset="0" max-vertical-offset="602">
@@ -2683,14 +2372,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.703704" vertical-offset="26" max-vertical-offset="612">
           <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1951" max-vertical-offset="3060">
-          <caret line="121" column="18" selection-start-line="121" selection-start-column="18" selection-end-line="121" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3005,16 +2686,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/com/android/internal/os/ZygoteInit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13073">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#27389#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/widget/AbsListView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47559276" vertical-offset="10811" max-vertical-offset="114733">
@@ -3102,14 +2773,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/DebugActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="2006">
-          <caret line="97" column="62" selection-start-line="97" selection-start-column="62" selection-end-line="97" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/SettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3961" max-vertical-offset="4437">
@@ -3122,14 +2785,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="2261">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesTransactionListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="377" max-vertical-offset="1445">
-          <caret line="51" column="76" selection-start-line="51" selection-start-column="76" selection-end-line="51" selection-end-column="76" />
           <folding />
         </state>
       </provider>
@@ -3150,29 +2805,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersTransactionListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="462" max-vertical-offset="1598">
-          <caret line="56" column="48" selection-start-line="56" selection-start-column="48" selection-end-line="56" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetEntryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1548975" vertical-offset="0" max-vertical-offset="2482">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesTransactionListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="707" max-vertical-offset="1751">
-          <caret line="65" column="46" selection-start-line="65" selection-start-column="46" selection-end-line="65" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3198,14 +2835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="296" max-vertical-offset="1462">
-          <caret line="52" column="76" selection-start-line="52" selection-start-column="76" selection-end-line="52" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/java/util/Observable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1568" max-vertical-offset="2159">
@@ -3219,50 +2848,6 @@
         <state vertical-scroll-proportion="0.8239609" vertical-offset="1006" max-vertical-offset="4692">
           <caret line="113" column="47" selection-start-line="113" selection-start-column="47" selection-end-line="113" selection-end-column="47" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2889" max-vertical-offset="3298">
-          <caret line="215" column="5" selection-start-line="210" selection-start-column="0" selection-end-line="215" selection-end-column="5" />
-          <folding>
-            <element signature="e#2288#2322#0" expanded="false" />
-            <element signature="e#3660#3701#0" expanded="false" />
-            <element signature="e#3809#3852#0" expanded="false" />
-            <element signature="e#4371#4412#0" expanded="false" />
-            <element signature="e#4508#4551#0" expanded="false" />
-            <element signature="e#4733#4778#0" expanded="false" />
-            <element signature="e#7861#7862#0" expanded="false" />
-            <element signature="e#7894#7895#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2838" max-vertical-offset="3315">
-          <caret line="206" column="0" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
-          <folding>
-            <element signature="e#2228#2262#0" expanded="true" />
-            <element signature="e#3601#3642#0" expanded="true" />
-            <element signature="e#3750#3793#0" expanded="true" />
-            <element signature="e#4312#4353#0" expanded="true" />
-            <element signature="e#4449#4492#0" expanded="true" />
-            <element signature="e#4674#4719#0" expanded="true" />
-            <element signature="e#7801#7802#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AbstractTransactionListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="1683">
-          <caret line="28" column="53" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
-          <folding>
-            <element signature="e#1304#1305#0" expanded="true" />
-            <element signature="e#1330#1331#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3292,107 +2877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66548043" vertical-offset="3128" max-vertical-offset="4233">
-          <caret line="223" column="0" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AccountTransactionListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1185" max-vertical-offset="2006">
-          <caret line="111" column="75" selection-start-line="111" selection-start-column="75" selection-end-line="111" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1054">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="3145">
-          <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding>
-            <element signature="e#2299#2332#0" expanded="true" />
-            <element signature="e#3536#3572#0" expanded="true" />
-            <element signature="e#3651#3689#0" expanded="true" />
-            <element signature="e#4263#4299#0" expanded="true" />
-            <element signature="e#4613#4651#0" expanded="true" />
-            <element signature="e#4826#4853#0" expanded="true" />
-            <element signature="e#4891#4931#0" expanded="true" />
-            <element signature="e#4975#4990#0" expanded="true" />
-            <element signature="e#5231#5267#0" expanded="true" />
-            <element signature="e#5289#5327#0" expanded="true" />
-            <element signature="e#6041#6081#0" expanded="true" />
-            <element signature="e#7989#7990#0" expanded="true" />
-            <element signature="e#8022#8023#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="343" max-vertical-offset="3281">
-          <caret line="56" column="41" selection-start-line="56" selection-start-column="41" selection-end-line="56" selection-end-column="41" />
-          <folding>
-            <element signature="e#2263#2297#0" expanded="true" />
-            <element signature="e#3514#3551#0" expanded="true" />
-            <element signature="e#3631#3670#0" expanded="true" />
-            <element signature="e#4256#4293#0" expanded="true" />
-            <element signature="e#4611#4650#0" expanded="true" />
-            <element signature="e#4827#4854#0" expanded="true" />
-            <element signature="e#4892#4933#0" expanded="true" />
-            <element signature="e#4977#4992#0" expanded="true" />
-            <element signature="e#5254#5291#0" expanded="true" />
-            <element signature="e#5313#5352#0" expanded="true" />
-            <element signature="e#6386#6427#0" expanded="true" />
-            <element signature="e#8342#8343#0" expanded="true" />
-            <element signature="e#8375#8376#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/MyMoneyDataImporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1972" max-vertical-offset="2601">
-          <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7517007" vertical-offset="595" max-vertical-offset="1360">
-          <caret line="72" column="59" selection-start-line="72" selection-start-column="59" selection-end-line="72" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1632653" vertical-offset="2995" max-vertical-offset="3366">
-          <caret line="207" column="0" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
-          <folding>
-            <element signature="e#2314#2349#0" expanded="true" />
-            <element signature="e#3755#3796#0" expanded="true" />
-            <element signature="e#3905#3948#0" expanded="true" />
-            <element signature="e#4524#4565#0" expanded="true" />
-            <element signature="e#4662#4705#0" expanded="true" />
-            <element signature="e#4901#4946#0" expanded="true" />
-            <element signature="e#8125#8126#0" expanded="true" />
-            <element signature="e#8158#8159#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/enums/TransactionType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
@@ -3407,37 +2891,267 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/StartActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="318" max-vertical-offset="2771">
-          <caret line="50" column="59" selection-start-line="50" selection-start-column="59" selection-end-line="50" selection-end-column="59" />
+    <entry file="file://$APPLICATION_HOME_DIR$/sdk/platforms/android-19/data/res/layout/app_permission_item.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="952">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/start_activity.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55839413" vertical-offset="204" max-vertical-offset="714">
+          <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+          <folding>
+            <element signature="e#1083#1115#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/HandlingFooterFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
+          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesTransactionListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="326" max-vertical-offset="1785">
+          <caret line="26" column="90" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="90" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesTransactionListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1479">
+          <caret line="25" column="90" selection-start-line="25" selection-start-column="57" selection-end-line="25" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersTransactionListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1632">
+          <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/com/android/internal/os/ZygoteInit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13073">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#27389#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0-sources.jar!/android/support/v4/app/ListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3090" max-vertical-offset="5831">
+          <caret line="221" column="0" selection-start-line="221" selection-start-column="0" selection-end-line="221" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/widget/ListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5569" max-vertical-offset="63087">
+          <caret line="387" column="16" selection-start-line="387" selection-start-column="16" selection-end-line="387" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39534885" vertical-offset="884" max-vertical-offset="1462">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/DebugActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.059027776" vertical-offset="510" max-vertical-offset="2567">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding>
+            <element signature="e#2501#2526#0" expanded="true" />
+            <element signature="e#3616#3617#0" expanded="true" />
+            <element signature="e#3671#5279#0" expanded="true" />
+            <element signature="e#3879#3908#0" expanded="true" />
+            <element signature="e#3946#3996#0" expanded="true" />
+            <element signature="e#4041#4060#0" expanded="true" />
+            <element signature="e#5167#5182#0" expanded="true" />
+            <element signature="e#5268#5269#0" expanded="true" />
+            <element signature="e#5323#5556#0" expanded="true" />
+            <element signature="e#5545#5546#0" expanded="true" />
+            <element signature="e#5599#6893#0" expanded="true" />
+            <element signature="e#6882#6883#0" expanded="true" />
+            <element signature="e#6936#7758#0" expanded="true" />
+            <element signature="e#7747#7748#0" expanded="true" />
+            <element signature="e#7810#7811#0" expanded="true" />
+            <element signature="e#7843#7844#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="530" max-vertical-offset="3468">
+          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding>
+            <element signature="e#2279#2313#0" expanded="true" />
+            <element signature="e#3653#3694#0" expanded="true" />
+            <element signature="e#3802#3845#0" expanded="true" />
+            <element signature="e#4364#4405#0" expanded="true" />
+            <element signature="e#4501#4544#0" expanded="true" />
+            <element signature="e#4726#4771#0" expanded="true" />
+            <element signature="e#8101#8102#0" expanded="true" />
+            <element signature="e#8155#8156#0" expanded="true" />
+            <element signature="e#8201#8202#0" expanded="true" />
+            <element signature="e#8252#8253#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransfersListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="498" max-vertical-offset="3519">
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding>
+            <element signature="e#2407#2442#0" expanded="true" />
+            <element signature="e#3849#3890#0" expanded="true" />
+            <element signature="e#3999#4042#0" expanded="true" />
+            <element signature="e#4618#4659#0" expanded="true" />
+            <element signature="e#4756#4799#0" expanded="true" />
+            <element signature="e#4995#5040#0" expanded="true" />
+            <element signature="e#8467#8468#0" expanded="true" />
+            <element signature="e#8521#8522#0" expanded="true" />
+            <element signature="e#8567#8568#0" expanded="true" />
+            <element signature="e#8618#8619#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/MyMoneyDataImporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2601">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AccountTransactionListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1880531" vertical-offset="0" max-vertical-offset="2006">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.575419" vertical-offset="1647" max-vertical-offset="3026">
+          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/ExpensesListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33496332" vertical-offset="3365" max-vertical-offset="3774">
+          <caret line="211" column="31" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2532" max-vertical-offset="2958">
+          <caret line="192" column="0" selection-start-line="191" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+          <folding>
+            <element signature="e#4210#4251#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5564202" vertical-offset="2252" max-vertical-offset="2822">
+          <caret line="186" column="25" selection-start-line="186" selection-start-column="25" selection-end-line="186" selection-end-column="25" />
+          <folding>
+            <element signature="e#4161#4201#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.459144" vertical-offset="1257" max-vertical-offset="1768">
+          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding>
+            <element signature="e#1090#1091#0" expanded="true" />
+            <element signature="e#1151#1152#0" expanded="true" />
+            <element signature="e#4160#4314#0" expanded="true" />
+            <element signature="e#4299#4300#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3278688" vertical-offset="4062" max-vertical-offset="4488">
+          <caret line="289" column="0" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/budgets/BudgetListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.3929961" vertical-offset="917" max-vertical-offset="1411">
+          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding>
+            <element signature="e#3213#3367#0" expanded="true" />
+            <element signature="e#3352#3353#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/accounts/AccountManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1887" max-vertical-offset="3536">
-          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
-          <folding>
-            <element signature="e#3309#3310#0" expanded="true" />
-            <element signature="e#3347#3348#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="1.0491803" vertical-offset="3433" max-vertical-offset="3791">
+          <caret line="246" column="0" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/todo.txt">
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AbstractTransactionListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="88" max-vertical-offset="1785">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state vertical-scroll-proportion="1.459144" vertical-offset="1325" max-vertical-offset="1819">
+          <caret line="118" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.91604936" vertical-offset="6004" max-vertical-offset="9554">
-          <caret line="377" column="0" selection-start-line="354" selection-start-column="0" selection-end-line="377" selection-end-column="0" />
+        <state vertical-scroll-proportion="2.2996109" vertical-offset="1092" max-vertical-offset="10234">
+          <caret line="99" column="22" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1237#1245#0" expanded="true" />
@@ -3445,20 +3159,35 @@
             <element signature="e#1386#1399#0" expanded="true" />
             <element signature="e#1468#1481#0" expanded="true" />
             <element signature="e#1551#1572#0" expanded="true" />
-            <element signature="e#1659#1692#0" expanded="true" />
-            <element signature="e#1778#1811#0" expanded="true" />
-            <element signature="e#2627#2666#0" expanded="true" />
-            <element signature="e#2715#2754#0" expanded="true" />
-            <element signature="e#2801#2838#0" expanded="true" />
-            <element signature="e#10477#10490#0" expanded="true" />
-            <element signature="e#11229#11242#0" expanded="true" />
-            <element signature="e#14192#14205#0" expanded="true" />
-            <element signature="e#15898#15911#0" expanded="true" />
-            <element signature="e#16117#16130#0" expanded="true" />
-            <element signature="e#16642#16655#0" expanded="true" />
-            <element signature="e#19988#20001#0" expanded="true" />
-            <element signature="e#20208#20221#0" expanded="true" />
+            <element signature="e#1653#1680#0" expanded="true" />
+            <element signature="e#1760#1787#0" expanded="true" />
+            <element signature="e#6248#6261#0" expanded="true" />
+            <element signature="e#7923#7936#0" expanded="true" />
+            <element signature="e#11854#11867#0" expanded="true" />
+            <element signature="e#13197#13210#0" expanded="true" />
+            <element signature="e#13852#13865#0" expanded="true" />
+            <element signature="e#14555#14568#0" expanded="true" />
+            <element signature="e#17333#17346#0" expanded="true" />
+            <element signature="e#18936#18949#0" expanded="true" />
+            <element signature="e#19174#19187#0" expanded="true" />
+            <element signature="e#22112#22125#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/StartActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2482" max-vertical-offset="2805">
+          <caret line="185" column="0" selection-start-line="182" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/todo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8015564" vertical-offset="202" max-vertical-offset="1921">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

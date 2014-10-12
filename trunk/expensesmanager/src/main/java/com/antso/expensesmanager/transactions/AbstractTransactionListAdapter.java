@@ -14,12 +14,14 @@ import java.util.Observer;
 
 public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter implements Observer {
     protected final Context context;
+    protected final HandlingFooterFragment fragment;
     protected volatile List<T> transactions;
     private final List<T> found;
     private boolean searched = false;
 
 
-    public AbstractTransactionListAdapter(Context context) {
+    public AbstractTransactionListAdapter(Context context, HandlingFooterFragment fragment) {
+        this.fragment = fragment;
         this.context = context;
         this.transactions = Collections.emptyList();
         this.found = new ArrayList<T>();
@@ -98,6 +100,12 @@ public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter impl
         handler.post(new Runnable() {
             @Override
             public void run() {
+                if (getCount() == 0) {
+                    fragment.showFooter();
+                } else {
+                    fragment.hideFooter();
+                }
+
                 notifyDataSetChanged();
             }
         });

@@ -23,8 +23,8 @@ import java.util.List;
 public class TransfersTransactionListAdapter
         extends AbstractTransactionListAdapter<Pair<Transaction, Transaction>> {
 
-    public TransfersTransactionListAdapter(Context context) {
-        super(context);
+    public TransfersTransactionListAdapter(Context context, HandlingFooterFragment fragment) {
+        super(context, fragment);
     }
 
     @Override

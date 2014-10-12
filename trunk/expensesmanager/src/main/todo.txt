@@ -18,10 +18,10 @@ show recurrent icon even on auto generated transactions (change background color
 change about image with a bigger one
 
 URGENT
-explode transactions + optimization on getbudget/account transactions
-//add performance traces
-move long taking stuff on async task (dialogs + loading at start-up, import and export with progress dialog)
-account and budget manager are not started after Start view re-created (move to obs like transaction man?)
+move long taking stuff on async task with progress dialog(
+    delete budgets
+    delete accounts
+    data import and export
 
 ---------------------------------------------------------------
  BUGS
@@ -29,6 +29,14 @@ account and budget manager are not started after Start view re-created (move to 
     MINOR   Sometimes footer is not shown
     MINOR   Sometimes action bar menus are not shown
     MINOR   log on db operation failure
+
+
+---------------------------------------------------------------
+ OPTIMIZATIONS
+---------------------------------------------------------------
+    getTransactionByAccount/getTransactionByBudget with date
+    start up of managers (budget, transactions, account)
+
 
 ---------------------------------------------------------------
  ENHANCEMENTS

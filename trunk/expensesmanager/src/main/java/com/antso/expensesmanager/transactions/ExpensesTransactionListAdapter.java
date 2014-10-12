@@ -24,8 +24,8 @@ import java.util.List;
 public class ExpensesTransactionListAdapter
         extends AbstractTransactionListAdapter<Transaction> {
 
-    public ExpensesTransactionListAdapter(Context context) {
-        super(context);
+    public ExpensesTransactionListAdapter(Context context, HandlingFooterFragment fragment) {
+        super(context, fragment);
     }
 
     @Override

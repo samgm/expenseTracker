@@ -2,6 +2,8 @@ package com.antso.expensesmanager.budgets;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +13,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
+import com.antso.expensesmanager.accounts.AccountManager;
+import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 
+import java.util.Observable;
+import java.util.Observer;
 
-public class BudgetListAdapter extends BaseAdapter {
+
+public class BudgetListAdapter extends BaseAdapter  implements Observer {
     private final BudgetManager budgetManager;
     private final Context context;
 
     public BudgetListAdapter(Context context, BudgetManager budgetManager) {
         this.context = context;
         this.budgetManager = budgetManager;
+
+        BudgetManager.BUDGET_MANAGER().addObserver(this);
     }
 
     @Override
@@ -69,6 +78,25 @@ public class BudgetListAdapter extends BaseAdapter {
         threshold.setText(thresholdStr);
 
         return budgetLayout;
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        if (observable instanceof BudgetManager) {
+            Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
+    public void onDestroy() {
+        Log.i("EXPENSES OBS", this.getClass() + " deleted observer (" +
+                BudgetManager.BUDGET_MANAGER() + ")");
+        BudgetManager.BUDGET_MANAGER().deleteObserver(this);
     }
 
 }

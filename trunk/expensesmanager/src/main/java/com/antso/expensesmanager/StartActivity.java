@@ -1,7 +1,6 @@
 package com.antso.expensesmanager;
 
 import android.app.ActionBar;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,10 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.antso.expensesmanager.accounts.AccountListFragment;
@@ -44,7 +44,9 @@ public class StartActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
 
-        final ProgressDialog progress = ProgressDialog.show(this, "","", true);
+        final ProgressBar progress = (ProgressBar)findViewById(R.id.progressBar);
+        progress.setVisibility(View.VISIBLE);
+
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void[] params) {
@@ -57,7 +59,7 @@ public class StartActivity
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                progress.dismiss();
+                progress.setVisibility(View.GONE);
             }
         }.execute();
 
@@ -178,9 +180,9 @@ public class StartActivity
 
     @Override
     protected void onDestroy() {
-        AccountManager.ACCOUNT_MANAGER().stop();
-        BudgetManager.BUDGET_MANAGER().stop();
-        TransactionManager.TRANSACTION_MANAGER().stop();
+//        AccountManager.ACCOUNT_MANAGER().stop();
+//        BudgetManager.BUDGET_MANAGER().stop();
+//        TransactionManager.TRANSACTION_MANAGER().stop();
 
         super.onDestroy();
     }

@@ -107,8 +107,6 @@
     <string name="expenses_list_footer_text">Nothing to show here</string>
     <string name="revenues_list_footer_text">Nothing to show here</string>
     <string name="transfers_list_footer_text">Nothing to show here</string>
-    <string name="accounts_list_footer_text">Nothing to show here</string>
-    <string name="budgets_list_footer_text">Nothing to show here</string>
 
     <string name="message_existing_all_data_will_be_deleted">If you proceed all the existing data will be deleted. Are you sure you want to go?</string>
     <string name="error_cannot_delete_last_account">There is only this account remaining. You cannot delete it</string>
@@ -120,8 +118,8 @@
     <string name="message_transaction_deleted">" Deleted"</string>
     <string name="message_import_chooser_dialog">"Select the date you want to import"</string>
     <string name="message_nothing_to_import_dialog">"Nothing to import"</string>
-
     <string name="message_click_again_to_exit">"Click again to exit"</string>
+    <string name="working">"Working..."</string>
 
     <!--Layout Screen Fields -->
     <string name="empty"></string>

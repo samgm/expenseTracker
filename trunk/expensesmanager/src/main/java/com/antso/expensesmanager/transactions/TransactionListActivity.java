@@ -65,7 +65,7 @@ public class TransactionListActivity extends ListActivity {
             textView.setTextColor(MaterialColours.GREY_500);
 
             getListView().addFooterView(footerView);
-            getListView().setFooterDividersEnabled(true);
+            getListView().setFooterDividersEnabled(false);
         }
     }
 

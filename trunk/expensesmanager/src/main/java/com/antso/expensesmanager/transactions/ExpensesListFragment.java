@@ -25,10 +25,7 @@ import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.views.TransactionSearchDialog;
 
-import java.util.Observable;
-import java.util.Observer;
-
-public class ExpensesListFragment extends ListFragment {
+public class ExpensesListFragment extends ListFragment implements HandlingFooterFragment {
 
     private View footerView;
     private boolean searching = false;
@@ -59,15 +56,16 @@ public class ExpensesListFragment extends ListFragment {
 
         if (transactionListAdapter == null) {
             transactionListAdapter = new ExpensesTransactionListAdapter(
-                    getActivity().getApplicationContext());
+                    getActivity().getApplicationContext(), this);
 
-            if (footerView != null && transactionListAdapter.getCount() == 0) {
+            if (footerView != null) {
+                footerView.setVisibility(View.GONE);
                 TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
                 textView.setText(R.string.expenses_list_footer_text);
                 textView.setTextColor(MaterialColours.GREY_500);
 
                 getListView().addFooterView(footerView);
-                getListView().setFooterDividersEnabled(true);
+                getListView().setFooterDividersEnabled(false);
             }
 
             setListAdapter(transactionListAdapter);
@@ -213,5 +211,15 @@ public class ExpensesListFragment extends ListFragment {
         super.onDestroyView();
         transactionListAdapter.onDestroy();
         transactionListAdapter = null;
+    }
+
+    @Override
+    public void showFooter() {
+        footerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideFooter() {
+        footerView.setVisibility(View.GONE);
     }
 }

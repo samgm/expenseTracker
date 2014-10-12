@@ -1,33 +1,35 @@
 package com.antso.expensesmanager.accounts;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.antso.expensesmanager.R;
-import com.antso.expensesmanager.entities.Account;
-import com.antso.expensesmanager.persistence.DatabaseHelper;
+import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class AccountListAdapter extends BaseAdapter {
+public class AccountListAdapter extends BaseAdapter implements Observer {
     private final AccountManager accountManager;
     private final Context context;
 
     public AccountListAdapter(Context context, AccountManager accountManager) {
         this.context = context;
         this.accountManager = accountManager;
+
+        AccountManager.ACCOUNT_MANAGER().addObserver(this);
     }
 
     @Override
@@ -95,4 +97,24 @@ public class AccountListAdapter extends BaseAdapter {
 
         return accountLayout;
     }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        if (observable instanceof AccountManager) {
+            Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
+    public void onDestroy() {
+        Log.i("EXPENSES OBS", this.getClass() + " deleted observer (" +
+                BudgetManager.BUDGET_MANAGER() + ")");
+        BudgetManager.BUDGET_MANAGER().deleteObserver(this);
+    }
+
 }
