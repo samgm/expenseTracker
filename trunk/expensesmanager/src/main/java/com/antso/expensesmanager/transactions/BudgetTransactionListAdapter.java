@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class BudgetTransactionListAdapter extends AbstractTransactionListAdapter {
+public class BudgetTransactionListAdapter extends AbstractAccountBudgetTransactionListAdapter {
 
     private final TransactionManager transactionManager;
     private final Context context;

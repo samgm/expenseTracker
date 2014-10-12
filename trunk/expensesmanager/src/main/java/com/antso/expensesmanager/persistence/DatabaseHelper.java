@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.hardware.usb.UsbAccessory;
 import android.util.Log;
 
 import com.antso.expensesmanager.entities.Account;
@@ -21,7 +20,6 @@ import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -336,20 +334,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
-    public Transaction getTransactionsById(String id) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
-                transactionColumns,
-                TRANSACTION_FIELD_ID + " = ?", new String[] { id },
-                null, null, null);
-
-        if(cursor.moveToNext()) {
-            return cursorToTransaction(cursor);
-        }
-
-        return null;
-    }
+//    public Transaction getTransactionsById(String id) {
+//        SQLiteDatabase db = getWritableDatabase();
+//
+//        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
+//                transactionColumns,
+//                TRANSACTION_FIELD_ID + " = ?", new String[] { id },
+//                null, null, null);
+//
+//        if(cursor.moveToNext()) {
+//            return cursorToTransaction(cursor);
+//        }
+//
+//        return null;
+//    }
 
     public List<Transaction> getTransactionsByAccount(String accountId) {
         SQLiteDatabase db = getWritableDatabase();
@@ -427,54 +425,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return transactions;
     }
 
-    public List<Transaction> getTransactions(TransactionDirection direction, boolean noTransfer) {
-        SQLiteDatabase db = getWritableDatabase();
+//    public List<Transaction> getTransactions(TransactionDirection direction, boolean noTransfer) {
+//        SQLiteDatabase db = getWritableDatabase();
+//
+//        Integer directionInt = direction.getIntValue();
+//        String directionStr = directionInt.toString();
+//        Integer typeInt = TransactionType.Transfer.getIntValue();
+//        String typeStr = typeInt.toString();
+//        Cursor cursor;
+//        if (noTransfer) {
+//            cursor = db.query(TRANSACTION_TABLE_NAME,
+//                    transactionColumns,
+//                    TRANSACTION_FIELD_DIRECTION + " = ? AND " + TRANSACTION_FIELD_TYPE + " != ?",
+//                    new String[]{directionStr, typeStr},
+//                    null, null,
+//                    TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+//        } else {
+//            cursor = db.query(TRANSACTION_TABLE_NAME,
+//                    transactionColumns,
+//                    TRANSACTION_FIELD_DIRECTION + " = ?", new String[]{directionStr},
+//                    null, null,
+//                    TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+//        }
+//        List<Transaction> transactions = new ArrayList<Transaction>();
+//        while (cursor.moveToNext()) {
+//            transactions.add(cursorToTransaction(cursor));
+//        }
+//
+//        return transactions;
+//    }
 
-        Integer directionInt = direction.getIntValue();
-        String directionStr = directionInt.toString();
-        Integer typeInt = TransactionType.Transfer.getIntValue();
-        String typeStr = typeInt.toString();
-        Cursor cursor;
-        if (noTransfer) {
-            cursor = db.query(TRANSACTION_TABLE_NAME,
-                    transactionColumns,
-                    TRANSACTION_FIELD_DIRECTION + " = ? AND " + TRANSACTION_FIELD_TYPE + " != ?",
-                    new String[]{directionStr, typeStr},
-                    null, null,
-                    TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
-        } else {
-            cursor = db.query(TRANSACTION_TABLE_NAME,
-                    transactionColumns,
-                    TRANSACTION_FIELD_DIRECTION + " = ?", new String[]{directionStr},
-                    null, null,
-                    TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
-        }
-        List<Transaction> transactions = new ArrayList<Transaction>();
-        while (cursor.moveToNext()) {
-            transactions.add(cursorToTransaction(cursor));
-        }
-
-        return transactions;
-    }
-
-    public List<Transaction> getTransactions(TransactionType type) {
-        SQLiteDatabase db = getWritableDatabase();
-
-        Integer typeInt = type.getIntValue();
-        String typeStr = typeInt.toString();
-        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
-                transactionColumns,
-                TRANSACTION_FIELD_TYPE + " = ?", new String[] { typeStr },
-                null, null,
-                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
-
-        List<Transaction> transactions = new ArrayList<Transaction>();
-        while (cursor.moveToNext()) {
-            transactions.add(cursorToTransaction(cursor));
-        }
-
-        return transactions;
-    }
+//    public List<Transaction> getTransactions(TransactionType type) {
+//        SQLiteDatabase db = getWritableDatabase();
+//
+//        Integer typeInt = type.getIntValue();
+//        String typeStr = typeInt.toString();
+//        Cursor cursor = db.query(TRANSACTION_TABLE_NAME,
+//                transactionColumns,
+//                TRANSACTION_FIELD_TYPE + " = ?", new String[] { typeStr },
+//                null, null,
+//                TRANSACTION_FIELD_DATE + ", " + TRANSACTION_FIELD_TIME + " DESC");
+//
+//        List<Transaction> transactions = new ArrayList<Transaction>();
+//        while (cursor.moveToNext()) {
+//            transactions.add(cursorToTransaction(cursor));
+//        }
+//
+//        return transactions;
+//    }
 
     public void deleteTransaction(String id) {
         SQLiteDatabase db = getWritableDatabase();

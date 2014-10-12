@@ -5,7 +5,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,34 +17,24 @@ import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class TransfersTransactionListAdapter extends BaseAdapter {
-    private final TransactionManager transactionManager;
-    private volatile List<Pair<Transaction, Transaction>> transactions;
-    private final Context context;
+public class TransfersTransactionListAdapter
+        extends AbstractTransactionListAdapter<Pair<Transaction, Transaction>> {
 
-    public TransfersTransactionListAdapter(Context context, TransactionManager transactionManager) {
-        this.context = context;
-        this.transactionManager = transactionManager;
-        this.transactions = transactionManager.getTransferTransactions();
+    public TransfersTransactionListAdapter(Context context) {
+        super(context);
     }
 
     @Override
-    public int getCount() {
-        return transactions.size();
+    protected List<Pair<Transaction, Transaction>> retrieveTransactions() {
+        return TransactionManager.TRANSACTION_MANAGER().getTransferTransactions();
     }
 
     @Override
-    public Object getItem(int pos) {
-        return transactions.get(pos);
-    }
-
-    @Override
-    public long getItemId(int pos) {
-        return pos;
+    protected String getDescription(Pair<Transaction, Transaction> pair) {
+        return pair.first.getDescription();
     }
 
     @Override
@@ -63,9 +52,9 @@ public class TransfersTransactionListAdapter extends BaseAdapter {
         accountAndBudget.setVisibility(View.GONE);
 
         AccountManager.AccountInfo accountPrimaryInfo =
-                AccountManager.ACCOUNT_MANAGER.getAccountInfo(t1.getAccountId());
+                AccountManager.ACCOUNT_MANAGER().getAccountInfo(t1.getAccountId());
         AccountManager.AccountInfo accountSecondaryInfo =
-                AccountManager.ACCOUNT_MANAGER.getAccountInfo(t2.getAccountId());
+                AccountManager.ACCOUNT_MANAGER().getAccountInfo(t2.getAccountId());
 
         if(accountPrimaryInfo != null) {
             Account account = accountPrimaryInfo.account;
@@ -114,22 +103,5 @@ public class TransfersTransactionListAdapter extends BaseAdapter {
         transactionValue.setTextColor(MaterialColours.BLACK);
 
         return transactionLayout;
-    }
-
-    public void reset() {
-        transactions = transactionManager.getTransferTransactions();
-        notifyDataSetChanged();
-    }
-
-    public void search(String text) {
-        List<Pair<Transaction, Transaction>> found = new ArrayList<Pair<Transaction, Transaction>>();
-        for (Pair<Transaction, Transaction> t : transactions) {
-            if (t.first.getDescription().toUpperCase().contains(text.toUpperCase())) {
-                found.add(t);
-            }
-        }
-
-        transactions = found;
-        notifyDataSetChanged();
     }
 }

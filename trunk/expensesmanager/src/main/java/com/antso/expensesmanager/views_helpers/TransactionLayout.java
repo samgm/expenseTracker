@@ -40,6 +40,10 @@ public class TransactionLayout {
         });
     }
 
+    public boolean isRecurrent() {
+        return recurrent.isChecked();
+    }
+
     public void setTransaction(Transaction transaction) {
         switch (transaction.getDirection()) {
             case In:

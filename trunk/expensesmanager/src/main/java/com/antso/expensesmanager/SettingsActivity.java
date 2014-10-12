@@ -70,7 +70,7 @@ public class SettingsActivity extends PreferenceActivity {
         //Account list
         ArrayList<String> accountIds = new ArrayList<String>();
         ArrayList<String> accountNames = new ArrayList<String>();
-        for (Account account : AccountManager.ACCOUNT_MANAGER.getAccounts()) {
+        for (Account account : AccountManager.ACCOUNT_MANAGER().getAccounts()) {
             accountIds.add(account.getId());
             accountNames.add(account.getName());
         }
@@ -86,7 +86,7 @@ public class SettingsActivity extends PreferenceActivity {
         //Budget list
         ArrayList<String> budgetIds = new ArrayList<String>();
         ArrayList<String> budgetNames = new ArrayList<String>();
-        for (Budget budget : BudgetManager.BUDGET_MANAGER.getBudgets()) {
+        for (Budget budget : BudgetManager.BUDGET_MANAGER().getBudgets()) {
             budgetIds.add(budget.getId());
             budgetNames.add(budget.getName());
         }
@@ -276,16 +276,16 @@ public class SettingsActivity extends PreferenceActivity {
                 .setPositiveButton(R.string.sure_go_on, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        TransactionManager.TRANSACTION_MANAGER.stop();
-                        BudgetManager.BUDGET_MANAGER.stop();
-                        AccountManager.ACCOUNT_MANAGER.stop();
+                        TransactionManager.TRANSACTION_MANAGER().stop();
+                        BudgetManager.BUDGET_MANAGER().stop();
+                        AccountManager.ACCOUNT_MANAGER().stop();
 
                         dbHelper.deleteDatabase();
                         exporter.importData(selectedDate);
 
-                        AccountManager.ACCOUNT_MANAGER.start(getApplicationContext());
-                        BudgetManager.BUDGET_MANAGER.start(getApplicationContext());
-                        TransactionManager.TRANSACTION_MANAGER.start(getApplicationContext());
+                        AccountManager.ACCOUNT_MANAGER().start(getApplicationContext());
+                        BudgetManager.BUDGET_MANAGER().start(getApplicationContext());
+                        TransactionManager.TRANSACTION_MANAGER().start(getApplicationContext());
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)

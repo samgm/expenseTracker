@@ -1,12 +1,12 @@
 TESTARE su nexus No such directory on export
-
+DONE    check result with MyMoney
 
 LAYOUT
 cambiare colori app (theme?)
     change selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
 mettere label in grigio (date label campi)
 remove footer on something added (for all the lists)
-
+change progress dialog to bar or add title
 layout drawer (icon + separators) need a custom adapter
     text black
     icons
@@ -18,9 +18,10 @@ show recurrent icon even on auto generated transactions (change background color
 change about image with a bigger one
 
 URGENT
-move long taking stuff on async task
-*TransactionListAdapter, make load asynch
-check result with MyMoney
+explode transactions + optimization on getbudget/account transactions
+//add performance traces
+move long taking stuff on async task (dialogs + loading at start-up, import and export with progress dialog)
+account and budget manager are not started after Start view re-created (move to obs like transaction man?)
 
 ---------------------------------------------------------------
  BUGS
@@ -54,7 +55,7 @@ check result with MyMoney
 support multi language enum string
 setting for screen to start on
 setting for default secondary account for transfer
-
+add toast on executed actions
 
 ---------------------------------------------------------------
  EULA

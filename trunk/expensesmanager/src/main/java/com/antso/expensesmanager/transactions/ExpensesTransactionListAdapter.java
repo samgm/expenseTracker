@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,34 +18,24 @@ import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class ExpensesTransactionListAdapter extends BaseAdapter {
-    private final TransactionManager transactionManager;
-    private volatile List<Transaction> transactions;
-    private final Context context;
+public class ExpensesTransactionListAdapter
+        extends AbstractTransactionListAdapter<Transaction> {
 
-    public ExpensesTransactionListAdapter(Context context, TransactionManager transactionManager) {
-        this.transactionManager = transactionManager;
-        this.context = context;
-        this.transactions = transactionManager.getOutTransactions();
+    public ExpensesTransactionListAdapter(Context context) {
+        super(context);
     }
 
     @Override
-    public int getCount() {
-        return transactions.size();
+    protected List<Transaction> retrieveTransactions() {
+        return TransactionManager.TRANSACTION_MANAGER().getOutTransactions();
     }
 
     @Override
-    public Object getItem(int pos) {
-        return transactions.get(pos);
-    }
-
-    @Override
-    public long getItemId(int pos) {
-        return pos;
+    protected String getDescription(Transaction transaction) {
+        return transaction.getDescription();
     }
 
     @Override
@@ -60,8 +49,8 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
             transactionLayout.setBackgroundColor(MaterialColours.GREY_500);
         }
 
-        AccountManager.AccountInfo accountInfo = AccountManager.ACCOUNT_MANAGER.getAccountInfo(transaction.getAccountId());
-        BudgetManager.BudgetInfo budgetInfo = BudgetManager.BUDGET_MANAGER.getBudgetInfo(transaction.getBudgetId());
+        AccountManager.AccountInfo accountInfo = AccountManager.ACCOUNT_MANAGER().getAccountInfo(transaction.getAccountId());
+        BudgetManager.BudgetInfo budgetInfo = BudgetManager.BUDGET_MANAGER().getBudgetInfo(transaction.getBudgetId());
 
         if(accountInfo != null) {
             Account account = accountInfo.account;
@@ -106,22 +95,5 @@ public class ExpensesTransactionListAdapter extends BaseAdapter {
         transactionValue.setTextColor(MaterialColours.BLACK);
 
         return transactionLayout;
-    }
-
-    public void reset() {
-        transactions = transactionManager.getOutTransactions();
-        notifyDataSetChanged();
-    }
-
-    public void search(String text) {
-        List<Transaction> found = new ArrayList<Transaction>();
-        for (Transaction t : transactions) {
-            if (t.getDescription().toUpperCase().contains(text.toUpperCase())) {
-                found.add(t);
-            }
-        }
-        transactions = found;
-
-        notifyDataSetChanged();
     }
 }

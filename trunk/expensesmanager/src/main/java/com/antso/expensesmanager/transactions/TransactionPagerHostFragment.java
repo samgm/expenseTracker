@@ -18,6 +18,7 @@ import java.util.List;
 
 public class TransactionPagerHostFragment extends Fragment implements ActionBar.TabListener  {
     private volatile ViewPager mPagerView;
+    private TransactionsPagerAdapter mTransactionsPagerAdapter = null;
     private Context context;
 
     public TransactionPagerHostFragment() {
@@ -36,7 +37,10 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
 
         View view = inflater.inflate(R.layout.transaction_pagerer_host_fragment, container, false);
 
-        TransactionsPagerAdapter mTransactionsPagerAdapter = new TransactionsPagerAdapter(this.getChildFragmentManager());
+        if (mTransactionsPagerAdapter == null) {
+            mTransactionsPagerAdapter = new TransactionsPagerAdapter(this.getChildFragmentManager());
+        }
+
         mPagerView = (ViewPager) view.findViewById(R.id.pager);
         mPagerView.setAdapter(mTransactionsPagerAdapter);
         mPagerView.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {

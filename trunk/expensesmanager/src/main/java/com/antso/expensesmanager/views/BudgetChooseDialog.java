@@ -32,7 +32,7 @@ public class BudgetChooseDialog implements DialogInterface.OnClickListener{
         spinner = (Spinner) view.findViewById(R.id.chooserSpinner);
         msg.setText(message);
         spinner.setAdapter(BudgetSpinnerAdapter.create(context, R.layout.text_spinner_item,
-                BudgetManager.BUDGET_MANAGER.getBudgets().toArray(new Budget[0]), budgetToDelete));
+                BudgetManager.BUDGET_MANAGER().getBudgets().toArray(new Budget[0]), budgetToDelete));
 
         dialog = new AlertDialog.Builder(context)
                 .setTitle(title)

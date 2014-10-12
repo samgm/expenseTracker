@@ -15,7 +15,7 @@ import com.antso.expensesmanager.utils.MaterialColours;
 //this is used to show the list of all the activity related to that account
 
 public class TransactionListActivity extends ListActivity {
-    private AbstractTransactionListAdapter transactionListAdapter = null;
+    private AbstractAccountBudgetTransactionListAdapter transactionListAdapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,13 +31,13 @@ public class TransactionListActivity extends ListActivity {
         if(accountId != null) {
             setTitle(R.string.title_accounts_transaction_list_activity);
             transactionListAdapter = new AccountTransactionListAdapter(getApplicationContext(),
-                    TransactionManager.TRANSACTION_MANAGER,
+                    TransactionManager.TRANSACTION_MANAGER(),
                     accountId);
         }
         if(budgetId != null) {
             setTitle(R.string.title_budgets_transaction_list_activity);
             transactionListAdapter = new BudgetTransactionListAdapter(getApplicationContext(),
-                    TransactionManager.TRANSACTION_MANAGER,
+                    TransactionManager.TRANSACTION_MANAGER(),
                     budgetId);
         }
 
