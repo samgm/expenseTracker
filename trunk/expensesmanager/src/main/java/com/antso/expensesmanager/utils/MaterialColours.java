@@ -166,9 +166,9 @@ public class MaterialColours {
     //Green
     public static final int GREEN_500 = Color.parseColor("#259b24");
 //    50#d0f8ce
-//    100#a3e9a4
-//    200#72d572
-//            300#42bd41
+    public static final int GREEN_100 = Color.parseColor("#a3e9a4");
+    public static final int GREEN_200 = Color.parseColor("#72d572");
+//    300#42bd41
 //    400#2baf2b
 //    500#259b24
 //    600#0a8f08
@@ -253,8 +253,8 @@ public class MaterialColours {
 //    50#fff3e0
 //    100#ffe0b2
 //    200#ffcc80
-//    300#ffb74d
-//    400#ffa726
+    public static final int ORANGE_300 = Color.parseColor("#ffb74d");
+    public static final int ORANGE_400 = Color.parseColor("#ffa726");
 //    500#ff9800
 //    600#fb8c00
 //    700#f57c00
@@ -299,9 +299,9 @@ public class MaterialColours {
     public static final int GREY_500 = Color.parseColor("#9e9e9e");
 //    50#fafafa
 //    100#f5f5f5
-//    200#eeeeee
-//    300#e0e0e0
-//    400#bdbdbd
+    public static final int GREY_200 = Color.parseColor("#eeeeee");
+    public static final int GREY_300 = Color.parseColor("#e0e0e0");
+    public static final int GREY_400 = Color.parseColor("#bdbdbd");
 //    500#9e9e9e
 //    600#757575
 //            700#616161

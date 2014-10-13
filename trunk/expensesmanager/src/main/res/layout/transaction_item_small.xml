@@ -5,14 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_marginTop="3dp"
-    android:layout_marginBottom="3dp"
-    android:layout_marginLeft="6dp"
-    android:layout_marginRight="6dp">
+    android:layout_marginBottom="3dp">
 
     <LinearLayout
         android:id="@+id/transactionValueLayout"
         android:layout_width="96dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
         android:layout_alignParentLeft="true">
         <TextView
             android:id="@+id/transactionCurrency"
@@ -22,6 +21,7 @@
             android:layout_gravity="left"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="@string/currency">
         </TextView>
 
@@ -41,6 +41,7 @@
         android:id="@+id/transactionDateLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="6dp"
         android:layout_alignParentRight="true">
 
         <ImageView
@@ -56,6 +57,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textStyle="italic"
+            android:textColor="@color/black"
             android:layout_gravity="center_vertical"
             android:gravity="right"
             android:text="@string/date">
@@ -71,6 +73,7 @@
         android:layout_toLeftOf="@id/transactionDateLayout"
         android:layout_gravity="left"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:text="@string/description">
     </TextView>
 

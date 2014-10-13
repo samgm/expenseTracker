@@ -46,10 +46,10 @@ public class TransfersTransactionListAdapter
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout transactionLayout = (LinearLayout) inflater.inflate(R.layout.transaction_item, null, false);
 
-        LinearLayout accountAndAccount = (LinearLayout) transactionLayout.findViewById(R.id.accountAndAccountLayout);
-        LinearLayout accountAndBudget = (LinearLayout) transactionLayout.findViewById(R.id.accountAndBudgetLayout);
-        accountAndAccount.setVisibility(View.VISIBLE);
-        accountAndBudget.setVisibility(View.GONE);
+        LinearLayout accountAndBudgetLabel = (LinearLayout) transactionLayout.findViewById(R.id.accountAndBudgetLabel);
+        LinearLayout accountAndAccountLabel = (LinearLayout) transactionLayout.findViewById(R.id.accountAndAccountLabel);
+        accountAndBudgetLabel.setVisibility(View.GONE);
+        accountAndAccountLabel.setVisibility(View.VISIBLE);
 
         AccountManager.AccountInfo accountPrimaryInfo =
                 AccountManager.ACCOUNT_MANAGER().getAccountInfo(t1.getAccountId());
@@ -59,24 +59,24 @@ public class TransfersTransactionListAdapter
         if(accountPrimaryInfo != null) {
             Account account = accountPrimaryInfo.account;
             final TextView accountPrimaryName =
-                    (TextView) transactionLayout.findViewById(R.id.accountPrimaryName);
+                    (TextView) transactionLayout.findViewById(R.id.budgetName);
             accountPrimaryName.setText(account.getName());
             accountPrimaryName.setTextColor(MaterialColours.BLACK);
 
             final CircleSectorView accountPrimaryColor =
-                    (CircleSectorView) transactionLayout.findViewById(R.id.accountPrimaryColor);
+                    (CircleSectorView) transactionLayout.findViewById(R.id.budgetColor);
             accountPrimaryColor.setColor(account.getColor());
         }
 
         if(accountSecondaryInfo != null) {
             Account account = accountSecondaryInfo.account;
             final TextView accountSecondaryName =
-                    (TextView) transactionLayout.findViewById(R.id.accountSecondaryName);
+                    (TextView) transactionLayout.findViewById(R.id.accountName);
             accountSecondaryName.setText(account.getName());
             accountSecondaryName.setTextColor(MaterialColours.BLACK);
 
             final CircleSectorView accountSecondaryColor =
-                    (CircleSectorView) transactionLayout.findViewById(R.id.accountSecondaryColor);
+                    (CircleSectorView) transactionLayout.findViewById(R.id.accountColor);
             accountSecondaryColor.setColor(account.getColor());
         }
 

@@ -2,23 +2,16 @@ TESTARE su nexus No such directory on export
 DONE    check result with MyMoney
 
 LAYOUT
-cambiare colori app (theme?)
-    change selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
-mettere label in grigio (date label campi)
-remove footer on something added (for all the lists)
-change progress dialog to bar or add title
+create transfer recurrent icon for transaction compact view (by account/budget)
+
+change about image with a bigger one
 layout drawer (icon + separators) need a custom adapter
     text black
     icons
-
-add icon to transfer list item
-add transfer icon on compact view (by account/budget)
-show recurrent icon even on auto generated transactions (change background color)
-
-change about image with a bigger one
+mettere label in grigio/italic (date label campi) transaction entry + transaction item
 
 URGENT
-move long taking stuff on async task with progress dialog(
+move long taking stuff on async task with progress dialog
     delete budgets
     delete accounts
     data import and export
@@ -64,6 +57,7 @@ support multi language enum string
 setting for screen to start on
 setting for default secondary account for transfer
 add toast on executed actions
+change selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
 
 ---------------------------------------------------------------
  EULA

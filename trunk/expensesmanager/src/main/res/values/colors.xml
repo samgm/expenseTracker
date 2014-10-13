@@ -16,11 +16,13 @@
 
     <color name="green_200">#72d572</color>
     <color name="green_400">#2baf2b</color>
+    <color name="green_500">#259b24</color>
     <color name="green_hangout">#53ab3a</color>
 
+    <color name="red_500">#e51c23</color>
+
     <color name="orange_300">#ffb74d</color>
+    <color name="orange_400">#ffa726</color>
     <color name="orange_500">#ff9800</color>
-
-
 
 </resources>
