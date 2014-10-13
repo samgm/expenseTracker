@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -45,6 +46,8 @@ public class ExpensesListFragment extends ListFragment implements HandlingFooter
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View listView = inflater.inflate(R.layout.list_fragment, container, false);
         footerView = inflater.inflate(R.layout.list_footer, null, false);
+
+        Log.i("EXPENSES MENU", "PrepareOptionsMenu for " + this);
 
         return listView;
     }
@@ -133,6 +136,8 @@ public class ExpensesListFragment extends ListFragment implements HandlingFooter
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+        Log.i("EXPENSES MENU", "PrepareOptionsMenu for " + this);
+
         menu.setGroupVisible(R.id.account_menu_group, false);
         menu.setGroupVisible(R.id.budget_menu_group, false);
         menu.setGroupVisible(R.id.transaction_menu_group, true);

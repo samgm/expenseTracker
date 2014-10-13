@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -134,6 +135,8 @@ public class RevenuesListFragment extends ListFragment implements HandlingFooter
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+        Log.i("EXPENSES MENU", "PrepareOptionsMenu for " + this);
+
         menu.setGroupVisible(R.id.account_menu_group, false);
         menu.setGroupVisible(R.id.budget_menu_group, false);
         menu.setGroupVisible(R.id.transaction_menu_group, true);

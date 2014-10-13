@@ -59,9 +59,13 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
                             .setTabListener(this));
         }
 
-        activity.getActionBar().setSelectedNavigationItem(0);
+//        view.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                activity.getActionBar().setSelectedNavigationItem(0);
+//            }
+//        });
 
-        mPagerView.forceLayout();
         return view;
     }
 
@@ -95,7 +99,9 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        mPagerView.setCurrentItem(tab.getPosition());
+        if (mPagerView.getCurrentItem() != tab.getPosition()) {
+            mPagerView.setCurrentItem(tab.getPosition());
+        }
     }
 
     @Override

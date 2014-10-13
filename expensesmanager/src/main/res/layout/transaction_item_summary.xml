@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/orange_400">
+    android:background="@color/orange_300">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -172,6 +172,7 @@
                 android:layout_marginRight="3dp"
                 android:layout_gravity="left"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:text="@string/currency"
                 android:textColor="@color/black">
             </TextView>
@@ -183,6 +184,7 @@
                 android:layout_marginRight="3dp"
                 android:gravity="right"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:text="@string/value_15250_00">
             </TextView>
         </LinearLayout>
@@ -197,7 +199,7 @@
             android:layout_gravity="left"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:text="@string/total_label">
+            android:text="@string/balance_label">
         </TextView>
 
     </RelativeLayout>

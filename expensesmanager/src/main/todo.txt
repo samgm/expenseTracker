@@ -1,10 +1,8 @@
 TESTARE su nexus No such directory on export
 DONE    check result with MyMoney
+TESTARE create transfer recurrent icon for transaction compact view (by account/budget)
 
 LAYOUT
-create transfer recurrent icon for transaction compact view (by account/budget)
-
-change about image with a bigger one
 layout drawer (icon + separators) need a custom adapter
     text black
     icons
@@ -19,8 +17,6 @@ move long taking stuff on async task with progress dialog
 ---------------------------------------------------------------
  BUGS
 ---------------------------------------------------------------
-    MINOR   Sometimes footer is not shown
-    MINOR   Sometimes action bar menus are not shown
     MINOR   log on db operation failure
 
 
