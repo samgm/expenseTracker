@@ -218,8 +218,7 @@ public class TransactionEntryActivity extends Activity {
 
                 Pair<Transaction, Transaction> pair = createTransferTransaction(t1Id, t2Id);
 
-                TransactionManager.TRANSACTION_MANAGER().insertTransaction(pair.first);
-                TransactionManager.TRANSACTION_MANAGER().insertTransaction(pair.second);
+                TransactionManager.TRANSACTION_MANAGER().insertTransaction(pair.first, pair.second);
                 break;
             case Single:
             case Undef:
@@ -237,8 +236,7 @@ public class TransactionEntryActivity extends Activity {
             case Transfer:
                 Pair<Transaction, Transaction> pair = createTransferTransaction(
                         loadedTransaction1.getId(), loadedTransaction2.getId());
-                TransactionManager.TRANSACTION_MANAGER().updateTransaction(pair.first);
-                TransactionManager.TRANSACTION_MANAGER().updateTransaction(pair.second);
+                TransactionManager.TRANSACTION_MANAGER().updateTransaction(pair.first, pair.second);
                 break;
             case Single:
                 Transaction newTransaction = createSingleTransaction(loadedTransaction1.getId());

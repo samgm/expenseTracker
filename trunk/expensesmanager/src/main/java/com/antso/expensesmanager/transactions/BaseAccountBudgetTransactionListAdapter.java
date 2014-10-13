@@ -41,7 +41,11 @@ public abstract class BaseAccountBudgetTransactionListAdapter extends BaseAdapte
 
         final ImageView icon = (ImageView) transactionLayout.findViewById(R.id.transactionRecurrent);
         if (transaction.getType().equals(TransactionType.Transfer)) {
-            icon.setImageResource(R.drawable.ic_action_import_export);
+            if (transaction.getRecurrent()) {
+                icon.setImageResource(R.drawable.ic_action_import_export_refresh);
+            }else {
+                icon.setImageResource(R.drawable.ic_action_import_export);
+            }
         } else  if (transaction.getRecurrent()) {
             icon.setImageResource(R.drawable.ic_action_refresh);
         } else {

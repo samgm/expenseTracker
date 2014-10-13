@@ -13,29 +13,28 @@ public class TransactionUpdateEvent {
     }
 
     public Reason reason;
-    public Transaction oldData;
+    public Transaction[] data;
     public Transaction newData;
-    private static TransactionUpdateEvent START = new TransactionUpdateEvent(Reason.START, null, null);
+    private static TransactionUpdateEvent START = new TransactionUpdateEvent(Reason.START, null);
 
-    private TransactionUpdateEvent(Reason reason, Transaction oldData, Transaction newData) {
+    private TransactionUpdateEvent(Reason reason, Transaction... data) {
         this.reason = reason;
-        this.oldData = oldData;
-        this.newData = newData;
+        this.data = data;
     }
 
     public static TransactionUpdateEvent createStart() {
         return START;
     }
 
-    public static TransactionUpdateEvent createAdd(Transaction data) {
-        return new TransactionUpdateEvent(Reason.ADD, null, data);
+    public static TransactionUpdateEvent createAdd(Transaction... data) {
+        return new TransactionUpdateEvent(Reason.ADD, data);
     }
 
-    public static TransactionUpdateEvent createUpd(Transaction oldData, Transaction newData) {
-        return new TransactionUpdateEvent(Reason.UPD, oldData, newData);
+    public static TransactionUpdateEvent createUpd(Transaction... data) {
+        return new TransactionUpdateEvent(Reason.UPD, data);
     }
 
-    public static TransactionUpdateEvent createDel(Transaction data) {
-        return new TransactionUpdateEvent(Reason.DEL, data, null);
+    public static TransactionUpdateEvent createDel(Transaction... data) {
+        return new TransactionUpdateEvent(Reason.DEL, data);
     }
 }

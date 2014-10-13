@@ -122,50 +122,56 @@ public class TransactionManager extends Observable {
         }
     }
 
-    public void insertTransaction(Transaction transaction) {
-        dbHelper.insertTransactions(transaction);
+    public void insertTransaction(Transaction... transactions) {
+        for(Transaction transaction : transactions) {
+            dbHelper.insertTransactions(transaction);
 
-        addTransaction(transaction);
-        descriptionsArray.add(transaction.getDescription());
+            addTransaction(transaction);
+            descriptionsArray.add(transaction.getDescription());
 
-        setChanged();
-        notifyObservers(TransactionUpdateEvent.createAdd(transaction));
-
-        AccountManager.ACCOUNT_MANAGER().onTransactionAdded(transaction);
-        BudgetManager.BUDGET_MANAGER().onTransactionAdded(transaction);
-    }
-
-    public void removeTransaction(Transaction transaction) {
-        if(transaction.getLinkedTransactionId() != null &&
-                !transaction.getLinkedTransactionId().isEmpty()) {
-            delTransaction(getTransactionById(transaction.getLinkedTransactionId()));
-            dbHelper.deleteTransaction(transaction.getLinkedTransactionId());
+            AccountManager.ACCOUNT_MANAGER().onTransactionAdded(transaction);
+            BudgetManager.BUDGET_MANAGER().onTransactionAdded(transaction);
         }
-        delTransaction(transaction);
-        dbHelper.deleteTransaction(transaction.getId());
 
         setChanged();
-        notifyObservers(TransactionUpdateEvent.createDel(transaction));
-
-        AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(transaction);
-        BudgetManager.BUDGET_MANAGER().onTransactionDeleted(transaction);
+        notifyObservers(TransactionUpdateEvent.createAdd(transactions));
     }
 
-    public void updateTransaction(Transaction transaction) {
-        Transaction oldTransaction = transactionById.get(transaction.getId());
-        dbHelper.updateTransaction(transaction);
+    public void removeTransaction(Transaction... transactions) {
+        for (Transaction transaction : transactions) {
+            if (transaction.getLinkedTransactionId() != null &&
+                    !transaction.getLinkedTransactionId().isEmpty()) {
+                delTransaction(getTransactionById(transaction.getLinkedTransactionId()));
+                dbHelper.deleteTransaction(transaction.getLinkedTransactionId());
+            }
+            delTransaction(transaction);
+            dbHelper.deleteTransaction(transaction.getId());
 
-        delTransaction(oldTransaction);
-        addTransaction(transaction);
-        descriptionsArray.add(transaction.getDescription());
+            AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(transaction);
+            BudgetManager.BUDGET_MANAGER().onTransactionDeleted(transaction);
+        }
 
         setChanged();
-        notifyObservers(TransactionUpdateEvent.createUpd(oldTransaction, transaction));
+        notifyObservers(TransactionUpdateEvent.createDel(transactions));
+    }
 
-        AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(oldTransaction);
-        BudgetManager.BUDGET_MANAGER().onTransactionDeleted(oldTransaction);
-        AccountManager.ACCOUNT_MANAGER().onTransactionAdded(transaction);
-        BudgetManager.BUDGET_MANAGER().onTransactionAdded(transaction);
+    public void updateTransaction(Transaction... transactions) {
+        for (Transaction transaction : transactions) {
+            Transaction oldTransaction = transactionById.get(transaction.getId());
+            dbHelper.updateTransaction(transaction);
+
+            delTransaction(oldTransaction);
+            addTransaction(transaction);
+            descriptionsArray.add(transaction.getDescription());
+
+            AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(oldTransaction);
+            BudgetManager.BUDGET_MANAGER().onTransactionDeleted(oldTransaction);
+            AccountManager.ACCOUNT_MANAGER().onTransactionAdded(transaction);
+            BudgetManager.BUDGET_MANAGER().onTransactionAdded(transaction);
+        }
+
+        setChanged();
+        notifyObservers(TransactionUpdateEvent.createUpd(transactions));
     }
 
     private void addTransaction(Transaction t) {
@@ -270,8 +276,8 @@ public class TransactionManager extends Observable {
 
     public void removeTransactionByAccount(String accountId) {
         if (transactionByAccount.containsKey(accountId)) {
-            Collection<Transaction> transactions = transactionByAccount.get(accountId);
-            for (Transaction transaction : transactions) {
+            Collection<Transaction> transactionsCopy = new ArrayList<Transaction>(transactionByAccount.get(accountId));
+            for (Transaction transaction : transactionsCopy) {
                 delTransaction(transaction);
                 dbHelper.deleteTransaction(transaction.getId());
                 AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(transaction);
@@ -403,8 +409,10 @@ public class TransactionManager extends Observable {
         Iterator<Transaction> iterator = transactions.iterator();
         while (iterator.hasNext()) {
             Transaction t1 = iterator.next();
-            Transaction t2 = iterator.next();
-            pairedTransactions.add(new Pair<Transaction, Transaction>(t1, t2));
+            if (t1 != null && iterator.hasNext()) {
+                Transaction t2 = iterator.next();
+                pairedTransactions.add(new Pair<Transaction, Transaction>(t1, t2));
+            }
         }
 
         return pairedTransactions;

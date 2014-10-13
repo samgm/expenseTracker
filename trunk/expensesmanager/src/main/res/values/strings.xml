@@ -3,7 +3,7 @@
 
     <string name="app_name">Expenses</string>
     <string name="app_data_folder">Expenses</string>
-    <string name="app_version">0.1.0</string>
+    <string name="app_version">0.1</string>
 
     <!--Transaction List Activity-->
     <string name="title_default_transaction_list_activity">Transactions</string>
