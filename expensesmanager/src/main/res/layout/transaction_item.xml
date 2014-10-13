@@ -61,7 +61,77 @@
             android:layout_gravity="left"
             android:layout_weight="1"
             android:textSize="20sp"
+            android:singleLine="true"
             android:text="@string/description">
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/accountAndBudgetLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="-4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        >
+
+        <TextView
+            android:id="@+id/budgetLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:text="@string/budget">
+        </TextView>
+
+        <TextView
+            android:id="@+id/accountLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:text="@string/account">
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/accountAndAccountLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="-4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:text="@string/from_label">
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:text="@string/to_label">
         </TextView>
 
     </LinearLayout>
@@ -73,7 +143,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="16dp"
         >
 
@@ -90,10 +160,11 @@
             android:id="@+id/budgetName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             android:textSize="14sp"
+            android:singleLine="true"
             android:text="@string/budget">
         </TextView>
 
@@ -111,81 +182,13 @@
             android:id="@+id/accountName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             android:textSize="14sp"
+            android:singleLine="true"
             android:text="@string/account">
         </TextView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/accountAndAccountLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:visibility="gone"
-        >
-
-        <com.antso.expensesmanager.views.CircleSectorView
-            android:id="@+id/accountPrimaryColor"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            circleSectorview:cFillColor="#ff0000"
-            circleSectorview:cRadiusDp="10"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
-            />
-        <TextView
-            android:id="@+id/accountPrimaryName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:text="@string/account">
-        </TextView>
-
-        <TextView
-            android:id="@+id/accountSeparator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:text="@string/doubleArrow">
-        </TextView>
-
-        <TextView
-            android:id="@+id/accountSecondaryName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:text="@string/account">
-        </TextView>
-
-        <com.antso.expensesmanager.views.CircleSectorView
-            android:id="@+id/accountSecondaryColor"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="16dp"
-            circleSectorview:cFillColor="#0000ff"
-            circleSectorview:cRadiusDp="10"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
-            />
-
 
     </LinearLayout>
 

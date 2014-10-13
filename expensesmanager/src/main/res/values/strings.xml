@@ -142,6 +142,7 @@
     <string name="account_label">Account</string>
     <string name="account">Account</string>
     <string name="to_label">To</string>
+    <string name="from_label">From</string>
     <string name="budget_label">Budget</string>
     <string name="budget">Budget</string>
     <string name="budget_period">2 Weeks</string>

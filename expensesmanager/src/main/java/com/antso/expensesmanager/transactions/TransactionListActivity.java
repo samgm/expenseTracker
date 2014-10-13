@@ -15,7 +15,7 @@ import com.antso.expensesmanager.utils.MaterialColours;
 //this is used to show the list of all the activity related to that account
 
 public class TransactionListActivity extends ListActivity {
-    private AbstractAccountBudgetTransactionListAdapter transactionListAdapter = null;
+    private BaseAccountBudgetTransactionListAdapter transactionListAdapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

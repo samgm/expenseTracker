@@ -95,8 +95,8 @@ public class TransactionEntryActivity extends Activity {
         //Creating view
         description = (MultiAutoCompleteTextView) findViewById(R.id.transactionDesc);
 
-        layout.createView(R.id.transactionColor,
-                R.id.transactionSecondaryAccountLayout, R.id.transactionSecondaryAccountLabel,
+        layout.createView(R.id.transactionColor, R.id.transactionSecondaryAccountLayout,
+                R.id.transactionAccountLabel, R.id.transactionSecondaryAccountLabel,
                 R.id.transactionRecurrentCheckbox, R.id.transactionRecurrentDetailsLayout);
         value.createView(R.id.transactionValue, BigDecimal.ZERO);
         accountSpinner.createView(R.id.transactionAccountSpinner, R.id.transactionAccountButton,

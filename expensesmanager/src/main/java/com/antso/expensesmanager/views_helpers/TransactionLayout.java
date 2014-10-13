@@ -6,6 +6,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.views.CircleSectorView;
@@ -15,6 +16,7 @@ public class TransactionLayout {
 
     private CircleSectorView color;
     private LinearLayout secondaryAccountLayout;
+    private TextView accountLabel;
     private TextView secondaryAccountLabel;
     private LinearLayout recurrentDetails;
     private CheckBox recurrent;
@@ -23,11 +25,13 @@ public class TransactionLayout {
         this.parentActivity = parentActivity;
     }
 
-    public void createView(int colorId, int secondaryAccountLayoutId, int secondaryAccountLabelId,
+    public void createView(int colorId, int secondaryAccountLayoutId,
+                           int accountLabelId, int secondaryAccountLabelId,
                            int recurrentCheckboxId, int recurrentDetailsLayoutId) {
         color = (CircleSectorView)parentActivity.findViewById(colorId);
         secondaryAccountLayout = (LinearLayout) parentActivity.findViewById(secondaryAccountLayoutId);
         secondaryAccountLabel = (TextView) parentActivity.findViewById(secondaryAccountLabelId);
+        accountLabel = (TextView) parentActivity.findViewById(accountLabelId);
         recurrent = (CheckBox) parentActivity.findViewById(recurrentCheckboxId);
         recurrentDetails = (LinearLayout) parentActivity.findViewById(recurrentDetailsLayoutId);
 
@@ -61,9 +65,11 @@ public class TransactionLayout {
                 color.setColor(MaterialColours.YELLOW_500);
                 secondaryAccountLayout.setVisibility(View.VISIBLE);
                 secondaryAccountLabel.setVisibility(View.VISIBLE);
+                accountLabel.setText(R.string.from_label);
                 break;
             case Single:
             case Undef:
+                accountLabel.setText(R.string.account_label);
                 break;
         }
 
