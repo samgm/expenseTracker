@@ -21,4 +21,7 @@ public class Settings {
         return preferences.getString("currency_symbol", null);
     }
 
+    public static boolean getUseDividersInTransactionList(Context applicationContext) {
+        return false;
+    }
 }

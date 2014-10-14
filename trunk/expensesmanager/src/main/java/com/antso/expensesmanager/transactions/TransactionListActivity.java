@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
+import com.antso.expensesmanager.utils.Settings;
 
 // Used to show a list of activities, for example when clicking on an account
 //this is used to show the list of all the activity related to that account
@@ -42,6 +43,11 @@ public class TransactionListActivity extends ListActivity {
         }
 
         setListAdapter(transactionListAdapter);
+        boolean useDividers = Settings.getUseDividersInTransactionList(this.getApplicationContext());
+        if (!useDividers) {
+            getListView().setDivider(null);
+            getListView().setDividerHeight(0);
+        }
 
         getListView().setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override

@@ -26,6 +26,7 @@ public class BudgetTransactionListAdapter extends BaseAccountBudgetTransactionLi
     private List<Transaction> transactions = new ArrayList<Transaction>();
 
     public BudgetTransactionListAdapter(Context context, TransactionManager transactionManager, String budget) {
+        super(context);
         this.context = context;
         this.budget = budget;
         this.transactionManager = transactionManager;

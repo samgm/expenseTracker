@@ -66,6 +66,7 @@
             android:layout_toLeftOf="@id/transactionDateTime"
             android:layout_gravity="left"
             android:textSize="18sp"
+            android:singleLine="true"
             android:text="@string/revenue_label"
             android:textColor="@color/black">
         </TextView>
@@ -117,6 +118,7 @@
             android:layout_toRightOf="@id/transactionValueOutLayout"
             android:layout_gravity="left"
             android:textSize="18sp"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:text="@string/expense_label">
         </TextView>
@@ -198,6 +200,7 @@
             android:layout_toLeftOf="@id/transactionValueDiffLayout"
             android:layout_gravity="left"
             android:textSize="18sp"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:text="@string/balance_label">
         </TextView>
