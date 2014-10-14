@@ -15,6 +15,7 @@ import com.antso.expensesmanager.entities.Transaction;
 import com.antso.expensesmanager.enums.TransactionDirection;
 import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.utils.MaterialColours;
+import com.antso.expensesmanager.utils.Settings;
 import com.antso.expensesmanager.utils.Utils;
 
 import org.joda.time.DateTime;
@@ -22,6 +23,11 @@ import org.joda.time.DateTime;
 import java.math.BigDecimal;
 
 public abstract class BaseAccountBudgetTransactionListAdapter extends BaseAdapter {
+    private boolean useDividers;
+
+    protected BaseAccountBudgetTransactionListAdapter(Context context){
+        useDividers = Settings.getUseDividersInTransactionList(context);
+    }
     public abstract void load();
 
     protected View createTransactionView(LayoutInflater inflater, Context context, Transaction transaction) {
@@ -53,6 +59,7 @@ public abstract class BaseAccountBudgetTransactionListAdapter extends BaseAdapte
         }
 
         final TextView transactionDesc = (TextView) transactionLayout.findViewById(R.id.transactionDesc);
+        transactionDesc.setSingleLine(!useDividers);
         transactionDesc.setText(transaction.getDescription());
 
         final TextView transactionCurrency = (TextView) transactionLayout.findViewById(R.id.transactionCurrency);

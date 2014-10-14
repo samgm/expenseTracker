@@ -1,12 +1,9 @@
 TESTARE su nexus No such directory on export
 DONE    check result with MyMoney
-TESTARE create transfer recurrent icon for transaction compact view (by account/budget)
 
 LAYOUT
-layout drawer (icon + separators) need a custom adapter
-    text black
-    icons
-mettere label in grigio/italic (date label campi) transaction entry + transaction item
+layout drawer (nissing: text black, review icons)
+mettere label in grigio (date label campi) transaction entry + transaction item
 
 URGENT
 move long taking stuff on async task with progress dialog
@@ -14,25 +11,23 @@ move long taking stuff on async task with progress dialog
     delete accounts
     data import and export
 
+make description auto complete dropdown nicer (add margins)
+
 ---------------------------------------------------------------
  BUGS
 ---------------------------------------------------------------
     MINOR   log on db operation failure
 
-
 ---------------------------------------------------------------
  OPTIMIZATIONS
 ---------------------------------------------------------------
-    getTransactionByAccount/getTransactionByBudget with date
-    start up of managers (budget, transactions, account)
-
+    make list of many stuff available and add items while loading
 
 ---------------------------------------------------------------
  ENHANCEMENTS
 ---------------------------------------------------------------
 0    CALCULATIONS
      create unit test for calculations
-     manage transaction explosion all inside transaction manager (explode once for all at app start-up)
      store recurrent transaction and allow editing series or single instance
 
 1    save state on entry/edit activities
@@ -52,11 +47,17 @@ move long taking stuff on async task with progress dialog
 support multi language enum string
 setting for screen to start on
 setting for default secondary account for transfer
+setting for UseDividersInTransactionList
 add toast on executed actions
-change selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
+add toast for click on account/budget transaction lists
+change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
+
+
+
+
 
 ---------------------------------------------------------------
- EULA
+ OTHER EULA
 ---------------------------------------------------------------
     www.rocketlawyer.com
     Templates:
@@ -65,12 +66,9 @@ change selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
     http://www.vbdotnetforums.com/intellectual-property-discussion/4196-eula-example.html
 
 
-
-
-
-
-
-
+---------------------------------------------------------------
+ OTHER EULA
+---------------------------------------------------------------
 
 Here's a correct table of percentages to hex values. E.g. for 50% white you'd use #80FFFFFF.
 
