@@ -2,7 +2,6 @@ TESTARE su nexus No such directory on export
 DONE    check result with MyMoney
 
 LAYOUT
-layout drawer (nissing: text black, review icons)
 mettere label in grigio (date label campi) transaction entry + transaction item
 
 URGENT
@@ -11,7 +10,7 @@ move long taking stuff on async task with progress dialog
     delete accounts
     data import and export
 
-make description auto complete dropdown nicer (add margins)
+clean-up and unused and add used icons to svn
 
 ---------------------------------------------------------------
  BUGS
