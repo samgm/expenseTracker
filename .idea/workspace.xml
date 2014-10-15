@@ -66,14 +66,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="c88ec48e-2d07-4d71-a219-dfca3f39b621" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AccountTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/AccountTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BaseAccountBudgetTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BaseAccountBudgetTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BudgetTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BudgetTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/Settings.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/Settings.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/StringArrayAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/build/generated/source/r/debug/com/antso/expensesmanager/R.java" afterPath="$PROJECT_DIR$/expensesmanager/build/generated/source/r/debug/com/antso/expensesmanager/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java" afterPath="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_dropdown_item.xml" afterPath="$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_dropdown_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/todo.txt" afterPath="$PROJECT_DIR$/expensesmanager/src/main/todo.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/res/layout/transaction_item_small.xml" afterPath="$PROJECT_DIR$/expensesmanager/src/main/res/layout/transaction_item_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expensesmanager/src/main/res/layout/transaction_item_summary.xml" afterPath="$PROJECT_DIR$/expensesmanager/src/main/res/layout/transaction_item_summary.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ExpensesManager.iws" />
@@ -137,31 +134,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="todo.txt" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="todo.txt" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="1717">
-              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+            <state vertical-scroll-proportion="1.2398703" vertical-offset="0" max-vertical-offset="1700">
+              <caret line="45" column="34" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="colors.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/values/colors.xml">
+      <file leaf-file-name="TransactionEntryActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5275862" vertical-offset="0" max-vertical-offset="580">
-              <caret line="18" column="35" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="4658">
+              <caret line="111" column="63" selection-start-line="111" selection-start-column="63" selection-end-line="111" selection-end-column="63" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="list_fragment.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/list_fragment.xml">
+      <file leaf-file-name="StringArrayAdapter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/StringArrayAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.185185" vertical-offset="0" max-vertical-offset="323">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="147" max-vertical-offset="935">
+              <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="text_spinner_item.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_item.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.2592592" vertical-offset="0" max-vertical-offset="272">
+              <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -170,11 +177,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransactionListActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionListActivity.java">
+      <file leaf-file-name="text_spinner_dropdown_item.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_dropdown_item.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1547">
-              <caret line="46" column="24" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="24" />
+            <state vertical-scroll-proportion="-4.4074073" vertical-offset="0" max-vertical-offset="323">
+              <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IntegerArraySpinnerAdapter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/IntegerArraySpinnerAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1224">
+              <caret line="49" column="36" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="colors.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/values/colors.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+              <caret line="18" column="35" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -190,16 +220,6 @@
           </provider>
           <provider editor-type-id="android-designer">
             <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Settings.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/utils/Settings.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
-              <caret line="23" column="57" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="57" />
-              <folding />
-            </state>
           </provider>
         </entry>
       </file>
@@ -1291,8 +1311,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/res/values/strings_activity_settings.xml" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/res/values/strings_transaction_entry.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/account_item.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/budget_item.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/chooser_spinner_dialog.xml" />
@@ -1327,7 +1345,6 @@
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/drawable/drawer_background.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/main_drawer_navigation_activity.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_dropdown_item.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_item.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/IntegerArraySpinnerAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/TimeUnitSpinnerAdapter.java" />
@@ -1376,7 +1393,6 @@
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/transaction_item.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/about_fragment.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionUpdateEvent.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionManager.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/RevenuesListFragment.java" />
@@ -1391,6 +1407,10 @@
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BudgetTransactionListAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/BaseAccountBudgetTransactionListAdapter.java" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/transaction_item_summary.xml" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/StringArraySpinnerAdapter.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/StringArrayAdapter.java" />
+        <option value="$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_dropdown_item.xml" />
         <option value="$PROJECT_DIR$/expensesmanager/src/main/todo.txt" />
       </list>
     </option>
@@ -1561,36 +1581,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExpensesManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trunk" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="expensesmanager" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1891,11 +1881,11 @@
     <property name="LayoutCode.rearrangeEntriesXML" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="junit.framework.TestCase" />
-    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.antso.expensesmanager.utils" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="junit.framework.TestCase" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.antso.expensesmanager.adapters" />
@@ -1918,18 +1908,18 @@
     <key name="android.template.packageName">
       <recent name="com.antso.expensesmanager" />
     </key>
+    <key name="android.template.parentActivityClass">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.antso.expensesmanager" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\asolano\AndroidStudioProjects\ExpenseManager\trunk\expensesmanager\src\main\java\com\antso\expensesmanager\utils" />
       <recent name="C:\Users\asolano\AndroidStudioProjects\ExpenseManager\trunk\expensesmanager\src\test\java\com.antso.expensemanager.utils" />
       <recent name="C:\Users\asolano\AndroidStudioProjects\ExpenseManager\trunk\expensesmanager\src\test\java" />
       <recent name="C:\Users\asolano\AndroidStudioProjects\ExpenseManager\trunk\expensesmanager\src" />
       <recent name="C:\Users\asolano\AndroidStudioProjects\ExpenseManager\trunk\expensesmanager\src\main\res\drawable-hdpi" />
-    </key>
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.antso.expensesmanager" />
-    </key>
-    <key name="android.template.parentActivityClass">
-      <recent name="" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.expensesmanager">
@@ -2262,7 +2252,11 @@
       <created>1413217543358</created>
       <updated>1413217543358</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="added support to show/hide dividers on account/budget transactions list">
+      <created>1413287506151</created>
+      <updated>1413287506151</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2286,7 +2280,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2296,14 +2290,14 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26923078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33186814" sideWeight="0.6130064" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33186814" sideWeight="0.6130064" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31868133" sideWeight="0.33742005" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32857144" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33779263" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2625418" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2912088" sideWeight="0.6620469" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2912088" sideWeight="0.6620469" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32857144" sideWeight="0.6369138" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2335,7 +2329,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="end of test" />
     <MESSAGE value="initial import" />
     <MESSAGE value="created app structure: &#10; - main activity (transactions fragment)" />
     <MESSAGE value="fixed&#10; - transaction entry back button&#10; - transaction entry date picker dialog&#10; - transaction entry account spinner population" />
@@ -2359,7 +2352,9 @@
     <MESSAGE value="account and budget manager are now observable&#10;footer show/hide dynamically&#10;transaction explosion managed in transaction manager only&#10;performance improvements&#10;new progressbar on start-up" />
     <MESSAGE value="fixed exception on scrolling down account/budget transactions&#10;created one only item for account/budget period summary&#10;other color/layout minor changes" />
     <MESSAGE value="changed about fragment image&#10;fixed action bar menu disappearing&#10;fixed null pointer while adding a transfer transaction" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed about fragment image&#10;fixed action bar menu disappearing&#10;fixed null pointer while adding a transfer transaction" />
+    <MESSAGE value="added support to show/hide dividers on account/budget transactions list" />
+    <MESSAGE value="description auto complete dropdown layout enhancement" />
+    <option name="LAST_COMMIT_MESSAGE" value="description auto complete dropdown layout enhancement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2380,7 +2375,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="474" />
+      <option name="time" value="476" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -2490,26 +2485,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_dropdown_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.2592592" vertical-offset="0" max-vertical-offset="306">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="48" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.037037" vertical-offset="0" max-vertical-offset="272">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/account_spinner_item.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13302034" vertical-offset="0" max-vertical-offset="639">
@@ -2534,13 +2509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.5315316" vertical-offset="0" max-vertical-offset="1224">
           <caret line="71" column="46" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/IntegerArraySpinnerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03003003" vertical-offset="626" max-vertical-offset="1394">
-          <caret line="38" column="43" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -3082,14 +3050,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.25" vertical-offset="2993" max-vertical-offset="4658">
-          <caret line="228" column="57" selection-start-line="228" selection-start-column="57" selection-end-line="228" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4691" max-vertical-offset="9877">
@@ -3253,18 +3213,64 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/todo.txt">
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="1717">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/values/colors.xml">
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/transactions/TransactionEntryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5275862" vertical-offset="0" max-vertical-offset="580">
-          <caret line="18" column="35" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="4658">
+          <caret line="111" column="63" selection-start-line="111" selection-start-column="63" selection-end-line="111" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/IntegerArraySpinnerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1224">
+          <caret line="49" column="36" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2592592" vertical-offset="0" max-vertical-offset="272">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/java/com/antso/expensesmanager/adapters/StringArrayAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="147" max-vertical-offset="935">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/res/layout/text_spinner_dropdown_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.4074073" vertical-offset="0" max-vertical-offset="323">
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expensesmanager/src/main/todo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2398703" vertical-offset="0" max-vertical-offset="1700">
+          <caret line="45" column="34" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="34" />
           <folding />
         </state>
       </provider>

@@ -6,7 +6,6 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
@@ -15,6 +14,7 @@ import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.accounts.AccountManager;
 import com.antso.expensesmanager.adapters.AccountSpinnerAdapter;
 import com.antso.expensesmanager.adapters.BudgetSpinnerAdapter;
+import com.antso.expensesmanager.adapters.StringArrayAdapter;
 import com.antso.expensesmanager.budgets.BudgetManager;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
@@ -109,7 +109,7 @@ public class TransactionEntryActivity extends Activity {
         recurrentFrequency.createView(R.id.transactionFrequencyUnit, R.id.transactionFrequency, true);
         dateEditText.createView(R.id.transactionDate, DateTime.now());
         endDateEditText.createView(R.id.transactionRecurrentStartDate, DateTime.now());
-        description.setAdapter(new ArrayAdapter<String>(this, R.layout.text_spinner_item,
+        description.setAdapter(StringArrayAdapter.create(this, R.layout.text_spinner_item,
                 TransactionManager.TRANSACTION_MANAGER().getDescriptionsArray()));
         description.setTokenizer(new SpaceTokenizer());
 
