@@ -2,9 +2,7 @@ package com.antso.expensesmanager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +18,7 @@ import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.transactions.TransactionManager;
+import com.antso.expensesmanager.utils.BaseAsyncTaskWithProgress;
 import com.antso.expensesmanager.utils.DataExporter;
 import com.antso.expensesmanager.utils.MaterialColours;
 import com.antso.expensesmanager.utils.MyMoneyDataImporter;
@@ -63,10 +62,7 @@ public class DebugActivity extends Activity {
         importMyMoneyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog progress = ProgressDialog
-                        .show(DebugActivity.this, "", getText(R.string.working));
-
-                new AsyncTask<Void, Void, Void>() {
+                new BaseAsyncTaskWithProgress<Void>(DebugActivity.this, R.string.working) {
                     @Override
                     protected Void doInBackground(Void... params) {
                         MyMoneyDataImporter importer = new MyMoneyDataImporter(DebugActivity.this);
@@ -82,12 +78,6 @@ public class DebugActivity extends Activity {
 
                         return null;
                     }
-
-                    @Override
-                    protected void onPostExecute(Void aVoid) {
-                        super.onPostExecute(aVoid);
-                        progress.dismiss();
-                    }
                 }.execute();
             }
         });
@@ -101,20 +91,26 @@ public class DebugActivity extends Activity {
                         .setPositiveButton(R.string.sure_go_on, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                TransactionManager.TRANSACTION_MANAGER().stop();
-                                BudgetManager.BUDGET_MANAGER().stop();
-                                AccountManager.ACCOUNT_MANAGER().stop();
+                                new BaseAsyncTaskWithProgress<Void>(DebugActivity.this, R.string.working) {
 
-                                dbHelper.deleteDatabase();
+                                    @Override
+                                    protected Void doInBackground(Void... params) {
+                                        BudgetManager.BUDGET_MANAGER().stop();
+                                        AccountManager.ACCOUNT_MANAGER().stop();
+                                        TransactionManager.TRANSACTION_MANAGER().stop();
 
-                                String date = String.valueOf(Utils.dateTimeToyyyyMMdd(DateTime.now()));
-                                DataExporter exporter = new DataExporter(DebugActivity.this);
-                                exporter.importData(date);
+                                        dbHelper.deleteDatabase();
 
+                                        String date = String.valueOf(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+                                        DataExporter exporter = new DataExporter(DebugActivity.this);
+                                        exporter.importData(date);
 
-                                AccountManager.ACCOUNT_MANAGER().start(getApplicationContext());
-                                BudgetManager.BUDGET_MANAGER().start(getApplicationContext());
-                                TransactionManager.TRANSACTION_MANAGER().start(getApplicationContext());
+                                        TransactionManager.TRANSACTION_MANAGER().start(getApplicationContext());
+                                        AccountManager.ACCOUNT_MANAGER().start(getApplicationContext());
+                                        BudgetManager.BUDGET_MANAGER().start(getApplicationContext());
+                                        return null;
+                                    }
+                                }.execute();
                             }
                         })
                         .setNegativeButton(R.string.cancel, null)
@@ -126,8 +122,14 @@ public class DebugActivity extends Activity {
         exportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataExporter exporter = new DataExporter(DebugActivity.this);
-                exporter.exportData();
+                new BaseAsyncTaskWithProgress<Void>(DebugActivity.this, R.string.working) {
+                    @Override
+                    protected Void doInBackground(Void... params) {
+                        DataExporter exporter = new DataExporter(DebugActivity.this);
+                        exporter.exportData();
+                        return null;
+                    }
+                }.execute();
             }
         });
 

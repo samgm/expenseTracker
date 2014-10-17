@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -34,7 +33,6 @@ public class StartActivity
     private CharSequence mTitle;
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
-    private FrameLayout mContainer;
     private int lastPosition = 0;
 
     private boolean backToExitPressedOnce;
@@ -68,9 +66,6 @@ public class StartActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.start_activity_layout));
-
-
-        mContainer = (FrameLayout)findViewById(R.id.container);
     }
 
     @Override
@@ -163,6 +158,10 @@ public class StartActivity
     @Override
     public void onBackPressed() {
         if (backToExitPressedOnce) {
+            AccountManager.ACCOUNT_MANAGER().stop();
+            BudgetManager.BUDGET_MANAGER().stop();
+            TransactionManager.TRANSACTION_MANAGER().stop();
+
             super.onBackPressed();
             return;
         }
@@ -180,10 +179,6 @@ public class StartActivity
 
     @Override
     protected void onDestroy() {
-//        AccountManager.ACCOUNT_MANAGER().stop();
-//        BudgetManager.BUDGET_MANAGER().stop();
-//        TransactionManager.TRANSACTION_MANAGER().stop();
-
         super.onDestroy();
     }
 }

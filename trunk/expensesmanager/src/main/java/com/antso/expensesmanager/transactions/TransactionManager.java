@@ -224,18 +224,30 @@ public class TransactionManager extends Observable {
 
         if (transactionByAccount.containsKey(t.getAccountId())) {
             transactionByAccount.get(t.getAccountId()).remove(t);
-        }
-        if (!exploded.isEmpty()) {
-            List<Transaction> accountTransactions = transactionByAccount.get(t.getAccountId());
-            accountTransactions.removeAll(exploded);
+            if (t.getRecurrent()) {
+                List<Transaction> accountTransactions = transactionByAccount.get(t.getAccountId());
+                List<Transaction> toDelete = new ArrayList<Transaction>();
+                for (Transaction tran : accountTransactions) {
+                    if (tran.getId().equals(t.getId())) {
+                        toDelete.add(tran);
+                    }
+                }
+                accountTransactions.removeAll(toDelete);
+            }
         }
 
         if (transactionByBudget.containsKey(t.getBudgetId())) {
             transactionByBudget.get(t.getBudgetId()).remove(t);
-        }
-        if (!exploded.isEmpty()) {
-            List<Transaction> budgetTransactions = transactionByBudget.get(t.getAccountId());
-            budgetTransactions.removeAll(exploded);
+            if (t.getRecurrent()) {
+                List<Transaction> budgetTransactions = transactionByBudget.get(t.getBudgetId());
+                List<Transaction> toDelete = new ArrayList<Transaction>();
+                for (Transaction tran : budgetTransactions) {
+                    if (tran.getId().equals(t.getId())) {
+                        toDelete.add(tran);
+                    }
+                }
+                budgetTransactions.removeAll(toDelete);
+            }
         }
 
         if (t.getType().equals(TransactionType.Transfer)) {
@@ -252,37 +264,45 @@ public class TransactionManager extends Observable {
 
     public void replaceAccount(String fromAccountId, String toAccountId) {
         if (transactionByAccount.containsKey(fromAccountId)) {
-            Collection<Transaction> transactions = transactionByAccount.get(fromAccountId);
-            for (Transaction transaction : transactions) {
+            List<Transaction> transactionsCopy =
+                    new ArrayList<Transaction>(transactionByAccount.get(fromAccountId));
+            transactionByAccount.remove(fromAccountId);
+            for (Transaction transaction : transactionsCopy) {
                 AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(transaction);
                 transaction.setAccount(toAccountId);
                 dbHelper.updateTransaction(transaction);
                 AccountManager.ACCOUNT_MANAGER().onTransactionAdded(transaction);
             }
+            transactionByAccount.put(toAccountId, transactionsCopy);
         }
     }
 
     public void replaceBudget(String fromBudgetId, String toBudgetId) {
         if (transactionByBudget.containsKey(fromBudgetId)) {
-            Collection<Transaction> transactions = transactionByBudget.get(fromBudgetId);
-            for (Transaction transaction : transactions) {
+            List<Transaction> transactionsCopy =
+                    new ArrayList<Transaction>(transactionByBudget.get(fromBudgetId));
+            transactionByBudget.remove(fromBudgetId);
+            for (Transaction transaction : transactionsCopy) {
                 BudgetManager.BUDGET_MANAGER().onTransactionDeleted(transaction);
                 transaction.setBudget(toBudgetId);
                 dbHelper.updateTransaction(transaction);
                 BudgetManager.BUDGET_MANAGER().onTransactionAdded(transaction);
             }
+            transactionByBudget.put(toBudgetId, transactionsCopy);
         }
     }
 
     public void removeTransactionByAccount(String accountId) {
         if (transactionByAccount.containsKey(accountId)) {
-            Collection<Transaction> transactionsCopy = new ArrayList<Transaction>(transactionByAccount.get(accountId));
+            List<Transaction> transactionsCopy =
+                    new ArrayList<Transaction>(transactionByAccount.get(accountId));
             for (Transaction transaction : transactionsCopy) {
                 delTransaction(transaction);
                 dbHelper.deleteTransaction(transaction.getId());
                 AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(transaction);
                 BudgetManager.BUDGET_MANAGER().onTransactionDeleted(transaction);
             }
+            transactionByAccount.remove(accountId);
         }
     }
 
@@ -525,7 +545,7 @@ public class TransactionManager extends Observable {
         budgetPeriodDate = date;
     }
 
-    public Collection<Transaction> getBudgetNextPeriodTransactions(String budget) {
+    public List<Transaction> getBudgetNextPeriodTransactions(String budget) {
         long start = System.currentTimeMillis();
 
         BudgetManager.BudgetInfo budgetInfo = BudgetManager.BUDGET_MANAGER().getBudgetInfo(budget);
@@ -562,7 +582,7 @@ public class TransactionManager extends Observable {
             resultTransactions.add(0, summary);
         }
 
-        budgetPeriodDate = periodStart;
+        budgetPeriodDate = periodStart.minusDays(1);
 
         long end = System.currentTimeMillis();
         Log.i("EXPENSES OBS", "TRANSACTION_MANAGER getBudgetNextPeriod {" + (end - start) + "}");
