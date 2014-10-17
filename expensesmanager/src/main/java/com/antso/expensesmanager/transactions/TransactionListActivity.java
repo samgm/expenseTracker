@@ -3,6 +3,7 @@ package com.antso.expensesmanager.transactions;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.antso.expensesmanager.utils.Settings;
 
 public class TransactionListActivity extends ListActivity {
     private BaseAccountBudgetTransactionListAdapter transactionListAdapter = null;
+    private LinearLayout footerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,17 @@ public class TransactionListActivity extends ListActivity {
                     budgetId);
         }
 
+        footerView = (LinearLayout) getLayoutInflater().inflate(R.layout.list_footer, null, false);
+        if (footerView != null && transactionListAdapter.getCount() == 0) {
+            TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
+            textView.setText(R.string.transaction_list_footer_text);
+            textView.setTextColor(MaterialColours.GREY_500);
+
+            getListView().addFooterView(footerView);
+            getListView().setFooterDividersEnabled(false);
+            footerView.setVisibility(View.VISIBLE);
+        }
+
         setListAdapter(transactionListAdapter);
         boolean useDividers = Settings.getUseDividersInTransactionList(this.getApplicationContext());
         if (!useDividers) {
@@ -60,19 +73,14 @@ public class TransactionListActivity extends ListActivity {
                 int lastShownItemIndex = firstVisibleItem + visibleItemCount;
                 if (lastShownItemIndex == totalItemCount) {
                     transactionListAdapter.load();
+                    if (transactionListAdapter.getCount() != 0) {
+                        footerView.setVisibility(View.GONE);
+                    } else {
+                        footerView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
-
-        LinearLayout footerView = (LinearLayout) getLayoutInflater().inflate(R.layout.list_footer, null, false);
-        if (footerView != null && transactionListAdapter.getCount() == 0) {
-            TextView textView = (TextView) footerView.findViewById(R.id.list_footer_message);
-            textView.setText(R.string.transaction_list_footer_text);
-            textView.setTextColor(MaterialColours.GREY_500);
-
-            getListView().addFooterView(footerView);
-            getListView().setFooterDividersEnabled(false);
-        }
     }
 
     @Override
@@ -84,16 +92,6 @@ public class TransactionListActivity extends ListActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
 }

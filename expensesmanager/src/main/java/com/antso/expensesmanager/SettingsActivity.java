@@ -22,6 +22,7 @@ import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.transactions.TransactionManager;
+import com.antso.expensesmanager.utils.BaseAsyncTaskWithProgress;
 import com.antso.expensesmanager.utils.DataExporter;
 import com.antso.expensesmanager.views.SpinnerChooserDialog;
 
@@ -274,26 +275,40 @@ public class SettingsActivity extends PreferenceActivity {
                 .setTitle(R.string.title_confirm_dialog)
                 .setMessage(R.string.message_existing_all_data_will_be_deleted)
                 .setPositiveButton(R.string.sure_go_on, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        TransactionManager.TRANSACTION_MANAGER().stop();
-                        BudgetManager.BUDGET_MANAGER().stop();
-                        AccountManager.ACCOUNT_MANAGER().stop();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new BaseAsyncTaskWithProgress<Void>(SettingsActivity.this, R.string.working) {
+                                    @Override
+                                    protected Void doInBackground(Void... params) {
+                                        BudgetManager.BUDGET_MANAGER().stop();
+                                        AccountManager.ACCOUNT_MANAGER().stop();
+                                        TransactionManager.TRANSACTION_MANAGER().stop();
 
-                        dbHelper.deleteDatabase();
-                        exporter.importData(selectedDate);
+                                        dbHelper.deleteDatabase();
+                                        exporter.importData(selectedDate);
 
-                        AccountManager.ACCOUNT_MANAGER().start(getApplicationContext());
-                        BudgetManager.BUDGET_MANAGER().start(getApplicationContext());
-                        TransactionManager.TRANSACTION_MANAGER().start(getApplicationContext());
-                    }
-                })
+                                        TransactionManager.TRANSACTION_MANAGER().start(getApplicationContext());
+                                        AccountManager.ACCOUNT_MANAGER().start(getApplicationContext());
+                                        BudgetManager.BUDGET_MANAGER().start(getApplicationContext());
+                                        return null;
+                                    }
+                                }.execute();
+                            }
+                        })
                 .setNegativeButton(R.string.cancel, null)
                 .create();
+
         dialog.show();
     }
+
     private void exportData() {
-        DataExporter exporter = new DataExporter(this);
-        exporter.exportData();
+        new BaseAsyncTaskWithProgress<Void>(SettingsActivity.this, R.string.working) {
+            @Override
+            protected Void doInBackground(Void... params) {
+                DataExporter exporter = new DataExporter(SettingsActivity.this);
+                exporter.exportData();
+                return null;
+            }
+        }.execute();
     }
 }

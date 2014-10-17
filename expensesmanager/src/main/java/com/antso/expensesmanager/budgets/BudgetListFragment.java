@@ -20,7 +20,6 @@ import android.widget.Toast;
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Budget;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
-import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.views.BudgetChooseDialog;
@@ -118,12 +117,8 @@ public class BudgetListFragment extends ListFragment {
                         @Override
                         public void onDismissed(boolean confirm, String selectedBudgetId) {
                             if (confirm) {
-                                TransactionManager.TRANSACTION_MANAGER()
-                                        .replaceBudget(budget.getId(), selectedBudgetId);
-                                BudgetManager.BUDGET_MANAGER().removeBudget(budget);
-                                Toast.makeText(getActivity(), budget.getName() +
-                                        getText(R.string.message_budget_deleted),
-                                        Toast.LENGTH_LONG).show();
+                                new DeleteBudgetAsyncTask(getActivity(), R.string.working,
+                                        budget, selectedBudgetId).execute();
                             }
                         }
                     }, budget);

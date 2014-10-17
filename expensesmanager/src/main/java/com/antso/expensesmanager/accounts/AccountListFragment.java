@@ -15,12 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.antso.expensesmanager.R;
 import com.antso.expensesmanager.entities.Account;
 import com.antso.expensesmanager.transactions.TransactionListActivity;
-import com.antso.expensesmanager.transactions.TransactionManager;
 import com.antso.expensesmanager.utils.Constants;
 import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.views.AccountChooserDialog;
@@ -119,17 +117,8 @@ public class AccountListFragment extends ListFragment {
                         @Override
                         public void onDismissed(boolean confirm, boolean move, String selectedAccountId) {
                             if (confirm) {
-                                if (move) {
-                                    TransactionManager.TRANSACTION_MANAGER()
-                                            .replaceAccount(account.getId(), selectedAccountId);
-                                } else {
-                                    TransactionManager.TRANSACTION_MANAGER()
-                                            .removeTransactionByAccount(account.getId());
-                                }
-                                AccountManager.ACCOUNT_MANAGER().removeAccount(account);
-                                Toast.makeText(getActivity(), account.getName() +
-                                        getText(R.string.message_account_deleted),
-                                        Toast.LENGTH_LONG).show();
+                                new DeleteAccountAsyncTask(getActivity(), R.string.working,
+                                        account, selectedAccountId).execute();
                             }
                         }
                     }, account);

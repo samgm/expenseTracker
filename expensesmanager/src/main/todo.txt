@@ -1,16 +1,35 @@
-TESTARE su nexus No such directory on export
-DONE    check result with MyMoney
+ TODO
+    mettere label in grigio (date label campi) transaction entry + transaction item
+    clean-up and unused and add used icons to svn
 
-LAYOUT
-mettere label in grigio (date label campi) transaction entry + transaction item
+ TESTARE
 
-URGENT
-move long taking stuff on async task with progress dialog
-    delete budgets
-    delete accounts
-    data import and export
+    add/edit/del expense
+    add/edit/del transfer
+    add/edit/del revenue
 
-clean-up and unused and add used icons to svn
+    export and import without app restart
+
+    budget in out balance
+        1 giving some existing transaction (also with transaction on the edge dates)
+        2 after add,
+        3 after delete,
+        4 after edit value,
+        5 after edit budget,
+        6 after delete budged (moving to another)
+        7 repeat 1-6 with recurrent transactions
+
+    account in out balance
+        1 giving some existing transaction (also with transaction on the edge dates)
+        2 after add,
+        3 after delete,
+        4 after edit value,
+        5 after edit account,
+        6 delete account (moving to another)
+        7 repeat 1-6 with recurrent transactions
+
+    check result with MyMoney
+
 
 ---------------------------------------------------------------
  BUGS
@@ -50,7 +69,7 @@ setting for UseDividersInTransactionList
 add toast on executed actions
 add toast for click on account/budget transaction lists
 change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
-
+add configurable reminders that asks to add new expenses
 
 
 

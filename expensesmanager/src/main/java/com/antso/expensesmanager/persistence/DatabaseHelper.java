@@ -46,6 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + ACCOUNT_FIELD_COLOR + " INTEGER NOT NULL, "
                     + ACCOUNT_FIELD_INITIAL_BALANCE + " REAL );";
 
+    final private static String ACCOUNT_DELETE_CMD = "DROP TABLE " + ACCOUNT_TABLE_NAME;
+
     //Budgets
     final static String BUDGET_TABLE_NAME = "Budgets";
     final static String BUDGET_FIELD_ID = "Id";
@@ -73,6 +75,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + BUDGET_FIELD_PERIOD_UNIT + " INTEGER NOT NULL, "
                     + BUDGET_FIELD_PERIOD_LENGTH + " INTEGER NOT NULL,"
                     + BUDGET_FIELD_PERIOD_START + " INTEGER NOT NULL );";
+
+    final private static String BUDGET_DELETE_CMD = "DROP TABLE " + BUDGET_TABLE_NAME;
 
     //Transactions
     final static String TRANSACTION_TABLE_NAME = "Transactions";
@@ -126,6 +130,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + TRANSACTION_FIELD_END + " INTEGER, "
                     + TRANSACTION_FIELD_REPETITION_NUM + " INTEGER );";
 
+    final private static String TRANSACTION_DELETE_CMD = "DROP TABLE " + TRANSACTION_TABLE_NAME;
+
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.mContext = context;
@@ -163,6 +169,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteDatabase() {
         mContext.deleteDatabase(DB_NAME);
+    }
+
+    public void clearDatabase() {
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.execSQL(ACCOUNT_DELETE_CMD);
+        db.execSQL(BUDGET_DELETE_CMD);
+        db.execSQL(TRANSACTION_DELETE_CMD);
+
+        db.execSQL(ACCOUNT_CREATE_CMD);
+        db.execSQL(BUDGET_CREATE_CMD);
+        db.execSQL(TRANSACTION_CREATE_CMD);
     }
 
     // ACCOUNTS
