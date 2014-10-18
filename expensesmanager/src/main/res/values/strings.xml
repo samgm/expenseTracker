@@ -120,6 +120,7 @@
     <string name="message_nothing_to_import_dialog">"Nothing to import"</string>
     <string name="message_click_again_to_exit">"Click again to exit"</string>
     <string name="working">"Working..."</string>
+    <string name="error_importing_data">"Sorry, something unexpected happens while importing data"</string>
 
     <!--Layout Screen Fields -->
     <string name="empty"></string>
