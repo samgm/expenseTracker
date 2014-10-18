@@ -58,12 +58,28 @@ public class Budget {
         return periodLength;
     }
 
+    public DateTime getPeriodStart() {
+        return periodStart;
+    }
+
     @Override
     public String toString() {
         return name;
     }
 
-    public DateTime getPeriodStart() {
-        return periodStart;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Budget)) return false;
+
+        Budget that = (Budget) o;
+
+        return id.equals(that.id);
     }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
 }

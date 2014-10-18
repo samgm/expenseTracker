@@ -101,7 +101,7 @@ public class DebugActivity extends Activity {
 
                                         dbHelper.deleteDatabase();
 
-                                        String date = String.valueOf(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+                                        String date = String.valueOf(Utils.dateTimeToyyyyMMdd(Utils.now()));
                                         DataExporter exporter = new DataExporter(DebugActivity.this);
                                         exporter.importData(date);
 
@@ -168,7 +168,7 @@ public class DebugActivity extends Activity {
                 t.setRecurrent(true);
                 t.setFrequency(1);
                 t.setFrequencyUnit(TimeUnit.Month);
-                t.setEndDate(DateTime.now());
+                t.setEndDate(Utils.now());
                 dbHelper.insertTransactions(t);
             }
         });

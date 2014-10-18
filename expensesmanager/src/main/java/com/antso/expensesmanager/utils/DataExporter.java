@@ -56,7 +56,7 @@ public class DataExporter {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/").append(transactionFilePrefix);
-        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(Utils.dateTimeToyyyyMMdd(Utils.now()));
         filePath.append(".csv");
 
         FileWriter fileWriter;
@@ -102,7 +102,7 @@ public class DataExporter {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/").append(accountFilePrefix);
-        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(Utils.dateTimeToyyyyMMdd(Utils.now()));
         filePath.append(".csv");
 
         FileWriter fileWriter;
@@ -139,7 +139,7 @@ public class DataExporter {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/" + "budgets_export_");
-        filePath.append(Utils.dateTimeToyyyyMMdd(DateTime.now()));
+        filePath.append(Utils.dateTimeToyyyyMMdd(Utils.now()));
         filePath.append(".csv");
 
         FileWriter fileWriter;

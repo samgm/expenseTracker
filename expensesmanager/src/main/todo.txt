@@ -2,6 +2,8 @@
     mettere label in grigio (date label campi) transaction entry + transaction item
     clean-up and unused and add used icons to svn
 
+    create nice looking demo export
+
  TESTARE
 
     add/edit/del expense
@@ -46,7 +48,6 @@
 ---------------------------------------------------------------
 0    CALCULATIONS
      create unit test for calculations
-     store recurrent transaction and allow editing series or single instance
 
 1    save state on entry/edit activities
 1    recurrent transaction with no end date
@@ -62,7 +63,6 @@
 8    budget with many period length to be expanded on load and shown as different budgets
 9    recurrent transaction with repetition number (done with end date)
 
-support multi language enum string
 setting for screen to start on
 setting for default secondary account for transfer
 setting for UseDividersInTransactionList
@@ -70,6 +70,7 @@ add toast on executed actions
 add toast for click on account/budget transaction lists
 change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
 add configurable reminders that asks to add new expenses
+store recurrent transaction and allow editing series or single instance
 
 
 

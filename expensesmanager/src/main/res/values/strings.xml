@@ -158,6 +158,13 @@
     <string name="button_confirm_search_label">Search</string>
     <string name="button_cancel_label">Cancel</string>
 
+    <!--TimeUnit enum-->
+    <string name="time_unit_undef">Undef</string>
+    <string name="time_unit_day">Day</string>
+    <string name="time_unit_week">Week</string>
+    <string name="time_unit_month">Month</string>
+    <string name="time_unit_year">Year</string>
+
     <!--Fake arrays-->
     <string-array name="arrayFakeAccount">
     </string-array>

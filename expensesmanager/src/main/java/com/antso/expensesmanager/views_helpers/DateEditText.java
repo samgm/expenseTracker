@@ -46,7 +46,7 @@ public class DateEditText {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    DateTime now = DateTime.now();
+                    DateTime now = Utils.now();
                     DatePickerDialog datePicker = new DatePickerDialog(
                             parentActivity,
                             new DatePickerDialog.OnDateSetListener() {
@@ -67,7 +67,7 @@ public class DateEditText {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DateTime now = DateTime.now();
+                DateTime now = Utils.now();
                 DatePickerDialog datePicker = new DatePickerDialog(
                         parentActivity,
                         new DatePickerDialog.OnDateSetListener() {

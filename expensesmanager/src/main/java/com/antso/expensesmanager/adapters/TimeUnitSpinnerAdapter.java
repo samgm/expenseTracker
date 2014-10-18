@@ -16,11 +16,13 @@ import java.util.Map;
 public class TimeUnitSpinnerAdapter extends ArrayAdapter<TimeUnit> {
 
     private Map<TimeUnit, Integer> valueToIndex;
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
+    private final Context context;
 
     protected TimeUnitSpinnerAdapter(Context context, int resource, TimeUnit timeUnits[]) {
         super(context, resource, timeUnits);
 
+        this.context = context;
         mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         valueToIndex = new HashMap<TimeUnit, Integer>(timeUnits.length);
@@ -69,7 +71,7 @@ public class TimeUnitSpinnerAdapter extends ArrayAdapter<TimeUnit> {
 
         TimeUnit timeUnit = getItem(position);
         TextView name = (TextView)view.findViewById(textId);
-        name.setText(timeUnit.getStringValue());
+        name.setText(timeUnit.getLangStringValue(context));
 
         return view;
     }
