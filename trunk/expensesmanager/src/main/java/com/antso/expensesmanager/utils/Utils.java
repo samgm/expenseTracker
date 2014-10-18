@@ -121,16 +121,16 @@ public class Utils {
     }
 
     public static String formatDate(DateTime date) {
-        if (date.getDayOfMonth() == DateTime.now().getDayOfMonth() &&
-            date.getWeekOfWeekyear() == DateTime.now().getWeekOfWeekyear() &&
-            date.getMonthOfYear() == DateTime.now().getMonthOfYear() &&
-            date.getYear() == DateTime.now().getYear()) {
+        if (date.getDayOfMonth() == Utils.now().getDayOfMonth() &&
+            date.getWeekOfWeekyear() == Utils.now().getWeekOfWeekyear() &&
+            date.getMonthOfYear() == Utils.now().getMonthOfYear() &&
+            date.getYear() == Utils.now().getYear()) {
                 return "Today";
-        } else if (date.getWeekOfWeekyear() == DateTime.now().getWeekOfWeekyear() &&
-                   date.getMonthOfYear() == DateTime.now().getMonthOfYear() &&
-                   date.getYear() == DateTime.now().getYear()) {
+        } else if (date.getWeekOfWeekyear() == Utils.now().getWeekOfWeekyear() &&
+                   date.getMonthOfYear() == Utils.now().getMonthOfYear() &&
+                   date.getYear() == Utils.now().getYear()) {
             return date.toString(DateTimeFormat.forPattern("EEEE"));
-        } else if (date.getYear() == DateTime.now().getYear()) {
+        } else if (date.getYear() == Utils.now().getYear()) {
             return date.toString(DateTimeFormat.forPattern("E dd MMM"));
         } else {
             return date.toString(DateTimeFormat.forPattern("dd MMM yyyy"));
@@ -138,12 +138,12 @@ public class Utils {
     }
 
     public static String formatDateMonthYearOnly(DateTime date) {
-        if (date.getDayOfMonth() == DateTime.now().getDayOfMonth() &&
-                date.getWeekOfWeekyear() == DateTime.now().getWeekOfWeekyear() &&
-                date.getMonthOfYear() == DateTime.now().getMonthOfYear() &&
-                date.getYear() == DateTime.now().getYear()) {
+        if (date.getDayOfMonth() == Utils.now().getDayOfMonth() &&
+                date.getWeekOfWeekyear() == Utils.now().getWeekOfWeekyear() &&
+                date.getMonthOfYear() == Utils.now().getMonthOfYear() &&
+                date.getYear() == Utils.now().getYear()) {
             return "Today";
-        } else if (date.getYear() == DateTime.now().getYear()) {
+        } else if (date.getYear() == Utils.now().getYear()) {
             return date.toString(DateTimeFormat.forPattern("MMM"));
         } else {
             return date.toString(DateTimeFormat.forPattern("MMM yyyy"));
@@ -177,4 +177,17 @@ public class Utils {
 
         return d1.isAfter(d2);
     }
+
+    private static DateTime instrumentedTodayDate;
+    public static void instrumentDateTimeNow(final DateTime now) {
+        instrumentedTodayDate = now;
+    }
+    public static DateTime now() {
+        if(instrumentedTodayDate != null) {
+            return instrumentedTodayDate;
+        }
+
+        return DateTime.now();
+    }
+
 }

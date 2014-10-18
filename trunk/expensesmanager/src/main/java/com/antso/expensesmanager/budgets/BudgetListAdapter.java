@@ -69,7 +69,7 @@ public class BudgetListAdapter extends BaseAdapter  implements Observer {
 
         final TextView period = (TextView) budgetLayout.findViewById(R.id.budgetPeriod);
         String periodStr = budgetInfo.budget.getPeriodLength() +
-                budgetInfo.budget.getPeriodUnit().getStringValue();
+                budgetInfo.budget.getPeriodUnit().getLangStringValue(context);
         period.setText(periodStr);
 
         final TextView threshold = (TextView) budgetLayout.findViewById(R.id.budgetThreshold);

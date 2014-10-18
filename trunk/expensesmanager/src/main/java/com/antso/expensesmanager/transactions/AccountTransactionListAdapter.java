@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.antso.expensesmanager.entities.SummaryTransaction;
 import com.antso.expensesmanager.entities.Transaction;
+import com.antso.expensesmanager.utils.Utils;
 
 import org.joda.time.DateTime;
 
@@ -30,7 +31,7 @@ public class AccountTransactionListAdapter extends BaseAccountBudgetTransactionL
         this.context = context;
         this.account = account;
         this.transactionManager = transactionManager;
-        transactionManager.resetGetAccountNextPeriodTransactions(DateTime.now());
+        transactionManager.resetGetAccountNextPeriodTransactions(Utils.now());
         load();
     }
 

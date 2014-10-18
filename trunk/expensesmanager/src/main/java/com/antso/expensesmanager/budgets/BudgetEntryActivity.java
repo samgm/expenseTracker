@@ -16,6 +16,7 @@ import com.antso.expensesmanager.enums.TimeUnit;
 import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.MaterialColours;
+import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views.CircleSectorView;
 import com.antso.expensesmanager.views.ColorPickerDialog;
 import com.antso.expensesmanager.views_helpers.DateEditText;
@@ -57,7 +58,7 @@ public class BudgetEntryActivity extends Activity {
         name = (EditText)findViewById(R.id.budgetName);
         color = (CircleSectorView)findViewById(R.id.budgetColor);
         budgetThreshold.createView(R.id.budgetThreshold, BigDecimal.ZERO);
-        startDateEditText.createView(R.id.budgetStartDate, DateTime.now());
+        startDateEditText.createView(R.id.budgetStartDate, Utils.now());
         period.createView(R.id.TimeUnitSpinner, R.id.budgetPeriodLenghtSpinner, false);
         color.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +146,7 @@ public class BudgetEntryActivity extends Activity {
                     MaterialColours.getAccountColors().get(0),
                     1,
                     TimeUnit.Month,
-                    DateTime.now());
+                    Utils.now());
         } else {
             isEdit = true;
             loadedBudget = BudgetManager.BUDGET_MANAGER().getBudgetInfo(id).budget;

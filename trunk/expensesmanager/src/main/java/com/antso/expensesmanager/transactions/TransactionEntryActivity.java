@@ -25,6 +25,7 @@ import com.antso.expensesmanager.persistence.EntityIdGenerator;
 import com.antso.expensesmanager.utils.IntentParamNames;
 import com.antso.expensesmanager.utils.Settings;
 import com.antso.expensesmanager.utils.SpaceTokenizer;
+import com.antso.expensesmanager.utils.Utils;
 import com.antso.expensesmanager.views_helpers.ButtonChangeSpinner;
 import com.antso.expensesmanager.views_helpers.DateEditText;
 import com.antso.expensesmanager.views_helpers.FrequencySpinner;
@@ -107,8 +108,8 @@ public class TransactionEntryActivity extends Activity {
                 budgetSpinnerAdapter);
 
         recurrentFrequency.createView(R.id.transactionFrequencyUnit, R.id.transactionFrequency, true);
-        dateEditText.createView(R.id.transactionDate, DateTime.now());
-        endDateEditText.createView(R.id.transactionRecurrentStartDate, DateTime.now());
+        dateEditText.createView(R.id.transactionDate, Utils.now());
+        endDateEditText.createView(R.id.transactionRecurrentStartDate, Utils.now());
         description.setAdapter(StringArrayAdapter.create(this, R.layout.text_spinner_item,
                 TransactionManager.TRANSACTION_MANAGER().getDescriptionsArray()));
         description.setTokenizer(new SpaceTokenizer());
@@ -198,8 +199,8 @@ public class TransactionEntryActivity extends Activity {
                     Settings.getDefaultAccountId(this),
                     Settings.getDefaultBudgetId(this),
                     BigDecimal.ZERO,
-                    DateTime.now());
-            loadedTransaction1.setEndDate(DateTime.now());
+                    Utils.now());
+            loadedTransaction1.setEndDate(Utils.now());
         } else {
             isEdit = true;
             loadedTransaction1 = TransactionManager.TRANSACTION_MANAGER().getTransactionById(id);
