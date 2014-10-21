@@ -32,8 +32,6 @@ import com.antso.expensesmanager.views_helpers.FrequencySpinner;
 import com.antso.expensesmanager.views_helpers.TransactionLayout;
 import com.antso.expensesmanager.views_helpers.ValueEditText;
 
-import org.joda.time.DateTime;
-
 import java.math.BigDecimal;
 import java.util.Collection;
 
@@ -99,7 +97,7 @@ public class TransactionEntryActivity extends Activity {
         layout.createView(R.id.transactionColor, R.id.transactionSecondaryAccountLayout,
                 R.id.transactionAccountLabel, R.id.transactionSecondaryAccountLabel,
                 R.id.transactionRecurrentCheckbox, R.id.transactionRecurrentDetailsLayout);
-        value.createView(R.id.transactionValue, BigDecimal.ZERO);
+        value.createView(R.id.transactionValue, R.id.transactionValueCurrency, BigDecimal.ZERO);
         accountSpinner.createView(R.id.transactionAccountSpinner, R.id.transactionAccountButton,
                 accountSpinnerAdapter);
         accountSecondarySpinner.createView(R.id.transactionSecondaryAccountSpinner, R.id.transactionSecondaryAccountButton,

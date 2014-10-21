@@ -46,7 +46,6 @@ public class DateEditText {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    DateTime now = Utils.now();
                     DatePickerDialog datePicker = new DatePickerDialog(
                             parentActivity,
                             new DatePickerDialog.OnDateSetListener() {
@@ -55,7 +54,7 @@ public class DateEditText {
                                     date = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
                                     dateEditText.setText(Utils.formatDate(date));
                                 }
-                            }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
+                            }, date.getYear(), date.getMonthOfYear() - 1, date.getDayOfMonth()
                     );
                     datePicker.show();
                 }
