@@ -189,22 +189,22 @@ public class TransactionManager extends Observable {
         if (!transactionByAccount.containsKey(t.getAccountId())) {
             transactionByAccount.put(t.getAccountId(), new ArrayList<Transaction>());
         }
-        transactionByAccount.get(t.getAccountId()).add(t);
+        List<Transaction> accountTransactions = transactionByAccount.get(t.getAccountId());
+        accountTransactions.add(t);
         if (!exploded.isEmpty()) {
-            List<Transaction> accountTransactions = transactionByAccount.get(t.getAccountId());
             accountTransactions.addAll(exploded);
-            Collections.sort(accountTransactions, new TransactionByDateComparator());
         }
+        Collections.sort(accountTransactions, new TransactionByDateComparator());
 
         if (!transactionByBudget.containsKey(t.getBudgetId())) {
             transactionByBudget.put(t.getBudgetId(), new ArrayList<Transaction>());
         }
-        transactionByBudget.get(t.getBudgetId()).add(t);
+        List<Transaction> budgetTransactions = transactionByBudget.get(t.getBudgetId());
+        budgetTransactions.add(t);
         if (!exploded.isEmpty()) {
-            List<Transaction> budgetTransactions = transactionByBudget.get(t.getBudgetId());
             budgetTransactions.addAll(exploded);
-            Collections.sort(budgetTransactions, new TransactionByDateComparator());
         }
+        Collections.sort(budgetTransactions, new TransactionByDateComparator());
 
         if (t.getType().equals(TransactionType.Transfer)) {
             transferTransaction.add(t);
@@ -302,7 +302,7 @@ public class TransactionManager extends Observable {
         return transactionById.get(id);
     }
 
-    public Collection<Transaction> getTransactionByAccount(String account) {
+    public List<Transaction> getTransactionByAccount(String account) {
         long start = System.currentTimeMillis();
         if (!transactionByAccount.containsKey(account)) {
             transactionByAccount.put(account, new ArrayList<Transaction>());
@@ -314,7 +314,7 @@ public class TransactionManager extends Observable {
         return transactionByAccount.get(account);
     }
 
-    private Collection<Transaction> getTransactionByAccount(String account, DateTime period) {
+    private List<Transaction> getTransactionByAccount(String account, DateTime period) {
         long start = System.currentTimeMillis();
         if (!transactionByAccount.containsKey(account)) {
             transactionByAccount.put(account, new ArrayList<Transaction>());
@@ -333,7 +333,7 @@ public class TransactionManager extends Observable {
         return result;
     }
 
-    public Collection<Transaction> getTransactionByBudget(String budget) {
+    public List<Transaction> getTransactionByBudget(String budget) {
         long start = System.currentTimeMillis();
         if (!transactionByBudget.containsKey(budget)) {
             transactionByBudget.put(budget, new ArrayList<Transaction>());
@@ -344,7 +344,7 @@ public class TransactionManager extends Observable {
         return transactionByBudget.get(budget);
     }
 
-    private Collection<Transaction> getTransactionByBudget(String budget,
+    private List<Transaction> getTransactionByBudget(String budget,
                                                           DateTime startDate, DateTime endDate) {
         long start  = System.currentTimeMillis();
         if (!transactionByBudget.containsKey(budget)) {
