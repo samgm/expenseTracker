@@ -1,7 +1,9 @@
 package com.antso.expensesmanager.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 
 import com.antso.expensesmanager.R;
@@ -14,8 +16,6 @@ import com.antso.expensesmanager.enums.TransactionType;
 import com.antso.expensesmanager.persistence.DatabaseHelper;
 import com.antso.expensesmanager.utils.csv.CSVReader;
 import com.antso.expensesmanager.utils.csv.CSVWriter;
-
-import org.joda.time.DateTime;
 
 import java.io.File;
 import java.io.FileReader;
@@ -47,26 +47,24 @@ public class DataExporter {
         if (!appFolder.exists()) {
             appFolder.mkdir();
         }
-        exportTransactionData();
-        exportAccountData();
-        exportBudgetData();
+        try {
+            exportTransactionData();
+            exportAccountData();
+            exportBudgetData();
+        } catch (Exception e) {
+            Log.e("DataExporter", "Exception exporting data: " + e.getMessage());
+            notifyExportErrorToUIThread(e.getMessage());
+        }
     }
 
-    private void exportTransactionData() {
+    private void exportTransactionData() throws IOException {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/").append(transactionFilePrefix);
         filePath.append(Utils.dateTimeToyyyyMMdd(Utils.now()));
         filePath.append(".csv");
 
-        FileWriter fileWriter;
-        try {
-            fileWriter = new FileWriter(filePath.toString());
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised opening file to write data", e);
-            return;
-        }
-
+        FileWriter fileWriter = new FileWriter(filePath.toString());
         CSVWriter writer = new CSVWriter(fileWriter);
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         Collection<Transaction> transactions = dbHelper.getTransactions();
@@ -90,29 +88,18 @@ public class DataExporter {
             writer.writeNext(tString);
         }
 
-        try {
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised closing file to write data", e);
-        }
+        writer.flush();
+        writer.close();
     }
 
-    private void exportAccountData() {
+    private void exportAccountData() throws IOException {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/").append(accountFilePrefix);
         filePath.append(Utils.dateTimeToyyyyMMdd(Utils.now()));
         filePath.append(".csv");
 
-        FileWriter fileWriter;
-        try {
-            fileWriter = new FileWriter(filePath.toString());
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised opening file to write data", e);
-            return;
-        }
-
+        FileWriter fileWriter = new FileWriter(filePath.toString());
         CSVWriter writer = new CSVWriter(fileWriter);
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         Collection<Account> accounts = dbHelper.getAccounts();
@@ -127,29 +114,18 @@ public class DataExporter {
             writer.writeNext(aString);
         }
 
-        try {
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised closing file to write data", e);
-        }
+        writer.flush();
+        writer.close();
     }
 
-    private void exportBudgetData() {
+    private void exportBudgetData() throws IOException {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/" + "budgets_export_");
         filePath.append(Utils.dateTimeToyyyyMMdd(Utils.now()));
         filePath.append(".csv");
 
-        FileWriter fileWriter;
-        try {
-            fileWriter = new FileWriter(filePath.toString());
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised opening file to write data", e);
-            return;
-        }
-
+        FileWriter fileWriter = new FileWriter(filePath.toString());
         CSVWriter writer = new CSVWriter(fileWriter);
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         Collection<Budget> budgets = dbHelper.getBudgets();
@@ -167,12 +143,8 @@ public class DataExporter {
             writer.writeNext(bString);
         }
 
-        try {
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised closing file to write data", e);
-        }
+        writer.flush();
+        writer.close();
     }
 
     public void importData(String importDate) {
@@ -181,133 +153,105 @@ public class DataExporter {
             return;
         }
 
-        importAccountData(importDate);
-        importBudgetData(importDate);
-        importTransactionData(importDate);
+        try {
+            importAccountData(importDate);
+            importBudgetData(importDate);
+            importTransactionData(importDate);
+        } catch (Exception e) {
+            Log.e("DataExporter", "Exception exporting data: " + e.getMessage());
+            notifyImportErrorToUIThread(e.getMessage());
+        }
     }
 
-    private void importTransactionData(String importDate) {
+    private void importTransactionData(String importDate) throws IOException {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/").append(transactionFilePrefix);
         filePath.append(importDate);
         filePath.append(".csv");
 
-        FileReader fileReader;
-        try {
-            fileReader = new FileReader(filePath.toString());
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised opening file to read data", e);
-            return;
-        }
-
+        FileReader fileReader = new FileReader(filePath.toString());
         CSVReader reader = new CSVReader(fileReader);
         DatabaseHelper dbHelper = new DatabaseHelper(context);
 
-        try {
-            String[] values = reader.readNext();
-            while (values != null) {
-                logReadValues(values);
-                Transaction t = new Transaction(
-                        values[0],
-                        values[1],
-                        TransactionDirection.valueOf(values[2]),
-                        TransactionType.valueOf(values[3]),
-                        values[4],
-                        values[5],
-                        BigDecimal.valueOf(Double.parseDouble(values[6])),
-                        Utils.yyyyMMddToDate(Integer.parseInt(values[7])));
+        String[] values = reader.readNext();
+        while (values != null) {
+            logReadValues(values);
+            Transaction t = new Transaction(
+                    values[0],
+                    values[1],
+                    TransactionDirection.valueOf(values[2]),
+                    TransactionType.valueOf(values[3]),
+                    values[4],
+                    values[5],
+                    BigDecimal.valueOf(Double.parseDouble(values[6])),
+                    Utils.yyyyMMddToDate(Integer.parseInt(values[7])));
 
-                t.setLinkedTransactionId(values[8]);
-                t.setRecurrent(Boolean.parseBoolean(values[9]));
-                t.setFrequency(Integer.parseInt(values[10]));
-                t.setFrequencyUnit(TimeUnit.valueOf(values[11]));
-                t.setEndDate(Utils.yyyyMMddToDate(Integer.parseInt(values[12])));
-                t.setRepetitionNum(Integer.parseInt(values[13]));
+            t.setLinkedTransactionId(values[8]);
+            t.setRecurrent(Boolean.parseBoolean(values[9]));
+            t.setFrequency(Integer.parseInt(values[10]));
+            t.setFrequencyUnit(TimeUnit.valueOf(values[11]));
+            t.setEndDate(Utils.yyyyMMddToDate(Integer.parseInt(values[12])));
+            t.setRepetitionNum(Integer.parseInt(values[13]));
 
-                dbHelper.insertTransactions(t);
+            dbHelper.insertTransactions(t);
 
-                values = reader.readNext();
-            }
-        } catch (IOException e) {
-            Log.e("DataImport", "Exception raised importing transactions", e);
+            values = reader.readNext();
         }
     }
 
-    private void importAccountData(String importDate) {
+    private void importAccountData(String importDate) throws IOException {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/").append(accountFilePrefix);
         filePath.append(importDate);
         filePath.append(".csv");
 
-        FileReader fileReader;
-        try {
-            fileReader = new FileReader(filePath.toString());
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised opening file to read data", e);
-            return;
-        }
-
+        FileReader fileReader = new FileReader(filePath.toString());
         CSVReader reader = new CSVReader(fileReader);
         DatabaseHelper dbHelper = new DatabaseHelper(context);
 
-        try {
-            String[] values = reader.readNext();
-            while (values != null) {
-                logReadValues(values);
-                Account a = new Account(
-                        values[0],
-                        values[1],
-                        BigDecimal.valueOf(Double.parseDouble(values[2])),
-                        Integer.parseInt(values[3]));
+        String[] values = reader.readNext();
+        while (values != null) {
+            logReadValues(values);
+            Account a = new Account(
+                    values[0],
+                    values[1],
+                    BigDecimal.valueOf(Double.parseDouble(values[2])),
+                    Integer.parseInt(values[3]));
 
-                dbHelper.insertAccount(a);
+            dbHelper.insertAccount(a);
 
-                values = reader.readNext();
-            }
-        } catch (IOException e) {
-            Log.e("DataImport", "Exception raised importing account", e);
+            values = reader.readNext();
         }
     }
 
-    private void importBudgetData(String importDate) {
+    private void importBudgetData(String importDate) throws IOException {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
         filePath.append("/").append(budgetFilePrefix);
         filePath.append(importDate);
         filePath.append(".csv");
 
-        FileReader fileReader;
-        try {
-            fileReader = new FileReader(filePath.toString());
-        } catch (IOException e) {
-            Log.e("DataExport", "Exception raised opening file to read data", e);
-            return;
-        }
-
+        FileReader fileReader = new FileReader(filePath.toString());
         CSVReader reader = new CSVReader(fileReader);
         DatabaseHelper dbHelper = new DatabaseHelper(context);
 
-        try {
-            String[] values = reader.readNext();
-            while (values != null) {
-                logReadValues(values);
-                Budget b = new Budget(
-                        values[0],
-                        values[1],
-                        BigDecimal.valueOf(Double.parseDouble(values[2])),
-                        Integer.parseInt(values[3]),
-                        Integer.parseInt(values[4]),
-                        TimeUnit.valueOf(values[5]),
-                        Utils.yyyyMMddToDate(Integer.parseInt(values[6])));
+        String[] values = reader.readNext();
+        while (values != null) {
+            logReadValues(values);
+            Budget b = new Budget(
+                    values[0],
+                    values[1],
+                    BigDecimal.valueOf(Double.parseDouble(values[2])),
+                    Integer.parseInt(values[3]),
+                    Integer.parseInt(values[4]),
+                    TimeUnit.valueOf(values[5]),
+                    Utils.yyyyMMddToDate(Integer.parseInt(values[6])));
 
-                dbHelper.insertBudget(b);
+            dbHelper.insertBudget(b);
 
-                values = reader.readNext();
-            }
-        } catch (IOException e) {
-            Log.e("DataImport", "Exception raised importing account", e);
+            values = reader.readNext();
         }
     }
 
@@ -355,4 +299,28 @@ public class DataExporter {
         //noinspection ToArrayCallWithZeroLengthArrayArgument
         return result.toArray(new String[0]);
     }
+
+    private void notifyExportErrorToUIThread(final String message) {
+        notifyErrorToUIThread(R.string.error_exporting_data, message);
+    }
+
+    private void notifyImportErrorToUIThread(final String message) {
+        notifyErrorToUIThread(R.string.error_importing_data, message);
+    }
+
+    private void notifyErrorToUIThread(final int message, final String details) {
+        Handler handler = new Handler(context.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog dialog = new AlertDialog.Builder(context)
+                        .setTitle(R.string.title_error_dialog)
+                        .setMessage(context.getText(message) + " " + details)
+                        .setPositiveButton(R.string.got_it, null)
+                        .create();
+                dialog.show();
+            }
+        });
+    }
+
 }

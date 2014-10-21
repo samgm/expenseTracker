@@ -337,7 +337,7 @@ public class MaterialColours {
         budgetColors.add(MaterialColours.LIME_500);
         budgetColors.add(MaterialColours.AMBER_500);
         budgetColors.add(MaterialColours.ORANGE_500);
-        budgetColors.add(MaterialColours.BROWN_500);
+        budgetColors.add(MaterialColours.GREY_500);
 
         return budgetColors;
     }
@@ -355,7 +355,7 @@ public class MaterialColours {
         budgetColors.add(MaterialColours.LIME_500);
         budgetColors.add(MaterialColours.AMBER_500);
         budgetColors.add(MaterialColours.ORANGE_500);
-        budgetColors.add(MaterialColours.BROWN_500);
+        budgetColors.add(MaterialColours.GREY_500);
 
         return budgetColors;
     }

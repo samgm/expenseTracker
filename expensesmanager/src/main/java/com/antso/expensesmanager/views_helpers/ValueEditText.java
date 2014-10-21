@@ -3,6 +3,7 @@ package com.antso.expensesmanager.views_helpers;
 import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.antso.expensesmanager.utils.Utils;
 
@@ -12,17 +13,20 @@ public class ValueEditText {
     private final Activity parentActivity;
 
     private EditText valueEditText;
+    private TextView currencyTextView;
     private BigDecimal value;
 
     public ValueEditText(Activity parentActivity) {
         this.parentActivity = parentActivity;
     }
 
-    public void createView(int editViewId, BigDecimal value) {
+    public void createView(int editViewId, int currencyViewId, BigDecimal value) {
         this.value = value;
         this.valueEditText = (EditText) parentActivity.findViewById(editViewId);
         this.valueEditText.setOnFocusChangeListener(onFocusChanged());
         this.valueEditText.setText(value.setScale(2).toString());
+        this.currencyTextView= (TextView) parentActivity.findViewById(currencyViewId);
+        this.currencyTextView.setText(Utils.getCurrencyString(parentActivity));
     }
 
     public void setValue(BigDecimal value) {

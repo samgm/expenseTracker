@@ -366,10 +366,10 @@ containing a value of this type.
         public static final int delete_and_move=0x7f080034;
         public static final int description=0x7f080035;
         public static final int description_label=0x7f080036;
-        public static final int doubleArrow=0x7f080037;
-        public static final int empty=0x7f080038;
-        public static final int error_cannot_delete_last_account=0x7f080039;
-        public static final int error_cannot_delete_last_budget=0x7f08003a;
+        public static final int empty=0x7f080037;
+        public static final int error_cannot_delete_last_account=0x7f080038;
+        public static final int error_cannot_delete_last_budget=0x7f080039;
+        public static final int error_exporting_data=0x7f08003a;
         public static final int error_importing_data=0x7f08003b;
         public static final int every_label=0x7f08003c;
         public static final int expense_label=0x7f08003d;

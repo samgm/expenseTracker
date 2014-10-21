@@ -47,7 +47,7 @@ public class AccountEntryActivity extends Activity {
         //Creating view
         color = (CircleSectorView)findViewById(R.id.accountColor);
         name = (EditText)findViewById(R.id.accountName);
-        value.createView(R.id.accountValue, BigDecimal.ZERO);
+        value.createView(R.id.accountValue, R.id.accountValueCurrency, BigDecimal.ZERO);
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

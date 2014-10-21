@@ -23,8 +23,6 @@ import com.antso.expensesmanager.views_helpers.DateEditText;
 import com.antso.expensesmanager.views_helpers.FrequencySpinner;
 import com.antso.expensesmanager.views_helpers.ValueEditText;
 
-import org.joda.time.DateTime;
-
 import java.math.BigDecimal;
 
 
@@ -57,7 +55,7 @@ public class BudgetEntryActivity extends Activity {
         //Creating view
         name = (EditText)findViewById(R.id.budgetName);
         color = (CircleSectorView)findViewById(R.id.budgetColor);
-        budgetThreshold.createView(R.id.budgetThreshold, BigDecimal.ZERO);
+        budgetThreshold.createView(R.id.budgetThreshold, R.id.budgetThresholdCurrency, BigDecimal.ZERO);
         startDateEditText.createView(R.id.budgetStartDate, Utils.now());
         period.createView(R.id.TimeUnitSpinner, R.id.budgetPeriodLenghtSpinner, false);
         color.setOnClickListener(new View.OnClickListener() {
