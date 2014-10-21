@@ -1,3 +1,4 @@
+check ordine transaction in budget account transaction list (out of order on N5)
 
  TODO
     mettere label in grigio (date label campi) transaction entry + transaction item
