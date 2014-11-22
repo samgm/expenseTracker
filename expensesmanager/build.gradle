@@ -1,9 +1,16 @@
 apply plugin: 'android'
 
 android {
+    signingConfigs {
+        sign {
+            keyAlias 'Antonio Solano Android Sign Key'
+            storeFile file('C:/Users/asolano/AndroidStudioProjects/AntonoSolanoAndroidCryptographicKeys/AntonioSolanoAndroidCryptographicKey.jks')
+            keyPassword 'androidlorien'
+            storePassword 'androidlorien'
+        }
+    }
     compileSdkVersion 19
     buildToolsVersion '19.1.0'
-
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 19
@@ -12,8 +19,21 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
+            runProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            debuggable false
+            jniDebugBuild false
+            signingConfig signingConfigs.sign
+        }
+    }
+    productFlavors {
+        minSDK16Target19 {
+        }
+        minSDK16Target20plus {
+            minSdkVersion 16
+            targetSdkVersion 'L'
+            versionCode 2
+            versionName '2.0'
         }
     }
 }

@@ -61,20 +61,43 @@ public class MyMoneyDataImporter {
                 }
 
                 Log.i("CVSReader", message.toString());
-                Transaction t1 = parseTransaction(values);
-                Transaction t2 = null;
-                if (t1.getType().equals(TransactionType.Transfer)) {
-                    values = reader.readNext();
-                    t2 = parseTransaction(values);
-                    t1.setLinkedTransactionId(t2.getId());
-                    t2.setLinkedTransactionId(t1.getId());
-                }
 
-                dbHelper.insertTransactions(t1);
-                if(t2 != null) {
-                    dbHelper.insertTransactions(t2);
+                if (values.length > 9) {
+                    //Older myMoney versions
+                    Transaction t1 = parseTransaction(values);
+                    Transaction t2 = null;
+                    if (t1.getType().equals(TransactionType.Transfer)) {
+                        values = reader.readNext();
+                        t2 = parseTransaction(values);
+                        t1.setLinkedTransactionId(t2.getId());
+                        t2.setLinkedTransactionId(t1.getId());
+                    }
+
+                    values = reader.readNext();
+
+                    dbHelper.insertTransactions(t1);
+                    if(t2 != null) {
+                        dbHelper.insertTransactions(t2);
+                    }
+                } else {
+                    //New myMoney versions
+                    String[] nextValues = reader.readNext();
+                    Transaction t1 = parseTransactionNew(values, nextValues);
+                    Transaction t2 = null;
+                    if (t1.getType().equals(TransactionType.Transfer)) {
+                        t2 = parseTransactionNew(nextValues, null);
+                        t1.setLinkedTransactionId(t2.getId());
+                        t2.setLinkedTransactionId(t1.getId());
+                        values = reader.readNext();
+                    } else {
+                        values = nextValues;
+                    }
+
+                    dbHelper.insertTransactions(t1);
+                    if(t2 != null) {
+                        dbHelper.insertTransactions(t2);
+                    }
                 }
-                values = reader.readNext();
             }
 
         } catch (FileNotFoundException e) {
@@ -90,6 +113,7 @@ public class MyMoneyDataImporter {
     }
 
     private Transaction parseTransaction(String values[]) throws Exception {
+        // OLD
         // ID | Type | Name | Value | Date | Budget | Account | SingleRecurrent | Frequency | End | ID_TRANSFER |
         // 1423 | Expenses | Cena Jappo Kaoru | -70.0 | 15/04/2014 | Entertainment | BNL | No |  |  |  |
         // 1386 | Revenues | Prelievo Bancomat | 60.0 | 06/03/2014 |  | Wallet | No |  |  | -2 |
@@ -166,6 +190,83 @@ public class MyMoneyDataImporter {
                 //TODO remove when no end transaction supported
                 t.setEndDate(new DateTime(2100, 1, 1, 0, 0));
             }
+        }
+        return t;
+    }
+
+    private Transaction parseTransactionNew(String tValues[], String nextTValues[]) throws Exception {
+        // NEW
+        // Name	        Description	Type    	Date	    Value	Currency	Account	Budget	Recurring
+        // Parcheggio	        	Expenses	10/05/2014	1	    EUR	        Wallet	Car
+        // Golf		                Expenses	06/15/2013	342.35	EUR	        BNL	    Car	    1 Month
+
+        String id = EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Transaction.class);
+
+        String name = tValues[0];
+
+        TransactionDirection direction = TransactionDirection.Undef;
+        String typeStr = tValues[2];
+        if (typeStr.equals("Expenses")) {
+            direction = TransactionDirection.Out;
+        } else if (typeStr.equals("Revenues")) {
+            direction = TransactionDirection.In;
+        }
+
+        DateTime date = DateTime.parse(tValues[3], Utils.getDateFormatter());
+
+        BigDecimal value = BigDecimal.valueOf(Double.parseDouble(tValues[4]));
+        value = value.abs();
+
+        String account = tValues[6];
+        if(accountsByName.containsKey(account)) {
+            account = accountsByName.get(account).getId();
+        } else {
+            Account defAccount = new Account(EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
+                    account, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0));
+            AccountManager.ACCOUNT_MANAGER().insertAccount(defAccount);
+            accountsByName.put(defAccount.getName(), defAccount);
+            account = defAccount.getId();
+            Log. i("TransactionParser", "Error converting account: Account not found {AccountId" + account + "} created default");
+        }
+
+        String budget = tValues[7];
+        if(budgetsByName.containsKey(budget)) {
+            budget = budgetsByName.get(budget).getId();
+        } else {
+            Budget defBudget = new Budget(EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Budget.class),
+                    budget, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0),
+                    1, TimeUnit.Month, new DateTime(2000, 1, 1, 0, 0));
+            BudgetManager.BUDGET_MANAGER().insertBudget(defBudget);
+            budgetsByName.put(defBudget.getName(), defBudget);
+            budget = defBudget.getId();
+            Log. i("TransactionParser", "Error converting budget: Budget not found {BudgetId" + budget + "} created default");
+        }
+
+        TransactionType type = TransactionType.Single;
+        if (nextTValues != null) {
+            String nextName = nextTValues[0];
+            DateTime nextDate = DateTime.parse(tValues[3], Utils.getDateFormatter());
+            BigDecimal nextValue = BigDecimal.valueOf(Double.parseDouble(tValues[4]));
+            nextValue = nextValue.abs();
+
+            if (name.equals(nextName) && date.isEqual(nextDate) && value.compareTo(nextValue) == 0) {
+                type = TransactionType.Transfer;
+            }
+        }
+
+        Transaction t = new Transaction(id, name, direction, type, account, budget, value, date);
+        String recurrent = tValues[8];
+        if (recurrent != null && !recurrent.isEmpty()) {
+            t.setRecurrent(true);
+
+            String frequency[] = recurrent.split(" ");
+            int freq = Integer.parseInt(frequency[0]);
+            TimeUnit unit = TimeUnit.valueOf(frequency[1]);
+            t.setFrequency(freq);
+            t.setFrequencyUnit(unit);
+
+            //TODO remove when no end transaction supported
+            t.setEndDate(new DateTime(2100, 1, 1, 0, 0));
         }
         return t;
     }
