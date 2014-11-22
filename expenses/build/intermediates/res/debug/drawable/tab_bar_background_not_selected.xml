@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="-3dp" android:left="-3dp" android:right="-3dp">
+        <shape android:shape="rectangle">
+            <stroke android:color="@color/tab_accent" android:width="2dp"/>
+            <solid android:color="@color/tab_background"></solid>
+        </shape>
+    </item>
+</layer-list><!-- From: file:/C:/Users/asolano/AndroidStudioProjects/Expenses/expenses/src/main/res/drawable/tab_bar_background_not_selected.xml -->

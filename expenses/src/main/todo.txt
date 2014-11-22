@@ -1,0 +1,101 @@
+
+TEST transaction order on N5
+TEST check result with MyMoney
+TEST about, setting, ect, activities should not should setting (...) menu
+
+mettere label in grigio (date label campi) transaction entry + transaction item
+clean-up and unused and add used icons to svn
+create nice looking demo export
+
+RELEASE
+    DONE (on drive) -> descrizione breve 80 char
+    DONE (on drive) -> descrizione lunga 4000 char
+
+    create hot keyword list
+
+    DONE -> screen shot telefono
+    DONE -> banner 1024 l x 500 a JPG o PNG a 24 bit (non alfa)
+    immagine promo 180 l x 120 a JPG o PNG a 24 bit (non alfa)
+
+---------------------------------------------------------------
+ BUGS
+---------------------------------------------------------------
+    MINOR   log on db operation failure
+
+---------------------------------------------------------------
+ OPTIMIZATIONS
+---------------------------------------------------------------
+    make list of many stuff available and add items while loading
+
+    TEST
+    Robotium -> import/export without app restart
+
+---------------------------------------------------------------
+ ENHANCEMENTS
+---------------------------------------------------------------
+0    CALCULATIONS
+     create unit test for calculations
+
+1    save state on entry/edit activities
+1    recurrent transaction with no end date
+
+2    quick transaction entry (with settings)
+3    backup on google
+4    statistics (http://android-graphview.org/)
+
+5    add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
+
+6    transaction reminder / pending transaction for recurrent
+7    Use name as id per budget e budget, Check if account/budget already exist on insert
+8    budget with many period length to be expanded on load and shown as different budgets
+9    recurrent transaction with repetition number (done with end date)
+
+setting for screen to start on
+setting for default secondary account for transfer
+setting for UseDividersInTransactionList
+add toast on executed actions
+add toast for click on account/budget transaction lists
+change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
+add configurable reminders that asks to add new expenses
+store recurrent transaction and allow editing series or single instance
+
+
+
+
+---------------------------------------------------------------
+ OTHER EULA
+---------------------------------------------------------------
+    www.rocketlawyer.com
+    Templates:
+    Vedi EULA su Google Play per Facebook/Dropbox
+    http://www.makingmoneywithandroid.com/2011/05/how-to-eula-android-app/
+    http://www.vbdotnetforums.com/intellectual-property-discussion/4196-eula-example.html
+
+
+---------------------------------------------------------------
+ OTHER
+---------------------------------------------------------------
+
+Here's a correct table of percentages to hex values. E.g. for 50% white you'd use #80FFFFFF.
+
+100% — FF
+95% — F2
+90% — E6
+85% — D9
+80% — CC
+75% — BF
+70% — B3
+65% — A6
+60% — 99
+55% — 8C
+50% — 80
+45% — 73
+40% — 66
+35% — 59
+30% — 4D
+25% — 40
+20% — 33
+15% — 26
+10% — 1A
+5% — 0D
+0% — 00

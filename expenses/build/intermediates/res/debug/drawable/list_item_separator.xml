@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line">
+        <stroke android:color="@color/gray30" android:width="0.5dp"/>
+        <size android:width="@dimen/navigation_drawer_width" android:height="2dp"/>
+</shape>
+<!-- From: file:/C:/Users/asolano/AndroidStudioProjects/Expenses/expenses/src/main/res/drawable/list_item_separator.xml -->
