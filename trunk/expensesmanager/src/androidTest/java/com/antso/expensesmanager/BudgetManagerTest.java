@@ -279,6 +279,9 @@ public class BudgetManagerTest extends AndroidTestCase {
         // When 5
         Transaction goodRecurrentEdit4 = new Transaction("t6", "t6", TransactionDirection.In, TransactionType.Single, "a1", "b1", BigDecimal.valueOf(5), Utils.yyyyMMddToDate(20141028));
         goodRecurrentEdit4.setRecurrent(false);
+        goodRecurrentEdit4.setFrequency(2);
+        goodRecurrentEdit4.setFrequencyUnit(TimeUnit.Week);
+        goodRecurrentEdit4.setEndDate(Utils.yyyyMMddToDate(20141116));
 
         TransactionManager.TRANSACTION_MANAGER().updateTransaction(goodRecurrentEdit4);
 
@@ -290,24 +293,106 @@ public class BudgetManagerTest extends AndroidTestCase {
     }
 
     public void testBudgetValuesForSingleAndRecurrentTransactionsWhenEditBudgetValue() {
+        //Given
+        Utils.instrumentDateTimeNow(Utils.yyyyMMddToDate(20141112));
 
+        Budget b1 = new Budget("b1", "b1", BigDecimal.TEN, 0,
+                1, TimeUnit.Month, Utils.yyyyMMddToDate(20141016));  //16-Oct -> 15-Nov
+        BudgetManager.BUDGET_MANAGER().insertBudget(b1);
+
+        createAndAddTransactionsForTest();
+        Transaction goodRecurrent = new Transaction("t6", "t6", TransactionDirection.In, TransactionType.Single, "a1", "b1", BigDecimal.valueOf(2), Utils.yyyyMMddToDate(20141014));
+        goodRecurrent.setRecurrent(true);
+        goodRecurrent.setFrequency(1);
+        goodRecurrent.setFrequencyUnit(TimeUnit.Week);
+        goodRecurrent.setEndDate(Utils.yyyyMMddToDate(20141116));
+
+        TransactionManager.TRANSACTION_MANAGER().insertTransaction(goodRecurrent);
+
+        // When
+        Budget b1Edit = new Budget("b1", "b1", BigDecimal.valueOf(15), 0,
+                1, TimeUnit.Month, Utils.yyyyMMddToDate(20141016));
+        BudgetManager.BUDGET_MANAGER().updateBudget(b1Edit);
+
+        // Then
+        BudgetManager.BudgetInfo info = BudgetManager.BUDGET_MANAGER().getBudgetInfo("b1");
+        assertTrue(info.periodIn.compareTo(BigDecimal.valueOf(18)) == 0);
+        assertTrue(info.periodOut.compareTo(BigDecimal.valueOf(1)) == 0);
+        assertTrue(info.periodBalance.compareTo(BigDecimal.valueOf(17)) == 0);
     }
 
     public void testBudgetValuesForSingleAndRecurrentTransactionsWhenEditBudgetPeriod() {
+        //Given
+        Utils.instrumentDateTimeNow(Utils.yyyyMMddToDate(20141112));
 
+        Budget b1 = new Budget("b1", "b1", BigDecimal.valueOf(10), 0,
+                1, TimeUnit.Month, Utils.yyyyMMddToDate(20141016));  //16-Oct -> 15-Nov
+        BudgetManager.BUDGET_MANAGER().insertBudget(b1);
+
+        createAndAddTransactionsForTest();
+        Transaction goodRecurrent = new Transaction("t6", "t6", TransactionDirection.In, TransactionType.Single, "a1", "b1", BigDecimal.valueOf(2), Utils.yyyyMMddToDate(20141014));
+        goodRecurrent.setRecurrent(true);
+        goodRecurrent.setFrequency(1);
+        goodRecurrent.setFrequencyUnit(TimeUnit.Week);
+        goodRecurrent.setEndDate(Utils.yyyyMMddToDate(20141116));
+
+        TransactionManager.TRANSACTION_MANAGER().insertTransaction(goodRecurrent);
+
+        // When 1
+        Budget b1EditPeriod = new Budget("b1", "b1", BigDecimal.valueOf(10), 0,
+                2, TimeUnit.Week, Utils.yyyyMMddToDate(20141016));
+        BudgetManager.BUDGET_MANAGER().updateBudget(b1EditPeriod);
+
+        // Then 1
+        BudgetManager.BudgetInfo info = BudgetManager.BUDGET_MANAGER().getBudgetInfo("b1");
+        assertTrue(info.periodIn.compareTo(BigDecimal.valueOf(4)) == 0);
+        assertTrue(info.periodOut.compareTo(BigDecimal.valueOf(0)) == 0);
+        assertTrue(info.periodBalance.compareTo(BigDecimal.valueOf(4)) == 0);
+
+        // When 2
+        Budget b1EditDate = new Budget("b1", "b1", BigDecimal.valueOf(10), 0,
+                2, TimeUnit.Week, Utils.yyyyMMddToDate(20141020));
+        BudgetManager.BUDGET_MANAGER().updateBudget(b1EditDate);
+
+        // Then 2
+        info = BudgetManager.BUDGET_MANAGER().getBudgetInfo("b1");
+        assertTrue(info.periodIn.compareTo(BigDecimal.valueOf(4)) == 0);
+        assertTrue(info.periodOut.compareTo(BigDecimal.valueOf(1)) == 0);
+        assertTrue(info.periodBalance.compareTo(BigDecimal.valueOf(3)) == 0);
     }
 
-    public void testBudgetValuesForSingleAndRecurrentTransactionsDeleteBudget() {
+    public void testBudgetValuesForSingleAndRecurrentTransactionsDeleteBudgetAndMoveTransaction() {
+        //Given
+        Utils.instrumentDateTimeNow(Utils.yyyyMMddToDate(20141112));
 
+        Budget b1 = new Budget("b1", "b1", BigDecimal.valueOf(10), 0,
+                1, TimeUnit.Month, Utils.yyyyMMddToDate(20141016));  //16-Oct -> 15-Nov
+        BudgetManager.BUDGET_MANAGER().insertBudget(b1);
+        Budget b2 = new Budget("b2", "b2", BigDecimal.valueOf(10), 0,
+                1, TimeUnit.Month, Utils.yyyyMMddToDate(20141016));  //16-Oct -> 15-Nov
+        BudgetManager.BUDGET_MANAGER().insertBudget(b2);
+
+        createAndAddTransactionsForTest();
+        Transaction goodRecurrent = new Transaction("t6", "t6", TransactionDirection.In, TransactionType.Single, "a1", "b1", BigDecimal.valueOf(2), Utils.yyyyMMddToDate(20141014));
+        goodRecurrent.setRecurrent(true);
+        goodRecurrent.setFrequency(1);
+        goodRecurrent.setFrequencyUnit(TimeUnit.Week);
+        goodRecurrent.setEndDate(Utils.yyyyMMddToDate(20141116));
+
+        TransactionManager.TRANSACTION_MANAGER().insertTransaction(goodRecurrent);
+
+        // When
+        TransactionManager.TRANSACTION_MANAGER().replaceBudget("b1", "b2");
+        BudgetManager.BUDGET_MANAGER().removeBudget(b1);
+
+        // Then
+        BudgetManager.BudgetInfo infoB1 = BudgetManager.BUDGET_MANAGER().getBudgetInfo("b1");
+        assertTrue(infoB1 == null);
+
+        BudgetManager.BudgetInfo infoB2 = BudgetManager.BUDGET_MANAGER().getBudgetInfo("b2");
+        assertTrue(infoB2.periodIn.compareTo(BigDecimal.valueOf(18)) == 0);
+        assertTrue(infoB2.periodOut.compareTo(BigDecimal.valueOf(2)) == 0);
+        assertTrue(infoB2.periodBalance.compareTo(BigDecimal.valueOf(16)) == 0);
     }
-
-    //    budget in out balance
-//    1 giving some existing transaction (also with transaction on the edge dates)
-//    2 after add,
-//    3 after delete,
-//    4 after edit value,
-//            5 after edit budget,
-//            6 after delete budged (moving to another)
-//    7 repeat 1-6 with recurrent transactions
 
 }
