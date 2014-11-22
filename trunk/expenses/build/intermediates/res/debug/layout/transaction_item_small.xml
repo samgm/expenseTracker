@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/transactionItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp">
+
+    <LinearLayout
+        android:id="@+id/transactionValueLayout"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_alignParentLeft="true">
+        <TextView
+            android:id="@+id/transactionCurrency"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:layout_gravity="left"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="@string/currency">
+        </TextView>
+
+        <TextView
+            android:id="@+id/transactionValue"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:gravity="right"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/value_15250_00">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/transactionDateLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="2dp">
+
+        <ImageView
+            android:id="@+id/transactionRecurrent"
+            android:layout_width="36dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_action_refresh"
+            android:contentDescription="@string/placeholder"/>
+        <TextView
+            android:id="@+id/transactionDateTime"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:text="@string/date">
+        </TextView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/transactionDesc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="3dp"
+        android:layout_toRightOf="@id/transactionValueLayout"
+        android:layout_toLeftOf="@id/transactionDateLayout"
+        android:layout_gravity="left"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="@string/description">
+    </TextView>
+
+</RelativeLayout>
+<!-- From: file:/C:/Users/asolano/AndroidStudioProjects/Expenses/expenses/src/main/res/layout/transaction_item_small.xml -->

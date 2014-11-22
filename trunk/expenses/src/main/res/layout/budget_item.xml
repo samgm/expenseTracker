@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circleSectorview="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/budgetItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <com.antso.expenses.views.CircleSectorView
+        android:id="@+id/budgetColor"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        circleSectorview:cFillColor="#ff0000"
+        circleSectorview:cRadiusDp="32"
+        circleSectorview:cAngleStart="0"
+        circleSectorview:cAngleSweep="360"
+        circleSectorview:cStrokeWidth="4"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_weight="2.5"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+            <TextView
+                android:id="@+id/budgetName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:text="@string/budget">
+            </TextView>
+
+            <TextView
+                android:id="@+id/budgetBalance"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:gravity="left"
+                android:textStyle="bold"
+                android:text="@string/currency_value_0_00">
+            </TextView>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_weight="3"
+        android:layout_gravity="top"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/budgetPeriod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:text="@string/budget_period">
+        </TextView>
+
+        <TextView
+            android:id="@+id/budgetThreshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:text="@string/currency_value_0_00">
+        </TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

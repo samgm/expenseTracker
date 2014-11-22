@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <!--orange_500-->
+    <color name="tab_accent">#ff9800</color>
+    <!--green_hangout-->
+    <color name="tab_background">#53ab3a</color>
+
+
+    <color name="white">#ffffff</color>
+    <color name="white_transparent">#ccffffff</color>
+    <color name="white_transparent90">#e6ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray80">#cc333333</color>
+    <color name="gray30">#4d333333</color>
+
+    <color name="green_200">#72d572</color>
+    <color name="green_400">#2baf2b</color>
+    <color name="green_500">#259b24</color>
+    <color name="green_hangout">#53ab3a</color>
+
+    <color name="red_500">#e51c23</color>
+
+    <color name="orange_300">#ffb74d</color>
+    <color name="orange_400">#ffa726</color>
+    <color name="orange_500">#ff9800</color>
+
+</resources>

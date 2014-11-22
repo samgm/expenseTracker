@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circleSectorview="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.antso.expenses.views.CircleSectorView
+        android:id="@+id/budgetSpinnerItemColor"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="6dp"
+        circleSectorview:cFillColor="#ff0000"
+        circleSectorview:cRadiusDp="10"
+        circleSectorview:cAngleStart="0"
+        circleSectorview:cAngleSweep="360"
+        />
+
+    <TextView
+        android:id="@+id/budgetSpinnerItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_gravity="center_vertical"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="@string/placeholder"/>
+
+
+</LinearLayout><!-- From: file:/C:/Users/asolano/AndroidStudioProjects/Expenses/expenses/src/main/res/layout/budget_spinner_item.xml -->

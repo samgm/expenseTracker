@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.antso.expenses"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="21" >
+    </uses-sdk>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.antso.expenses.StartActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.antso.expenses.transactions.TransactionListActivity"
+            android:label="@string/title_default_transaction_list_activity" >
+        </activity>
+        <activity
+            android:name="com.antso.expenses.transactions.TransactionEntryActivity"
+            android:label="@string/title_activity_transaction_entry" >
+        </activity>
+        <activity
+            android:name="com.antso.expenses.accounts.AccountEntryActivity"
+            android:label="@string/title_activity_account_entry" >
+        </activity>
+        <activity
+            android:name="com.antso.expenses.budgets.BudgetEntryActivity"
+            android:label="@string/title_activity_budget_entry" >
+        </activity>
+        <activity
+            android:name="com.antso.expenses.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name="com.antso.expenses.DebugActivity"
+            android:label="@string/title_activity_debug" >
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name=".DebugActivity" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+    </application>
+
+</manifest>

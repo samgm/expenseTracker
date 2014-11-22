@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.antso.expenses.budgets.BudgetListFragment" >
+
+    <group
+        android:id="@+id/budget_menu_group">
+
+        <item android:id="@+id/action_budget_add"
+            android:title="@string/action_budget_add"
+            android:icon="@drawable/ic_action_new"
+            android:showAsAction="withText|ifRoom" />
+    </group>
+</menu>
+<!-- From: file:/C:/Users/asolano/AndroidStudioProjects/Expenses/expenses/src/main/res/menu/menu_budget_list.xml -->
