@@ -88,6 +88,7 @@ public class AccountManager extends Observable {
     }
 
     public void stop() {
+        super.deleteObservers();
         accounts.clear();
         started = false;
 

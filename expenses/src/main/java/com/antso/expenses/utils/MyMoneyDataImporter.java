@@ -88,6 +88,8 @@ public class MyMoneyDataImporter {
                         t2 = parseTransactionNew(nextValues, null);
                         t1.setLinkedTransactionId(t2.getId());
                         t2.setLinkedTransactionId(t1.getId());
+                        t2.setType(TransactionType.Transfer);
+                        Log. i("TransactionParser", "Found Transfer 2 {Id1 " + t1.getId() + "} {Id2 " + t2.getId()+ "}");
                         values = reader.readNext();
                     } else {
                         values = nextValues;
@@ -245,12 +247,26 @@ public class MyMoneyDataImporter {
         TransactionType type = TransactionType.Single;
         if (nextTValues != null) {
             String nextName = nextTValues[0];
-            DateTime nextDate = DateTime.parse(tValues[3], Utils.getDateFormatter());
-            BigDecimal nextValue = BigDecimal.valueOf(Double.parseDouble(tValues[4]));
+            DateTime nextDate = DateTime.parse(nextTValues[3], Utils.getDateFormatter());
+            BigDecimal nextValue = BigDecimal.valueOf(Double.parseDouble(nextTValues[4]));
             nextValue = nextValue.abs();
+            String nextTypeStr = nextTValues[2];
+            TransactionDirection nextDirection = TransactionDirection.Undef;
+            if (nextTypeStr.equals("Expenses")) {
+                nextDirection = TransactionDirection.Out;
+            } else if (nextTypeStr.equals("Revenues")) {
+                nextDirection = TransactionDirection.In;
+            }
 
-            if (name.equals(nextName) && date.isEqual(nextDate) && value.compareTo(nextValue) == 0) {
+            if (name.equals(nextName) && date.isEqual(nextDate) &&
+                    value.compareTo(nextValue) == 0 &&
+                    direction.equals(TransactionDirection.reverse(nextDirection)) ) {
                 type = TransactionType.Transfer;
+                Log. i("TransactionParser", "Found Transfer {Id " + id + "} " +
+                        "{Name " + name + ":" + nextName + "} " +
+                        "{Direction " + direction + ":" + nextDirection + "} " +
+                        "{Value " + value + ":" + nextValue + "} " +
+                        "{Compare " + value.compareTo(nextValue) +"}");
             }
         }
 
