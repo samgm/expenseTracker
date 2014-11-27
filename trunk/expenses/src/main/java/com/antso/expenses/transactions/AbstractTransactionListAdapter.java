@@ -5,6 +5,9 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.BaseAdapter;
 
+import com.antso.expenses.accounts.AccountManager;
+import com.antso.expenses.budgets.BudgetManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +21,9 @@ public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter impl
     protected volatile List<T> transactions;
     private final List<T> found;
     private boolean searched = false;
+    private boolean accountManagerStarted;
+    private boolean budgetManagerStarted;
+    private boolean transactionManagerStarted;
 
 
     public AbstractTransactionListAdapter(Context context, HandlingFooterFragment fragment) {
@@ -28,7 +34,10 @@ public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter impl
 
         Log.i("EXPENSES OBS", this.getClass() + " registered observer to (" +
                 TransactionManager.TRANSACTION_MANAGER() + ")");
+
         TransactionManager.TRANSACTION_MANAGER().addObserver(this);
+        AccountManager.ACCOUNT_MANAGER().addObserver(this);
+        BudgetManager.BUDGET_MANAGER().addObserver(this);
     }
 
     protected abstract List<T> retrieveTransactions();
@@ -78,9 +87,12 @@ public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter impl
             switch (event.reason) {
                 case START:
                     if (transactions.size() == 0) {
-                        Log.i("EXPENSES OBS", this.getClass() + " received START");
+                        Log.i("EXPENSES OBS", this.getClass() + " received TransactionManager START");
                         transactions = retrieveTransactions();
-                        notifyDataSetChangedInUIThread();
+                        transactionManagerStarted = true;
+                        if (transactionManagerStarted && accountManagerStarted && budgetManagerStarted) {
+                            notifyDataSetChangedInUIThread();
+                        }
                     }
                     break;
 
@@ -93,9 +105,34 @@ public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter impl
                     break;
             }
         }
+
+        if (observable instanceof AccountManager) {
+            TransactionUpdateEvent event = (TransactionUpdateEvent) data;
+            if (event.reason.equals(TransactionUpdateEvent.Reason.START)) {
+                accountManagerStarted = true;
+                Log.i("EXPENSES OBS", this.getClass() + " received AccountManager START");
+                if (transactionManagerStarted && accountManagerStarted && budgetManagerStarted) {
+                    notifyDataSetChangedInUIThread();
+                }
+            }
+        }
+
+        if (observable instanceof AccountManager) {
+            TransactionUpdateEvent event = (TransactionUpdateEvent) data;
+            if (event.reason.equals(TransactionUpdateEvent.Reason.START)) {
+                budgetManagerStarted = true;
+                Log.i("EXPENSES OBS", this.getClass() + " received BudgetManager START");
+                if (transactionManagerStarted && accountManagerStarted && budgetManagerStarted) {
+                    notifyDataSetChangedInUIThread();
+                }
+            }
+        }
+
     }
 
     private void notifyDataSetChangedInUIThread() {
+        Log.i("EXPENSES OBS", this.getClass() + " calling  notifyDataSetChangedInUIThread");
+
         Handler handler = new Handler(context.getMainLooper());
         handler.post(new Runnable() {
             @Override

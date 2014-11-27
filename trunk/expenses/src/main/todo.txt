@@ -53,12 +53,14 @@ RELEASE
 setting for screen to start on
 setting for default secondary account for transfer
 setting for UseDividersInTransactionList
-add toast on executed actions
+add toast on executed actions (added, deleted, import done, etc.)
 add toast for click on account/budget transaction lists
 change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
 add configurable reminders that asks to add new expenses
 store recurrent transaction and allow editing series or single instance
 
+percentage label over the pie chart (budget list)
+move to material design (floating + icon, circular progres bar, etc.)
 
 
 

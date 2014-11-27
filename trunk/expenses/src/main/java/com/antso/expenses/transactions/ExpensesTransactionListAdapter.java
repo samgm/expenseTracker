@@ -1,6 +1,7 @@
 package com.antso.expenses.transactions;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class ExpensesTransactionListAdapter
 
             final CircleSectorView accountColor = (CircleSectorView) transactionLayout.findViewById(R.id.accountColor);
             accountColor.setColor(account.getColor());
+        } else {
+            Log.d("ExpensesTransactionListAdapter","Unexpected NULL account");
         }
 
         if(budgetInfo != null) {
@@ -70,6 +73,8 @@ public class ExpensesTransactionListAdapter
 
             final CircleSectorView budgetColor = (CircleSectorView) transactionLayout.findViewById(R.id.budgetColor);
             budgetColor.setColor(budget.getColor());
+        } else {
+            Log.d("ExpensesTransactionListAdapter","Unexpected NULL budget");
         }
 
         final TextView transactionDateTime = (TextView) transactionLayout.findViewById(R.id.transactionDateTime);
