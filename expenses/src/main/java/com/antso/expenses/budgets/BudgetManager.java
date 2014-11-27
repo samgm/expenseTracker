@@ -70,7 +70,7 @@ public class BudgetManager extends Observable {
         started = true;
 
         setChanged();
-        Log.i("EXPENSES OBS", "ACCOUNT_MANAGER(" + this + ") observers: " + countObservers());
+        Log.i("EXPENSES OBS", "BUDGET_MANAGER(" + this + ") observers: " + countObservers());
         notifyObservers(TransactionUpdateEvent.createStart());
 
         long end = System.currentTimeMillis();
