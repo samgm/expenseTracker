@@ -39,4 +39,15 @@ public enum TransactionDirection {
 
         return reverseMap.get(value);
     }
+
+    public static TransactionDirection reverse(TransactionDirection direction) {
+        if (direction.equals(TransactionDirection.In)) {
+            return TransactionDirection.Out;
+        }
+        if (direction.equals(TransactionDirection.Out)) {
+            return TransactionDirection.In;
+        }
+
+        return TransactionDirection.Undef;
+    }
 }

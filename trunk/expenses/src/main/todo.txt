@@ -1,7 +1,4 @@
-
-TEST transaction order on N5
 TEST check result with MyMoney
-TEST about, setting, ect, activities should not should setting (...) menu
 
 mettere label in grigio (date label campi) transaction entry + transaction item
 clean-up and unused and add used icons to svn
@@ -101,3 +98,4 @@ Here's a correct table of percentages to hex values. E.g. for 50% white you'd us
 10% — 1A
 5% — 0D
 0% — 00
+

@@ -25,7 +25,6 @@ public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter impl
     private boolean budgetManagerStarted;
     private boolean transactionManagerStarted;
 
-
     public AbstractTransactionListAdapter(Context context, HandlingFooterFragment fragment) {
         this.fragment = fragment;
         this.context = context;
@@ -90,7 +89,9 @@ public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter impl
                         Log.i("EXPENSES OBS", this.getClass() + " received TransactionManager START");
                         transactions = retrieveTransactions();
                         transactionManagerStarted = true;
-                        if (transactionManagerStarted && accountManagerStarted && budgetManagerStarted) {
+                        if (transactionManagerStarted &&
+                                accountManagerStarted &&
+                                budgetManagerStarted) {
                             notifyDataSetChangedInUIThread();
                         }
                     }
@@ -117,7 +118,7 @@ public abstract class AbstractTransactionListAdapter<T> extends BaseAdapter impl
             }
         }
 
-        if (observable instanceof AccountManager) {
+        if (observable instanceof BudgetManager) {
             TransactionUpdateEvent event = (TransactionUpdateEvent) data;
             if (event.reason.equals(TransactionUpdateEvent.Reason.START)) {
                 budgetManagerStarted = true;

@@ -76,6 +76,10 @@ public class Transaction {
         return direction;
     }
 
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
     public TransactionType getType() {
         return type;
     }

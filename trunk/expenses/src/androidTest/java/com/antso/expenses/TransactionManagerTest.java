@@ -1,4 +1,4 @@
-package com.antso.expensesmanager;
+package com.antso.expenses;
 
 import android.test.AndroidTestCase;
 

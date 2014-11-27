@@ -106,6 +106,8 @@ public class TransactionManager extends Observable {
     }
 
     public void stop() {
+        super.deleteObservers();
+
         descriptionsArray.clear();
         inTransaction.clear();
         outTransaction.clear();
@@ -428,12 +430,10 @@ public class TransactionManager extends Observable {
         List<Pair<Transaction, Transaction>> pairedTransactions =
                 new ArrayList<Pair<Transaction, Transaction>>(transactions.size() / 2);
 
-        Iterator<Transaction> iterator = transactions.iterator();
-        while (iterator.hasNext()) {
-            Transaction t1 = iterator.next();
-            if (t1 != null && iterator.hasNext()) {
-                Transaction t2 = iterator.next();
-                pairedTransactions.add(new Pair<Transaction, Transaction>(t1, t2));
+        for (Transaction t : transactions) {
+            if (t.getDirection().equals(TransactionDirection.Out)) {
+                Transaction t2 = getTransactionById(t.getLinkedTransactionId());
+                pairedTransactions.add(new Pair<Transaction, Transaction>(t, t2));
             }
         }
 
