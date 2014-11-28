@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.antso.expenses.R;
 import com.antso.expenses.entities.SummaryTransaction;
 import com.antso.expenses.entities.Transaction;
 import com.antso.expenses.utils.Utils;
@@ -81,7 +83,10 @@ public class BudgetTransactionListAdapter extends BaseAccountBudgetTransactionLi
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (transaction instanceof SummaryTransaction) {
-            return createSummaryTransactionView(inflater, context, (SummaryTransaction) transaction);
+            View transactionLayout = createSummaryTransactionView(inflater, context, (SummaryTransaction) transaction);
+            final TextView transactionValueIn = (TextView) transactionLayout.findViewById(R.id.transactionDescNet);
+            transactionValueIn.setText(R.string.net_with_N_label);
+            return transactionLayout;
         } else {
             return createTransactionView(inflater, context, transaction);
         }

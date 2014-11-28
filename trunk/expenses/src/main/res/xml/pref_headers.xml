@@ -6,9 +6,9 @@
         android:fragment="com.antso.expenses.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
 
-    <!--<header-->
-        <!--android:fragment="com.antso.expenses.SettingsActivity$NotificationPreferenceFragment"-->
-        <!--android:title="@string/pref_header_notifications" />-->
+    <header
+        android:fragment="com.antso.expenses.SettingsActivity$TransactionDefaultingPreferenceFragment"
+        android:title="@string/pref_header_general" />
 
     <header
         android:fragment="com.antso.expenses.SettingsActivity$DataImportExportPreferenceFragment"

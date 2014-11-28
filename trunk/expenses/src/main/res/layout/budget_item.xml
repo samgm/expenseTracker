@@ -52,34 +52,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_weight="3"
-        android:layout_gravity="top"
-
+        android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/budgetPeriod"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:textSize="14sp"
-            android:textColor="#000000"
-            android:text="@string/budget_period">
-        </TextView>
-
-        <TextView
             android:id="@+id/budgetThreshold"
+            android:layout_marginTop="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:gravity="right"
             android:textSize="14sp"
             android:textColor="#000000"
             android:text="@string/currency_value_0_00">
+        </TextView>
+
+        <TextView
+            android:id="@+id/budgetPeriod"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="right"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:text="@string/budget_period">
         </TextView>
 
     </LinearLayout>
