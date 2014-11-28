@@ -59,7 +59,7 @@ public abstract class BaseAccountBudgetTransactionListAdapter extends BaseAdapte
         }
 
         final TextView transactionDesc = (TextView) transactionLayout.findViewById(R.id.transactionDesc);
-        transactionDesc.setSingleLine(!useDividers);
+        transactionDesc.setSingleLine(false/*!useDividers*/);
         transactionDesc.setText(transaction.getDescription());
 
         final TextView transactionCurrency = (TextView) transactionLayout.findViewById(R.id.transactionCurrency);

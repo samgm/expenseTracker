@@ -132,6 +132,10 @@
     <string name="currency_value_1050_00">$ 1050.00</string>
     <string name="placeholder">something</string>
     <string name="currency_value_0_00">$ 0.00</string>
+    <string name="in_label">in</string>
+    <string name="out_label">out</string>
+    <string name="net_label">net</string>
+    <string name="net_with_N_label">Net</string>
     <string name="balance_label">Balance</string>
     <string name="name_label">Name</string>
     <string name="name">Name</string>
@@ -162,9 +166,13 @@
     <!--TimeUnit enum-->
     <string name="time_unit_undef">Undef</string>
     <string name="time_unit_day">Day</string>
+    <string name="time_unit_days">Days</string>
     <string name="time_unit_week">Week</string>
+    <string name="time_unit_weeks">Weeks</string>
     <string name="time_unit_month">Month</string>
+    <string name="time_unit_months">Months</string>
     <string name="time_unit_year">Year</string>
+    <string name="time_unit_years">Years</string>
 
     <!--Fake arrays-->
     <string-array name="arrayFakeAccount">
@@ -177,5 +185,53 @@
     </string-array>
     <integer-array name="arrayFakeFreq">
     </integer-array>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!--  PREFERENCES  -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_currency_symbol">Choose currency symbol</string>
+
+    <!-- Transaction Defaulting settings -->
+    <string name="pref_header_transaction_defaulting">Transactions Default</string>
+
+    <string name="pref_enable_expense_default">Enable expenses defaulting</string>
+    <string name="pref_title_default_account_expense">Default Account for expenses</string>
+    <string name="pref_title_default_budget_expense">Default Budget for expenses</string>
+
+    <string name="pref_enable_revenue_default">Enable revenue defaulting</string>
+    <string name="pref_title_default_account_revenue">Default Account for revenues</string>
+    <string name="pref_title_default_budget_revenue">Default Budget for revenues</string>
+
+    <string name="pref_enable_transfer_default">Enable transfer defaulting</string>
+    <string name="pref_title_default_from_account_transfer">Default FROM Account for transfers</string>
+    <string name="pref_title_default_to_account_transfer">Default TO Account for transfers</string>
+    <string name="pref_title_default_budget_transfer">Default Budget for transfers</string>
+
+    <!-- Data Import/Export -->
+    <string name="pref_header_data_import_export">Data Import and Export</string>
+
+    <string name="pref_title_launch_import">Import Data</string>
+    <string name="pref_title_launch_export">Export Data</string>
+
+    <!-- Example settings for Notifications -->
+    <!--<string name="pref_header_notifications">Notifications</string>-->
+
+    <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->
+
+    <!--<string name="pref_title_ringtone">Ringtone</string>-->
+    <!--<string name="pref_ringtone_silent">Silent</string>-->
+
+    <!--<string name="pref_title_vibrate">Vibrate</string>-->
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!--  End of PREFERENCES  -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
 
 </resources>

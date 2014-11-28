@@ -68,48 +68,50 @@ public class SettingsActivity extends PreferenceActivity {
         //noinspection deprecation
         addPreferencesFromResource(R.xml.pref_general);
 
-        //Account list
-        ArrayList<String> accountIds = new ArrayList<String>();
-        ArrayList<String> accountNames = new ArrayList<String>();
-        for (Account account : AccountManager.ACCOUNT_MANAGER().getAccounts()) {
-            accountIds.add(account.getId());
-            accountNames.add(account.getName());
-        }
-        //noinspection deprecation
-        ListPreference accountsList = (ListPreference) findPreference("accounts_list");
-        //noinspection ToArrayCallWithZeroLengthArrayArgument
-        accountsList.setEntries(accountNames.toArray(new String[0]));
-        //noinspection ToArrayCallWithZeroLengthArrayArgument
-        accountsList.setEntryValues(accountIds.toArray(new String[0]));
-        //noinspection ToArrayCallWithZeroLengthArrayArgument
-        accountsList.setDefaultValue(accountIds.toArray(new String[0])[0]);
-
-        //Budget list
-        ArrayList<String> budgetIds = new ArrayList<String>();
-        ArrayList<String> budgetNames = new ArrayList<String>();
-        for (Budget budget : BudgetManager.BUDGET_MANAGER().getBudgets()) {
-            budgetIds.add(budget.getId());
-            budgetNames.add(budget.getName());
-        }
-        //noinspection deprecation
-        ListPreference budgetList = (ListPreference) findPreference("budgets_list");
-        //noinspection ToArrayCallWithZeroLengthArrayArgument
-        budgetList.setEntries(budgetNames.toArray(new String[0]));
-        //noinspection ToArrayCallWithZeroLengthArrayArgument
-        budgetList.setEntryValues(budgetIds.toArray(new String[0]));
-        //noinspection ToArrayCallWithZeroLengthArrayArgument
-        budgetList.setDefaultValue(accountIds.toArray(new String[0])[0]);
-
         //Currency Symbol
         //noinspection deprecation
         EditTextPreference currencySymbol = (EditTextPreference) findPreference("currency_symbol");
         currencySymbol.setDefaultValue("$");
 
-        // Add 'data import and export' preferences
-        PreferenceCategory header = new PreferenceCategory(this);
-        header.setTitle(R.string.pref_header_data_import_export);
+        // Add 'transaction notification' preferences
+        PreferenceCategory headerTD = new PreferenceCategory(this);
+        headerTD.setTitle(R.string.pref_header_transaction_defaulting);
         //noinspection deprecation
-        getPreferenceScreen().addPreference(header);
+        getPreferenceScreen().addPreference(headerTD);
+        //noinspection deprecation
+        addPreferencesFromResource(R.xml.pref_transactions_defaulting);
+
+        //Account list
+        ArrayList<String> accountIds = new ArrayList<>();
+        ArrayList<String> accountNames = new ArrayList<>();
+        for (Account account : AccountManager.ACCOUNT_MANAGER().getAccounts()) {
+            accountIds.add(account.getId());
+            accountNames.add(account.getName());
+        }
+
+        findListPreferenceAndSetValues("accounts_list_expenses", accountIds, accountNames);
+        findListPreferenceAndSetValues("accounts_list_revenues", accountIds, accountNames);
+        findListPreferenceAndSetValues("accounts_list_transfer_from", accountIds, accountNames);
+        findListPreferenceAndSetValues("accounts_list_transfer_to", accountIds, accountNames);
+
+        //Budget list
+        ArrayList<String> budgetIds = new ArrayList<>();
+        ArrayList<String> budgetNames = new ArrayList<>();
+        for (Budget budget : BudgetManager.BUDGET_MANAGER().getBudgets()) {
+            budgetIds.add(budget.getId());
+            budgetNames.add(budget.getName());
+        }
+
+        findListPreferenceAndSetValues("budgets_list_expenses", budgetIds, budgetNames);
+        findListPreferenceAndSetValues("budgets_list_revenues", budgetIds, budgetNames);
+        findListPreferenceAndSetValues("budgets_list_transfer", budgetIds, budgetNames);
+
+
+        // Add 'data import and export' preferences
+        PreferenceCategory headerIE = new PreferenceCategory(this);
+        headerIE.setTitle(R.string.pref_header_data_import_export);
+        //noinspection deprecation
+        getPreferenceScreen().addPreference(headerIE);
         //noinspection deprecation
         addPreferencesFromResource(R.xml.pref_data_import_export);
 
@@ -140,11 +142,36 @@ public class SettingsActivity extends PreferenceActivity {
 //        addPreferencesFromResource(R.xml.pref_notification);
 
         //noinspection deprecation
-        bindPreferenceSummaryToValue(findPreference("accounts_list"));
-        //noinspection deprecation
-        bindPreferenceSummaryToValue(findPreference("budgets_list"));
-        //noinspection deprecation
         bindPreferenceSummaryToValue(findPreference("currency_symbol"));
+
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("accounts_list_expenses"));
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("accounts_list_revenues"));
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("accounts_list_transfer_from"));
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("accounts_list_transfer_to"));
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("budgets_list_expenses"));
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("budgets_list_revenues"));
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("budgets_list_transfer"));
+    }
+
+    private void findListPreferenceAndSetValues(String listId,
+                                                ArrayList<String> entries,
+                                                ArrayList<String> entriesValues) {
+        //noinspection deprecation
+        ListPreference listPreference = (ListPreference) findPreference(listId);
+
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
+        listPreference.setEntries(entriesValues.toArray(new String[0]));
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
+        listPreference.setEntryValues(entries.toArray(new String[0]));
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
+        listPreference.setDefaultValue(entries.toArray(new String[0])[0]);
     }
 
     private static void bindPreferenceSummaryToValue(Preference preference) {
@@ -184,9 +211,24 @@ public class SettingsActivity extends PreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
+        }
+    }
 
-            bindPreferenceSummaryToValue(findPreference("accounts_list"));
-            bindPreferenceSummaryToValue(findPreference("budgets_list"));
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class TransactionDefaultingPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_transactions_defaulting);
+
+            bindPreferenceSummaryToValue(findPreference("accounts_list_expenses"));
+            bindPreferenceSummaryToValue(findPreference("accounts_list_revenues"));
+            bindPreferenceSummaryToValue(findPreference("accounts_list_transfer_from"));
+            bindPreferenceSummaryToValue(findPreference("accounts_list_transfer_to"));
+
+            bindPreferenceSummaryToValue(findPreference("budgets_list_expenses"));
+            bindPreferenceSummaryToValue(findPreference("budgets_list_revenues"));
+            bindPreferenceSummaryToValue(findPreference("budgets_list_transfer"));
         }
     }
 
@@ -196,8 +238,6 @@ public class SettingsActivity extends PreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_data_import_export);
-
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
         }
     }
 

@@ -71,7 +71,7 @@ public class TimeUnitSpinnerAdapter extends ArrayAdapter<TimeUnit> {
 
         TimeUnit timeUnit = getItem(position);
         TextView name = (TextView)view.findViewById(textId);
-        name.setText(timeUnit.getLangStringValue(context));
+        name.setText(timeUnit.getLangStringValue(context, false));
 
         return view;
     }

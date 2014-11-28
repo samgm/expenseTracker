@@ -35,6 +35,11 @@ import com.antso.expenses.views_helpers.ValueEditText;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import static com.antso.expenses.enums.TransactionType.Single;
+import static com.antso.expenses.enums.TransactionType.Transfer;
+import static com.antso.expenses.enums.TransactionType.Undef;
+import static com.antso.expenses.enums.TransactionType.valueOf;
+
 
 public class TransactionEntryActivity extends Activity {
     private TransactionLayout layout;
@@ -115,7 +120,7 @@ public class TransactionEntryActivity extends Activity {
         //Get params and load defaults
         String id = getIntent().getStringExtra(IntentParamNames.TRANSACTION_ID);
         int direction = getIntent().getIntExtra(IntentParamNames.TRANSACTION_DIRECTION, TransactionDirection.Undef.getIntValue());
-        int type  = getIntent().getIntExtra(IntentParamNames.TRANSACTION_TYPE, TransactionType.Undef.getIntValue());
+        int type  = getIntent().getIntExtra(IntentParamNames.TRANSACTION_TYPE, Undef.getIntValue());
 
         loadTransactions(id, type, direction);
 
@@ -132,7 +137,7 @@ public class TransactionEntryActivity extends Activity {
             accountSecondarySpinner.setSelection(accountSpinnerAdapter.getIndexById(loadedTransaction2.getAccountId()));
         } else {
             accountSecondarySpinner.setSelection(accountSpinnerAdapter.getIndexById(
-                    Settings.getDefaultAccountId(this)));
+                    Settings.getDefaultTransferToAccountId(this)));
         }
 
         final TextView title = (TextView) findViewById(R.id.transactionEntryTitle);
@@ -186,6 +191,34 @@ public class TransactionEntryActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private String getDefaultTransactionAccount(TransactionType type, TransactionDirection dir) {
+        if (type.equals(TransactionType.Transfer)) {
+            return Settings.getDefaultTransferFromAccountId(this);
+        } else {
+            switch (dir) {
+                case In:
+                    return Settings.getDefaultRevenueAccountId(this);
+                case Out:
+                default:
+                    return Settings.getDefaultExpenseAccountId(this);
+            }
+        }
+    }
+
+    private String getDefaultTransactionBudget(TransactionType type, TransactionDirection dir) {
+        if (type.equals(TransactionType.Transfer)) {
+            return Settings.getDefaultTransferBudgetId(this);
+        } else {
+            switch (dir) {
+                case In:
+                    return Settings.getDefaultRevenueBudgetId(this);
+                case Out:
+                default:
+                    return Settings.getDefaultExpenseBudgetId(this);
+            }
+        }
+    }
+
     private void loadTransactions(String id, int type, int direction) {
         if (id == null || id.isEmpty()) {
             isEdit = false;
@@ -193,9 +226,9 @@ public class TransactionEntryActivity extends Activity {
                     null,
                     this.getString(R.string.description),
                     TransactionDirection.valueOf(direction),
-                    TransactionType.valueOf(type),
-                    Settings.getDefaultAccountId(this),
-                    Settings.getDefaultBudgetId(this),
+                    valueOf(type),
+                    getDefaultTransactionAccount(valueOf(type), TransactionDirection.valueOf(direction)),
+                    getDefaultTransactionBudget(valueOf(type), TransactionDirection.valueOf(direction)),
                     BigDecimal.ZERO,
                     Utils.now());
             loadedTransaction1.setEndDate(Utils.now());
@@ -255,7 +288,7 @@ public class TransactionEntryActivity extends Activity {
                 t1Id,
                 description.getText().toString(),
                 TransactionDirection.Out,
-                TransactionType.Transfer,
+                Transfer,
                 account != null ? account.getId() : "",
                 budget != null ? budget.getId() : "",
                 value.getValue(),
@@ -264,7 +297,7 @@ public class TransactionEntryActivity extends Activity {
                 t2Id,
                 description.getText().toString(),
                 TransactionDirection.In,
-                TransactionType.Transfer,
+                Transfer,
                 accountSecondary != null ? accountSecondary.getId() : "",
                 budget != null ? budget.getId() : "",
                 value.getValue(),
@@ -281,7 +314,7 @@ public class TransactionEntryActivity extends Activity {
             t2.setFrequencyUnit(recurrentFrequency.getUnit());
             t2.setEndDate(endDateEditText.getDate());
         }
-        return new Pair<Transaction, Transaction>(t1, t2);
+        return new Pair<>(t1, t2);
     }
 
     private Transaction createSingleTransaction(String id) {
@@ -292,7 +325,7 @@ public class TransactionEntryActivity extends Activity {
                 id,
                 description.getText().toString(),
                 loadedTransaction1.getDirection(),
-                TransactionType.Single,
+                Single,
                 account != null ? account.getId() : "",
                 budget != null ? budget.getId() : "",
                 value.getValue(),

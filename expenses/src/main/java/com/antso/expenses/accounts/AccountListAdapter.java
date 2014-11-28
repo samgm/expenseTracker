@@ -75,24 +75,26 @@ public class AccountListAdapter extends BaseAdapter implements Observer {
         String monthInStr = Utils.getCurrencyString(context) + " " +
                 accountInfo.monthIn.setScale(2).toPlainString();
         monthIn.setText(monthInStr);
-        monthIn.setTextColor(MaterialColours.GREEN_500);
 
         final TextView monthOut = (TextView) accountLayout.findViewById(R.id.accountMonthOut);
         String monthOutStr = Utils.getCurrencyString(context) + " " +
                 accountInfo.monthOut.setScale(2).toPlainString();
         monthOut.setText(monthOutStr);
-        monthOut.setTextColor(MaterialColours.RED_500);
 
         final TextView monthBalance = (TextView) accountLayout.findViewById(R.id.accountMonthBalance);
+        final TextView monthBalanceLabel = (TextView) accountLayout.findViewById(R.id.accountMonthBalanceLabel);
         String monthBalanceStr = Utils.getCurrencyString(context) + " " +
                 accountInfo.monthBalance.setScale(2).toPlainString();
         monthBalance.setText(monthBalanceStr);
         if (accountInfo.monthBalance.compareTo(BigDecimal.ZERO) > 0) {
             monthBalance.setTextColor(MaterialColours.GREEN_500);
+            monthBalanceLabel.setTextColor(MaterialColours.GREEN_500);
         } else if (accountInfo.monthBalance.compareTo(BigDecimal.ZERO) < 0) {
             monthBalance.setTextColor(MaterialColours.RED_500);
+            monthBalanceLabel.setTextColor(MaterialColours.RED_500);
         } else {
             monthBalance.setTextColor(MaterialColours.GREY_500);
+            monthBalanceLabel.setTextColor(MaterialColours.GREY_500);
         }
 
         return accountLayout;

@@ -1,6 +1,7 @@
 TEST check result with MyMoney
 
-mettere label in grigio (date label campi) transaction entry + transaction item
+TEST mettere label in grigio (date label campi) transaction entry + transaction item
+
 clean-up and unused and add used icons to svn
 create nice looking demo export
 
@@ -30,34 +31,35 @@ RELEASE
 ---------------------------------------------------------------
  ENHANCEMENTS
 ---------------------------------------------------------------
-0    CALCULATIONS
-     create unit test for calculations
+DONE0    CALCULATIONS
+DONE     create unit test for calculations
+
+setting for UseDividersInTransactionList / Multiline (see full description)
+give an order to the accounts adn budgets (a->z, value, color, or custom)
+add toast on executed actions (added, deleted, import done, etc.)
+add toast for click on account/budget transaction lists
 
 1    save state on entry/edit activities
 1    recurrent transaction with no end date
 
 2    quick transaction entry (with settings)
+    setting for screen to start on
 3    backup on google
 4    statistics (http://android-graphview.org/)
 
 5    add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
+    move to material design (floating + icon, circular progres bar, etc.)
+    change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
 
 6    transaction reminder / pending transaction for recurrent
 7    Use name as id per budget e budget, Check if account/budget already exist on insert
 8    budget with many period length to be expanded on load and shown as different budgets
 9    recurrent transaction with repetition number (done with end date)
 
-setting for screen to start on
-setting for default secondary account for transfer
-setting for UseDividersInTransactionList
-add toast on executed actions (added, deleted, import done, etc.)
-add toast for click on account/budget transaction lists
-change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
 add configurable reminders that asks to add new expenses
 store recurrent transaction and allow editing series or single instance
 
 percentage label over the pie chart (budget list)
-move to material design (floating + icon, circular progres bar, etc.)
 
 
 
