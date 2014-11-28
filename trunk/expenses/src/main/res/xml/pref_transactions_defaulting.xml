@@ -7,63 +7,63 @@
         android:title="@string/pref_enable_expense_default"
         android:defaultValue="false" />
 
-    <ListPreference
-        android:dependency="enable_expense_default"
-        android:key="accounts_list_expenses"
-        android:title="@string/pref_title_default_account_expense"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null" />
+        <ListPreference
+            android:dependency="enable_expense_default"
+            android:key="accounts_list_expenses"
+            android:title="@string/pref_title_default_account_expense"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
 
-    <ListPreference
-        android:dependency="enable_expense_default"
-        android:key="budgets_list_expenses"
-        android:title="@string/pref_title_default_budget_expense"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null" />
+        <ListPreference
+            android:dependency="enable_expense_default"
+            android:key="budgets_list_expenses"
+            android:title="@string/pref_title_default_budget_expense"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
 
     <CheckBoxPreference
         android:key="enable_revenue_default"
         android:title="@string/pref_enable_revenue_default"
         android:defaultValue="false" />
 
-    <ListPreference
-        android:dependency="enable_revenue_default"
-        android:key="accounts_list_revenues"
-        android:title="@string/pref_title_default_account_revenue"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null" />
+        <ListPreference
+            android:dependency="enable_revenue_default"
+            android:key="accounts_list_revenues"
+            android:title="@string/pref_title_default_account_revenue"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
 
-    <ListPreference
-        android:dependency="enable_revenue_default"
-        android:key="budgets_list_revenues"
-        android:title="@string/pref_title_default_budget_revenue"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null" />
-
-    <ListPreference
-        android:dependency="enable_revenue_default"
-        android:key="accounts_list_transfer_from"
-        android:title="@string/pref_title_default_from_account_transfer"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null" />
+        <ListPreference
+            android:dependency="enable_revenue_default"
+            android:key="budgets_list_revenues"
+            android:title="@string/pref_title_default_budget_revenue"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
 
     <CheckBoxPreference
         android:key="enable_transfer_default"
         android:title="@string/pref_enable_transfer_default"
         android:defaultValue="false" />
 
-    <ListPreference
-        android:dependency="enable_transfer_default"
-        android:key="accounts_list_transfer_to"
-        android:title="@string/pref_title_default_to_account_transfer"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null" />
+        <ListPreference
+            android:dependency="enable_transfer_default"
+            android:key="accounts_list_transfer_from"
+            android:title="@string/pref_title_default_from_account_transfer"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
 
-    <ListPreference
-        android:dependency="enable_transfer_default"
-        android:key="budgets_list_transfer"
-        android:title="@string/pref_title_default_budget_transfer"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null" />
+        <ListPreference
+            android:dependency="enable_transfer_default"
+            android:key="accounts_list_transfer_to"
+            android:title="@string/pref_title_default_to_account_transfer"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
+
+        <ListPreference
+            android:dependency="enable_transfer_default"
+            android:key="budgets_list_transfer"
+            android:title="@string/pref_title_default_budget_transfer"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null" />
 
 </PreferenceScreen>
