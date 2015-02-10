@@ -5,6 +5,9 @@ TEST mettere label in grigio (date label campi) transaction entry + transaction 
 clean-up and unused and add used icons to svn
 create nice looking demo export
 
+BUG clicking on the + icon during initial load app crashes
+BUG account/budged drop down are not showing correct colors
+
 RELEASE
     DONE (on drive) -> descrizione breve 80 char
     DONE (on drive) -> descrizione lunga 4000 char
@@ -60,6 +63,8 @@ add configurable reminders that asks to add new expenses
 store recurrent transaction and allow editing series or single instance
 
 percentage label over the pie chart (budget list)
+
+show previous period pie chart when looking at budgets
 
 
 
