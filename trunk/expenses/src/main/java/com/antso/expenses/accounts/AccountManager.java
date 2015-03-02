@@ -9,6 +9,7 @@ import com.antso.expenses.enums.TransactionDirection;
 import com.antso.expenses.persistence.DatabaseHelper;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.transactions.TransactionUpdateEvent;
+import com.antso.expenses.utils.AccountInfoAlphabeticalComparator;
 import com.antso.expenses.utils.MaterialColours;
 import com.antso.expenses.utils.Utils;
 
@@ -17,6 +18,7 @@ import org.joda.time.DateTime;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +30,12 @@ public class AccountManager extends Observable {
 
     private boolean started;
     private Map<String, AccountInfo> accounts;
+    private List<AccountInfo> orderedAccounts;
     private DatabaseHelper dbHelper = null;
 
     private AccountManager() {
         accounts = new HashMap<String, AccountInfo>();
+        orderedAccounts = new ArrayList<>();
     }
 
     public static synchronized AccountManager ACCOUNT_MANAGER() {
@@ -90,6 +94,7 @@ public class AccountManager extends Observable {
     public void stop() {
         super.deleteObservers();
         accounts.clear();
+        orderedAccounts.clear();
         started = false;
 
         if (dbHelper != null) {
@@ -130,6 +135,7 @@ public class AccountManager extends Observable {
     }
 
     public void removeAccount(Account account) {
+        orderedAccounts.remove(accounts.get(account.getId()));
         accounts.remove(account.getId());
         dbHelper.deleteAccount(account.getId());
 
@@ -146,14 +152,13 @@ public class AccountManager extends Observable {
                 .getTransactionByAccount(account.getId());
         AccountInfo accountInfo = new AccountInfo(account, transactions);
         accounts.put(account.getId(), accountInfo);
+        orderedAccounts.add(accountInfo);
+
+        Collections.sort(orderedAccounts, new AccountInfoAlphabeticalComparator());
     }
 
     public List<AccountInfo> getAccountInfo() {
-        List<AccountInfo> accountInfoList = new ArrayList<AccountInfo>(accounts.size());
-        for(AccountInfo info : accounts.values()) {
-            accountInfoList.add(info);
-        }
-        return accountInfoList;
+        return orderedAccounts;
     }
 
     public AccountInfo getAccountInfo(String accountId) {
@@ -173,7 +178,12 @@ public class AccountManager extends Observable {
     }
 
     public Collection<Account> getAccounts() {
-        return dbHelper.getAccounts();
+        List<Account> accounts = new ArrayList<>(orderedAccounts.size());
+        for (AccountInfo accountInfo : orderedAccounts) {
+            accounts.add(accountInfo.account);
+        }
+
+        return accounts;
     }
 
 

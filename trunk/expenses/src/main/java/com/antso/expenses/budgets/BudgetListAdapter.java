@@ -1,7 +1,6 @@
 package com.antso.expenses.budgets;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,15 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.antso.expenses.R;
-import com.antso.expenses.accounts.AccountManager;
+import com.antso.expenses.entities.SummaryTransaction;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.utils.Utils;
 import com.antso.expenses.views.CircleSectorView;
 
+import org.joda.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -52,12 +54,20 @@ public class BudgetListAdapter extends BaseAdapter  implements Observer {
     public View getView(int position, View convertView, ViewGroup parent) {
         final BudgetManager.BudgetInfo budgetInfo = budgetManager.getBudgetInfo().get(position);
 
+        List<Integer> percentages = getPercentages(budgetInfo);
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout budgetLayout = (LinearLayout) inflater.inflate(R.layout.budget_item, null, false);
 
         final CircleSectorView color = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColor);
+        final CircleSectorView colorOld = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColorOld);
+        final CircleSectorView colorOlder = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColorOlder);
         color.setColor(budgetInfo.budget.getColor());
-        color.setCirclePercentage(budgetInfo.getPercentage());
+        colorOld.setColor(budgetInfo.budget.getColor());
+        colorOlder.setColor(budgetInfo.budget.getColor());
+        color.setCirclePercentage(percentages.get(0));
+        colorOld.setCirclePercentage(percentages.get(1));
+        colorOlder.setCirclePercentage(percentages.get(2));
 
         final TextView name = (TextView) budgetLayout.findViewById(R.id.budgetName);
         name.setText(budgetInfo.budget.getName());
@@ -79,6 +89,31 @@ public class BudgetListAdapter extends BaseAdapter  implements Observer {
         threshold.setText(thresholdStr);
 
         return budgetLayout;
+    }
+
+    private List<Integer> getPercentages(BudgetManager.BudgetInfo budgetInfo) {
+        DateTime periodStart = budgetInfo.getPeriodStartEnd(DateTime.now()).first;
+        TransactionManager tm = TransactionManager.TRANSACTION_MANAGER();
+        tm.resetGetBudgetNextPeriodTransactions(periodStart.minusDays(1));
+
+        ArrayList<Integer> percentages = new ArrayList<>();
+        percentages.add(budgetInfo.getPercentage());
+
+        SummaryTransaction st = tm.getBudgetNextPeriodTransactionsSummary(budgetInfo.budget.getId());
+        if (st != null) {
+            percentages.add(Utils.getPercentage(st.getValueIn(), st.getValueOut(), budgetInfo.budget.getThreshold()));
+        } else {
+            percentages.add(0);
+        }
+
+        st = tm.getBudgetNextPeriodTransactionsSummary(budgetInfo.budget.getId());
+        if (st != null) {
+            percentages.add(Utils.getPercentage(st.getValueIn(), st.getValueOut(), budgetInfo.budget.getThreshold()));
+        } else {
+            percentages.add(0);
+        }
+
+        return percentages;
     }
 
     @Override

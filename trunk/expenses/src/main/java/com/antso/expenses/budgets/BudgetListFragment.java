@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.antso.expenses.R;
 import com.antso.expenses.entities.Budget;
@@ -182,4 +181,5 @@ public class BudgetListFragment extends ListFragment {
         budgetListAdapter.onDestroy();
         budgetListAdapter = null;
     }
+
 }

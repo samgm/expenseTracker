@@ -3,6 +3,7 @@ package com.antso.expenses.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -15,15 +16,18 @@ public class CircleSectorView extends View {
 
     private Paint circleFill;
     private Paint circleStroke;
+    private Paint circleText;
     private RectF circleArc;
     private RectF circleStrokeArc;
 
     // Attrs
+    private boolean showText;
     private int circleRadius;
     private int circleFillColor;
     private int circleStartAngle;
     private int circleSweepAngle;
     private int strokeWidth;
+    private int percentage = 0;
 
     public CircleSectorView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,6 +38,11 @@ public class CircleSectorView extends View {
         circleStroke = new Paint(Paint.ANTI_ALIAS_FLAG);
         circleStroke.setStyle(Paint.Style.STROKE);
         circleStroke.setStrokeWidth(strokeWidth);
+        circleText = new Paint(Paint.ANTI_ALIAS_FLAG);
+        circleText.setTextAlign(Paint.Align.CENTER);
+        circleText.setColor(Color.BLACK);
+        float textSize = (float) (circleRadius * 0.7);
+        circleText.setTextSize(textSize);
     }
 
     public void init(AttributeSet attrs) {
@@ -43,6 +52,7 @@ public class CircleSectorView extends View {
         circleStartAngle = attrsArray.getInteger(R.styleable.circleSectorView_cAngleStart, 0);
         circleSweepAngle = attrsArray.getInteger(R.styleable.circleSectorView_cAngleSweep, 360);
         strokeWidth = attrsArray.getInteger(R.styleable.circleSectorView_cStrokeWidth, 0);
+        showText = attrsArray.getBoolean(R.styleable.circleSectorView_cShowText, false);
 
         attrsArray.recycle();
     }
@@ -54,6 +64,13 @@ public class CircleSectorView extends View {
         canvas.drawArc(circleArc, circleStartAngle, circleSweepAngle, true, circleFill);
         if (strokeWidth > 0) {
             canvas.drawArc(circleStrokeArc, 0, 360, true, circleStroke);
+        }
+
+        if (showText) {
+            String text = String.valueOf(percentage) + "%";
+            canvas.drawText(text,
+                    circleArc.centerX(), circleArc.centerY() + circleText.getTextSize() / 2 - 8,
+                    circleText);
         }
     }
 
@@ -84,16 +101,17 @@ public class CircleSectorView extends View {
     }
 
     public void setCirclePercentage(int value) {
-        if (value == 0) {
+        percentage = value;
+        if (percentage == 0) {
             this.circleSweepAngle = 1;
             return;
         }
-        if (value == 100) {
+        if (percentage == 100) {
             this.circleSweepAngle = 360;
             return;
         }
 
-        this.circleSweepAngle = 360 * value / 100;
+        this.circleSweepAngle = 360 * percentage / 100;
     }
 
     public int getColor() {

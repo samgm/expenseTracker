@@ -2,6 +2,7 @@ package com.antso.expenses.views_helpers;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -41,6 +42,10 @@ public class ButtonChangeSpinner {
                 spinner.setSelection((index + 1) % spinner.getAdapter().getCount());
             }
         };
+    }
+
+    public void setOnItemSelectedListener(AdapterView.OnItemSelectedListener listener) {
+        spinner.setOnItemSelectedListener(listener);
     }
 
 }

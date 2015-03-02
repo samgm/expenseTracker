@@ -11,6 +11,7 @@ import com.antso.expenses.enums.TransactionDirection;
 import com.antso.expenses.persistence.DatabaseHelper;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.transactions.TransactionUpdateEvent;
+import com.antso.expenses.utils.BudgetInfoAlphabeticalComparator;
 import com.antso.expenses.utils.MaterialColours;
 import com.antso.expenses.utils.Utils;
 
@@ -31,10 +32,12 @@ public class BudgetManager extends Observable {
 
     private boolean started;
     private Map<String, BudgetInfo> budgets;
+    private List<BudgetInfo> orderedBudgets;
     private DatabaseHelper dbHelper = null;
 
     private BudgetManager() {
         budgets = new HashMap<String, BudgetInfo>();
+        orderedBudgets = new ArrayList<>();
     }
 
     public static synchronized BudgetManager BUDGET_MANAGER() {
@@ -95,6 +98,7 @@ public class BudgetManager extends Observable {
     public void stop() {
         super.deleteObservers();
         budgets.clear();
+        orderedBudgets.clear();
         started = false;
 
         if (dbHelper != null) {
@@ -122,6 +126,9 @@ public class BudgetManager extends Observable {
                 .getTransactionByBudget(budget.getId());
         BudgetInfo budgetInfo = new BudgetInfo(budget, transactions);
         budgets.put(budget.getId(), budgetInfo);
+        orderedBudgets.add(budgetInfo);
+
+        Collections.sort(orderedBudgets, new BudgetInfoAlphabeticalComparator());
     }
 
     public void insertBudget(Budget budget) {
@@ -142,6 +149,7 @@ public class BudgetManager extends Observable {
     }
 
     public void removeBudget(Budget budget) {
+        orderedBudgets.remove(budgets.get(budget.getId()));
         budgets.remove(budget.getId());
         dbHelper.deleteBudget(budget.getId());
 
@@ -154,11 +162,7 @@ public class BudgetManager extends Observable {
     }
 
     public List<BudgetInfo> getBudgetInfo() {
-        List<BudgetInfo> budgetInfoList = new ArrayList<BudgetInfo>(budgets.size());
-        for(BudgetInfo info : budgets.values()) {
-            budgetInfoList.add(info);
-        }
-        return budgetInfoList;
+        return orderedBudgets;
     }
 
     public BudgetInfo getBudgetInfo(String budgetId) {
@@ -178,7 +182,12 @@ public class BudgetManager extends Observable {
     }
 
     public Collection<Budget> getBudgets() {
-        return dbHelper.getBudgets();
+        List<Budget> budgets = new ArrayList<>(orderedBudgets.size());
+        for (BudgetInfo budgetInfo : orderedBudgets) {
+            budgets.add(budgetInfo.budget);
+        }
+
+        return budgets;
     }
 
     public class BudgetInfo {
@@ -280,14 +289,7 @@ public class BudgetManager extends Observable {
         }
 
         public int getPercentage() {
-            BigDecimal balance = periodOut.subtract(periodIn);
-            if(balance.compareTo(BigDecimal.ZERO) < 0) {
-                return 0;
-            } else {
-                double result = balance.doubleValue();
-                result = result / (budget.getThreshold().doubleValue()) * 100;
-                return (int) result;
-            }
+            return Utils.getPercentage(periodIn, periodOut, budget.getThreshold());
         }
 
     }

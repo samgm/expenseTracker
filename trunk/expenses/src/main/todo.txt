@@ -1,12 +1,8 @@
 TEST check result with MyMoney
-
 TEST mettere label in grigio (date label campi) transaction entry + transaction item
 
 clean-up and unused and add used icons to svn
 create nice looking demo export
-
-BUG clicking on the + icon during initial load app crashes
-BUG account/budged drop down are not showing correct colors
 
 RELEASE
     DONE (on drive) -> descrizione breve 80 char
@@ -22,6 +18,7 @@ RELEASE
  BUGS
 ---------------------------------------------------------------
     MINOR   log on db operation failure
+    MEDIUM  clicking on the + icon during initial load app crashes
 
 ---------------------------------------------------------------
  OPTIMIZATIONS
@@ -34,13 +31,10 @@ RELEASE
 ---------------------------------------------------------------
  ENHANCEMENTS
 ---------------------------------------------------------------
-DONE0    CALCULATIONS
-DONE     create unit test for calculations
 
 setting for UseDividersInTransactionList / Multiline (see full description)
-give an order to the accounts adn budgets (a->z, value, color, or custom)
-add toast on executed actions (added, deleted, import done, etc.)
-add toast for click on account/budget transaction lists
+DONE alpha order
+    give an order to the accounts adn budgets (a->z, value, color, or custom)
 
 1    save state on entry/edit activities
 1    recurrent transaction with no end date
@@ -49,22 +43,27 @@ add toast for click on account/budget transaction lists
     setting for screen to start on
 3    backup on google
 4    statistics (http://android-graphview.org/)
+    account by account line chart showing periods in/out/balance amount
+    totals line chart
+    budget pie (how about different budget periods? normalize to fix period (month or year))
+    budget by budged barchart showing periods expences/income amount
 
 5    add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
     move to material design (floating + icon, circular progres bar, etc.)
     change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
+    add toast on executed actions (added, deleted, import done, etc.)
+    add toast for click on account/budget transaction lists
 
 6    transaction reminder / pending transaction for recurrent
+    add configurable reminders that asks to add new expenses
 7    Use name as id per budget e budget, Check if account/budget already exist on insert
 8    budget with many period length to be expanded on load and shown as different budgets
 9    recurrent transaction with repetition number (done with end date)
 
-add configurable reminders that asks to add new expenses
+
 store recurrent transaction and allow editing series or single instance
 
-percentage label over the pie chart (budget list)
 
-show previous period pie chart when looking at budgets
 
 
 

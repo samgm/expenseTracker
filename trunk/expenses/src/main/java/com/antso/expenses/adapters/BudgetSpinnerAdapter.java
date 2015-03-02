@@ -77,12 +77,7 @@ public class BudgetSpinnerAdapter extends ArrayAdapter<Budget> {
 
     private View createView(int position, View convertView, ViewGroup parent,
                             int viewId, int textId, int colorId) {
-        View view;
-        if (convertView != null) {
-            view = convertView;
-        } else {
-            view = mInflater.inflate(viewId, parent, false);
-        }
+        View view = mInflater.inflate(viewId, parent, false);
 
         Budget budget = getItem(position);
         TextView name = (TextView)view.findViewById(textId);

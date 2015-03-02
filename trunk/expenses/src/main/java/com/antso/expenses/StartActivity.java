@@ -20,6 +20,9 @@ import com.antso.expenses.accounts.AccountManager;
 import com.antso.expenses.budgets.BudgetListFragment;
 import com.antso.expenses.budgets.BudgetManager;
 import com.antso.expenses.enums.DrawerSection;
+import com.antso.expenses.statistics.AccountsStatisticsFragment;
+import com.antso.expenses.statistics.StatisticsPagerAdapter;
+import com.antso.expenses.statistics.StatisticsPagerHostFragment;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.transactions.TransactionPagerHostFragment;
 import com.antso.expenses.utils.Constants;
@@ -132,9 +135,9 @@ public class StartActivity
             case STATISTICS:
                 mTitle = getText(R.string.title_statistics_section);
                 lastPosition = position;
+                getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, new StatisticsFragment())
-                        .commit();
+                        .replace(R.id.container, new StatisticsPagerHostFragment()).commit();
                 break;
             case SETTINGS:
                 startActivityForResult(new Intent(this, SettingsActivity.class),
