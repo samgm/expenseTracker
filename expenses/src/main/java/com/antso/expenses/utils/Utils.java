@@ -11,7 +11,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 
 public class Utils {
     static public DateTime DEFAULT_DATE = new DateTime(1970, 1, 1, 0, 0);
@@ -188,6 +187,21 @@ public class Utils {
         }
 
         return DateTime.now();
+    }
+
+    public static int getPercentage(BigDecimal in, BigDecimal out, BigDecimal threshold) {
+        BigDecimal balance = out.subtract(in);
+        if(balance.compareTo(BigDecimal.ZERO) < 0) {
+            return 0;
+        } else {
+            if (threshold.compareTo(BigDecimal.ZERO) == 0) {
+                return 0;
+            }
+
+            double result = balance.doubleValue();
+            result = result / (threshold.doubleValue()) * 100;
+            return (int) result;
+        }
     }
 
 }

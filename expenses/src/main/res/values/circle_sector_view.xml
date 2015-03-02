@@ -6,5 +6,6 @@
         <attr name="cAngleStart" format="integer" />
         <attr name="cAngleSweep" format="integer" />
         <attr name="cStrokeWidth" format="integer" />
+        <attr name="cShowText" format="boolean" />
     </declare-styleable>
 </resources>

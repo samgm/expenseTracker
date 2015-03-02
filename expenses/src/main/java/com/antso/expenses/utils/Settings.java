@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.Map;
+
 public class Settings {
 
     static public String getCurrencySymbol(Context context) {
@@ -47,6 +49,13 @@ public class Settings {
     }
 
     public static boolean getUseDividersInTransactionList(Context applicationContext) {
+        //TODO check this should be already implemented on the mac version of the code
         return false;
     }
+
+    public static Map<String, ?> getAllSettings(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getAll();
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.antso.expenses.transactions;
+package com.antso.expenses.statistics;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -7,21 +7,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.antso.expenses.R;
+import com.antso.expenses.views.NonSwipeableViewPager;
 
 import java.util.List;
 
-public class TransactionPagerHostFragment extends Fragment implements ActionBar.TabListener  {
-    private volatile ViewPager mPagerView;
-    private TransactionsPagerAdapter mTransactionsPagerAdapter = null;
+public class StatisticsPagerHostFragment extends Fragment implements ActionBar.TabListener  {
+    private volatile NonSwipeableViewPager mPagerView;
+    private StatisticsPagerAdapter mStatisticsPagerAdapter = null;
     private Context context;
 
-    public TransactionPagerHostFragment() {
+    public StatisticsPagerHostFragment() {
     }
 
     @Override
@@ -35,25 +35,27 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
         final FragmentActivity activity = getActivity();
         context = activity.getApplicationContext();
 
-        View view = inflater.inflate(R.layout.transaction_pagerer_host_fragment, container, false);
+        View view = inflater.inflate(R.layout.statistics_pager_host_fragment, container, false);
 
-        if (mTransactionsPagerAdapter == null) {
-            mTransactionsPagerAdapter = new TransactionsPagerAdapter(this.getChildFragmentManager());
+        if (mStatisticsPagerAdapter == null) {
+            mStatisticsPagerAdapter = new StatisticsPagerAdapter(this.getChildFragmentManager());
         }
 
-        mPagerView = (ViewPager) view.findViewById(R.id.trans_pager);
-        mPagerView.setAdapter(mTransactionsPagerAdapter);
-        mPagerView.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                if (activity.getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS) {
-                    activity.getActionBar().setSelectedNavigationItem(position);
-                }
-            }
-        });
+        mPagerView = (NonSwipeableViewPager) view.findViewById(R.id.stats_pager);
+        mPagerView.setAdapter(mStatisticsPagerAdapter);
+//        No need to implement OnPageChangeListener because the pager is not swipeable
+//
+//        mPagerView.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+//            @Override
+//            public void onPageSelected(int position) {
+//                if (activity.getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS) {
+//                    activity.getActionBar().setSelectedNavigationItem(position);
+//                }
+//            }
+//        });
 
         activity.getActionBar().removeAllTabs();
-        for (int i = 0; i < mTransactionsPagerAdapter.getCount(); i++) {
+        for (int i = 0; i < mStatisticsPagerAdapter.getCount(); i++) {
             activity.getActionBar().addTab(activity.getActionBar().newTab()
                             .setText(this.getPageTitle(i))
                             .setTabListener(this));
@@ -68,8 +70,6 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
                 return context.getString(R.string.title_transactions_expenses);
             case 1:
                 return context.getString(R.string.title_transactions_transfers);
-            case 2:
-                return context.getString(R.string.title_transactions_revenues);
         }
         return null;
     }

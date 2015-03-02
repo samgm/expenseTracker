@@ -39,5 +39,5 @@ public class DeleteAccountAsyncTask
         Toast.makeText(activity, account.getName() +
                         activity.getText(R.string.message_account_deleted),
                 Toast.LENGTH_LONG).show();
-        }
+    }
 }

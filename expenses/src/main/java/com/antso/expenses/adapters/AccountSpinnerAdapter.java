@@ -77,12 +77,7 @@ public class AccountSpinnerAdapter extends ArrayAdapter<Account> {
 
     private View createView(int position, View convertView, ViewGroup parent,
                             int viewId, int textId, int colorId) {
-        View view;
-        if (convertView != null) {
-            view = convertView;
-        } else {
-            view = mInflater.inflate(viewId, parent, false);
-        }
+        View view = mInflater.inflate(viewId, parent, false);
 
         Account account = getItem(position);
         TextView name = (TextView)view.findViewById(textId);

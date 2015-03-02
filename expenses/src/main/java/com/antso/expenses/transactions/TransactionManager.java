@@ -592,8 +592,29 @@ public class TransactionManager extends Observable {
         return resultTransactions;
     }
 
+    public SummaryTransaction getBudgetNextPeriodTransactionsSummary(String budget) {
+        List<Transaction> transactions = getBudgetNextPeriodTransactions(budget);
+        for (Transaction transaction : transactions) {
+            if (transaction instanceof SummaryTransaction) {
+                return (SummaryTransaction) transaction;
+            }
+        }
+        return null;
+    }
+
+    public SummaryTransaction getAccountNextPeriodTransactionsSummary(String account) {
+        List<Transaction> transactions = getAccountNextPeriodTransactions(account);
+        for (Transaction transaction : transactions) {
+            if (transaction instanceof SummaryTransaction) {
+                return (SummaryTransaction) transaction;
+            }
+        }
+        return null;
+    }
+
     public String[] getDescriptionsArray() {
         //noinspection ToArrayCallWithZeroLengthArrayArgument
         return descriptionsArray.toArray(new String[0]);
     }
+
 }

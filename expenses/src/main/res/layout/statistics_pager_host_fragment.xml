@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".transactions.TransactionPagerHostFragment">
+    tools:context=".statistics.StatisticsPagerHostFragment">
 
-    <android.support.v4.view.ViewPager
+    <com.antso.expenses.views.NonSwipeableViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/trans_pager"
+        android:id="@+id/stats_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 
 </FrameLayout>

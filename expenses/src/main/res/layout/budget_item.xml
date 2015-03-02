@@ -18,6 +18,37 @@
         circleSectorview:cAngleStart="0"
         circleSectorview:cAngleSweep="360"
         circleSectorview:cStrokeWidth="4"
+        circleSectorview:cShowText="true"
+        />
+
+    <com.antso.expenses.views.CircleSectorView
+        android:id="@+id/budgetColorOld"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="-5dp"
+        circleSectorview:cFillColor="#ff0000"
+        circleSectorview:cRadiusDp="18"
+        circleSectorview:cAngleStart="0"
+        circleSectorview:cAngleSweep="360"
+        circleSectorview:cStrokeWidth="4"
+        circleSectorview:cShowText="true"
+        />
+
+    <com.antso.expenses.views.CircleSectorView
+        android:id="@+id/budgetColorOlder"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="-38dp"
+        circleSectorview:cFillColor="#ff0000"
+        circleSectorview:cRadiusDp="10"
+        circleSectorview:cAngleStart="0"
+        circleSectorview:cAngleSweep="360"
+        circleSectorview:cStrokeWidth="4"
+        circleSectorview:cShowText="true"
         />
 
     <LinearLayout
@@ -25,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="28dp"
         android:layout_weight="2.5"
         android:layout_gravity="center_vertical"
         android:orientation="vertical">

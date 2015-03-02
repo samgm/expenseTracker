@@ -2,8 +2,10 @@ package com.antso.expenses.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.antso.expenses.R;
@@ -33,6 +35,7 @@ public class DataExporter {
     private final String budgetFilePrefix = "budgets_export_";
     private final String accountFilePrefix = "accounts_export_";
     private final String transactionFilePrefix = "transactions_export_";
+    private final String settingsFilePrefix = "settings_export_";
     private final String appFolderPath;
 
 
@@ -51,6 +54,7 @@ public class DataExporter {
             exportTransactionData();
             exportAccountData();
             exportBudgetData();
+            exportSettingData();
         } catch (Exception e) {
             Log.e("DataExporter", "Exception exporting data: " + e.getMessage());
             notifyExportErrorToUIThread(e.getMessage());
@@ -121,7 +125,7 @@ public class DataExporter {
     private void exportBudgetData() throws IOException {
         StringBuilder filePath = new StringBuilder();
         filePath.append(appFolderPath);
-        filePath.append("/" + "budgets_export_");
+        filePath.append("/").append(budgetFilePrefix);
         filePath.append(Utils.dateTimeToyyyyMMdd(Utils.now()));
         filePath.append(".csv");
 
@@ -147,6 +151,30 @@ public class DataExporter {
         writer.close();
     }
 
+    private void exportSettingData() throws IOException {
+        StringBuilder filePath = new StringBuilder();
+        filePath.append(appFolderPath);
+        filePath.append("/").append(settingsFilePrefix);
+        filePath.append(Utils.dateTimeToyyyyMMdd(Utils.now()));
+        filePath.append(".csv");
+
+        FileWriter fileWriter = new FileWriter(filePath.toString());
+        CSVWriter writer = new CSVWriter(fileWriter);
+        Map<String, ?> settings = Settings.getAllSettings(context);
+        for (String name : settings.keySet()) {
+            Object value = settings.get(name);
+            String[] sString = new String[3];
+            sString[0] = name;
+            sString[1] = value.getClass().getName();
+            sString[2] = value.toString();
+
+            writer.writeNext(sString);
+        }
+
+        writer.flush();
+        writer.close();
+    }
+
     public void importData(String importDate) {
         File appFolder = new File(appFolderPath);
         if (!appFolder.exists()) {
@@ -157,6 +185,7 @@ public class DataExporter {
             importAccountData(importDate);
             importBudgetData(importDate);
             importTransactionData(importDate);
+            importSettingData(importDate);
         } catch (Exception e) {
             Log.e("DataExporter", "Exception exporting data: " + e.getMessage());
             notifyImportErrorToUIThread(e.getMessage());
@@ -253,6 +282,43 @@ public class DataExporter {
 
             values = reader.readNext();
         }
+    }
+
+    private void importSettingData(String importDate) throws IOException {
+        StringBuilder filePath = new StringBuilder();
+        filePath.append(appFolderPath);
+        filePath.append("/").append(settingsFilePrefix);
+        filePath.append(importDate);
+        filePath.append(".csv");
+
+        FileReader fileReader = new FileReader(filePath.toString());
+        CSVReader reader = new CSVReader(fileReader);
+        SharedPreferences.Editor preferences = PreferenceManager.getDefaultSharedPreferences(context).edit();
+
+        String[] values = reader.readNext();
+        while (values != null) {
+            logReadValues(values);
+            String name = values[0];
+            String className = values[1];
+            String value = values[2];
+
+            switch (className) {
+                case "java.lang.String":
+                    preferences.putString(name, value);
+                    break;
+                case "java.lang.Boolean":
+                    preferences.putBoolean(name, Boolean.parseBoolean(value));
+                    break;
+                case "java.lang.int":
+                    preferences.putInt(name, Integer.valueOf(value));
+                    break;
+
+            }
+
+            values = reader.readNext();
+        }
+
+        preferences.commit();
     }
 
     private void logReadValues(String[] values) {
