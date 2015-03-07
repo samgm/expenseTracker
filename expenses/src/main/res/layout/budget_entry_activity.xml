@@ -96,7 +96,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="-16dp"
         android:textSize="14sp"
-        android:text="@string/balance_label"
+        android:text="@string/threshold_label"
         android:textStyle="italic"
         android:gravity="left"
         android:visibility="visible"/>

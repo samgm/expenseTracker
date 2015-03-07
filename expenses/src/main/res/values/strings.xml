@@ -34,6 +34,8 @@
     <string name="title_transactions_expenses">Expenses</string>
     <string name="title_transactions_transfers">Transfers</string>
     <string name="title_budgets">Budgets</string>
+    <string name="title_statistics_accounts">Accounts</string>
+    <string name="title_statistics_budgets">Budgets</string>
 
     <!-- menu -->
     <string name="action_settings">Settings</string>
@@ -137,6 +139,7 @@
     <string name="net_label">net</string>
     <string name="net_with_N_label">Net</string>
     <string name="balance_label">Balance</string>
+    <string name="threshold_label">Threshold</string>
     <string name="name_label">Name</string>
     <string name="name">Name</string>
     <string name="message">Message</string>

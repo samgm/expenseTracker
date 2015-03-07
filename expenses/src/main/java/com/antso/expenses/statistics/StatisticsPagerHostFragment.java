@@ -67,9 +67,9 @@ public class StatisticsPagerHostFragment extends Fragment implements ActionBar.T
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return context.getString(R.string.title_transactions_expenses);
+                return context.getString(R.string.title_statistics_accounts);
             case 1:
-                return context.getString(R.string.title_transactions_transfers);
+                return context.getString(R.string.title_statistics_budgets);
         }
         return null;
     }
