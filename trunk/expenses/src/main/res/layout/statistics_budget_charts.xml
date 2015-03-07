@@ -5,16 +5,16 @@
     android:layout_height="fill_parent">
 
     <com.jjoe64.graphview.GraphView
+        android:id="@+id/statisticsBudgetGraph"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="56dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:id="@+id/graph" />
+        android:layout_marginRight="8dp"/>
 
     <LinearLayout
-        android:id="@+id/statisticsAccountLayout"
+        android:id="@+id/statisticsBudgetLayout"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -23,15 +23,28 @@
         android:layout_marginTop="-50dp"
         android:layout_marginBottom="6dp">
 
+        <!--<CheckBox-->
+            <!--android:id="@+id/statisticsAccountCheckbox"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"/>-->
         <Spinner
-            android:id="@+id/statisticsAccountSpinner"
+            android:id="@+id/statisticsBudgetSpinner"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="10"
             android:textSize="20sp"/>
 
+        <!--<TextView-->
+            <!--android:id="@+id/statisticsAccountSpinnerText"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_weight="10"-->
+            <!--android:textSize="20sp"-->
+            <!--android:text="@string/total_label"-->
+            <!--android:visibility="gone"/>-->
+
         <ImageButton
-            android:id="@+id/statisticsAccountButton"
+            android:id="@+id/statisticsBudgetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_refresh"

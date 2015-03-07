@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 import com.antso.expenses.R;
+import com.antso.expenses.enums.TimeUnit;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
@@ -204,4 +205,25 @@ public class Utils {
         }
     }
 
+    public static DateTime getNextDate(DateTime now, DateTime periodStart, int periodLength, TimeUnit periodUnit) {
+        DateTime result = periodStart;
+        while (Utils.isBefore(result, now)) {
+            switch (periodUnit) {
+                case Day:
+                    result = result.plusDays(periodLength);
+                    break;
+                case Month:
+                    result = result.plusMonths(periodLength);
+                    break;
+                case Week:
+                    result = result.plusWeeks(periodLength);
+                    break;
+                case Year:
+                    result = result.plusYears(periodLength);
+                    break;
+            }
+        }
+
+        return result;
+    }
 }

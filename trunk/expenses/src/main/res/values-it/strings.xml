@@ -211,6 +211,9 @@
     <string name="time_unit_months">Mesi</string>
     <string name="time_unit_weeks">Settimane</string>
     <string name="time_unit_years">Anni</string>
+    <string name="title_statistics_accounts">Conti</string>
+    <string name="title_statistics_budgets">Categorie</string>
+    <string name="threshold_label">Soglia</string>
 
     <!-- Example settings for Notifications -->
     <!--<string name="pref_header_notifications">Notifications</string>-->

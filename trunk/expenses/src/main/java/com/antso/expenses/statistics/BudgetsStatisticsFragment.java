@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.antso.expenses.R;
-import com.antso.expenses.accounts.AccountManager;
-import com.antso.expenses.adapters.AccountSpinnerAdapter;
-import com.antso.expenses.entities.Account;
+import com.antso.expenses.adapters.BudgetSpinnerAdapter;
+import com.antso.expenses.budgets.BudgetManager;
+import com.antso.expenses.entities.Budget;
 import com.antso.expenses.entities.SummaryTransaction;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.utils.DateLabelFormatter;
@@ -20,6 +20,7 @@ import com.antso.expenses.utils.MaterialColours;
 import com.antso.expenses.utils.Settings;
 import com.antso.expenses.views_helpers.ButtonChangeSpinner;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -35,44 +36,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AccountsStatisticsFragment extends Fragment {
+public class BudgetsStatisticsFragment extends Fragment {
 
-    private Collection<Account> accounts;
-    private Map<String, AccountDataPoint> accountDataPointsByAccount;
-    private AccountSpinnerAdapter accountSpinnerAdapter;
-    private ButtonChangeSpinner accountSpinner;
+    private Collection<Budget> budgets;
+    private Map<String, BudgetDataPoint> budgetDataPointsByBudget;
+    private BudgetSpinnerAdapter budgetSpinnerAdapter;
+    private ButtonChangeSpinner budgetSpinner;
     private GraphView graph;
-    private static final int maxViewportSize = 8;
+    private final static int maxViewportSize = 8;
 
-    public AccountsStatisticsFragment() {
-        accountDataPointsByAccount = new HashMap<>();
+    public BudgetsStatisticsFragment() {
+        budgetDataPointsByBudget = new HashMap<>();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (accountSpinner == null) {
-            accountSpinner = new ButtonChangeSpinner(getActivity());
+        if (budgetSpinner == null) {
+            budgetSpinner = new ButtonChangeSpinner(getActivity());
         }
 
-        if (accounts == null) {
-            accounts = AccountManager.ACCOUNT_MANAGER().getAccounts();
+        if (budgets == null) {
+            budgets = BudgetManager.BUDGET_MANAGER().getBudgets();
             //noinspection ToArrayCallWithZeroLengthArrayArgument
-            accountSpinnerAdapter = AccountSpinnerAdapter.create(getActivity(), R.layout.text_spinner_item,
-                    accounts.toArray(new Account[0]));
+            budgetSpinnerAdapter = BudgetSpinnerAdapter.create(getActivity(), R.layout.text_spinner_item,
+                    budgets.toArray(new Budget[0]));
         }
 
-
-        accountSpinner.createView(R.id.statisticsAccountSpinner, R.id.statisticsAccountButton, accountSpinnerAdapter);
-        accountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        budgetSpinner.createView(R.id.statisticsBudgetSpinner, R.id.statisticsBudgetButton, budgetSpinnerAdapter);
+        budgetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                final Account account = accountSpinnerAdapter.getItem(position);
+                final Budget budget = budgetSpinnerAdapter.getItem(position);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        updateChart(account);
+                        updateChart(budget);
                     }
                 });
             }
@@ -83,42 +83,51 @@ public class AccountsStatisticsFragment extends Fragment {
             }
         });
 
-        accountSpinner.setSelection(0);
+        budgetSpinner.setSelection(0);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.statistics_account_charts, container, false);
-        graph = (GraphView) view.findViewById(R.id.statisticsAccountGraph);
+        View view = inflater.inflate(R.layout.statistics_budget_charts, container, false);
+        graph = (GraphView) view.findViewById(R.id.statisticsBudgetGraph);
 
         graph.getViewport().setScrollable(true);
         graph.getViewport().setScalable(false);
-        graph.getGridLabelRenderer().setLabelFormatter(new DateLabelFormatter(Settings.getCurrencySymbol(getActivity()), false));
+        graph.getGridLabelRenderer().setLabelFormatter(new DateLabelFormatter(Settings.getCurrencySymbol(getActivity()), true));
         graph.getGridLabelRenderer().setHighlightZeroLines(true);
         graph.getGridLabelRenderer().setPadding(15); // pad all the statistics_account_charts
         return view;
     }
 
-    private void updateChart(Account account) {
-        AccountDataPoint accountData = getDataPoints(account);
+    private void updateChart(Budget budget) {
+        BudgetDataPoint budgetData;
+        if (!budgetDataPointsByBudget.containsKey(budget.getId())) {
+            budgetData = getDataPoints(budget);
+            budgetDataPointsByBudget.put(budget.getId(), budgetData);
+        } else {
+            budgetData = budgetDataPointsByBudget.get(budget.getId());
+        }
 
         graph.removeAllSeries();
 
-        if (accountData.in.size() > 0) {
-            LineGraphSeries<DataPoint> s1 = new LineGraphSeries<>(accountData.in.toArray(new DataPoint[0]));
-            LineGraphSeries<DataPoint> s2 = new LineGraphSeries<>(accountData.out.toArray(new DataPoint[0]));
-            LineGraphSeries<DataPoint> s3 = new LineGraphSeries<>(accountData.balance.toArray(new DataPoint[0]));
+        if (budgetData.in.size() > 0) {
+            BarGraphSeries<DataPoint> s1 = new BarGraphSeries<>(budgetData.in.toArray(new DataPoint[0]));
+            BarGraphSeries<DataPoint> s2 = new BarGraphSeries<>(budgetData.out.toArray(new DataPoint[0]));
+            LineGraphSeries<DataPoint> s3 = new LineGraphSeries<>(budgetData.threshold.toArray(new DataPoint[0]));
             s1.setColor(MaterialColours.GREEN_500);
             s2.setColor(MaterialColours.RED_500);
             s3.setColor(MaterialColours.BLUE_500);
+            s1.setSpacing(40);
+            s2.setSpacing(40);
 
-            int size = (accountData.in.size() >= maxViewportSize) ? maxViewportSize : accountData.in.size();
+            int size = (budgetData.in.size() > maxViewportSize) ? maxViewportSize : budgetData.in.size();
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getGridLabelRenderer().setNumHorizontalLabels(size);
-            int minXIndex = accountData.in.size() - 1 - (size - 1);
-            int maxXIndex = accountData.in.size() - 1;
-            graph.getViewport().setMinX(accountData.in.get(minXIndex).getX());
-            graph.getViewport().setMaxX(accountData.in.get(maxXIndex).getX());
+
+            int minXIndex = budgetData.out.size() - 1 - (size - 1);
+            int maxXIndex = budgetData.out.size() - 1;
+            graph.getViewport().setMinX(budgetData.out.get(minXIndex).getX());
+            graph.getViewport().setMaxX(budgetData.out.get(maxXIndex).getX());
 
             graph.addSeries(s1);
             graph.addSeries(s2);
@@ -126,40 +135,33 @@ public class AccountsStatisticsFragment extends Fragment {
         }
 
         graph.forceLayout();
-
-//        View graphAsView = graph;
-//        graphAsView.getCh
-//        for(int i=0; i<((ViewGroup)graphAsView).getChildCount(); ++i) {
-//            View nextChild = ((ViewGroup)graphAsView).getChildAt(i);
-//            Log.i("EXPENSES CHARTS", "Children Class " + nextChild.getClass() + " Children Width " + nextChild.getWidth());
-//        }
     }
 
-    private AccountDataPoint getDataPoints(Account account) {
-        if (accountDataPointsByAccount.containsKey(account.getId())) {
-            return accountDataPointsByAccount.get(account.getId());
+    private BudgetDataPoint getDataPoints(Budget budget) {
+        if (budgetDataPointsByBudget.containsKey(budget.getId())) {
+            return budgetDataPointsByBudget.get(budget.getId());
         }
 
         TransactionManager transactionManager = TransactionManager.TRANSACTION_MANAGER();
-        transactionManager.resetGetAccountNextPeriodTransactions(DateTime.now());
+        transactionManager.resetGetBudgetNextPeriodTransactions(DateTime.now());
 
         final List<BigDecimal> ins = new ArrayList<>();
         final List<BigDecimal> outs = new ArrayList<>();
-        final List<BigDecimal> balances = new ArrayList<>();
+        final List<BigDecimal> ths = new ArrayList<>();
         final List<Date> dates = new ArrayList<>();
 
-        SummaryTransaction st = transactionManager.getAccountNextPeriodTransactionsSummary(account.getId());
+        SummaryTransaction st = transactionManager.getBudgetNextPeriodTransactionsSummary(budget.getId());
         while (st != null) {
-            ins.add(st.getValueIn());
-            outs.add(st.getValueOut());
-            balances.add(st.getBalance());
+            ins.add(st.getValueIn().negate());
+            outs.add(st.getValueOut().subtract(st.getValueIn()));
+            ths.add(budget.getThreshold());
             dates.add(st.getDate().toDate());
-            st = transactionManager.getAccountNextPeriodTransactionsSummary(account.getId());
+            st = transactionManager.getBudgetNextPeriodTransactionsSummary(budget.getId());
         }
 
         Collections.reverse(ins);
         Collections.reverse(outs);
-        Collections.reverse(balances);
+        Collections.reverse(ths);
         Collections.reverse(dates);
         ArrayList<DataPoint> pointsIn = new ArrayList<>();
         ArrayList<DataPoint> pointsOut = new ArrayList<>();
@@ -170,7 +172,7 @@ public class AccountsStatisticsFragment extends Fragment {
             if (onlyZeroSeen) {
                 if (ins.get(i).compareTo(BigDecimal.ZERO) == 0 &&
                         outs.get(i).compareTo(BigDecimal.ZERO) == 0 &&
-                        balances.get(i).compareTo(BigDecimal.ZERO) == 0) {
+                        ths.get(i).compareTo(BigDecimal.ZERO) == 0) {
                     continue;
                 } else {
                     if (i > 0) {
@@ -184,15 +186,15 @@ public class AccountsStatisticsFragment extends Fragment {
 
             pointsIn.add(new DataPoint(dates.get(i), ins.get(i).doubleValue()));
             pointsOut.add(new DataPoint(dates.get(i), outs.get(i).doubleValue()));
-            pointsBalance.add(new DataPoint(dates.get(i), balances.get(i).doubleValue()));
+            pointsBalance.add(new DataPoint(dates.get(i), ths.get(i).doubleValue()));
         }
 
-        logSeries(account.getId(), "IN", pointsIn);
-        logSeries(account.getId(), "OUT", pointsOut);
-        logSeries(account.getId(), "BAL", pointsBalance);
+        logSeries(budget.getId(), "IN", pointsIn);
+        logSeries(budget.getId(), "OUT", pointsOut);
+        logSeries(budget.getId(), "TH", pointsBalance);
 
-        AccountDataPoint dataPoint = new AccountDataPoint(pointsIn, pointsOut, pointsBalance);
-        accountDataPointsByAccount.put(account.getId(), dataPoint);
+        BudgetDataPoint dataPoint = new BudgetDataPoint(pointsIn, pointsOut, pointsBalance);
+        budgetDataPointsByBudget.put(budget.getId(), dataPoint);
         return dataPoint;
     }
 
@@ -207,18 +209,18 @@ public class AccountsStatisticsFragment extends Fragment {
             builder.append(p.getY());
             builder.append("} ");
         }
-        Log.i("EXPENSES ACCOUNT CHARTS", ctx + " Id:" + id +" Data:" + builder.toString());
+        Log.i("EXPENSES BUDGET CHARTS", ctx + " Id:" + id + " Data:" + builder.toString());
     }
 
-    private static class AccountDataPoint {
+    private static class BudgetDataPoint {
         public final ArrayList<DataPoint> in;
         public final ArrayList<DataPoint> out;
-        public final ArrayList<DataPoint> balance;
+        public final ArrayList<DataPoint> threshold;
 
-        public AccountDataPoint(final ArrayList<DataPoint> in, final ArrayList<DataPoint> out, final ArrayList<DataPoint> balance) {
+        public BudgetDataPoint(final ArrayList<DataPoint> in, final ArrayList<DataPoint> out, final ArrayList<DataPoint> threshold) {
             this.in = in;
             this.out = out;
-            this.balance = balance;
+            this.threshold = threshold;
         }
     }
 }

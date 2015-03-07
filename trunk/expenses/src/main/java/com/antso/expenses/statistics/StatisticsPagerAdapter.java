@@ -19,7 +19,7 @@ public class StatisticsPagerAdapter
             case 0:
                 return new AccountsStatisticsFragment();
             case 1:
-                return new AboutFragment();
+                return new BudgetsStatisticsFragment();
         }
 
         return null;

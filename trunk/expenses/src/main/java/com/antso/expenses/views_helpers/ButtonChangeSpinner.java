@@ -27,7 +27,6 @@ public class ButtonChangeSpinner {
 
     public void setSelection(int i) {
         spinner.setSelection(i);
-
     }
 
     public Object getSelectedItem() {
