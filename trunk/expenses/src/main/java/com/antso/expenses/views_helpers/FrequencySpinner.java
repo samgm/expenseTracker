@@ -28,16 +28,11 @@ public class FrequencySpinner {
         this.parentActivity = parentActivity;
     }
 
-    public void createView(int unitSpinnerViewId, int valueSpinnerViewId, boolean singleDayValue) {
+    public void createView(int unitSpinnerViewId, int valueSpinnerViewId) {
         unitSpinnerAdapter = TimeUnitSpinnerAdapter.create(parentActivity,
                 R.layout.text_spinner_item);
-        if(singleDayValue) {
-            dayValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
-                    R.layout.text_spinner_item, Utils.DaySingleValues);
-        } else {
-            dayValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
+        dayValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
                     R.layout.text_spinner_item, Utils.DayValues);
-        }
         weekValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,
                 R.layout.text_spinner_item, Utils.WeekValues);
         monthValuesAdapter = IntegerArraySpinnerAdapter.create(parentActivity,

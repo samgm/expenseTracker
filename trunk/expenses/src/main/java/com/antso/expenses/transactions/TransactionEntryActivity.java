@@ -110,7 +110,7 @@ public class TransactionEntryActivity extends Activity {
         budgetSpinner.createView(R.id.transactionBudgetSpinner, R.id.transactionBudgetButton,
                 budgetSpinnerAdapter);
 
-        recurrentFrequency.createView(R.id.transactionFrequencyUnit, R.id.transactionFrequency, true);
+        recurrentFrequency.createView(R.id.transactionFrequencyUnit, R.id.transactionFrequency);
         dateEditText.createView(R.id.transactionDate, Utils.now());
         endDateEditText.createView(R.id.transactionRecurrentStartDate, Utils.now());
         description.setAdapter(StringArrayAdapter.create(this, R.layout.text_spinner_item,

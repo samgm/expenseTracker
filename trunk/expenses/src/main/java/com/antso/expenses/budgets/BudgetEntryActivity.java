@@ -57,7 +57,7 @@ public class BudgetEntryActivity extends Activity {
         color = (CircleSectorView)findViewById(R.id.budgetColor);
         budgetThreshold.createView(R.id.budgetThreshold, R.id.budgetThresholdCurrency, BigDecimal.ZERO);
         startDateEditText.createView(R.id.budgetStartDate, Utils.now());
-        period.createView(R.id.TimeUnitSpinner, R.id.budgetPeriodLenghtSpinner, false);
+        period.createView(R.id.TimeUnitSpinner, R.id.budgetPeriodLenghtSpinner);
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
