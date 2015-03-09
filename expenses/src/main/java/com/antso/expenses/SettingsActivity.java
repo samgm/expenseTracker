@@ -22,6 +22,7 @@ import com.antso.expenses.accounts.AccountManager;
 import com.antso.expenses.budgets.BudgetManager;
 import com.antso.expenses.entities.Account;
 import com.antso.expenses.entities.Budget;
+import com.antso.expenses.enums.AccountOrder;
 import com.antso.expenses.persistence.DatabaseHelper;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.utils.BaseAsyncTaskWithProgress;
@@ -82,6 +83,18 @@ public class SettingsActivity extends PreferenceActivity {
         getPreferenceScreen().addPreference(headerTD);
         //noinspection deprecation
         addPreferencesFromResource(R.xml.pref_transactions_defaulting);
+
+        ArrayList<String> accountOrderNames = new ArrayList<>();
+        for (AccountOrder order : AccountOrder.valuesButUndefAndCustom()) {
+            accountOrderNames.add(order.getLangStringValue(getApplication()));
+        }
+        findListPreferenceAndSetValues("accounts_list_order", accountOrderNames, accountOrderNames);
+
+        ArrayList<String> budgetOrderNames = new ArrayList<>();
+//        for (BudgetOrder order : BudgetOrder.valuesButUndefAndCustom()) {
+//            budgetOrderNames.add(order.getLangStringValue(getApplication()));
+//        }
+//        findListPreferenceAndSetValues("budgets_list_order", budgetOrderNames, budgetOrderNames);
 
         //Account list
         ArrayList<String> accountIds = new ArrayList<>();
@@ -145,6 +158,10 @@ public class SettingsActivity extends PreferenceActivity {
 
         //noinspection deprecation
         bindPreferenceSummaryToValue(findPreference("currency_symbol"));
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("accounts_list_order"));
+        //noinspection deprecation
+        bindPreferenceSummaryToValue(findPreference("budgets_list_order"));
 
         //noinspection deprecation
         bindPreferenceSummaryToValue(findPreference("accounts_list_expenses"));

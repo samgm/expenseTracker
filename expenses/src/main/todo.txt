@@ -18,10 +18,11 @@ RELEASE
 ---------------------------------------------------------------
  BUGS
 ---------------------------------------------------------------
-    MINOR   log on db operation failure
-    MEDIUM  clicking on the + icon during initial load app crashes (cannot repeat
-    MINOR   chart offset and vertical label rendering
+
     MEDIUM  changing screen orientation will reset selected tab
+    MEDIUM  clicking on the + icon during initial load app crashes (cannot replicate)
+    MINOR   log on db operation failure
+    MINOR   chart offset and vertical label rendering
 
 ---------------------------------------------------------------
  OPTIMIZATIONS

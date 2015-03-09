@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 public class Utils {
     static public DateTime DEFAULT_DATE = new DateTime(1970, 1, 1, 0, 0);
 
-    public static Integer[] DaySingleValues = new Integer[] {1, 2, 3, 4, 5, 6, 7};
     public static Integer[] DayValues = new Integer[] {1, 2, 3, 4, 5, 6, 7};
     public static Integer[] WeekValues = new Integer[] {1, 2, 3, 4, 5};
     public static Integer[] MonthValues = new Integer[] {1, 2, 3, 4, 6};
