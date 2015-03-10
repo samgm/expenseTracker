@@ -53,4 +53,13 @@
         android:text="@string/debug_clear_data_button"
         android:layout_gravity="left" />
 
+    <ToggleButton
+        android:id="@+id/multilineTranactionDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textOff="@string/debug_multiline_desc_button_off"
+        android:textOn="@string/debug_multiline_desc_button_on"
+        android:layout_gravity="left" />
+
 </LinearLayout>

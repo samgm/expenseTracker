@@ -1,6 +1,10 @@
 
 give an order to the accounts adn budgets (a->z, value, color, or custom)
 DONE alpha order
+TEST (configurable from debug screen) setting for UseDividersInTransactionList / Multiline (see full description)
+TEST Account custom order (screens and drop downs) + complete implementation for budgets
+
+TEST setting import / export
 
 clean-up and unused and add used icons to svn
 create nice looking demo export
@@ -36,7 +40,6 @@ RELEASE
  ENHANCEMENTS
 ---------------------------------------------------------------
 
-setting for UseDividersInTransactionList / Multiline (see full description)
 
 1    save state on entry/edit activities
 1    recurrent transaction with no end date (stay for ever)
@@ -57,6 +60,8 @@ setting for UseDividersInTransactionList / Multiline (see full description)
 6    Use name as id per budget/account, Check if account/budget already exist on insert
 7    budget with many period length to be expanded on load and shown as different budgets
 8    recurrent transaction with repetition number (done with end date)
+
+remove settings for default account and budged and make app understand basing on most used
 
 store recurrent transaction and allow editing series or single instance
 

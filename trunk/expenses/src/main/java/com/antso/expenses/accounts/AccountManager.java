@@ -9,8 +9,8 @@ import com.antso.expenses.enums.TransactionDirection;
 import com.antso.expenses.persistence.DatabaseHelper;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.transactions.TransactionUpdateEvent;
-import com.antso.expenses.utils.AccountInfoAlphabeticalComparator;
 import com.antso.expenses.utils.MaterialColours;
+import com.antso.expenses.utils.Settings;
 import com.antso.expenses.utils.Utils;
 
 import org.joda.time.DateTime;
@@ -18,7 +18,6 @@ import org.joda.time.DateTime;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +31,7 @@ public class AccountManager extends Observable {
     private Map<String, AccountInfo> accounts;
     private List<AccountInfo> orderedAccounts;
     private DatabaseHelper dbHelper = null;
+    private Context context = null;
 
     private AccountManager() {
         accounts = new HashMap<String, AccountInfo>();
@@ -47,6 +47,8 @@ public class AccountManager extends Observable {
     }
 
     public void start(Context context) {
+        this.context = context;
+
         long start = System.currentTimeMillis();
         Log.i("EXPENSES OBS", "ACCOUNT_MANAGER(" + this + ") Start begin " + start);
 
@@ -152,13 +154,31 @@ public class AccountManager extends Observable {
                 .getTransactionByAccount(account.getId());
         AccountInfo accountInfo = new AccountInfo(account, transactions);
         accounts.put(account.getId(), accountInfo);
-        orderedAccounts.add(accountInfo);
+        orderedAccounts.add(getAccountIndex(accountInfo.account.getId()), accountInfo);
+    }
 
-        Collections.sort(orderedAccounts, new AccountInfoAlphabeticalComparator());
+    private int getAccountIndex(String id) {
+        int index = Settings.getAccountIndex(context, id);
+        if (index != -1) {
+            return index;
+        }
+
+        return (orderedAccounts.size() == 0) ? orderedAccounts.size() : orderedAccounts.size() - 1;
     }
 
     public List<AccountInfo> getAccountInfo() {
         return orderedAccounts;
+    }
+
+    public void sortAccountInfo(int from, int to) {
+        AccountInfo elem = orderedAccounts.remove(from);
+        orderedAccounts.add(to, elem);
+
+        int i = 0;
+        for (AccountInfo accountInfo : orderedAccounts) {
+            Settings.saveAccountIndex(context, accountInfo.account.getId(), i);
+            i++;
+        }
     }
 
     public AccountInfo getAccountInfo(String accountId) {

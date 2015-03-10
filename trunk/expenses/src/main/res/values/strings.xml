@@ -76,6 +76,8 @@
     <string name="debug_add_account_button">Test Add Accounts</string>
     <string name="debug_add_transactione_button">Test Add Transaction</string>
     <string name="debug_clear_data_button">Clear Data</string>
+    <string name="debug_multiline_desc_button_on">Multi-line Desc</string>
+    <string name="debug_multiline_desc_button_off">Single-line Desc</string>
 
     <!--About activity-->
     <string name="button_feedback_label">Tap here to send your feedback</string>

@@ -48,9 +48,21 @@ public class Settings {
         return preferences.getString("budgets_list_transfer", null);
     }
 
-    public static boolean getUseDividersInTransactionList(Context applicationContext) {
-        //TODO check this should be already implemented on the mac version of the code
+    public static int getAccountIndex(Context context, String id) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt("account_index_" + id, -1);
+    }
+    public static void saveAccountIndex(Context applicationContext, String id, int index) {
+        //TODO copy from macBook
+    }
+
+    public static boolean getMultilineDescriptionInTransactionList(Context applicationContext) {
+        //TODO copy from macBook
         return false;
+    }
+
+    public static void saveMultilineDescriptionInTransactionList(Context applicationContext, boolean checked) {
+        //TODO copy from macBook
     }
 
     public static Map<String, ?> getAllSettings(Context context) {

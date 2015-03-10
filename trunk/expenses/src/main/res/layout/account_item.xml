@@ -3,141 +3,151 @@
     xmlns:circleSectorview="http://schemas.android.com/apk/res-auto"
     android:id="@+id/accountItemLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/account_item_height"
     android:orientation="horizontal" >
 
-    <com.antso.expenses.views.CircleSectorView
-        android:id="@+id/accountColor"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        circleSectorview:cFillColor="#ff0000"
-        circleSectorview:cRadiusDp="32"
-        circleSectorview:cAngleStart="0"
-        circleSectorview:cAngleSweep="360"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_weight="2.5"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
-            <TextView
-                android:id="@+id/accountName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="@string/account">
-            </TextView>
+        android:layout_height="@dimen/account_item_height"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/accountBalance"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:gravity="left"
-                android:textStyle="bold"
-                android:text="@string/currency_value_0_00">
-            </TextView>
-        </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="16dp"
-        android:layout_weight="3"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+        <com.antso.expenses.views.CircleSectorView
+            android:id="@+id/accountColor"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_gravity="center_vertical"
+            circleSectorview:cFillColor="#ff0000"
+            circleSectorview:cRadiusDp="32"
+            circleSectorview:cAngleStart="0"
+            circleSectorview:cAngleSweep="360"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="2.5"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+                <TextView
+                    android:id="@+id/accountName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:singleLine="true"
+                    android:text="@string/account">
+                </TextView>
 
-            <TextView
-                android:id="@+id/accountMonthIn"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_gravity="right"
-                android:textSize="14sp"
-                android:textColor="@color/green_500"
-                android:text="@string/currency_value_0_00">
-            </TextView>
-            <TextView
-                android:id="@+id/accountMonthInLabel"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_gravity="right"
-                android:textSize="14sp"
-                android:textColor="@color/green_500"
-                android:text="@string/in_label">
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right">
-
-            <TextView
-                android:id="@+id/accountMonthOut"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_gravity="right"
-                android:textSize="14sp"
-                android:textColor="@color/red_500"
-                android:text="@string/currency_value_0_00">
-            </TextView>
-            <TextView
-                android:id="@+id/accountMonthOutLabel"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_gravity="right"
-                android:textSize="14sp"
-                android:textColor="@color/red_500"
-                android:text="@string/out_label">
-            </TextView>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/accountBalance"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:gravity="left"
+                    android:textStyle="bold"
+                    android:text="@string/currency_value_0_00">
+                </TextView>
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="right">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="3"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/accountMonthBalance"
-                android:layout_width="80dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_gravity="right"
-                android:textSize="14sp"
-                android:text="@string/currency_value_0_00">
-            </TextView>
-            <TextView
-                android:id="@+id/accountMonthBalanceLabel"
-                android:layout_width="30dp"
+                android:orientation="horizontal"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/accountMonthIn"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:textSize="14sp"
+                    android:textColor="@color/green_500"
+                    android:text="@string/currency_value_0_00">
+                </TextView>
+                <TextView
+                    android:id="@+id/accountMonthInLabel"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:textSize="14sp"
+                    android:textColor="@color/green_500"
+                    android:text="@string/in_label">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_gravity="right"
-                android:textSize="14sp"
-                android:text="@string/net_label">
-            </TextView>
+                android:orientation="horizontal"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/accountMonthOut"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:textSize="14sp"
+                    android:textColor="@color/red_500"
+                    android:text="@string/currency_value_0_00">
+                </TextView>
+                <TextView
+                    android:id="@+id/accountMonthOutLabel"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:textSize="14sp"
+                    android:textColor="@color/red_500"
+                    android:text="@string/out_label">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/accountMonthBalance"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:textSize="14sp"
+                    android:text="@string/currency_value_0_00">
+                </TextView>
+                <TextView
+                    android:id="@+id/accountMonthBalanceLabel"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_gravity="right"
+                    android:textSize="14sp"
+                    android:text="@string/net_label">
+                </TextView>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

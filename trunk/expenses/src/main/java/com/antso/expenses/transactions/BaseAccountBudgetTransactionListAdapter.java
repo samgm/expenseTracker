@@ -23,10 +23,10 @@ import org.joda.time.DateTime;
 import java.math.BigDecimal;
 
 public abstract class BaseAccountBudgetTransactionListAdapter extends BaseAdapter {
-    private boolean useDividers;
+    private boolean useMultiline;
 
     protected BaseAccountBudgetTransactionListAdapter(Context context){
-        useDividers = Settings.getUseDividersInTransactionList(context);
+        useMultiline = Settings.getMultilineDescriptionInTransactionList(context);
     }
     public abstract void load();
 
@@ -59,7 +59,7 @@ public abstract class BaseAccountBudgetTransactionListAdapter extends BaseAdapte
         }
 
         final TextView transactionDesc = (TextView) transactionLayout.findViewById(R.id.transactionDesc);
-        transactionDesc.setSingleLine(false/*!useDividers*/);
+        transactionDesc.setSingleLine(!useMultiline);
         transactionDesc.setText(transaction.getDescription());
 
         final TextView transactionCurrency = (TextView) transactionLayout.findViewById(R.id.transactionCurrency);

@@ -11,7 +11,6 @@ import com.antso.expenses.enums.TransactionDirection;
 import com.antso.expenses.persistence.DatabaseHelper;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.transactions.TransactionUpdateEvent;
-import com.antso.expenses.utils.BudgetInfoAlphabeticalComparator;
 import com.antso.expenses.utils.MaterialColours;
 import com.antso.expenses.utils.Utils;
 
@@ -20,7 +19,6 @@ import org.joda.time.DateTime;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +126,7 @@ public class BudgetManager extends Observable {
         budgets.put(budget.getId(), budgetInfo);
         orderedBudgets.add(budgetInfo);
 
-        Collections.sort(orderedBudgets, new BudgetInfoAlphabeticalComparator());
+//        Collections.sort(orderedBudgets, new BudgetInfoAlphabeticalComparator());
     }
 
     public void insertBudget(Budget budget) {
