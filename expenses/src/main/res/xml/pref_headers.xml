@@ -8,7 +8,7 @@
 
     <header
         android:fragment="com.antso.expenses.SettingsActivity$TransactionDefaultingPreferenceFragment"
-        android:title="@string/pref_header_general" />
+        android:title="@string/pref_header_transaction_defaulting" />
 
     <header
         android:fragment="com.antso.expenses.SettingsActivity$DataImportExportPreferenceFragment"

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import com.antso.expenses.accounts.AccountManager;
 import com.antso.expenses.budgets.BudgetManager;
@@ -22,6 +23,7 @@ import com.antso.expenses.utils.BaseAsyncTaskWithProgress;
 import com.antso.expenses.utils.DataExporter;
 import com.antso.expenses.utils.MaterialColours;
 import com.antso.expenses.utils.MyMoneyDataImporter;
+import com.antso.expenses.utils.Settings;
 import com.antso.expenses.utils.Utils;
 
 import org.joda.time.DateTime;
@@ -51,6 +53,7 @@ public class DebugActivity extends Activity {
         Button exportButton = (Button)findViewById(R.id.exportButton);
         Button testButton1 = (Button)findViewById(R.id.testButton1);
         Button testButton2 = (Button)findViewById(R.id.testButton2);
+        final ToggleButton testButtonMultiLineDesc = (ToggleButton)findViewById(R.id.multilineTranactionDescription);
 
         clearDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,6 +173,15 @@ public class DebugActivity extends Activity {
                 t.setFrequencyUnit(TimeUnit.Month);
                 t.setEndDate(Utils.now());
                 dbHelper.insertTransactions(t);
+            }
+        });
+
+        testButtonMultiLineDesc.setChecked(Settings.getMultilineDescriptionInTransactionList(this));
+        testButtonMultiLineDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Settings.saveMultilineDescriptionInTransactionList(DebugActivity.this,
+                        testButtonMultiLineDesc.isChecked());
             }
         });
     }

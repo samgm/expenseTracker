@@ -22,9 +22,9 @@ import com.antso.expenses.transactions.TransactionListActivity;
 import com.antso.expenses.utils.Constants;
 import com.antso.expenses.utils.IntentParamNames;
 import com.antso.expenses.views.AccountChooserDialog;
+import com.antso.expenses.views.TouchInterceptor;
 
 public class AccountListFragment extends ListFragment {
-
     private AccountListAdapter accountListAdapter = null;
 
     public AccountListFragment() {
@@ -38,7 +38,7 @@ public class AccountListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list_fragment, container, false);
+        return inflater.inflate(R.layout.sortable_list_fragment, container, false);
     }
 
     @Override
@@ -51,7 +51,15 @@ public class AccountListFragment extends ListFragment {
             setListAdapter(accountListAdapter);
         }
 
-        registerForContextMenu(getListView());
+        TouchInterceptor mList = (TouchInterceptor) getListView();
+        mList.setDropListener(new TouchInterceptor.DropListener() {
+            public void drop(int from, int to) {
+                AccountManager.ACCOUNT_MANAGER().sortAccountInfo(from, to);
+                accountListAdapter.notifyDataSetChanged();
+            }
+        }, R.dimen.account_item_height);
+
+        registerForContextMenu(mList);
     }
 
     @Override
