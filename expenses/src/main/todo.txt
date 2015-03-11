@@ -1,6 +1,5 @@
 
 give an order to the accounts adn budgets (a->z, value, color, or custom)
-DONE alpha order
 TEST (configurable from debug screen) setting for UseDividersInTransactionList / Multiline (see full description)
 TEST Account custom order (screens and drop downs) + complete implementation for budgets
 

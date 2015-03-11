@@ -23,7 +23,7 @@
     <string name="title_transactions_list_section">Movimenti</string>
     <string name="title_accounts_list_section">Conti</string>
     <string name="title_budgets_list_section">Categorie</string>
-    <string name="title_statistics_section">Statistiche</string>
+    <string name="title_statistics_section">Statistiche (BETA!)</string>
     <string name="title_settings_section">Preferenze</string>
     <string name="title_about_section">Informazioni</string>
     <string name="navigation_drawer_open">Apri menu principale</string>

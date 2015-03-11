@@ -23,7 +23,7 @@
     <string name="title_transactions_list_section">Transactions</string>
     <string name="title_accounts_list_section">Accounts</string>
     <string name="title_budgets_list_section">Budgets</string>
-    <string name="title_statistics_section">Statistics</string>
+    <string name="title_statistics_section">Statistics (BETA!)</string>
     <string name="title_settings_section">Settings</string>
     <string name="title_about_section">About</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
