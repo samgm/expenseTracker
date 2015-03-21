@@ -1,10 +1,11 @@
-package com.antso.expensesmanager;
+package com.antso.expenses;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.antso.expenses.StartActivity;
 import com.antso.expenses.entities.Transaction;
 import com.antso.expenses.transactions.TransactionEntryActivity;
 import com.robotium.solo.Solo;
