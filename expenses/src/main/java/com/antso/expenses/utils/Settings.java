@@ -48,21 +48,29 @@ public class Settings {
         return preferences.getString("budgets_list_transfer", null);
     }
 
+
+    public static boolean getMultilineDescriptionInTransactionList(Context applicationContext) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+        return preferences.getBoolean("multiline_transaction_list_description", false);
+    }
+
+    public static void saveMultilineDescriptionInTransactionList(Context applicationContext, boolean checked) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("multiline_transaction_list_description", checked);
+        editor.commit();
+    }
+    
     public static int getAccountIndex(Context context, String id) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getInt("account_index_" + id, -1);
     }
+    
     public static void saveAccountIndex(Context applicationContext, String id, int index) {
-        //TODO copy from macBook
-    }
-
-    public static boolean getMultilineDescriptionInTransactionList(Context applicationContext) {
-        //TODO copy from macBook
-        return false;
-    }
-
-    public static void saveMultilineDescriptionInTransactionList(Context applicationContext, boolean checked) {
-        //TODO copy from macBook
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("account_index_" + id, index);
+        editor.commit();
     }
 
     public static Map<String, ?> getAllSettings(Context context) {

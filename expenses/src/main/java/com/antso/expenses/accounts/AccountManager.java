@@ -61,7 +61,7 @@ public class AccountManager extends Observable {
 
             Collection<Account> accounts = dbHelper.getAccounts();
             for (Account account : accounts) {
-                addAccount(account);
+                addAccount(account, false);
             }
 
             if (accounts.size() == 0) {
@@ -69,6 +69,7 @@ public class AccountManager extends Observable {
             }
         }
 
+        sortAccountInfoAll();
         started = true;
 
         setChanged();
@@ -90,7 +91,7 @@ public class AccountManager extends Observable {
     private void createDefaultAccount() {
         Account account = new Account("DEFAULT_ACCOUNT", "Default", BigDecimal.ZERO, MaterialColours.GREY_500);
         dbHelper.insertAccount(account);
-        addAccount(account);
+        addAccount(account, false);
     }
 
     public void stop() {
@@ -121,7 +122,7 @@ public class AccountManager extends Observable {
 
     public void insertAccount(Account account) {
         dbHelper.insertAccount(account);
-        addAccount(account);
+        addAccount(account, false);
 
         setChanged();
         notifyObservers(TransactionUpdateEvent.createUpd(null, null));
@@ -130,7 +131,7 @@ public class AccountManager extends Observable {
     public void updateAccount(Account account) {
         dbHelper.updateAccount(account);
         accounts.remove(account.getId());
-        addAccount(account);
+        addAccount(account, true);
 
         setChanged();
         notifyObservers(TransactionUpdateEvent.createUpd(null, null));
@@ -140,6 +141,7 @@ public class AccountManager extends Observable {
         orderedAccounts.remove(accounts.get(account.getId()));
         accounts.remove(account.getId());
         dbHelper.deleteAccount(account.getId());
+        saveAccountIndexes();
 
         setChanged();
         notifyObservers(TransactionUpdateEvent.createUpd(null, null));
@@ -149,21 +151,32 @@ public class AccountManager extends Observable {
         return accounts.size();
     }
 
-    private void addAccount(Account account) {
+    private void addAccount(Account account, boolean isUpdate) {
         Collection<Transaction> transactions = TransactionManager.TRANSACTION_MANAGER()
                 .getTransactionByAccount(account.getId());
         AccountInfo accountInfo = new AccountInfo(account, transactions);
         accounts.put(account.getId(), accountInfo);
-        orderedAccounts.add(getAccountIndex(accountInfo.account.getId()), accountInfo);
+
+        if (isUpdate) {
+            int index = Settings.getAccountIndex(context, accountInfo.account.getId());
+            orderedAccounts.set(index, accountInfo);
+        } else {
+            orderedAccounts.add(accountInfo);
+        }
     }
 
-    private int getAccountIndex(String id) {
-        int index = Settings.getAccountIndex(context, id);
-        if (index != -1) {
-            return index;
-        }
+    private void sortAccountInfoAll() {
+        ArrayList<AccountInfo> orderedAccountsCopy = new ArrayList<>(orderedAccounts);
 
-        return (orderedAccounts.size() == 0) ? orderedAccounts.size() : orderedAccounts.size() - 1;
+        for (AccountInfo accountInfo : orderedAccountsCopy) {
+            int index = Settings.getAccountIndex(context, accountInfo.account.getId());
+            if (index != -1) {
+                orderedAccounts.set(index, accountInfo);
+            } else {
+                orderedAccounts.remove(accountInfo);
+                orderedAccounts.add(accountInfo);
+            }
+        }
     }
 
     public List<AccountInfo> getAccountInfo() {
@@ -174,6 +187,10 @@ public class AccountManager extends Observable {
         AccountInfo elem = orderedAccounts.remove(from);
         orderedAccounts.add(to, elem);
 
+        saveAccountIndexes();
+    }
+
+    public void saveAccountIndexes() {
         int i = 0;
         for (AccountInfo accountInfo : orderedAccounts) {
             Settings.saveAccountIndex(context, accountInfo.account.getId(), i);
