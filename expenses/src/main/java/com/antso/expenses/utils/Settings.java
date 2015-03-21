@@ -71,6 +71,7 @@ public class Settings {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("account_index_" + id, index);
         editor.commit();
+        //test git
     }
 
     public static Map<String, ?> getAllSettings(Context context) {
