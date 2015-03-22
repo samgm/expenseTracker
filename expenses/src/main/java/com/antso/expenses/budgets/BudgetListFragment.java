@@ -22,9 +22,9 @@ import com.antso.expenses.transactions.TransactionListActivity;
 import com.antso.expenses.utils.Constants;
 import com.antso.expenses.utils.IntentParamNames;
 import com.antso.expenses.views.BudgetChooseDialog;
+import com.antso.expenses.views.TouchInterceptor;
 
 public class BudgetListFragment extends ListFragment {
-
     private BudgetListAdapter budgetListAdapter = null;
 
     public BudgetListFragment() {
@@ -37,7 +37,7 @@ public class BudgetListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.list_fragment, container, false);
+        return inflater.inflate(R.layout.sortable_list_fragment, container, false);
     }
 
     @Override
@@ -51,7 +51,15 @@ public class BudgetListFragment extends ListFragment {
             setListAdapter(budgetListAdapter);
         }
 
-        registerForContextMenu(getListView());
+        TouchInterceptor mList = (TouchInterceptor) getListView();
+        mList.setDropListener(new TouchInterceptor.DropListener() {
+            public void drop(int from, int to) {
+                BudgetManager.BUDGET_MANAGER().sortBudgetInfo(from, to);
+                budgetListAdapter.notifyDataSetChanged();
+            }
+        }, R.dimen.budget_item_height);
+
+        registerForContextMenu(mList);
     }
 
     @Override

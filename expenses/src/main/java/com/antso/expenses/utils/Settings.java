@@ -71,7 +71,18 @@ public class Settings {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("account_index_" + id, index);
         editor.commit();
-        //test git 2
+    }
+
+    public static int getBudgetIndex(Context context, String id) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt("budget_index_" + id, -1);
+    }
+
+    public static void saveBudgetIndex(Context applicationContext, String id, int index) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("budget_index_" + id, index);
+        editor.commit();
     }
 
     public static Map<String, ?> getAllSettings(Context context) {

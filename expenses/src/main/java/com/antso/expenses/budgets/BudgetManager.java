@@ -12,6 +12,7 @@ import com.antso.expenses.persistence.DatabaseHelper;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.transactions.TransactionUpdateEvent;
 import com.antso.expenses.utils.MaterialColours;
+import com.antso.expenses.utils.Settings;
 import com.antso.expenses.utils.Utils;
 
 import org.joda.time.DateTime;
@@ -32,9 +33,10 @@ public class BudgetManager extends Observable {
     private Map<String, BudgetInfo> budgets;
     private List<BudgetInfo> orderedBudgets;
     private DatabaseHelper dbHelper = null;
+    private Context context = null;
 
     private BudgetManager() {
-        budgets = new HashMap<String, BudgetInfo>();
+        budgets = new HashMap<>();
         orderedBudgets = new ArrayList<>();
     }
 
@@ -47,6 +49,8 @@ public class BudgetManager extends Observable {
     }
 
     public void start(Context context) {
+        this.context = context;
+
         long start = System.currentTimeMillis();
         Log.i("EXPENSES OBS", "BUDGET_MANAGER(" + this + ") Start begin " + start);
 
@@ -59,7 +63,7 @@ public class BudgetManager extends Observable {
 
             Collection<Budget> budgets = dbHelper.getBudgets();
             for (Budget budget : budgets) {
-                addBudget(budget);
+                addBudget(budget, false);
             }
 
             if (budgets.size() == 0) {
@@ -68,6 +72,7 @@ public class BudgetManager extends Observable {
 
         }
 
+        sortBudgetInfoAll();
         started = true;
 
         setChanged();
@@ -90,7 +95,7 @@ public class BudgetManager extends Observable {
         Budget budget = new Budget("DEFAULT_BUDGET", "Budget", BigDecimal.ZERO, MaterialColours.GREY_500,
                 1, TimeUnit.Month, Utils.now());
         dbHelper.insertBudget(budget);
-        addBudget(budget);
+        addBudget(budget, false);
     }
 
     public void stop() {
@@ -119,19 +124,9 @@ public class BudgetManager extends Observable {
         }
     }
 
-    private void addBudget(Budget budget) {
-        Collection<Transaction> transactions = TransactionManager.TRANSACTION_MANAGER()
-                .getTransactionByBudget(budget.getId());
-        BudgetInfo budgetInfo = new BudgetInfo(budget, transactions);
-        budgets.put(budget.getId(), budgetInfo);
-        orderedBudgets.add(budgetInfo);
-
-//        Collections.sort(orderedBudgets, new BudgetInfoAlphabeticalComparator());
-    }
-
     public void insertBudget(Budget budget) {
         dbHelper.insertBudget(budget);
-        addBudget(budget);
+        addBudget(budget, false);
 
         setChanged();
         notifyObservers(TransactionUpdateEvent.createUpd(null, null));
@@ -140,7 +135,7 @@ public class BudgetManager extends Observable {
     public void updateBudget(Budget budget) {
         dbHelper.updateBudget(budget);
         budgets.remove(budget.getId());
-        addBudget(budget);
+        addBudget(budget, true);
 
         setChanged();
         notifyObservers(TransactionUpdateEvent.createUpd(null, null));
@@ -150,6 +145,7 @@ public class BudgetManager extends Observable {
         orderedBudgets.remove(budgets.get(budget.getId()));
         budgets.remove(budget.getId());
         dbHelper.deleteBudget(budget.getId());
+        saveBudgetIndexes();
 
         setChanged();
         notifyObservers(TransactionUpdateEvent.createUpd(null, null));
@@ -157,6 +153,49 @@ public class BudgetManager extends Observable {
 
     public int size() {
         return budgets.size();
+    }
+
+    private void addBudget(Budget budget, boolean isUpdate) {
+        Collection<Transaction> transactions = TransactionManager.TRANSACTION_MANAGER()
+                .getTransactionByBudget(budget.getId());
+        BudgetInfo budgetInfo = new BudgetInfo(budget, transactions);
+        budgets.put(budget.getId(), budgetInfo);
+
+        if (isUpdate) {
+            int index = Settings.getBudgetIndex(context, budgetInfo.budget.getId());
+            orderedBudgets.set(index, budgetInfo);
+        } else {
+            orderedBudgets.add(budgetInfo);
+        }
+    }
+
+    private void sortBudgetInfoAll() {
+        ArrayList<BudgetInfo> orderedBudgetsCopy = new ArrayList<>(orderedBudgets);
+
+        for (BudgetInfo budgetInfo : orderedBudgetsCopy) {
+            int index = Settings.getBudgetIndex(context, budgetInfo.budget.getId());
+            if (index != -1) {
+                orderedBudgets.set(index, budgetInfo);
+            } else {
+                orderedBudgets.remove(budgetInfo);
+                orderedBudgets.add(budgetInfo);
+            }
+        }
+    }
+
+    public void sortBudgetInfo(int from, int to) {
+        BudgetInfo elem = orderedBudgets.remove(from);
+        orderedBudgets.add(to, elem);
+
+        saveBudgetIndexes();
+    }
+
+    public void saveBudgetIndexes() {
+        int i = 0;
+        for (BudgetInfo budgetInfo : orderedBudgets) {
+            Settings.saveBudgetIndex(context, budgetInfo.budget.getId(), i);
+            i++;
+        }
     }
 
     public List<BudgetInfo> getBudgetInfo() {
@@ -168,7 +207,7 @@ public class BudgetManager extends Observable {
     }
 
     public Map<String, Budget> getBudgetsByName() {
-        Map<String, Budget> budgetByName = new HashMap<String, Budget>(budgets.size());
+        Map<String, Budget> budgetByName = new HashMap<>(budgets.size());
         for(BudgetInfo info : budgets.values()) {
             if(!budgetByName.containsKey(info.budget.getName())) {
                 budgetByName.put(info.budget.getName(), info.budget);
@@ -201,7 +240,7 @@ public class BudgetManager extends Observable {
         }
 
         public void addTransaction(Transaction transaction) {
-            Collection<Transaction> exploded = new ArrayList<Transaction>();
+            Collection<Transaction> exploded = new ArrayList<>();
             if (transaction.getRecurrent() && !transaction.isAutoGenerated()) {
                 exploded = TransactionManager.explodeRecurrentTransaction(transaction, Utils.now());
             }
@@ -210,7 +249,7 @@ public class BudgetManager extends Observable {
         }
 
         public void removeTransaction(Transaction transaction) {
-            Collection<Transaction> exploded = new ArrayList<Transaction>();
+            Collection<Transaction> exploded = new ArrayList<>();
             if (transaction.getRecurrent() && !transaction.isAutoGenerated()) {
                 exploded = TransactionManager.explodeRecurrentTransaction(transaction, Utils.now());
             }
@@ -282,7 +321,7 @@ public class BudgetManager extends Observable {
                 iterationNum++;
             }
 
-            return  new Pair<DateTime, DateTime>(periodStartOld.withTimeAtStartOfDay(),
+            return  new Pair<>(periodStartOld.withTimeAtStartOfDay(),
                     periodStart.withTimeAtStartOfDay());
         }
 

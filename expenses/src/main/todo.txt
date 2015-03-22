@@ -1,7 +1,7 @@
-
-give an order to the accounts adn budgets (a->z, value, color, or custom)
 TEST (configurable from debug screen) setting for UseDividersInTransactionList / Multiline (see full description)
+    to fix, not working
 TEST Account custom order (screens and drop downs) + complete implementation for budgets
+    doesn't work well with scrolling
 
 TEST setting import / export
 
@@ -38,7 +38,6 @@ RELEASE
 ---------------------------------------------------------------
  ENHANCEMENTS
 ---------------------------------------------------------------
-
 
 1    save state on entry/edit activities
 1    recurrent transaction with no end date (stay for ever)
