@@ -2,8 +2,7 @@ TEST (configurable from debug screen) setting for UseDividersInTransactionList /
     to fix, not working
 TEST Account custom order (screens and drop downs) + complete implementation for budgets
     doesn't work well with scrolling
-
-TEST setting import / export
+    add drawable for right side of the items (make understandable they can be dragged)
 
 clean-up and unused and add used icons to svn
 create nice looking demo export

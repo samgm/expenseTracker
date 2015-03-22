@@ -96,6 +96,9 @@ public class AccountManager extends Observable {
 
     public void stop() {
         super.deleteObservers();
+
+        saveAccountIndexes();
+
         accounts.clear();
         orderedAccounts.clear();
         started = false;

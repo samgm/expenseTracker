@@ -100,6 +100,9 @@ public class BudgetManager extends Observable {
 
     public void stop() {
         super.deleteObservers();
+
+        saveBudgetIndexes();
+
         budgets.clear();
         orderedBudgets.clear();
         started = false;
