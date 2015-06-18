@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        signConfig {
+            keyAlias 'AntonioSolanoAndroidCryptographicKey'
+            keyPassword 'lorien'
+            storeFile file('C:/Users/asolano/AndroidStudioProjects/AntonoSolanoAndroidCryptographicKeys/AntonioSolanoAndroidCryptographicKey.jks')
+            storePassword 'aaalorien'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.0.2"
-
     defaultConfig {
         applicationId "com.antso.expenses"
         minSdkVersion 16
@@ -11,7 +18,6 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -20,6 +26,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signConfig
         }
     }
 }
@@ -27,10 +34,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.2'
-//    compile 'com.android.support:support-v4:19.+'
+    //    compile 'com.android.support:support-v4:19.+'
     compile 'joda-time:joda-time:2.3'
     compile 'com.jjoe64:graphview:4.+'
-
     androidTestCompile files('src/androidTest/lib/robotium-solo-5.2.1.jar')
     androidTestCompile files('src/androidTest/lib/junit-4.11.jar')
 }

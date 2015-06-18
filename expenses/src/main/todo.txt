@@ -1,5 +1,6 @@
 TEST (configurable from debug screen) setting for UseDividersInTransactionList / Multiline (see full description)
-    to fix, not working
+    works fine, understand while when not multiline '...' in not shown on cut string
+
 TEST Account custom order (screens and drop downs) + complete implementation for budgets
     doesn't work well with scrolling
     add drawable for right side of the items (make understandable they can be dragged)
@@ -66,6 +67,9 @@ statistics enh (http://android-graphview.org/ or find a better alternative: http
     budget pie (how about different budget periods? normalize to fix period (month or year))
     progress bar while loading
 
+summary / stats on top of categories or accounts
+summary with tot in / out by months
+summary showing the total planned in all categories by month (normalized)
 
 ---------------------------------------------------------------
  OTHER EULA
