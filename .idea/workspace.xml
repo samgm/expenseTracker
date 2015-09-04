@@ -85,222 +85,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1b139f75-bb01-4e58-8f42-c003dfd81022" name="Default" comment="added budgets stats&#10;fixes on accounts stats&#10;fixed balance label on budget screen">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_add.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_add.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_add.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_add.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_add.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_create.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_create.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_create.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_create.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_create.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_delete.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_delete.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_delete.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_delete.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_delete.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_done.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_done.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_done.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_done.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_done.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_fee.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_fee.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_fee.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_fee.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_fee.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_help.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_info.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_info.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_info.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_info.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_info.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_loop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_loop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_loop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_loop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_loop.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_search.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_search.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_search.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_search.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_search.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_settings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_settings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_settings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_settings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_settings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_swap.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_swap.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_swap.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_swap.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_swap.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_swap_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_swap_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_swap_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_swap_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_swap_event.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-hdpi/ic_undo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-mdpi/ic_undo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xhdpi/ic_undo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxhdpi/ic_undo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable-xxxhdpi/ic_undo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/analytics/Analytics.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/comapt/AppCompatListActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/comapt/AppCompatPreferenceActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/CompoundedTransferTransaction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/comapt/FloatingActionButtonClicked.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/account_list_host_fragment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_list_host_fragment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_account_entry.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_budget_entry.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_transaction_entry.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/statistics_pagerer_host_fragment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/tool_bar.xml" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\.idea\libraries\appcompat_v7_21_0_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\.idea\libraries\joda_time_2_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\.idea\libraries\junit_4_11.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\.idea\libraries\robotium_solo_5_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\.idea\libraries\support_annotations_21_0_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\.idea\libraries\support_v4_21_0_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\drawer_shadow.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_about.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_help.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_import_export.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_import_export_refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_new.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_previous_item.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_search.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_settings.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_action_undo.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-hdpi\ic_drawer.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\drawer_shadow.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_about.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_help.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_import_export.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_import_export_refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_new.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_previous_item.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_search.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_settings.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_action_undo.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-mdpi\ic_drawer.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\drawer_shadow.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_about.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_help.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_import_export.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_import_export_refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_new.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_previous_item.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_search.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_settings.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_action_undo.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xhdpi\ic_drawer.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\drawer_shadow.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_about.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_help.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_import_export.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_import_export_refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_new.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_previous_item.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_search.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_settings.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_action_undo.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_drawer.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_expenses_transfer2.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\layout\sortable_list_fragment.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\layout\statistics_pager_host_fragment.xml" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\java\com\antso\expenses\SettingsActivity.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/settings/SettingsActivity.java" />
-      <change type="MOVED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\java\com\antso\expenses\views\NonSwipeableViewPager.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/comapt/NonSwipeableViewPager.java" />
-      <change type="MOVED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_expenses_account.png" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable/ic_expenses_account.png" />
-      <change type="MOVED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_expenses_budget.png" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable/ic_expenses_budget.png" />
-      <change type="MOVED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_expenses_statistics.png" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable/ic_expenses_statistics.png" />
-      <change type="MOVED" beforePath="C:\Users\asolano\AndroidStudioProjects\Expenses\expenses\src\main\res\drawable-xxhdpi\ic_expenses_transfer.png" afterPath="$PROJECT_DIR$/expenses/src/main/res/drawable/ic_expenses_transfer.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/entities/Account.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/entities/Account.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/accounts/AccountEntryActivity.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/accounts/AccountEntryActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/accounts/AccountListAdapter.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/accounts/AccountListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/accounts/AccountListFragment.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/accounts/AccountListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/expenses/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/BaseAccountBudgetTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/BaseAccountBudgetTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/budgets/BudgetEntryActivity.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/budgets/BudgetEntryActivity.java" />
+    <list default="true" id="1b139f75-bb01-4e58-8f42-c003dfd81022" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/budgets/BudgetListAdapter.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/budgets/BudgetListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/budgets/BudgetListFragment.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/budgets/BudgetListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/views/CircleSectorView.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/views/CircleSectorView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/utils/DataExporter.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/utils/DataExporter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/persistence/DatabaseHelper.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/persistence/DatabaseHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/DebugActivity.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/DebugActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/accounts/DeleteAccountAsyncTask.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/accounts/DeleteAccountAsyncTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/budgets/DeleteBudgetAsyncTask.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/budgets/DeleteBudgetAsyncTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Expenses.iml" afterPath="$PROJECT_DIR$/Expenses.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/ExpensesListFragment.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/ExpensesListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/ExpensesTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/ExpensesTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/NavigationDrawerFragment.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/NavigationDrawerFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/RevenuesListFragment.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/RevenuesListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/StartActivity.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/StartActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/androidTest/java/com/antso/expenses/StartActivityTest.java" afterPath="$PROJECT_DIR$/expenses/src/androidTest/java/com/antso/expenses/StartActivityTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/statistics/StatisticsPagerAdapter.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/statistics/StatisticsPagerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/statistics/StatisticsPagerHostFragment.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/statistics/StatisticsPagerHostFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/entities/Transaction.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/entities/Transaction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionEntryActivity.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionEntryActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/views_helpers/TransactionLayout.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/views_helpers/TransactionLayout.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionListActivity.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionListActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionManager.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionPagerHostFragment.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionPagerHostFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/enums/TransactionType.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/enums/TransactionType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionUpdateEvent.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionUpdateEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionsPagerAdapter.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransactionsPagerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransfersListFragment.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransfersListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransfersTransactionListAdapter.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/transactions/TransfersTransactionListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/utils/Utils.java" afterPath="$PROJECT_DIR$/expenses/src/main/java/com/antso/expenses/utils/Utils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/account_entry_activity.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/account_entry_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/account_item.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/account_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/account_spinner_dropdown_item.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/account_spinner_dropdown_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/account_spinner_item.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/account_spinner_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_entry_activity.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_entry_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_item.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_spinner_dropdown_item.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_spinner_dropdown_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_spinner_item.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/budget_spinner_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/build.gradle" afterPath="$PROJECT_DIR$/expenses/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/values/circle_sector_view.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/values/circle_sector_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/color_picker.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/color_picker.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/debug_activity.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/debug_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/drawer_item.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/drawer_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/expenses.iml" afterPath="$PROJECT_DIR$/expenses/expenses.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_account_list.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_account_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_budget_list.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_budget_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_transaction_list.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/menu/menu_transaction_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/xml/pref_headers.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/xml/pref_headers.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/start_activity.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/start_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/statistics_account_charts.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/statistics_account_charts.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/statistics_budget_charts.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/statistics_budget_charts.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/values-it/strings.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/values-it/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/joda_time_2_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/joda_time_2_3.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/junit_4_11.xml" afterPath="$PROJECT_DIR$/.idea/libraries/junit_4_11.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/robotium_solo_5_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/robotium_solo_5_2_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/todo.txt" afterPath="$PROJECT_DIR$/expenses/src/main/todo.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/transaction_entry_activity.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/transaction_entry_activity.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/transaction_item.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/transaction_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/transaction_item_small.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/transaction_item_small.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/expenses/src/main/res/layout/transaction_pagerer_host_fragment.xml" afterPath="$PROJECT_DIR$/expenses/src/main/res/layout/transaction_pagerer_host_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Expenses.iws" />
@@ -405,8 +195,8 @@
       <file leaf-file-name="todo.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/expenses/src/main/todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24156305">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.21136767">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -2605,7 +2395,13 @@
       <option name="project" value="LOCAL" />
       <updated>1434650104996</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="updated project reference and dependencies&#10;support for feee on transfer transaction&#10;material design look and feel&#10;added analytics package (work in progress)">
+      <created>1441376230760</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1441376230760</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2619,7 +2415,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.4978678" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21318682" sideWeight="0.48507464" order="6" side_tool="false" content_ui="tabs" />
@@ -2629,7 +2425,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23400854" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35054946" sideWeight="0.48614073" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35054946" sideWeight="0.48614073" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32857144" sideWeight="0.48720682" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32857144" sideWeight="0.4904051" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2709,7 +2505,8 @@
     <MESSAGE value="completed custom order for account and budget" />
     <MESSAGE value="fix account/budget order not saved if never re-ordered" />
     <MESSAGE value="updated todo and string.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated todo and string.xml" />
+    <MESSAGE value="updated project reference and dependencies&#10;support for feee on transfer transaction&#10;material design look and feel&#10;added analytics package (work in progress)" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated project reference and dependencies&#10;support for feee on transfer transaction&#10;material design look and feel&#10;added analytics package (work in progress)" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.4913295" />
   </component>
   <component name="XDebuggerManager">
@@ -2809,6 +2606,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38643533">
           <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2844,6 +2642,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="e#1092#1147#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2883,6 +2684,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="48" column="31" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2926,6 +2728,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36621314">
           <caret line="24" column="40" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2953,6 +2756,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="37" column="43" selection-start-line="37" selection-start-column="43" selection-end-line="37" selection-end-column="43" />
+          <folding>
+            <element signature="e#1433#1434#0" expanded="true" />
+            <element signature="e#1494#1495#0" expanded="true" />
+            <element signature="e#1546#1547#0" expanded="true" />
+            <element signature="e#1572#1573#0" expanded="true" />
+            <element signature="e#2467#3250#0" expanded="true" />
+            <element signature="e#3249#3250#0" expanded="true" />
+            <element signature="e#4182#4221#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2997,6 +2809,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.29142857">
           <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3004,6 +2817,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36857143">
           <caret line="158" column="13" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3033,6 +2847,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.27142859">
           <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3040,6 +2855,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46571428">
           <caret line="112" column="69" selection-start-line="111" selection-start-column="33" selection-end-line="112" selection-end-column="69" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3116,6 +2932,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40697673">
           <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#922#923#0" expanded="false" />
+            <element signature="e#949#950#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3123,6 +2944,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8023256">
           <caret line="38" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3130,6 +2952,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.66715115">
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3137,6 +2960,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.793103">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3594,8 +3418,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/expenses/src/main/todo.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24156305">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.21136767">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>

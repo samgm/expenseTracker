@@ -1,6 +1,5 @@
 Account custom order (screens and drop downs) doesn't work well with scrolling
 
-clean-up and unused and add used icons to svn
 create nice looking demo export
 
 TODO - WORKING
