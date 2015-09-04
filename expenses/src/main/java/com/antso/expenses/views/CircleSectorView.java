@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -80,6 +81,13 @@ public class CircleSectorView extends View {
             canvas.drawText(text,
                     arc.centerX(), arc.centerY() + this.text.getTextSize() / 2 - 8,
                     this.text);
+        }
+
+        if (isSelected() && !isInEditMode()) {
+            Drawable d = getResources().getDrawable(R.drawable.ic_done);
+            int margin = canvas.getWidth() / 4;
+            d.setBounds(margin, margin, canvas.getWidth() - margin, canvas.getHeight() - margin);
+            d.draw(canvas);
         }
     }
 

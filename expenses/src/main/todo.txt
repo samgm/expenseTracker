@@ -3,7 +3,6 @@ Account custom order (screens and drop downs) doesn't work well with scrolling
 create nice looking demo export
 
 TODO - WORKING
-    selection 1:nicer selected circle with icon, 2: selection num in the toolbar and back to unselect
     change my icons in the drawer to black (evaluate using trasparency)
 
 ---------------------------------------------------------------
@@ -26,13 +25,15 @@ TODO - WORKING
 ---------------------------------------------------------------
  ENHANCEMENTS
 ---------------------------------------------------------------
+summary showing
+    account list: tot fortune (net sum of all accounts), tot in / out by months (sum of all account)
+    account transaction list: show the same item as in the account list (circle + text),?customize title
+    budgets list: the total sum of planned expenses for all categories (normalized by month)
+    budgets transaction list: show the same item as in the budget list (3 circle + text), ?customize title
+
 statistics enh (http://android-graphview.org/ or find a better alternative: https://github.com/PhilJay/MPAndroidChart)
     budget pie (how about different budget periods? normalize to fix period (month or year))
     progress bar while loading
-
-summary / stats on top of categories or accounts
-summary with tot in / out by months
-summary showing the total planned in all categories by month (normalized)
 
 4    transaction reminder / pending transaction for recurrent
      add configurable reminders that asks to add new expenses

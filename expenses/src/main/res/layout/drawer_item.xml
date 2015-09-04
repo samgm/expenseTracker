@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/drawerItemIcon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:contentDescription="@string/placeholder"
             android:layout_gravity="center"
             android:paddingLeft="10dp"
@@ -31,7 +31,6 @@
             android:paddingRight="?android:attr/listPreferredItemPaddingEnd"
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
             android:text="@string/placeholder"
-            android:textColor="@color/gray80"
             />
     </LinearLayout>
 
