@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -149,6 +148,15 @@ public class TransactionManager extends Observable {
 
                 AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(linked);
                 BudgetManager.BUDGET_MANAGER().onTransactionDeleted(linked);
+            }
+            if (transaction.getFeeTransactionId() != null &&
+                    !transaction.getFeeTransactionId().isEmpty()) {
+                Transaction fee = getTransactionById(transaction.getFeeTransactionId());
+                delTransaction(fee);
+                dbHelper.deleteTransaction(transaction.getFeeTransactionId());
+
+                AccountManager.ACCOUNT_MANAGER().onTransactionDeleted(fee);
+                BudgetManager.BUDGET_MANAGER().onTransactionDeleted(fee);
             }
             delTransaction(transaction);
             dbHelper.deleteTransaction(transaction.getId());
@@ -375,19 +383,24 @@ public class TransactionManager extends Observable {
         return result;
     }
 
-    public List<Transaction> getOutTransactions() {
+    public List<Transaction> getOutTransactionsExcludingFees() {
         if (!started) {
             return Collections.emptyList();
         }
 
         long start = System.currentTimeMillis();
-        List<Transaction> transactions = new ArrayList<Transaction>(outTransaction);
+        List<Transaction> transactions = new ArrayList<>();
+        for (Transaction t  : outTransaction) {
+            if (!t.getType().equals(TransactionType.Fee)) {
+                transactions.add(t);
+            }
+        }
 
         long sorting = System.currentTimeMillis();
         Collections.sort(transactions, new TransactionByDateComparator());
 
         long end = System.currentTimeMillis();
-        Log.i("EXPENSES", "BUDGET_MANAGER getOutTransactions (" + transactions.size() + ") " +
+        Log.i("EXPENSES", "BUDGET_MANAGER getOutTransactionsExcludingFees (" + transactions.size() + ") " +
                 " get {" + (sorting - start) + "}" +
                 " sort {" + (end - sorting) + "} tot {" + (end - start) + "}");
         return transactions;
@@ -411,7 +424,7 @@ public class TransactionManager extends Observable {
         return transactions;
     }
 
-    public List<Pair<Transaction, Transaction>> getTransferTransactions() {
+    public List<CompoundedTransferTransaction> getTransferTransactions() {
         if (!started) {
             return Collections.emptyList();
         }
@@ -427,17 +440,22 @@ public class TransactionManager extends Observable {
                 " get {" + (sorting - start) + "}" +
                 " sort {" + (end - sorting) + "} tot {" + (end - start) + "}");
 
-        List<Pair<Transaction, Transaction>> pairedTransactions =
-                new ArrayList<Pair<Transaction, Transaction>>(transactions.size() / 2);
+        List<CompoundedTransferTransaction> compoundedTransactions =
+                new ArrayList<CompoundedTransferTransaction>(transactions.size() / 2);
 
         for (Transaction t : transactions) {
             if (t.getDirection().equals(TransactionDirection.Out)) {
                 Transaction t2 = getTransactionById(t.getLinkedTransactionId());
-                pairedTransactions.add(new Pair<Transaction, Transaction>(t, t2));
+                if (!t.getFeeTransactionId().isEmpty()) {
+                    Transaction tFee = getTransactionById(t.getFeeTransactionId());
+                    compoundedTransactions.add(new CompoundedTransferTransaction(t, t2, tFee));
+                } else {
+                    compoundedTransactions.add(new CompoundedTransferTransaction(t, t2));
+                }
             }
         }
 
-        return pairedTransactions;
+        return compoundedTransactions;
     }
 
     static public Transaction createRecurrentCopy(Transaction transaction, DateTime date) {

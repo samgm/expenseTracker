@@ -73,7 +73,7 @@ public class DataExporter {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         Collection<Transaction> transactions = dbHelper.getTransactions();
         for (Transaction t : transactions) {
-            String[] tString = new String[14];
+            String[] tString = new String[15];
             tString[0] = t.getId();
             tString[1] = t.getDescription();
             tString[2] = t.getDirection().getStringValue();
@@ -88,6 +88,7 @@ public class DataExporter {
             tString[11] = t.getFrequencyUnit().getStringValue();
             tString[12] = String.valueOf(Utils.dateTimeToyyyyMMdd(t.getEndDate()));
             tString[13] = String.valueOf(t.getRepetitionNum());
+            tString[14] = t.getFeeTransactionId();
 
             writer.writeNext(tString);
         }
@@ -222,6 +223,9 @@ public class DataExporter {
             t.setFrequencyUnit(TimeUnit.valueOf(values[11]));
             t.setEndDate(Utils.yyyyMMddToDate(Integer.parseInt(values[12])));
             t.setRepetitionNum(Integer.parseInt(values[13]));
+            if (values.length >= 15 && values[14] != null) {
+                t.setFeeTransactionId(values[14]);
+            }
 
             dbHelper.insertTransactions(t);
 

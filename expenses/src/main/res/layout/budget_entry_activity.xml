@@ -1,4 +1,4 @@
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:circleSectorview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -6,221 +6,204 @@
     android:orientation="vertical"
     tools:context="com.antso.expenses.budget.BudgetEntryActivity">
 
-    <LinearLayout
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar">
+    </include>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+       <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
-
-        <com.antso.expenses.views.CircleSectorView
-            android:id="@+id/budgetColor"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            circleSectorview:cFillColor="#ff0000"
-            circleSectorview:cRadiusDp="32"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
-            />
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/budgetEntryTitle"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
+
+            <com.antso.expenses.views.CircleSectorView
+                android:id="@+id/budgetColor"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                circleSectorview:fillColor="#ff0000"
+                circleSectorview:radiusDp="32"
+                circleSectorview:angleStart="0"
+                circleSectorview:angleSweep="360"
+                />
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_gravity="center_vertical"
-                android:textSize="32sp"
-                android:text="@string/budget_entry_title"
-                android:textColor="@color/black"
-                android:gravity="right"/>
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_gravity="center_vertical"
-                android:textSize="16sp"
-                android:text="@string/change_color_message"
-                android:gravity="right"/>
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/budgetEntryTitle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="32sp"
+                    android:text="@string/budget_entry_title"
+                    android:textColor="@color/black"
+                    android:gravity="right"/>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:text="@string/change_color_message"
+                    android:gravity="right"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/budgetNameLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="-16dp"
-        android:textSize="14sp"
-        android:text="@string/name"
-        android:textStyle="italic"
-        android:gravity="left"
-        android:visibility="visible"/>
-
-    <LinearLayout
-        android:id="@+id/budgetNameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="16dp">
-
-        <EditText
-            android:id="@+id/budgetName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/name"
-            android:selectAllOnFocus="true"
-            android:gravity="right"
-            android:layout_gravity="bottom"/>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/budgetThresholdValueLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="-16dp"
-        android:textSize="14sp"
-        android:text="@string/threshold_label"
-        android:textStyle="italic"
-        android:gravity="left"
-        android:visibility="visible"/>
-
-    <LinearLayout
-        android:id="@+id/budgetThresholdLayout"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="6dp">
 
         <TextView
-            android:id="@+id/budgetThresholdCurrency"
+            android:id="@+id/budgetNameLabel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
-            android:textSize="20sp"
-            android:text="@string/currency"
-            android:gravity="center"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="-16dp"
+            android:textSize="14sp"
+            android:text="@string/name"
+            android:textStyle="italic"
+            android:gravity="left"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:id="@+id/budgetNameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="16dp">
+
+            <EditText
+                android:id="@+id/budgetName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/name"
+                android:selectAllOnFocus="true"
+                android:gravity="right"
+                android:layout_gravity="bottom"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/budgetThresholdValueLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="-16dp"
+            android:textSize="14sp"
+            android:text="@string/threshold_label"
+            android:textStyle="italic"
+            android:gravity="left"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:id="@+id/budgetThresholdLayout"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/budgetThresholdCurrency"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:textSize="20sp"
+                android:text="@string/currency"
+                android:gravity="center"/>
+
+            <EditText
+                android:id="@+id/budgetThreshold"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="@string/value_0_00"
+                android:selectAllOnFocus="true"
+                android:numeric="decimal"
+                android:gravity="right"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/budgetPeriodLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="-16dp"
+            android:textSize="14sp"
+            android:text="@string/every_label"
+            android:textStyle="italic"
+            android:gravity="left"/>
+
+        <LinearLayout
+            android:id="@+id/budgetPeriodLayout"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp">
+
+            <Spinner
+                android:id="@+id/budgetPeriodLenghtSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="8"
+                android:textSize="20sp"/>
+
+            <Spinner
+                android:id="@+id/TimeUnitSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="2"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/budgetDateLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="-16dp"
+            android:textSize="14sp"
+            android:text="@string/starting_label"
+            android:textStyle="italic"
+            android:gravity="left"
+            android:visibility="visible"/>
 
         <EditText
-            android:id="@+id/budgetThreshold"
+            android:id="@+id/budgetStartDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="6dp"
             android:textSize="20sp"
-            android:text="@string/value_0_00"
-            android:selectAllOnFocus="true"
-            android:numeric="decimal"
+            android:text="@string/date_label"
             android:gravity="right"/>
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/budgetPeriodLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="-16dp"
-        android:textSize="14sp"
-        android:text="@string/every_label"
-        android:textStyle="italic"
-        android:gravity="left"/>
-
-    <LinearLayout
-        android:id="@+id/budgetPeriodLayout"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="6dp">
-
-        <Spinner
-            android:id="@+id/budgetPeriodLenghtSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="8"
-            android:textSize="20sp"/>
-
-        <Spinner
-            android:id="@+id/TimeUnitSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="2"
-            android:textSize="20sp" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/budgetDateLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="-16dp"
-        android:textSize="14sp"
-        android:text="@string/starting_label"
-        android:textStyle="italic"
-        android:gravity="left"
-        android:visibility="visible"/>
+    </ScrollView>
 
-    <EditText
-        android:id="@+id/budgetStartDate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="6dp"
-        android:textSize="20sp"
-        android:text="@string/date_label"
-        android:gravity="right"/>
-
-
-
-
-    <LinearLayout
-        android:id="@+id/budgetConfirmButtonsLayout"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/buttonBarStyle">
-
-        <Button
-            android:id="@+id/budgetCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_cancel_label"
-            android:background="@drawable/button_background"
-            style="?android:attr/buttonBarButtonStyle"/>
-        <Button
-            android:id="@+id/budgetConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_confirm_add_label"
-            android:background="@drawable/button_background"
-            style="?android:attr/buttonBarButtonStyle"/>
-
-    </LinearLayout>
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

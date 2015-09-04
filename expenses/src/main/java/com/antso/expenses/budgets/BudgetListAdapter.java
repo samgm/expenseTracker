@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.antso.expenses.R;
+import com.antso.expenses.entities.Budget;
 import com.antso.expenses.entities.SummaryTransaction;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.utils.Utils;
@@ -27,6 +28,10 @@ import java.util.Observer;
 public class BudgetListAdapter extends BaseAdapter  implements Observer {
     private final BudgetManager budgetManager;
     private final Context context;
+
+    private volatile CircleSectorView selectedItemView = null;
+    private volatile int selectedItemIndex = -1;
+    private OnSelectionChanged onSelectionChangedHandler;
 
     public BudgetListAdapter(Context context, BudgetManager budgetManager) {
         this.context = context;
@@ -51,18 +56,39 @@ public class BudgetListAdapter extends BaseAdapter  implements Observer {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final BudgetManager.BudgetInfo budgetInfo = budgetManager.getBudgetInfo().get(position);
 
         List<Integer> percentages = getPercentages(budgetInfo);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout budgetLayout = (LinearLayout) inflater.inflate(R.layout.budget_item, null, false);
+        final LinearLayout budgetLayout = (LinearLayout) inflater.inflate(R.layout.budget_item, null, false);
 
         final CircleSectorView color = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColor);
         final CircleSectorView colorOld = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColorOld);
         final CircleSectorView colorOlder = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColorOlder);
         color.setColor(budgetInfo.budget.getColor());
+        color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedItemIndex != -1) {
+                    selectedItemView.setSelected(false);
+                }
+
+                if (position != selectedItemIndex) {
+                    color.setSelected(true);
+                    selectedItemView = (CircleSectorView) budgetLayout.findViewById(R.id.budgetColor);
+                    selectedItemIndex = position;
+                } else {
+                    selectedItemView = null;
+                    selectedItemIndex = -1;
+                }
+
+                if (onSelectionChangedHandler != null) {
+                    onSelectionChangedHandler.onSelectionChanged(selectedItemIndex);
+                }
+            }
+        });
         colorOld.setColor(budgetInfo.budget.getColor());
         colorOlder.setColor(budgetInfo.budget.getColor());
         color.setCirclePercentage(percentages.get(0));
@@ -135,4 +161,27 @@ public class BudgetListAdapter extends BaseAdapter  implements Observer {
         BudgetManager.BUDGET_MANAGER().deleteObserver(this);
     }
 
+    public Budget getSelectedBudget() {
+        return ((BudgetManager.BudgetInfo)getItem(selectedItemIndex)).budget;
+    }
+
+    public void resetSelection() {
+        if (selectedItemIndex != -1) {
+            selectedItemView.setSelected(false);
+            selectedItemView = null;
+            selectedItemIndex = -1;
+
+            if (onSelectionChangedHandler != null) {
+                onSelectionChangedHandler.onSelectionChanged(selectedItemIndex);
+            }
+        }
+    }
+
+    void setOnSelectionChangeHandler(OnSelectionChanged handler) {
+        this.onSelectionChangedHandler = handler;
+    }
+
+    public interface OnSelectionChanged {
+        void onSelectionChanged(int selectedItemIndex);
+    }
 }

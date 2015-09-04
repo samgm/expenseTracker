@@ -20,7 +20,7 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginRight="6dp"
-            android:src="@drawable/ic_action_refresh"
+            android:src="@drawable/ic_loop"
             android:contentDescription="@string/placeholder"/>
 
         <TextView
@@ -158,10 +158,10 @@
             android:id="@+id/budgetColor"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            circleSectorview:cFillColor="#ff0000"
-            circleSectorview:cRadiusDp="10"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
+            circleSectorview:fillColor="#ff0000"
+            circleSectorview:radiusDp="10"
+            circleSectorview:angleStart="0"
+            circleSectorview:angleSweep="360"
             />
         <TextView
             android:id="@+id/budgetName"
@@ -180,10 +180,10 @@
             android:id="@+id/accountColor"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            circleSectorview:cFillColor="#0000ff"
-            circleSectorview:cRadiusDp="10"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
+            circleSectorview:fillColor="#0000ff"
+            circleSectorview:radiusDp="10"
+            circleSectorview:angleStart="0"
+            circleSectorview:angleSweep="360"
             />
 
         <TextView

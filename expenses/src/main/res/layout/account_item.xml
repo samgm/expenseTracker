@@ -20,10 +20,10 @@
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_gravity="center_vertical"
-            circleSectorview:cFillColor="#ff0000"
-            circleSectorview:cRadiusDp="32"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
+            circleSectorview:fillColor="#ff0000"
+            circleSectorview:radiusDp="32"
+            circleSectorview:angleStart="0"
+            circleSectorview:angleSweep="360"
             />
 
         <LinearLayout

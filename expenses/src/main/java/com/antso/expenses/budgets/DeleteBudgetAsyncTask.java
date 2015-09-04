@@ -1,12 +1,11 @@
 package com.antso.expenses.budgets;
 
 import android.app.Activity;
-import android.widget.Toast;
 
-import com.antso.expenses.R;
 import com.antso.expenses.entities.Budget;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.utils.BaseAsyncTaskWithProgress;
+import com.antso.expenses.utils.Utils;
 
 public class DeleteBudgetAsyncTask extends BaseAsyncTaskWithProgress<Budget> {
 
@@ -31,8 +30,7 @@ public class DeleteBudgetAsyncTask extends BaseAsyncTaskWithProgress<Budget> {
     @Override
     protected void onPostExecute(Budget budget) {
         super.onPostExecute(budget);
-        Toast.makeText(activity, budget.getName() +
-                        activity.getText(R.string.message_budget_deleted),
-                Toast.LENGTH_LONG).show();
+        Utils.showDeletedToast(activity, budget.toString());
+
     }
 }

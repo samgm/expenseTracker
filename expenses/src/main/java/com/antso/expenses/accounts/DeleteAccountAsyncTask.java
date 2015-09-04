@@ -1,12 +1,11 @@
 package com.antso.expenses.accounts;
 
 import android.app.Activity;
-import android.widget.Toast;
 
-import com.antso.expenses.R;
 import com.antso.expenses.entities.Account;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.utils.BaseAsyncTaskWithProgress;
+import com.antso.expenses.utils.Utils;
 
 public class DeleteAccountAsyncTask
         extends BaseAsyncTaskWithProgress<Account> {
@@ -36,8 +35,6 @@ public class DeleteAccountAsyncTask
     @Override
     protected void onPostExecute(Account account) {
         super.onPostExecute(account);
-        Toast.makeText(activity, account.getName() +
-                        activity.getText(R.string.message_account_deleted),
-                Toast.LENGTH_LONG).show();
+        Utils.showDeletedToast(activity, account.toString());
     }
 }

@@ -2,6 +2,7 @@ package com.antso.expenses.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.widget.Toast;
 
 import com.antso.expenses.R;
 import com.antso.expenses.enums.TimeUnit;
@@ -229,5 +230,20 @@ public class Utils {
         }
 
         return result;
+    }
+
+    public static void showDeletedToast(Context context, String entityAsText) {
+        Toast.makeText(context, entityAsText +
+                context.getText(R.string.message_deleted), Toast.LENGTH_LONG).show();
+    }
+
+    public static void showAddedToast(Context context, String entityAsText) {
+        Toast.makeText(context, entityAsText +
+                context.getText(R.string.message_added), Toast.LENGTH_LONG).show();
+    }
+
+    public static void showUpdatedToast(Context context, String entityAsText) {
+        Toast.makeText(context, entityAsText +
+                context.getText(R.string.message_updated), Toast.LENGTH_LONG).show();
     }
 }

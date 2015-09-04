@@ -1,4 +1,4 @@
-<android.support.v4.widget.DrawerLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/start_activity_layout"
@@ -6,31 +6,43 @@
     android:layout_height="match_parent"
     tools:context="com.antso.expenses.StartActivity">
 
-    <RelativeLayout
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar">
+    </include>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/start_activity_drawlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_alignParentTop="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-6dp"
-            android:indeterminate="true"
-            style="@android:style/Widget.Holo.ProgressBar.Horizontal"/>
-
-    </RelativeLayout>
-
-    <fragment android:id="@+id/navigation_drawer"
-        android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:name="com.antso.expenses.NavigationDrawerFragment"
-        tools:layout="@layout/main_drawer_navigation_activity" />
+        android:layout_below="@+id/tool_bar">
 
-</android.support.v4.widget.DrawerLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-6dp"
+                android:indeterminate="true"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"/>
+
+        </RelativeLayout>
+
+        <fragment android:id="@+id/navigation_drawer"
+            android:layout_width="@dimen/navigation_drawer_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:name="com.antso.expenses.NavigationDrawerFragment"
+            tools:layout="@layout/main_drawer_navigation_activity" />
+
+    </android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

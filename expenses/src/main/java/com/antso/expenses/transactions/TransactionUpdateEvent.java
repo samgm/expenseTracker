@@ -4,7 +4,7 @@ import com.antso.expenses.entities.Transaction;
 
 public class TransactionUpdateEvent {
 
-    enum Reason {
+    public enum Reason {
         UNDEF,
         START,
         ADD,

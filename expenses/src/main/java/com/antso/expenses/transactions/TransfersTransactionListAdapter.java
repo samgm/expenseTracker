@@ -1,7 +1,6 @@
 package com.antso.expenses.transactions;
 
 import android.content.Context;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import com.antso.expenses.R;
 import com.antso.expenses.accounts.AccountManager;
 import com.antso.expenses.entities.Account;
 import com.antso.expenses.entities.Transaction;
-import com.antso.expenses.utils.MaterialColours;
 import com.antso.expenses.utils.Utils;
 import com.antso.expenses.views.CircleSectorView;
 
@@ -21,27 +19,28 @@ import java.util.List;
 
 
 public class TransfersTransactionListAdapter
-        extends AbstractTransactionListAdapter<Pair<Transaction, Transaction>> {
+        extends AbstractTransactionListAdapter<CompoundedTransferTransaction> {
 
     public TransfersTransactionListAdapter(Context context, HandlingFooterFragment fragment) {
         super(context, fragment);
     }
 
     @Override
-    protected List<Pair<Transaction, Transaction>> retrieveTransactions() {
+    protected List<CompoundedTransferTransaction> retrieveTransactions() {
         return TransactionManager.TRANSACTION_MANAGER().getTransferTransactions();
     }
 
     @Override
-    protected String getDescription(Pair<Transaction, Transaction> pair) {
-        return pair.first.getDescription();
+    protected String getDescription(CompoundedTransferTransaction transactions) {
+        return transactions.getOutTransaction().getDescription();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Pair<Transaction, Transaction> pair = transactions.get(position);
-        final Transaction t1 = pair.first;
-        final Transaction t2 = pair.second;
+        final CompoundedTransferTransaction transaction = transactions.get(position);
+        final Transaction t1 = transaction.getOutTransaction();
+        final Transaction t2 = transaction.getInTransaction();
+        final Transaction tFee = transaction.getFeeTransaction();
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout transactionLayout = (LinearLayout) inflater.inflate(R.layout.transaction_item, null, false);
@@ -95,6 +94,10 @@ public class TransfersTransactionListAdapter
         final TextView transactionValue = (TextView) transactionLayout.findViewById(R.id.transactionValue);
         String balance = Utils.getCurrencyString(context) + " " +
                 t1.getValue().setScale(2).toPlainString();
+        if (tFee != null) {
+            balance = balance + " (" + tFee.getValue().setScale(2).toPlainString() + ")";
+
+        }
         transactionValue.setText(balance);
 
         return transactionLayout;

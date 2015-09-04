@@ -117,9 +117,9 @@
     <string name="error_cannot_delete_last_budget">There is only this budget remaining. You cannot delete it</string>
     <string name="message_account_chooser_dialog">If you want to delete the account, select a new one to move transactions on or delete all the transaction for the account</string>
     <string name="message_budget_chooser_dialog">If you want to delete the budget, select a new one to move transactions on</string>
-    <string name="message_account_deleted">" Deleted"</string>
-    <string name="message_budget_deleted">" Deleted"</string>
-    <string name="message_transaction_deleted">" Deleted"</string>
+    <string name="message_deleted">" Deleted"</string>
+    <string name="message_added">" Added"</string>
+    <string name="message_updated">" Updated"</string>
     <string name="message_import_chooser_dialog">"Select the save you want to import"</string>
     <string name="message_nothing_to_import_dialog">"Nothing to import"</string>
     <string name="message_click_again_to_exit">"Click again to exit"</string>
@@ -130,6 +130,7 @@
     <!--Layout Screen Fields -->
     <string name="empty"></string>
     <string name="amount_label">Amount</string>
+    <string name="fee_label">Has Fee</string>
     <string name="currency">$</string>
     <string name="value_0_00">0.00</string>
     <string name="value_15250_00">15250.00</string>

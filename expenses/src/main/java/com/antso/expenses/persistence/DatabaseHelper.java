@@ -95,6 +95,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String TRANSACTION_FIELD_FREQUENCY_UNIT = "FrequencyUnit";
     final static String TRANSACTION_FIELD_END = "End";
     final static String TRANSACTION_FIELD_REPETITION_NUM = "RepetitionNum";
+    final static String TRANSACTION_FIELD_HAS_FEE = "HasFee";
+    final static String TRANSACTION_FIELD_FEE_TRANSACTION_ID= "FeeTransactionId";
+
 
     final static String[] transactionColumns = {  TRANSACTION_FIELD_ID,
             TRANSACTION_FIELD_DESC,
@@ -110,7 +113,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             TRANSACTION_FIELD_FREQUENCY,
             TRANSACTION_FIELD_FREQUENCY_UNIT,
             TRANSACTION_FIELD_END,
-            TRANSACTION_FIELD_REPETITION_NUM };
+            TRANSACTION_FIELD_REPETITION_NUM,
+            TRANSACTION_FIELD_HAS_FEE,
+            TRANSACTION_FIELD_FEE_TRANSACTION_ID};
 
     final private static String TRANSACTION_CREATE_CMD =
             "CREATE TABLE " + TRANSACTION_TABLE_NAME + " ( "
@@ -128,7 +133,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + TRANSACTION_FIELD_FREQUENCY + " INTEGER, "
                     + TRANSACTION_FIELD_FREQUENCY_UNIT + " INTEGER, "
                     + TRANSACTION_FIELD_END + " INTEGER, "
-                    + TRANSACTION_FIELD_REPETITION_NUM + " INTEGER );";
+                    + TRANSACTION_FIELD_REPETITION_NUM + " INTEGER, "
+                    + TRANSACTION_FIELD_HAS_FEE + " INTEGER NOT NULL, "
+                    + TRANSACTION_FIELD_FEE_TRANSACTION_ID + " TEXT );";
 
     final private static String TRANSACTION_DELETE_CMD = "DROP TABLE " + TRANSACTION_TABLE_NAME;
 
@@ -314,6 +321,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TRANSACTION_FIELD_FREQUENCY_UNIT, transaction.getFrequencyUnit().getIntValue());
         values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyyMMdd(transaction.getEndDate()));
         values.put(TRANSACTION_FIELD_REPETITION_NUM, transaction.getRepetitionNum());
+        values.put(TRANSACTION_FIELD_HAS_FEE, transaction.hasFee());
+        values.put(TRANSACTION_FIELD_FEE_TRANSACTION_ID, transaction.getFeeTransactionId());
 
         db.insert(TRANSACTION_TABLE_NAME, null, values);
     }
@@ -333,6 +342,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         transaction.setFrequencyUnit(TimeUnit.valueOf(cursor.getInt(12)));
         transaction.setEndDate(Utils.yyyyMMddToDate(cursor.getInt(13)));
         transaction.setRepetitionNum(cursor.getInt(14));
+        transaction.setFeeTransactionId(cursor.getString(16));
 
         return transaction;
     }
@@ -517,6 +527,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TRANSACTION_FIELD_FREQUENCY_UNIT, transaction.getFrequencyUnit().getIntValue());
         values.put(TRANSACTION_FIELD_END, Utils.dateTimeToyyyyMMdd(transaction.getEndDate()));
         values.put(TRANSACTION_FIELD_REPETITION_NUM, transaction.getRepetitionNum());
+        values.put(TRANSACTION_FIELD_HAS_FEE, transaction.hasFee());
+        values.put(TRANSACTION_FIELD_FEE_TRANSACTION_ID, transaction.getFeeTransactionId());
 
         db.update(TRANSACTION_TABLE_NAME, values,
                 TRANSACTION_FIELD_ID + " = ?",

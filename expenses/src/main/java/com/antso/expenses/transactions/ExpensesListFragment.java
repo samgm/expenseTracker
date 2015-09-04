@@ -5,22 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.antso.expenses.R;
 import com.antso.expenses.entities.Transaction;
-import com.antso.expenses.enums.TransactionDirection;
 import com.antso.expenses.utils.Constants;
 import com.antso.expenses.utils.IntentParamNames;
 import com.antso.expenses.utils.MaterialColours;
@@ -94,41 +89,6 @@ public class ExpensesListFragment extends ListFragment implements HandlingFooter
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.clearHeader();
-        menu.add(Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0,
-                getText(R.string.action_transaction_edit));
-        menu.add(Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1,
-                getText(R.string.action_transaction_delete));
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if(item.getGroupId() != Constants.EXPENSE_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID) {
-            return false;
-        }
-
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        int index = info.position;
-
-        Transaction transaction = (Transaction) transactionListAdapter.getItem(index);
-        if (transaction == null) {
-            return true;
-        }
-
-        if (item.getTitle() == getText(R.string.action_transaction_edit)) {
-            startEditTransactionActivity(transaction);
-        } else if(item.getTitle() == getText(R.string.action_transaction_delete)) {
-            TransactionManager.TRANSACTION_MANAGER().removeTransaction(transaction);
-            Toast.makeText(getActivity(), transaction.getDescription() +
-                    getText(R.string.message_transaction_deleted), Toast.LENGTH_LONG).show();
-        }
-
-        return true;
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_transaction_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -160,12 +120,6 @@ public class ExpensesListFragment extends ListFragment implements HandlingFooter
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_transaction_add) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
-            intent.putExtra(IntentParamNames.TRANSACTION_DIRECTION, TransactionDirection.Out.getIntValue());
-            getActivity().startActivityForResult(intent, Constants.EXPENSE_TRANSACTION_ENTRY_REQUEST_CODE);
-            return true;
-        }
 
         if (id == R.id.action_transaction_search) {
             final TransactionSearchDialog dialog = new TransactionSearchDialog(getActivity(),

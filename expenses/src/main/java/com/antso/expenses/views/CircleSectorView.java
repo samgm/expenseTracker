@@ -10,111 +10,137 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.antso.expenses.R;
+import com.antso.expenses.utils.MaterialColours;
 import com.antso.expenses.utils.Utils;
 
 public class CircleSectorView extends View {
 
-    private Paint circleFill;
-    private Paint circleStroke;
-    private Paint circleText;
-    private RectF circleArc;
-    private RectF circleStrokeArc;
+    private Paint fill;
+    private Paint stroke;
+    private Paint text;
+    private RectF arc;
+    private RectF strokeArc;
+
 
     // Attrs
     private boolean showText;
-    private int circleRadius;
-    private int circleFillColor;
-    private int circleStartAngle;
-    private int circleSweepAngle;
+    private boolean showTextOrig;
+    private int radius;
+    private int fillColor;
+    private int fillColorOrig;
+    private int selectionColor;
+    private int startAngle;
+    private int sweepAngle;
     private int strokeWidth;
     private int percentage = 0;
+    private boolean hasPercentage = false;
 
     public CircleSectorView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs); // Read all attributes
 
-        circleFill = new Paint(Paint.ANTI_ALIAS_FLAG);
-        circleFill.setStyle(Paint.Style.FILL);
-        circleStroke = new Paint(Paint.ANTI_ALIAS_FLAG);
-        circleStroke.setStyle(Paint.Style.STROKE);
-        circleStroke.setStrokeWidth(strokeWidth);
-        circleText = new Paint(Paint.ANTI_ALIAS_FLAG);
-        circleText.setTextAlign(Paint.Align.CENTER);
-        circleText.setColor(Color.BLACK);
-        float textSize = (float) (circleRadius * 0.7);
-        circleText.setTextSize(textSize);
+        fill = new Paint(Paint.ANTI_ALIAS_FLAG);
+        fill.setStyle(Paint.Style.FILL);
+        stroke = new Paint(Paint.ANTI_ALIAS_FLAG);
+        stroke.setStyle(Paint.Style.STROKE);
+        stroke.setStrokeWidth(strokeWidth);
+        text = new Paint(Paint.ANTI_ALIAS_FLAG);
+        text.setTextAlign(Paint.Align.CENTER);
+        text.setColor(Color.BLACK);
+        float textSize = (float) (radius * 0.7);
+        text.setTextSize(textSize);
     }
 
     public void init(AttributeSet attrs) {
         TypedArray attrsArray = getContext().obtainStyledAttributes(attrs, R.styleable.circleSectorView);
-        circleRadius = Utils.dpToPx(attrsArray.getInteger(R.styleable.circleSectorView_cRadiusDp, 0), getContext());
-        circleFillColor = attrsArray.getColor(R.styleable.circleSectorView_cFillColor, 16777215);
-        circleStartAngle = attrsArray.getInteger(R.styleable.circleSectorView_cAngleStart, 0);
-        circleSweepAngle = attrsArray.getInteger(R.styleable.circleSectorView_cAngleSweep, 360);
-        strokeWidth = attrsArray.getInteger(R.styleable.circleSectorView_cStrokeWidth, 0);
-        showText = attrsArray.getBoolean(R.styleable.circleSectorView_cShowText, false);
+        radius = Utils.dpToPx(attrsArray.getInteger(R.styleable.circleSectorView_radiusDp, 0), getContext());
+        fillColorOrig = attrsArray.getColor(R.styleable.circleSectorView_fillColor, 16777215);
+        fillColor = fillColorOrig;
+        selectionColor = attrsArray.getColor(R.styleable.circleSectorView_selectionColor, MaterialColours.GREY_500);
+        startAngle = attrsArray.getInteger(R.styleable.circleSectorView_angleStart, 0);
+        sweepAngle = attrsArray.getInteger(R.styleable.circleSectorView_angleSweep, 360);
+        strokeWidth = attrsArray.getInteger(R.styleable.circleSectorView_strokeWidth, 0);
+        showTextOrig = attrsArray.getBoolean(R.styleable.circleSectorView_hasText, false);
+        showText = showTextOrig;
 
         attrsArray.recycle();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        circleFill.setColor(circleFillColor);
-        circleStroke.setColor(circleFillColor);
-        canvas.drawArc(circleArc, circleStartAngle, circleSweepAngle, true, circleFill);
+        fill.setColor(fillColor);
+        stroke.setColor(fillColor);
+        canvas.drawArc(arc, startAngle, sweepAngle, true, fill);
         if (strokeWidth > 0) {
-            canvas.drawArc(circleStrokeArc, 0, 360, true, circleStroke);
+            canvas.drawArc(strokeArc, 0, 360, true, stroke);
         }
 
         if (showText) {
             String text = String.valueOf(percentage) + "%";
             canvas.drawText(text,
-                    circleArc.centerX(), circleArc.centerY() + circleText.getTextSize() / 2 - 8,
-                    circleText);
+                    arc.centerX(), arc.centerY() + this.text.getTextSize() / 2 - 8,
+                    this.text);
         }
     }
 
-    @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int measuredWidth = measureWidth(widthMeasureSpec);
-        int circleDiameter = circleRadius * 2;
-        circleArc = new RectF(0, 0, circleDiameter, circleDiameter);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int measuredWidth = measureWidth();
+        int circleDiameter = radius * 2;
+        arc = new RectF(0, 0, circleDiameter, circleDiameter);
         if (strokeWidth > 0) {
-            circleStrokeArc = new RectF(strokeWidth / 2, strokeWidth / 2, circleDiameter - strokeWidth / 2,
+            strokeArc = new RectF(strokeWidth / 2, strokeWidth / 2, circleDiameter - strokeWidth / 2,
                     circleDiameter - strokeWidth / 2);
         }
-        int measuredHeight = measureHeight(heightMeasureSpec);
+        int measuredHeight = measureHeight();
         setMeasuredDimension(measuredWidth, measuredHeight);
     }
 
-    private int measureHeight(int measureSpec) {
-        int result = circleRadius * 2;
-        return result;
+    private int measureHeight() {
+        return radius * 2;
     }
 
-    private int measureWidth(int measureSpec) {
-        int result = circleRadius * 2;
-        return result;
+    private int measureWidth() {
+        return radius * 2;
     }
 
     public void setColor(int color) {
-        this.circleFillColor = color;
+        this.fillColor = color;
+        this.fillColorOrig = color;
     }
 
     public void setCirclePercentage(int value) {
+        hasPercentage = true;
         percentage = value;
         if (percentage == 0) {
-            this.circleSweepAngle = 1;
+            this.sweepAngle = 1;
             return;
         }
         if (percentage == 100) {
-            this.circleSweepAngle = 360;
+            this.sweepAngle = 360;
             return;
         }
 
-        this.circleSweepAngle = 360 * percentage / 100;
+        this.sweepAngle = 360 * percentage / 100;
     }
 
     public int getColor() {
-        return circleFillColor;
+        return fillColor;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        if (selected) {
+            fillColor = selectionColor;
+            showText = false;
+            sweepAngle = 360;
+        } else {
+            fillColor = fillColorOrig;
+            showText = showTextOrig;
+            if (hasPercentage) {
+                setCirclePercentage(percentage);
+            }
+        }
+        super.setSelected(selected);
     }
 }

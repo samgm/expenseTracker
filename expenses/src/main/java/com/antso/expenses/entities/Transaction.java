@@ -1,5 +1,7 @@
 package com.antso.expenses.entities;
 
+import android.content.Context;
+
 import com.antso.expenses.enums.TimeUnit;
 import com.antso.expenses.enums.TransactionDirection;
 import com.antso.expenses.enums.TransactionType;
@@ -31,6 +33,9 @@ public class Transaction {
 
     private String linkedTransactionId;
 
+    private boolean hasFee;
+    private String feeTransactionId;
+
     private boolean recurrent;
     private int frequency;
     private TimeUnit frequencyUnit;
@@ -57,6 +62,10 @@ public class Transaction {
         this.date = date;
 
         this.linkedTransactionId = "";
+
+        this.hasFee = false;
+        this.feeTransactionId = "";
+
         this.frequency = 0;
         this.frequencyUnit = TimeUnit.Undef;
         this.endDate = Utils.DEFAULT_DATE;
@@ -116,6 +125,21 @@ public class Transaction {
         linkedTransactionId = transactionId;
     }
 
+    public boolean hasFee() {
+        return hasFee;
+    }
+
+    public String getFeeTransactionId() {
+        return feeTransactionId;
+    }
+
+    public void setFeeTransactionId(String transactionId) {
+        if (!transactionId.isEmpty()) {
+            hasFee = true;
+            feeTransactionId = transactionId;
+        }
+    }
+
     public void setRecurrent(boolean recurrent) {
         this.recurrent = recurrent;
     }
@@ -167,6 +191,13 @@ public class Transaction {
     @Override
     public String toString() {
         return description;
+    }
+
+    public String toDetailedString(Context context) {
+        String fullDescription = getDescription() +
+                " - " + Utils.getCurrencyString(context) + " " +
+                getValue().setScale(2).toPlainString();
+        return fullDescription;
     }
 
     @Override

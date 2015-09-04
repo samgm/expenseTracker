@@ -19,12 +19,12 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
-            circleSectorview:cFillColor="#ff0000"
-            circleSectorview:cRadiusDp="32"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
-            circleSectorview:cStrokeWidth="4"
-            circleSectorview:cShowText="true"
+            circleSectorview:fillColor="#ff0000"
+            circleSectorview:radiusDp="32"
+            circleSectorview:angleStart="0"
+            circleSectorview:angleSweep="360"
+            circleSectorview:strokeWidth="4"
+            circleSectorview:hasText="true"
             />
 
         <com.antso.expenses.views.CircleSectorView
@@ -34,12 +34,12 @@
             android:layout_marginTop="36dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="-5dp"
-            circleSectorview:cFillColor="#ff0000"
-            circleSectorview:cRadiusDp="18"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
-            circleSectorview:cStrokeWidth="4"
-            circleSectorview:cShowText="true"
+            circleSectorview:fillColor="#ff0000"
+            circleSectorview:radiusDp="18"
+            circleSectorview:angleStart="0"
+            circleSectorview:angleSweep="360"
+            circleSectorview:strokeWidth="4"
+            circleSectorview:hasText="true"
             />
 
         <com.antso.expenses.views.CircleSectorView
@@ -49,12 +49,12 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="-38dp"
-            circleSectorview:cFillColor="#ff0000"
-            circleSectorview:cRadiusDp="10"
-            circleSectorview:cAngleStart="0"
-            circleSectorview:cAngleSweep="360"
-            circleSectorview:cStrokeWidth="4"
-            circleSectorview:cShowText="true"
+            circleSectorview:fillColor="#ff0000"
+            circleSectorview:radiusDp="10"
+            circleSectorview:angleStart="0"
+            circleSectorview:angleSweep="360"
+            circleSectorview:strokeWidth="4"
+            circleSectorview:hasText="true"
             />
 
         <LinearLayout

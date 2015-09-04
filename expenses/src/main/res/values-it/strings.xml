@@ -105,9 +105,9 @@
     <string name="error_cannot_delete_last_budget">Non puoi cancellare l\'ultima categoria</string>
     <string name="message_account_chooser_dialog">Se vuoi cancellare il conto, scegline uno in cui spostare i movimenti o cancella tutti i movimenti del conto</string>
     <string name="message_budget_chooser_dialog">Se vuoi cancellare la categoria, scegline una in cui spostare i movimenti</string>
-    <string name="message_account_deleted">" Eliminato"</string>
-    <string name="message_budget_deleted">" Eliminato"</string>
-    <string name="message_transaction_deleted">" Eliminato"</string>
+    <string name="message_deleted">" Eliminato"</string>
+    <string name="message_added">" Aggiunto"</string>
+    <string name="message_updated">" Modificato"</string>
     <string name="message_import_chooser_dialog">"Seleziona il salvataggio che vuoi importare"</string>
     <string name="message_nothing_to_import_dialog">"Niente da importare"</string>
     <string name="message_click_again_to_exit">"Clicca di nuovo per uscire"</string>
@@ -214,6 +214,7 @@
     <string name="title_statistics_accounts">Conti</string>
     <string name="title_statistics_budgets">Categorie</string>
     <string name="threshold_label">Soglia</string>
+    <string name="fee_label">Commissione</string>
 
     <!-- Example settings for Notifications -->
     <!--<string name="pref_header_notifications">Notifications</string>-->

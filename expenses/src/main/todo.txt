@@ -1,22 +1,11 @@
-TEST (configurable from debug screen) setting for UseDividersInTransactionList / Multiline (see full description)
-    works fine, understand while when not multiline '...' in not shown on cut string
-
-TEST Account custom order (screens and drop downs) + complete implementation for budgets
-    doesn't work well with scrolling
-    add drawable for right side of the items (make understandable they can be dragged)
+Account custom order (screens and drop downs) doesn't work well with scrolling
 
 clean-up and unused and add used icons to svn
 create nice looking demo export
 
-RELEASE
-    DONE (on drive) -> descrizione breve 80 char
-    DONE (on drive) -> descrizione lunga 4000 char
-
-    create hot keyword list
-
-    DONE -> screen shot telefono
-    DONE -> banner 1024 l x 500 a JPG o PNG a 24 bit (non alfa)
-    immagine promo 180 l x 120 a JPG o PNG a 24 bit (non alfa)
+TODO - WORKING
+    selection 1:nicer selected circle with icon, 2: selection num in the toolbar and back to unselect
+    change my icons in the drawer to black (evaluate using trasparency)
 
 ---------------------------------------------------------------
  BUGS
@@ -38,31 +27,6 @@ RELEASE
 ---------------------------------------------------------------
  ENHANCEMENTS
 ---------------------------------------------------------------
-
-1    save state on entry/edit activities
-1    recurrent transaction with no end date (stay for ever)
-
-2    quick transaction entry (with settings)
-    setting for screen to start on
-
-3    add edit e delete as actionbar in the entry activities (all transactions, budget, budget)
-    move to material design (floating + icon, circular progres bar, etc.)
-    change app style: selection colors (list, dropdown, buttons, etc. ... dialog, date picker)
-    add toast on executed actions (added, deleted, import done, etc.)
-    add toast for click on account/budget transaction lists
-
-4    transaction reminder / pending transaction for recurrent
-    add configurable reminders that asks to add new expenses
-
-5    backup on google
-6    Use name as id per budget/account, Check if account/budget already exist on insert
-7    budget with many period length to be expanded on load and shown as different budgets
-8    recurrent transaction with repetition number (done with end date)
-
-remove settings for default account and budged and make app understand basing on most used
-
-store recurrent transaction and allow editing series or single instance
-
 statistics enh (http://android-graphview.org/ or find a better alternative: https://github.com/PhilJay/MPAndroidChart)
     budget pie (how about different budget periods? normalize to fix period (month or year))
     progress bar while loading
@@ -70,6 +34,39 @@ statistics enh (http://android-graphview.org/ or find a better alternative: http
 summary / stats on top of categories or accounts
 summary with tot in / out by months
 summary showing the total planned in all categories by month (normalized)
+
+4    transaction reminder / pending transaction for recurrent
+     add configurable reminders that asks to add new expenses
+
+remove settings for default account and budged and make app understand basing on most used
+
+2    quick transaction entry (with settings)
+     setting for screen to start on
+
+1    save state on entry/edit activities
+1    recurrent transaction with no end date (stay for ever)
+     store recurrent transaction and allow editing series or single instance
+
+3    add toast for click on account/budget transaction lists
+     ?add drawable for right side of the account and category items (make understandable they can be dragged)
+
+5    backup on google
+6    Use name as id per budget/account, Check if account/budget already exist on insert
+7    budget with many period length to be expanded on load and shown as different budgets
+8    recurrent transaction with repetition number (done with end date)
+
+
+---------------------------------------------------------------
+ RELEASE
+---------------------------------------------------------------
+    DONE (on drive) -> descrizione breve 80 char
+    DONE (on drive) -> descrizione lunga 4000 char
+
+    create hot keyword list
+
+    DONE -> screen shot telefono
+    DONE -> banner 1024 l x 500 a JPG o PNG a 24 bit (non alfa)
+    immagine promo 180 l x 120 a JPG o PNG a 24 bit (non alfa)
 
 ---------------------------------------------------------------
  OTHER EULA
@@ -85,6 +82,7 @@ summary showing the total planned in all categories by month (normalized)
  OTHER
 ---------------------------------------------------------------
 
+For icons use: https://www.google.com/design/icons/index.html
 Here's a correct table of percentages to hex values. E.g. for 50% white you'd use #80FFFFFF.
 
 100% — FF

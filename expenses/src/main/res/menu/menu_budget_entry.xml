@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.antso.expenses.transactions" >
+
+    <group
+        android:id="@+id/budget_entry_menu_group">
+
+        <item android:id="@+id/action_budget_confirm"
+            android:title="@string/action_budget_add"
+            android:icon="@drawable/ic_done"
+            app:showAsAction="withText|ifRoom" />
+
+    </group>
+</menu>

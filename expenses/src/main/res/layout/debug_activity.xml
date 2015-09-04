@@ -5,6 +5,11 @@
     android:orientation="vertical"
     tools:context="com.antso.expenses.DebugActivity">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar">
+    </include>
+
     <Button
         android:id="@+id/importFromMyMoneyButton"
         android:layout_width="wrap_content"

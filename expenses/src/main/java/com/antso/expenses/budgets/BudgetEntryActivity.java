@@ -1,12 +1,11 @@
 package com.antso.expenses.budgets;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,7 +25,7 @@ import com.antso.expenses.views_helpers.ValueEditText;
 import java.math.BigDecimal;
 
 
-public class BudgetEntryActivity extends Activity {
+public class BudgetEntryActivity extends AppCompatActivity {
     private CircleSectorView color;
     private EditText name;
     private ValueEditText budgetThreshold;
@@ -49,8 +48,10 @@ public class BudgetEntryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_entry_activity);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //Creating view
         name = (EditText)findViewById(R.id.budgetName);
@@ -86,52 +87,11 @@ public class BudgetEntryActivity extends Activity {
         startDateEditText.setDate(loadedBudget.getPeriodStart());
 
         final TextView title = (TextView) findViewById(R.id.budgetEntryTitle);
-        final Button confirm = (Button)findViewById(R.id.budgetConfirm);
-        final Button cancel = (Button)findViewById(R.id.budgetCancel);
         if (isEdit) {
             title.setText(R.string.budget_edit_title);
-            confirm.setText(R.string.button_confirm_edit_label);
         } else {
             title.setText(R.string.budget_entry_title);
-            confirm.setText(R.string.button_confirm_add_label);
         }
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isEdit) {
-                    Budget budget = new Budget(
-                            loadedBudget.getId(),
-                            name.getText().toString(),
-                            budgetThreshold.getValue(),
-                            color.getColor(),
-                            period.getValue(), period.getUnit(),
-                            startDateEditText.getDate());
-                    BudgetManager.BUDGET_MANAGER().updateBudget(budget);
-
-                } else {
-                    Budget budget = new Budget(
-                            EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Budget.class),
-                            name.getText().toString(),
-                            budgetThreshold.getValue(),
-                            color.getColor(),
-                            period.getValue(), period.getUnit(),
-                            startDateEditText.getDate());
-                    BudgetManager.BUDGET_MANAGER().insertBudget(budget);
-                }
-
-                setResult(RESULT_OK);
-                finish();
-            }
-        });
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent returnIntent = new Intent();
-                setResult(RESULT_CANCELED, returnIntent);
-                finish();
-            }
-        });
     }
 
     private void loadBudget(String id) {
@@ -153,15 +113,44 @@ public class BudgetEntryActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_default, menu);
+        getMenuInflater().inflate(R.menu.menu_budget_entry, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if(id ==  android.R.id.home) {
             this.onBackPressed();
+            return true;
+        }
+
+        if (id == R.id.action_budget_confirm) {
+            if (isEdit) {
+                Budget budget = new Budget(
+                        loadedBudget.getId(),
+                        name.getText().toString(),
+                        budgetThreshold.getValue(),
+                        color.getColor(),
+                        period.getValue(), period.getUnit(),
+                        startDateEditText.getDate());
+                BudgetManager.BUDGET_MANAGER().updateBudget(budget);
+                Utils.showUpdatedToast(this, budget.toString());
+            } else {
+                Budget budget = new Budget(
+                        EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Budget.class),
+                        name.getText().toString(),
+                        budgetThreshold.getValue(),
+                        color.getColor(),
+                        period.getValue(), period.getUnit(),
+                        startDateEditText.getDate());
+                BudgetManager.BUDGET_MANAGER().insertBudget(budget);
+                Utils.showAddedToast(this, budget.toString());
+            }
+
+            setResult(RESULT_OK);
+            finish();
             return true;
         }
 

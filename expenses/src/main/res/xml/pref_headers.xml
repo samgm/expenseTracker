@@ -3,15 +3,15 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="com.antso.expenses.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="com.antso.expenses.settings.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
 
     <header
-        android:fragment="com.antso.expenses.SettingsActivity$TransactionDefaultingPreferenceFragment"
+        android:fragment="com.antso.expenses.settings.SettingsActivity$TransactionDefaultingPreferenceFragment"
         android:title="@string/pref_header_transaction_defaulting" />
 
     <header
-        android:fragment="com.antso.expenses.SettingsActivity$DataImportExportPreferenceFragment"
+        android:fragment="com.antso.expenses.settings.SettingsActivity$DataImportExportPreferenceFragment"
         android:title="@string/pref_header_data_import_export" />
 
 </preference-headers>

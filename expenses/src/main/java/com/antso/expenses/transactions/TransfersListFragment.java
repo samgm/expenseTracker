@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
-import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -14,15 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.antso.expenses.R;
-import com.antso.expenses.entities.Transaction;
-import com.antso.expenses.enums.TransactionDirection;
-import com.antso.expenses.enums.TransactionType;
 import com.antso.expenses.utils.Constants;
 import com.antso.expenses.utils.IntentParamNames;
 import com.antso.expenses.utils.MaterialColours;
@@ -81,16 +75,16 @@ public class TransfersListFragment extends ListFragment implements HandlingFoote
 
     @Override
     public void onListItemClick(ListView list, View v, int position, long id) {
-        Pair<Transaction, Transaction> pair =
-                (Pair<Transaction, Transaction>)getListView().getItemAtPosition(position);
-        if (pair != null) {
-            startEditTransactionActivity(pair);
+        CompoundedTransferTransaction transaction =
+                (CompoundedTransferTransaction)getListView().getItemAtPosition(position);
+        if (transaction != null) {
+            startEditTransactionActivity(transaction);
         }
     }
 
-    private void startEditTransactionActivity(Pair<Transaction, Transaction> transactionPair) {
+    private void startEditTransactionActivity(CompoundedTransferTransaction compoundedTransaction) {
         Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
-        intent.putExtra(IntentParamNames.TRANSACTION_ID, transactionPair.first.getId());
+        intent.putExtra(IntentParamNames.TRANSACTION_ID, compoundedTransaction.getOutTransaction().getId());
         getActivity().startActivityForResult(intent, Constants.TRANSFER_TRANSACTION_EDIT_REQUEST_CODE);
     }
 
@@ -102,32 +96,6 @@ public class TransfersListFragment extends ListFragment implements HandlingFoote
                 getText(R.string.action_transaction_edit));
         menu.add(Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1,
                 getText(R.string.action_transaction_delete));
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        if(item.getGroupId() != Constants.TRANSFER_TRANSACTION_LIST_CONTEXT_MENU_GROUP_ID) {
-            return false;
-        }
-
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        int index = info.position;
-
-        Pair<Transaction, Transaction> transactions =
-                (Pair<Transaction, Transaction>) transactionListAdapter.getItem(index);
-        if (transactions == null) {
-            return true;
-        }
-
-        if (item.getTitle() == getText(R.string.action_transaction_edit)) {
-            startEditTransactionActivity(transactions);
-        } else if(item.getTitle() == getText(R.string.action_transaction_delete)) {
-            TransactionManager.TRANSACTION_MANAGER().removeTransaction(transactions.first);
-            Toast.makeText(getActivity(), transactions.first.getDescription() +
-                    getText(R.string.message_transaction_deleted), Toast.LENGTH_LONG).show();
-        }
-
-        return true;
     }
 
     @Override
@@ -162,13 +130,7 @@ public class TransfersListFragment extends ListFragment implements HandlingFoote
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_transaction_add) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
-            intent.putExtra(IntentParamNames.TRANSACTION_DIRECTION, TransactionDirection.Undef.getIntValue());
-            intent.putExtra(IntentParamNames.TRANSACTION_TYPE, TransactionType.Transfer.getIntValue());
-            startActivityForResult(intent, Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE);
-            return true;
-        }
+
 
         if (id == R.id.action_transaction_search) {
             final TransactionSearchDialog dialog = new TransactionSearchDialog(getActivity(),

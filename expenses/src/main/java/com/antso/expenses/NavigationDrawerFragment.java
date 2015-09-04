@@ -1,16 +1,15 @@
 package com.antso.expenses;
 
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.antso.expenses.adapters.DrawerAdapter;
@@ -50,6 +48,7 @@ public class NavigationDrawerFragment extends Fragment {
      * Helper component that ties the action bar to the navigation drawer.
      */
     private ActionBarDrawerToggle mDrawerToggle;
+    private Toolbar mToolbar;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
@@ -100,15 +99,15 @@ public class NavigationDrawerFragment extends Fragment {
         });
 
         mDrawerListView.setAdapter(DrawerAdapter.create(
-                    getActionBar().getThemedContext(),
+                    getActivity(),
                     R.layout.drawer_item,
                     new DrawerItem[]{
                             new DrawerItem(R.drawable.ic_expenses_transfer, R.string.title_transactions_list_section, false),
                             new DrawerItem(R.drawable.ic_expenses_account, R.string.title_accounts_list_section, false),
                             new DrawerItem(R.drawable.ic_expenses_budget, R.string.title_budgets_list_section, true),
                             new DrawerItem(R.drawable.ic_expenses_statistics, R.string.title_statistics_section, true),
-                            new DrawerItem(R.drawable.ic_action_settings, R.string.title_settings_section, false),
-                            new DrawerItem(R.drawable.ic_action_about, R.string.title_about_section, false)
+                            new DrawerItem(R.drawable.ic_settings, R.string.title_settings_section, false),
+                            new DrawerItem(R.drawable.ic_info, R.string.title_about_section, false)
                     }));
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
@@ -125,24 +124,17 @@ public class NavigationDrawerFragment extends Fragment {
      * @param fragmentId   The android:id of this fragment in its activity's layout.
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
      */
-    public void setUp(int fragmentId, DrawerLayout drawerLayout) {
+    public void setUp(int fragmentId, DrawerLayout drawerLayout, Toolbar toolbar) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
-
-        // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
+        mToolbar = toolbar;
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),                    /* host Activity */
                 mDrawerLayout,                    /* DrawerLayout object */
-                R.drawable.ic_drawer,             /* nav drawer image to replace 'Up' caret */
+                mToolbar,
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
@@ -261,19 +253,13 @@ public class NavigationDrawerFragment extends Fragment {
      * 'context', rather than just what's in the current screen.
      */
     private void showGlobalContextActionBar() {
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(R.string.app_name);
-    }
-
-    private ActionBar getActionBar() {
-        return getActivity().getActionBar();
+        mToolbar.setTitle(R.string.app_name);
     }
 
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
-    public static interface NavigationDrawerCallbacks {
+    public  interface NavigationDrawerCallbacks {
         /**
          * Called when an item in the navigation drawer is selected.
          */

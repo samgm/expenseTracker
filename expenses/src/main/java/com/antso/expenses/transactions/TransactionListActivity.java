@@ -1,7 +1,8 @@
 package com.antso.expenses.transactions;
 
-import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
@@ -12,19 +13,26 @@ import com.antso.expenses.R;
 import com.antso.expenses.utils.IntentParamNames;
 import com.antso.expenses.utils.MaterialColours;
 
+import com.antso.expenses.comapt.AppCompatListActivity;
+
 // Used to show a list of activities, for example when clicking on an account
 //this is used to show the list of all the activity related to that account
 
-public class TransactionListActivity extends ListActivity {
+public class TransactionListActivity extends AppCompatListActivity {
     private BaseAccountBudgetTransactionListAdapter transactionListAdapter = null;
     private LinearLayout footerView;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        LinearLayout root = (LinearLayout) findViewById(android.R.id.content).getParent();
+        Toolbar toolbar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.tool_bar, root, false);
+        root.addView(toolbar, 0);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle params = getIntent().getExtras();
         String accountId = params.getString(IntentParamNames.ACCOUNT_ID);

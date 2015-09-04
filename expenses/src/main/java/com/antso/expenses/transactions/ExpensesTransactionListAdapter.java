@@ -1,7 +1,6 @@
 package com.antso.expenses.transactions;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,7 @@ public class ExpensesTransactionListAdapter
 
     @Override
     protected List<Transaction> retrieveTransactions() {
-        return TransactionManager.TRANSACTION_MANAGER().getOutTransactions();
+        return TransactionManager.TRANSACTION_MANAGER().getOutTransactionsExcludingFees();
     }
 
     @Override

@@ -10,10 +10,10 @@
         android:layout_height="20dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="6dp"
-        circleSectorview:cFillColor="#ff0000"
-        circleSectorview:cRadiusDp="10"
-        circleSectorview:cAngleStart="0"
-        circleSectorview:cAngleSweep="360"
+        circleSectorview:fillColor="#ff0000"
+        circleSectorview:radiusDp="10"
+        circleSectorview:angleStart="0"
+        circleSectorview:angleSweep="360"
         />
 
     <TextView

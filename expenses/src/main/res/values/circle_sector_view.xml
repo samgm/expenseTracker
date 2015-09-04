@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="circleSectorView">
-        <attr name="cRadiusDp" format="integer" />
-        <attr name="cFillColor" format="color" />
-        <attr name="cAngleStart" format="integer" />
-        <attr name="cAngleSweep" format="integer" />
-        <attr name="cStrokeWidth" format="integer" />
-        <attr name="cShowText" format="boolean" />
+        <attr name="radiusDp" format="integer" />
+        <attr name="fillColor" format="color" />
+        <attr name="selectionColor" format="color" />
+        <attr name="angleStart" format="integer" />
+        <attr name="angleSweep" format="integer" />
+        <attr name="strokeWidth" format="integer" />
+        <attr name="hasText" format="boolean" />
     </declare-styleable>
 </resources>

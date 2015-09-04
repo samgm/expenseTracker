@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.antso.expenses.R;
 import com.antso.expenses.budgets.BudgetManager;
+import com.antso.expenses.entities.Account;
 import com.antso.expenses.utils.MaterialColours;
 import com.antso.expenses.utils.Utils;
 import com.antso.expenses.views.CircleSectorView;
@@ -24,6 +25,10 @@ import java.util.Observer;
 public class AccountListAdapter extends BaseAdapter implements Observer {
     private final AccountManager accountManager;
     private final Context context;
+
+    private volatile CircleSectorView selectedItemView = null;
+    private volatile int selectedItemIndex = -1;
+    private OnSelectionChanged onSelectionChangedHandler;
 
     public AccountListAdapter(Context context, AccountManager accountManager) {
         this.context = context;
@@ -48,14 +53,35 @@ public class AccountListAdapter extends BaseAdapter implements Observer {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final AccountManager.AccountInfo accountInfo = accountManager.getAccountInfo().get(position);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout accountLayout = (LinearLayout) inflater.inflate(R.layout.account_item, null, false);
+        final LinearLayout accountLayout = (LinearLayout) inflater.inflate(R.layout.account_item, null, false);
 
         final CircleSectorView color = (CircleSectorView) accountLayout.findViewById(R.id.accountColor);
         color.setColor(accountInfo.account.getColor());
+        color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectedItemIndex != -1) {
+                    selectedItemView.setSelected(false);
+                }
+
+                if (position != selectedItemIndex) {
+                    color.setSelected(true);
+                    selectedItemView = (CircleSectorView) accountLayout.findViewById(R.id.accountColor);
+                    selectedItemIndex = position;
+                } else {
+                    selectedItemView = null;
+                    selectedItemIndex = -1;
+                }
+
+                if (onSelectionChangedHandler != null) {
+                    onSelectionChangedHandler.onSelectionChanged(selectedItemIndex);
+                }
+            }
+        });
 
         final TextView name = (TextView) accountLayout.findViewById(R.id.accountName);
         name.setText(accountInfo.account.getName());
@@ -117,6 +143,30 @@ public class AccountListAdapter extends BaseAdapter implements Observer {
         Log.i("EXPENSES OBS", this.getClass() + " deleted observer (" +
                 BudgetManager.BUDGET_MANAGER() + ")");
         BudgetManager.BUDGET_MANAGER().deleteObserver(this);
+    }
+
+    public Account getSelectedAccount() {
+        return ((AccountManager.AccountInfo)getItem(selectedItemIndex)).account;
+    }
+
+    public void resetSelection() {
+        if (selectedItemIndex != -1) {
+            selectedItemView.setSelected(false);
+            selectedItemView = null;
+            selectedItemIndex = -1;
+
+            if (onSelectionChangedHandler != null) {
+                onSelectionChangedHandler.onSelectionChanged(selectedItemIndex);
+            }
+        }
+    }
+
+    void setOnSelectionChangeHandler(OnSelectionChanged handler) {
+        this.onSelectionChangedHandler = handler;
+    }
+
+    public interface OnSelectionChanged {
+        void onSelectionChanged(int selectedItemIndex);
     }
 
 }

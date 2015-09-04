@@ -1,27 +1,26 @@
 package com.antso.expenses;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.antso.expenses.accounts.AccountListFragment;
 import com.antso.expenses.accounts.AccountManager;
 import com.antso.expenses.budgets.BudgetListFragment;
 import com.antso.expenses.budgets.BudgetManager;
 import com.antso.expenses.enums.DrawerSection;
-import com.antso.expenses.statistics.AccountsStatisticsFragment;
-import com.antso.expenses.statistics.StatisticsPagerAdapter;
+import com.antso.expenses.settings.SettingsActivity;
 import com.antso.expenses.statistics.StatisticsPagerHostFragment;
 import com.antso.expenses.transactions.TransactionManager;
 import com.antso.expenses.transactions.TransactionPagerHostFragment;
@@ -30,9 +29,10 @@ import com.antso.expenses.utils.Constants;
 import java.util.List;
 
 public class StartActivity
-    extends FragmentActivity
+    extends AppCompatActivity
     implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    private Toolbar toolbar;
     private CharSequence mTitle;
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -44,6 +44,9 @@ public class StartActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
+
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
         final ProgressBar progress = (ProgressBar)findViewById(R.id.progressBar);
         progress.setVisibility(View.VISIBLE);
@@ -68,7 +71,8 @@ public class StartActivity
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.start_activity_layout));
+                (DrawerLayout) findViewById(R.id.start_activity_drawlayout),
+                toolbar);
     }
 
     @Override
@@ -98,9 +102,7 @@ public class StartActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            ActionBar actionBar = getActionBar();
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(mTitle);
+            toolbar.setTitle(mTitle);
             return true;
         }
 
@@ -110,13 +112,11 @@ public class StartActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
-        getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
         switch (DrawerSection.valueOf(position)) {
             case TRANSACTIONS:
                 mTitle = getTitle();
                 lastPosition = position;
-                getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new TransactionPagerHostFragment()).commit();
                break;
@@ -135,7 +135,6 @@ public class StartActivity
             case STATISTICS:
                 mTitle = getText(R.string.title_statistics_section);
                 lastPosition = position;
-                getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, new StatisticsPagerHostFragment()).commit();
                 break;

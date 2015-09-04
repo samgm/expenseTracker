@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 
 import com.antso.expenses.R;
@@ -26,6 +24,7 @@ import com.antso.expenses.views.TouchInterceptor;
 
 public class AccountListFragment extends ListFragment {
     private AccountListAdapter accountListAdapter = null;
+    private boolean showMenu = false;
 
     public AccountListFragment() {
     }
@@ -38,16 +37,34 @@ public class AccountListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.sortable_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.account_list_host_fragment, container, false);
+
+        FloatingActionButton myFab = (FloatingActionButton)view.findViewById(R.id.addFloatingButton);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), AccountEntryActivity.class);
+                startActivityForResult(intent, Constants.ACCOUNT_ENTRY_REQUEST_CODE);
+            }
+        });
+
+        return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
 
         if (accountListAdapter == null) {
             accountListAdapter = new AccountListAdapter(getActivity().getApplicationContext(),
                     AccountManager.ACCOUNT_MANAGER());
+            accountListAdapter.setOnSelectionChangeHandler(new AccountListAdapter.OnSelectionChanged() {
+                @Override
+                public void onSelectionChanged(int selectedItemIndex) {
+                    showMenu = selectedItemIndex != -1;
+                    getActivity().invalidateOptionsMenu();
+                }
+            });
             setListAdapter(accountListAdapter);
         }
 
@@ -77,64 +94,39 @@ public class AccountListFragment extends ListFragment {
         }
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.clearHeader();
-        menu.add(Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 0, getText(R.string.action_account_edit));
-        menu.add(Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID, v.getId(), 1, getText(R.string.action_account_delete));
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
-        if(item.getGroupId() != Constants.ACCOUNT_LIST_CONTEXT_MENU_GROUP_ID) {
-            return false;
-        }
-
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        int index = info.position;
-
-        AccountManager.AccountInfo accountInfo = (AccountManager.AccountInfo) accountListAdapter.getItem(index);
-        final Account account = accountInfo.account;
-        if (account == null) {
-            return true;
-        }
-
-        if (item.getTitle() == getText(R.string.action_account_edit)) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), AccountEntryActivity.class);
-            intent.putExtra(IntentParamNames.ACCOUNT_ID, account.getId());
-            getActivity().startActivityForResult(intent, Constants.ACCOUNT_EDIT_REQUEST_CODE);
-        } else if(item.getTitle() == getText(R.string.action_account_delete)) {
-            if(AccountManager.ACCOUNT_MANAGER().size() <= 1) {
-                AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.title_error_dialog)
-                        .setMessage(R.string.error_cannot_delete_last_account)
-                        .setNeutralButton(R.string.got_it, null)
-                        .create();
-                dialog.show();
-                return true;
-            }
-
-            //choose account to reassign or del cascade
-            AccountChooserDialog dialog = new AccountChooserDialog(
-                    R.string.title_account_chooser_dialog,
-                    R.string.message_account_chooser_dialog,
-                    getActivity(),
-                    new AccountChooserDialog.OnDialogDismissed() {
-                        @Override
-                        public void onDismissed(boolean confirm, boolean move, String selectedAccountId) {
-                            if (confirm) {
-                                new DeleteAccountAsyncTask(getActivity(), R.string.working,
-                                        account, selectedAccountId).execute();
-                            }
-                        }
-                    }, account);
+    private boolean deleteAccount(final Account account) {
+        if(AccountManager.ACCOUNT_MANAGER().size() <= 1) {
+            AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.title_error_dialog)
+                    .setMessage(R.string.error_cannot_delete_last_account)
+                    .setNeutralButton(R.string.got_it, null)
+                    .create();
             dialog.show();
             return true;
         }
 
+        //choose account to reassign or del cascade
+        AccountChooserDialog dialog = new AccountChooserDialog(
+                R.string.title_account_chooser_dialog,
+                R.string.message_account_chooser_dialog,
+                getActivity(),
+                new AccountChooserDialog.OnDialogDismissed() {
+                    @Override
+                    public void onDismissed(boolean confirm, boolean move, String selectedAccountId) {
+                        if (confirm) {
+                            new DeleteAccountAsyncTask(getActivity(), R.string.working,
+                                    account, selectedAccountId).execute();
+                        }
+                    }
+                }, account);
+        dialog.show();
         return true;
+    }
+
+    private void editAccount(Account account) {
+        Intent intent = new Intent(getActivity().getApplicationContext(), AccountEntryActivity.class);
+        intent.putExtra(IntentParamNames.ACCOUNT_ID, account.getId());
+        getActivity().startActivityForResult(intent, Constants.ACCOUNT_EDIT_REQUEST_CODE);
     }
 
     @Override
@@ -145,7 +137,7 @@ public class AccountListFragment extends ListFragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        menu.setGroupVisible(R.id.account_menu_group, true);
+        menu.setGroupVisible(R.id.account_menu_group, showMenu);
         menu.setGroupVisible(R.id.budget_menu_group, false);
         menu.setGroupVisible(R.id.transaction_menu_group, false);
         menu.setGroupVisible(R.id.default_menu_group, false);
@@ -156,9 +148,16 @@ public class AccountListFragment extends ListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_account_add) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), AccountEntryActivity.class);
-            startActivityForResult(intent, Constants.ACCOUNT_ENTRY_REQUEST_CODE);
+
+        if (id == R.id.action_account_delete) {
+            deleteAccount(accountListAdapter.getSelectedAccount());
+            accountListAdapter.resetSelection();
+            return true;
+        }
+
+        if (id == R.id.action_account_edit) {
+            editAccount(accountListAdapter.getSelectedAccount());
+            accountListAdapter.resetSelection();
             return true;
         }
 

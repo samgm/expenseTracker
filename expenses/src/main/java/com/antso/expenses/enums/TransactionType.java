@@ -7,7 +7,8 @@ public enum TransactionType {
     Undef(0, "Undef"),
     Single(1, "Single"),
     Transfer(2, "Transfer"),
-    Summary(3, "Summary");
+    Summary(3, "Summary"),
+    Fee(4, "Fee");
 
     private int intValue;
     private String strValue;

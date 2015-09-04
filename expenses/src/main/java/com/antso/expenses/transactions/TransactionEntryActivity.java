@@ -1,12 +1,10 @@
 package com.antso.expenses.transactions;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Pair;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
@@ -35,17 +33,16 @@ import com.antso.expenses.views_helpers.ValueEditText;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import static com.antso.expenses.enums.TransactionType.Single;
-import static com.antso.expenses.enums.TransactionType.Transfer;
 import static com.antso.expenses.enums.TransactionType.Undef;
 import static com.antso.expenses.enums.TransactionType.valueOf;
 
 
-public class TransactionEntryActivity extends Activity {
+public class TransactionEntryActivity extends AppCompatActivity {
     private TransactionLayout layout;
     private DateEditText dateEditText;
     private DateEditText endDateEditText;
     private ValueEditText value;
+    private ValueEditText fee;
     private MultiAutoCompleteTextView description;
     private ButtonChangeSpinner accountSpinner;
     private ButtonChangeSpinner accountSecondarySpinner;
@@ -60,6 +57,7 @@ public class TransactionEntryActivity extends Activity {
     private boolean isEdit;
     private Transaction loadedTransaction1;
     private Transaction loadedTransaction2;
+    private Transaction loadedFeeTransaction;
 
     public TransactionEntryActivity(){
         super();
@@ -72,6 +70,7 @@ public class TransactionEntryActivity extends Activity {
         accountSecondarySpinner = new ButtonChangeSpinner(this);
         budgetSpinner = new ButtonChangeSpinner(this);
         value = new ValueEditText(this);
+        fee = new ValueEditText(this);
     }
 
     @Override
@@ -79,8 +78,10 @@ public class TransactionEntryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.transaction_entry_activity);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         if (accounts == null) {
             accounts = AccountManager.ACCOUNT_MANAGER().getAccounts();
@@ -101,8 +102,11 @@ public class TransactionEntryActivity extends Activity {
 
         layout.createView(R.id.transactionColor, R.id.transactionSecondaryAccountLayout,
                 R.id.transactionAccountLabel, R.id.transactionSecondaryAccountLabel,
-                R.id.transactionRecurrentCheckbox, R.id.transactionRecurrentDetailsLayout);
+                R.id.transactionRecurrentCheckbox, R.id.transactionRecurrentDetailsLayout,
+                R.id.transactionFeeCheckbox
+                , R.id.feeDetailLayout);
         value.createView(R.id.transactionValue, R.id.transactionValueCurrency, BigDecimal.ZERO);
+        fee.createView(R.id.transactionFee, R.id.transactionFeeCurrency, BigDecimal.ZERO);
         accountSpinner.createView(R.id.transactionAccountSpinner, R.id.transactionAccountButton,
                 accountSpinnerAdapter);
         accountSecondarySpinner.createView(R.id.transactionSecondaryAccountSpinner, R.id.transactionSecondaryAccountButton,
@@ -140,42 +144,21 @@ public class TransactionEntryActivity extends Activity {
                     Settings.getDefaultTransferToAccountId(this)));
         }
 
+        if (loadedFeeTransaction != null) {
+            fee.setValue(loadedFeeTransaction.getValue());
+        }
+
         final TextView title = (TextView) findViewById(R.id.transactionEntryTitle);
-        final Button confirm = (Button) findViewById(R.id.transactionConfirm);
-        final Button cancel = (Button) findViewById(R.id.transactionCancel);
         if (isEdit) {
             title.setText(R.string.transaction_edit_title);
-            confirm.setText(R.string.button_confirm_edit_label);
         } else {
             title.setText(R.string.transaction_entry_title);
-            confirm.setText(R.string.button_confirm_add_label);
         }
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isEdit) {
-                    createNewTransactionAndSave();
-                } else {
-                    updateTransactionAndSave();
-                }
-
-                setResult(RESULT_OK);
-                finish();
-            }
-        });
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_default, menu);
+        getMenuInflater().inflate(R.menu.menu_transaction_entry, menu);
         return true;
     }
 
@@ -185,6 +168,29 @@ public class TransactionEntryActivity extends Activity {
 
         if (id == android.R.id.home) {
             this.onBackPressed();
+            return true;
+        }
+
+        if (id == R.id.action_transaction_confirm) {
+            if (isEdit) {
+                Transaction transaction = updateTransactionAndSave();
+                Utils.showUpdatedToast(this, transaction.toDetailedString(this));
+            } else {
+                Transaction transaction = createNewTransactionAndSave();
+                Utils.showAddedToast(this, transaction.toDetailedString(this));
+            }
+
+            setResult(RESULT_OK);
+            finish();
+            return true;
+        }
+
+        if (id == R.id.action_transaction_delete) {
+            if (isEdit) {
+                TransactionManager.TRANSACTION_MANAGER().removeTransaction(loadedTransaction1);
+                Utils.showDeletedToast(this, loadedTransaction1.toDetailedString(this));
+            }
+            finish();
             return true;
         }
 
@@ -236,21 +242,35 @@ public class TransactionEntryActivity extends Activity {
             isEdit = true;
             loadedTransaction1 = TransactionManager.TRANSACTION_MANAGER().getTransactionById(id);
             String linkedTransactionId = loadedTransaction1.getLinkedTransactionId();
+            String feeTransactionId = loadedTransaction1.getFeeTransactionId();
+
             if (linkedTransactionId != null && !linkedTransactionId.isEmpty()) {
                 loadedTransaction2 = TransactionManager.TRANSACTION_MANAGER().getTransactionById(linkedTransactionId);
             }
+
+            if (feeTransactionId != null && !feeTransactionId.isEmpty()) {
+                loadedFeeTransaction = TransactionManager.TRANSACTION_MANAGER().getTransactionById(feeTransactionId);
+            }
+
         }
     }
 
-    private void createNewTransactionAndSave() {
+    private Transaction createNewTransactionAndSave() {
+        Transaction mainTransaction = null;
         switch (loadedTransaction1.getType()) {
             case Transfer:
                 String t1Id = EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Transaction.class);
                 String t2Id = EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Transaction.class);
 
-                Pair<Transaction, Transaction> pair = createTransferTransaction(t1Id, t2Id);
-
-                TransactionManager.TRANSACTION_MANAGER().insertTransaction(pair.first, pair.second);
+                CompoundedTransferTransaction compoundedTransactions = createTransferTransaction(t1Id, t2Id, null);
+                TransactionManager.TRANSACTION_MANAGER().insertTransaction(
+                        compoundedTransactions.getOutTransaction(),
+                        compoundedTransactions.getInTransaction());
+                if (layout.hasFee()) {
+                    TransactionManager.TRANSACTION_MANAGER().insertTransaction(
+                            compoundedTransactions.getFeeTransaction());
+                }
+                mainTransaction = compoundedTransactions.getOutTransaction();
                 break;
             case Single:
             case Undef:
@@ -259,27 +279,55 @@ public class TransactionEntryActivity extends Activity {
                 Transaction t = createSingleTransaction(tId);
 
                 TransactionManager.TRANSACTION_MANAGER().insertTransaction(t);
+                mainTransaction = t;
                 break;
         }
+
+        return mainTransaction;
     }
 
-    private void updateTransactionAndSave() {
+    private Transaction updateTransactionAndSave() {
+        Transaction mainTransaction = null;
         switch (loadedTransaction1.getType()) {
             case Transfer:
-                Pair<Transaction, Transaction> pair = createTransferTransaction(
-                        loadedTransaction1.getId(), loadedTransaction2.getId());
-                TransactionManager.TRANSACTION_MANAGER().updateTransaction(pair.first, pair.second);
+                CompoundedTransferTransaction compoundedTransactions = createTransferTransaction(
+                        loadedTransaction1.getId(),
+                        loadedTransaction2.getId(),
+                        (loadedFeeTransaction != null ? loadedFeeTransaction.getId() : null));
+                mainTransaction = compoundedTransactions.getOutTransaction();
+
+                TransactionManager.TRANSACTION_MANAGER().updateTransaction(
+                        compoundedTransactions.getOutTransaction(),
+                        compoundedTransactions.getInTransaction());
+                if (layout.hasFee()) {
+                    if (loadedFeeTransaction == null) {
+                        TransactionManager.TRANSACTION_MANAGER().insertTransaction(
+                                compoundedTransactions.getFeeTransaction());
+                    } else {
+                        TransactionManager.TRANSACTION_MANAGER().updateTransaction(
+                                compoundedTransactions.getFeeTransaction());
+                    }
+                } else {
+                    if (loadedFeeTransaction != null) {
+                        TransactionManager.TRANSACTION_MANAGER().removeTransaction(loadedFeeTransaction);
+                    }
+                }
                 break;
             case Single:
                 Transaction newTransaction = createSingleTransaction(loadedTransaction1.getId());
                 TransactionManager.TRANSACTION_MANAGER().updateTransaction(newTransaction);
+                mainTransaction = newTransaction;
                 break;
             case Undef:
                 break;
         }
+
+        return mainTransaction;
     }
 
-    private Pair<Transaction, Transaction> createTransferTransaction(String t1Id, String t2Id) {
+    private CompoundedTransferTransaction createTransferTransaction(String t1Id,
+                                                                     String t2Id,
+                                                                     String tFeeId) {
         Account account = (Account) (accountSpinner.getSelectedItem());
         Account accountSecondary = (Account) (accountSecondarySpinner.getSelectedItem());
         Budget budget = (Budget) (budgetSpinner.getSelectedItem());
@@ -288,7 +336,7 @@ public class TransactionEntryActivity extends Activity {
                 t1Id,
                 description.getText().toString(),
                 TransactionDirection.Out,
-                Transfer,
+                TransactionType.Transfer,
                 account != null ? account.getId() : "",
                 budget != null ? budget.getId() : "",
                 value.getValue(),
@@ -297,13 +345,12 @@ public class TransactionEntryActivity extends Activity {
                 t2Id,
                 description.getText().toString(),
                 TransactionDirection.In,
-                Transfer,
+                TransactionType.Transfer,
                 accountSecondary != null ? accountSecondary.getId() : "",
                 budget != null ? budget.getId() : "",
                 value.getValue(),
                 dateEditText.getDate());
-        t1.setLinkedTransactionId(t2Id);
-        t2.setLinkedTransactionId(t1Id);
+
         if(layout.isRecurrent()) {
             t1.setRecurrent(true);
             t1.setFrequency(recurrentFrequency.getValue());
@@ -314,7 +361,36 @@ public class TransactionEntryActivity extends Activity {
             t2.setFrequencyUnit(recurrentFrequency.getUnit());
             t2.setEndDate(endDateEditText.getDate());
         }
-        return new Pair<>(t1, t2);
+
+        t1.setLinkedTransactionId(t2Id);
+        t2.setLinkedTransactionId(t1Id);
+        CompoundedTransferTransaction result = new CompoundedTransferTransaction(t1, t2);
+
+        Transaction tFee;
+        if(layout.hasFee()) {
+            tFee = new Transaction(
+                    tFeeId != null ? tFeeId : EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Transaction.class),
+                    description.getText().toString(),
+                    TransactionDirection.Out,
+                    TransactionType.Fee,
+                    account != null ? account.getId() : "",
+                    budget != null ? budget.getId() : "",
+                    fee.getValue(),
+                    dateEditText.getDate());
+
+            if(layout.isRecurrent()) {
+                tFee.setRecurrent(true);
+                tFee.setFrequency(recurrentFrequency.getValue());
+                tFee.setFrequencyUnit(recurrentFrequency.getUnit());
+                tFee.setEndDate(endDateEditText.getDate());
+            }
+
+            t1.setFeeTransactionId(tFee.getId());
+            t2.setFeeTransactionId(tFee.getId());
+            result.setFeeTransaction(tFee);
+        }
+
+        return result;
     }
 
     private Transaction createSingleTransaction(String id) {
@@ -325,7 +401,7 @@ public class TransactionEntryActivity extends Activity {
                 id,
                 description.getText().toString(),
                 loadedTransaction1.getDirection(),
-                Single,
+                TransactionType.Single,
                 account != null ? account.getId() : "",
                 budget != null ? budget.getId() : "",
                 value.getValue(),

@@ -5,21 +5,28 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.antso.expenses.R;
+import com.antso.expenses.comapt.FloatingActionButtonClicked;
+import com.antso.expenses.enums.TransactionDirection;
+import com.antso.expenses.enums.TransactionType;
+import com.antso.expenses.utils.Constants;
+import com.antso.expenses.utils.IntentParamNames;
 
 import java.util.List;
 
-public class TransactionPagerHostFragment extends Fragment implements ActionBar.TabListener  {
-    private volatile ViewPager mPagerView;
+public class TransactionPagerHostFragment extends Fragment {
     private TransactionsPagerAdapter mTransactionsPagerAdapter = null;
-    private Context context;
+    private volatile int currentFragmentIndex = 0;
 
     public TransactionPagerHostFragment() {
     }
@@ -32,46 +39,51 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final FragmentActivity activity = getActivity();
-        context = activity.getApplicationContext();
-
         View view = inflater.inflate(R.layout.transaction_pagerer_host_fragment, container, false);
 
-        if (mTransactionsPagerAdapter == null) {
-            mTransactionsPagerAdapter = new TransactionsPagerAdapter(this.getChildFragmentManager());
-        }
-
-        mPagerView = (ViewPager) view.findViewById(R.id.trans_pager);
-        mPagerView.setAdapter(mTransactionsPagerAdapter);
-        mPagerView.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                if (activity.getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS) {
-                    activity.getActionBar().setSelectedNavigationItem(position);
+        FloatingActionButton myFab = (FloatingActionButton)view.findViewById(R.id.addFloatingButton);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TransactionDirection direction = TransactionDirection.Undef;
+                TransactionType type = TransactionType.Undef;
+                switch (currentFragmentIndex) {
+                    case 0: //expense
+                        direction = TransactionDirection.Out;
+                        break;
+                    case 1: //transfer
+                        type = TransactionType.Transfer;
+                        break;
+                    case 2: //revenue
+                        direction = TransactionDirection.In;
+                        break;
                 }
+                Intent intent = new Intent(getActivity().getApplicationContext(), TransactionEntryActivity.class);
+                if (!direction.equals(TransactionDirection.Undef)) {
+                    intent.putExtra(IntentParamNames.TRANSACTION_DIRECTION, direction.getIntValue());
+                }
+                if (!type.equals(TransactionType.Undef)) {
+                    intent.putExtra(IntentParamNames.TRANSACTION_TYPE, type.getIntValue());
+                }
+                startActivityForResult(intent, Constants.TRANSFER_TRANSACTION_ENTRY_REQUEST_CODE);
             }
         });
 
-        activity.getActionBar().removeAllTabs();
-        for (int i = 0; i < mTransactionsPagerAdapter.getCount(); i++) {
-            activity.getActionBar().addTab(activity.getActionBar().newTab()
-                            .setText(this.getPageTitle(i))
-                            .setTabListener(this));
+        if (mTransactionsPagerAdapter == null) {
+            mTransactionsPagerAdapter = new TransactionsPagerAdapter(getActivity(), this.getChildFragmentManager());
         }
 
+        ViewPager mPagerView = (ViewPager) view.findViewById(R.id.transactionPager);
+        mPagerView.setAdapter(mTransactionsPagerAdapter);
+        mPagerView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                currentFragmentIndex = position;
+            }
+        });
+
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.transactionPagerTabLayout);
+        tabLayout.setupWithViewPager(mPagerView);
         return view;
-    }
-
-    public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return context.getString(R.string.title_transactions_expenses);
-            case 1:
-                return context.getString(R.string.title_transactions_transfers);
-            case 2:
-                return context.getString(R.string.title_transactions_revenues);
-        }
-        return null;
     }
 
     @Override
@@ -87,23 +99,6 @@ public class TransactionPagerHostFragment extends Fragment implements ActionBar.
                 fragment.onActivityResult(requestCode, resultCode, data);
             }
         }
-
-    }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        if (mPagerView.getCurrentItem() != tab.getPosition()) {
-            mPagerView.setCurrentItem(tab.getPosition());
-        }
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
     }
 

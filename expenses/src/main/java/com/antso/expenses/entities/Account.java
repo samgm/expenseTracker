@@ -1,5 +1,9 @@
 package com.antso.expenses.entities;
 
+import android.content.Context;
+
+import com.antso.expenses.utils.Utils;
+
 import java.math.BigDecimal;
 
 /**
