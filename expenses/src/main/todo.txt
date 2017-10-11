@@ -2,8 +2,20 @@ Account custom order (screens and drop downs) doesn't work well with scrolling
 
 create nice looking demo export
 
+TEST    for account and budgets apply selected on long click
+
+BUG??? account order and budget order is not saved (exported/imported)???
+
 TODO - WORKING
+    cambiare colori con material standard
     change my icons in the drawer to black (evaluate using trasparency)
+
+summary showing
+    REVIEW account list: tot fortune (net sum of all accounts), tot in / out by months (sum of all account)
+    account transaction list: show the same item as in the account list (circle + text),?customize title
+    budgets list: the total sum of planned expenses for all categories (normalized by month)
+        woudl be nice to show aferage expenses / income
+    budgets transaction list: show the same item as in the budget list (3 circle + text), ?customize title
 
 ---------------------------------------------------------------
  BUGS
@@ -25,11 +37,6 @@ TODO - WORKING
 ---------------------------------------------------------------
  ENHANCEMENTS
 ---------------------------------------------------------------
-summary showing
-    account list: tot fortune (net sum of all accounts), tot in / out by months (sum of all account)
-    account transaction list: show the same item as in the account list (circle + text),?customize title
-    budgets list: the total sum of planned expenses for all categories (normalized by month)
-    budgets transaction list: show the same item as in the budget list (3 circle + text), ?customize title
 
 statistics enh (http://android-graphview.org/ or find a better alternative: https://github.com/PhilJay/MPAndroidChart)
     budget pie (how about different budget periods? normalize to fix period (month or year))
@@ -48,13 +55,19 @@ remove settings for default account and budged and make app understand basing on
      store recurrent transaction and allow editing series or single instance
 
 3    add toast for click on account/budget transaction lists
-     ?add drawable for right side of the account and category items (make understandable they can be dragged)
+     ?add drawable on the right side of the account and category items (to make understandable they can be dragged)
 
 5    backup on google
 6    Use name as id per budget/account, Check if account/budget already exist on insert
 7    budget with many period length to be expanded on load and shown as different budgets
 8    recurrent transaction with repetition number (done with end date)
 
+analysis, let the user start an analysis to understand how in and out are going (pick and choose transactions, make projections)
+pending transaction for single entered in the future / projection of series
+auto identify recurrent transaction (such as utilities bills and make projection for future expenses
+
+archive accounts -> simple: just block any operation on it. (DOONE)
+                    complex: archive transactions to separate table (understand how to manage search, are archived stuff searchable?)
 
 ---------------------------------------------------------------
  RELEASE

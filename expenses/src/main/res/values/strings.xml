@@ -3,7 +3,7 @@
 
     <string name="app_name">Expenses</string>
     <string name="app_data_folder">Expenses</string>
-    <string name="app_version">0.1</string>
+    <string name="app_version" translatable="false">0.1</string>
 
     <!--Transaction List Activity-->
     <string name="title_default_transaction_list_activity">Transactions</string>
@@ -127,6 +127,7 @@
     <string name="working">"Working..."</string>
     <string name="error_importing_data">"Ops... something unexpected happens while importing data"</string>
     <string name="error_exporting_data">"Ops... something unexpected happens while exporting data"</string>
+    <string name="error_cannot_open_transactions_from_archived_account">"Cannot edit transaction from archived accounts. Please unarchive first."</string>
 
     <!--Layout Screen Fields -->
     <string name="empty"></string>
@@ -164,11 +165,15 @@
     <string name="starting_label">Starting</string>
     <string name="revenue_label">Revenues</string>
     <string name="expense_label">Expenses</string>
+    <string name="fortune_label">You own</string>
+    <string name="planned_label">You plan</string>
     <string name="total_label">Total</string>
     <string name="button_confirm_add_label">Add</string>
     <string name="button_confirm_edit_label">Change</string>
     <string name="button_confirm_search_label">Search</string>
     <string name="button_cancel_label">Cancel</string>
+    <string name="monthTrend">Month trend</string>
+    <string name="archive_label">Archive</string>
 
     <!--TimeUnit enum-->
     <string name="time_unit_undef">Undef</string>

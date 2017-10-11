@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class AccountEntryActivity extends AppCompatActivity {
     private ValueEditText value;
     private CircleSectorView color;
     private EditText name;
+    private CheckBox archived;
 
     private Account loadedAccount;
     private boolean isEdit;
@@ -49,6 +51,7 @@ public class AccountEntryActivity extends AppCompatActivity {
         //Creating view
         color = (CircleSectorView)findViewById(R.id.accountColor);
         name = (EditText)findViewById(R.id.accountName);
+        archived = (CheckBox)findViewById(R.id.accountArchiveCheckbox);
         value.createView(R.id.accountValue, R.id.accountValueCurrency, BigDecimal.ZERO);
         color.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +77,7 @@ public class AccountEntryActivity extends AppCompatActivity {
         color.setColor(loadedAccount.getColor());
         name.setText(loadedAccount.getName());
         value.setValue(loadedAccount.getInitialBalance());
+        archived.setChecked(loadedAccount.isArchived());
 
         final TextView title = (TextView) findViewById(R.id.accountEntryTitle);
         if (isEdit) {
@@ -90,7 +94,7 @@ public class AccountEntryActivity extends AppCompatActivity {
                     null,
                     getText(R.string.name).toString(),
                     BigDecimal.ZERO,
-                    MaterialColours.getAccountColors().get(0));
+                    MaterialColours.getAccountColors().get(0), false);
         } else {
             isEdit = true;
             loadedAccount = AccountManager.ACCOUNT_MANAGER().getAccountInfo(id).account;
@@ -116,7 +120,7 @@ public class AccountEntryActivity extends AppCompatActivity {
             if (isEdit) {
                 Account account = new Account(
                         loadedAccount.getId(),name.getText().toString(),
-                        value.getValue(), color.getColor());
+                        value.getValue(), color.getColor(), archived.isChecked());
 
                 AccountManager.ACCOUNT_MANAGER().updateAccount(account);
                 Utils.showUpdatedToast(this, account.toString());
@@ -124,7 +128,7 @@ public class AccountEntryActivity extends AppCompatActivity {
                 Account account = new Account(
                         EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
                         name.getText().toString(),
-                        value.getValue(),color.getColor());
+                        value.getValue(),color.getColor(), archived.isChecked());
 
                 AccountManager.ACCOUNT_MANAGER().insertAccount(account);
                 Utils.showAddedToast(this, account.toString());

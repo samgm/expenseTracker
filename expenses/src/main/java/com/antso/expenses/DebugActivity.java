@@ -147,9 +147,9 @@ public class DebugActivity extends AppCompatActivity {
         testButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Account account1 = new Account("ACC1", "Account1", BigDecimal.valueOf(1500.00), MaterialColours.INDIGO_500);
-                Account account2 = new Account("ACC2", "Account2", BigDecimal.valueOf(1600.00), MaterialColours.PINK_500);
-                Account account3 = new Account("ACC3", "Account3", BigDecimal.valueOf(1700.55), MaterialColours.PURPLE_500);
+                Account account1 = new Account("ACC1", "Account1", BigDecimal.valueOf(1500.00), MaterialColours.INDIGO_500, false);
+                Account account2 = new Account("ACC2", "Account2", BigDecimal.valueOf(1600.00), MaterialColours.PINK_500, false);
+                Account account3 = new Account("ACC3", "Account3", BigDecimal.valueOf(1700.55), MaterialColours.PURPLE_500, false);
                 dbHelper.insertAccount(account1);
                 dbHelper.insertAccount(account2);
                 dbHelper.insertAccount(account3);

@@ -1,6 +1,7 @@
 package com.antso.expenses.transactions;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.antso.expenses.R;
+import com.antso.expenses.accounts.AccountManager;
 import com.antso.expenses.entities.Transaction;
 import com.antso.expenses.utils.Constants;
 import com.antso.expenses.utils.IntentParamNames;
@@ -78,6 +80,17 @@ public class ExpensesListFragment extends ListFragment implements HandlingFooter
     public void onListItemClick(ListView list, View v, int position, long id) {
         Transaction transaction = (Transaction)getListView().getItemAtPosition(position);
         if (transaction != null) {
+            AccountManager.AccountInfo accountInfo =
+                    AccountManager.ACCOUNT_MANAGER().getAccountInfo(transaction.getAccountId());
+            if (accountInfo.account.isArchived()) {
+                AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.title_error_dialog)
+                        .setMessage(R.string.error_cannot_open_transactions_from_archived_account)
+                        .setNeutralButton(R.string.got_it, null)
+                        .create();
+                dialog.show();
+                return;
+            }
             startEditTransactionActivity(transaction);
         }
     }

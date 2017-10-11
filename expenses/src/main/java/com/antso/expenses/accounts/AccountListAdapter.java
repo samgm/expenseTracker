@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -108,19 +109,27 @@ public class AccountListAdapter extends BaseAdapter implements Observer {
         monthOut.setText(monthOutStr);
 
         final TextView monthBalance = (TextView) accountLayout.findViewById(R.id.accountMonthBalance);
-        final TextView monthBalanceLabel = (TextView) accountLayout.findViewById(R.id.accountMonthBalanceLabel);
         String monthBalanceStr = Utils.getCurrencyString(context) + " " +
                 accountInfo.monthBalance.setScale(2).toPlainString();
         monthBalance.setText(monthBalanceStr);
         if (accountInfo.monthBalance.compareTo(BigDecimal.ZERO) > 0) {
             monthBalance.setTextColor(MaterialColours.GREEN_500);
-            monthBalanceLabel.setTextColor(MaterialColours.GREEN_500);
         } else if (accountInfo.monthBalance.compareTo(BigDecimal.ZERO) < 0) {
             monthBalance.setTextColor(MaterialColours.RED_500);
-            monthBalanceLabel.setTextColor(MaterialColours.RED_500);
         } else {
             monthBalance.setTextColor(MaterialColours.GREY_500);
-            monthBalanceLabel.setTextColor(MaterialColours.GREY_500);
+        }
+
+        if (accountInfo.account.isArchived()) {
+            color.setColor(MaterialColours.GREY_500);
+            name.setTextColor(MaterialColours.GREY_500);
+            balance.setTextColor(MaterialColours.GREY_500);
+            monthIn.setTextColor(MaterialColours.GREY_500);
+            monthOut.setTextColor(MaterialColours.GREY_500);
+            monthBalance.setTextColor(MaterialColours.GREY_500);
+
+            final ImageView archivedIcon = (ImageView) accountLayout.findViewById(R.id.accountArchived);
+            archivedIcon.setVisibility(View.VISIBLE);
         }
 
         return accountLayout;

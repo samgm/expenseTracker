@@ -46,18 +46,17 @@ public class BudgetTransactionListAdapter extends BaseAccountBudgetTransactionLi
         new AsyncTask<Void, Void,  List<Transaction>>() {
             @Override
             protected List<Transaction> doInBackground(Void... params) {
-                return transactionManager.getBudgetNextPeriodTransactions(budget);
+                boolean finished = false;
+                List<Transaction> transactions = transactionManager.getBudgetNextPeriodTransactions(budget, finished);
+                nothingMoreToLoad = finished;
+                return transactions;
             }
 
             @Override
             protected void onPostExecute(List<Transaction> loaded) {
                 super.onPostExecute(transactions);
-                if (loaded.size() != 0) {
-                    transactions.addAll(loaded);
-                    notifyDataSetChanged();
-                } else {
-                    nothingMoreToLoad = true;
-                }
+                transactions.addAll(loaded);
+                notifyDataSetChanged();
             }
         }.execute();
     }

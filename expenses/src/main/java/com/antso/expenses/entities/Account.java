@@ -15,13 +15,15 @@ public class Account {
     private String name;
     private BigDecimal initialBalance;
     private int color;
+    private boolean archived;
 
     public Account(final String id, final String name, final BigDecimal initialBalance,
-                   final int color) {
+                   final int color, final boolean archived) {
         this.id = id;
         this.name = name;
         this.color = color;
         this.initialBalance = initialBalance;
+        this.archived = archived;
     }
 
     public String getId() {
@@ -38,6 +40,10 @@ public class Account {
 
     public int getColor() {
         return color;
+    }
+
+    public boolean isArchived() {
+        return archived;
     }
 
     @Override

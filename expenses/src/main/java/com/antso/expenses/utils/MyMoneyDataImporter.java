@@ -141,7 +141,7 @@ public class MyMoneyDataImporter {
             account = accountsByName.get(account).getId();
         } else {
             Account defAccount = new Account(EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
-                    account, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0));
+                    account, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0), false);
             AccountManager.ACCOUNT_MANAGER().insertAccount(defAccount);
             accountsByName.put(defAccount.getName(), defAccount);
             account = defAccount.getId();
@@ -224,7 +224,7 @@ public class MyMoneyDataImporter {
             account = accountsByName.get(account).getId();
         } else {
             Account defAccount = new Account(EntityIdGenerator.ENTITY_ID_GENERATOR.createId(Account.class),
-                    account, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0));
+                    account, BigDecimal.ZERO, MaterialColours.getBudgetColors().get(0), false);
             AccountManager.ACCOUNT_MANAGER().insertAccount(defAccount);
             accountsByName.put(defAccount.getName(), defAccount);
             account = defAccount.getId();

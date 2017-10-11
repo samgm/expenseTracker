@@ -331,7 +331,6 @@ public class BudgetManager extends Observable {
         public int getPercentage() {
             return Utils.getPercentage(periodIn, periodOut, budget.getThreshold());
         }
-
     }
 
 }

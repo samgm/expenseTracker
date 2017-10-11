@@ -64,7 +64,7 @@ public class BudgetsStatisticsFragment extends Fragment {
                     budgets.toArray(new Budget[0]));
         }
 
-        budgetSpinner.createView(R.id.statisticsBudgetSpinner, R.id.statisticsBudgetButton, budgetSpinnerAdapter);
+        budgetSpinner.createView(R.id.statisticsBudgetSpinner, budgetSpinnerAdapter);
         budgetSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

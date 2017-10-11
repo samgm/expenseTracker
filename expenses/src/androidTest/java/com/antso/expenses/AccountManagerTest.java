@@ -1,4 +1,4 @@
-package com.antso.expensesmanager;
+package com.antso.expenses;
 
 import android.test.AndroidTestCase;
 
@@ -70,7 +70,7 @@ public class AccountManagerTest extends AndroidTestCase {
 
     public void testAccountValuesForSingleTransactionsWhenAddAndDel() {
         //Given
-        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         // When 1
@@ -107,7 +107,7 @@ public class AccountManagerTest extends AndroidTestCase {
 
     public void testAccountValuesForSingleTransactionsWhenEdit() {
         //Given
-        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         createAndAddTransactionsForTest();
@@ -170,7 +170,7 @@ public class AccountManagerTest extends AndroidTestCase {
 
     public void testAccountValuesForSingleAndRecurrentTransactionsWhenAddAndDel() {
         //Given
-        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         // When 1
@@ -215,7 +215,7 @@ public class AccountManagerTest extends AndroidTestCase {
 
     public void testAccountValuesForSingleAndRecurrentTransactionsWhenEdit() {
         //Given
-        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         // When 1
@@ -303,7 +303,7 @@ public class AccountManagerTest extends AndroidTestCase {
 
     public void testAccountValuesForSingleAndRecurrentTransactionsWhenEditAccountValue() {
         //Given
-        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         createAndAddTransactionsForTest();
@@ -316,7 +316,7 @@ public class AccountManagerTest extends AndroidTestCase {
         TransactionManager.TRANSACTION_MANAGER().insertTransaction(goodRecurrent);
 
         // When
-        Account a1Edit = new Account("a1", "a1", BigDecimal.valueOf(15), 0);
+        Account a1Edit = new Account("a1", "a1", BigDecimal.valueOf(15), 0, false);
         AccountManager.ACCOUNT_MANAGER().updateAccount(a1Edit);
 
         // Then
@@ -329,7 +329,7 @@ public class AccountManagerTest extends AndroidTestCase {
 
     public void testAccountValuesForSingleAndRecurrentTransactionsWhenDeleteAccountAndTransactions() {
         //Given
-        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         createAndAddTransactionsForTest();
@@ -351,9 +351,9 @@ public class AccountManagerTest extends AndroidTestCase {
 
     public void testAccountValuesForSingleAndRecurrentTransactionsDeleteAccountAndMoveTransaction() {
         //Given
-        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.valueOf(10), 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
-        Account a2 = new Account("a2", "a2", BigDecimal.valueOf(10), 0);
+        Account a2 = new Account("a2", "a2", BigDecimal.valueOf(10), 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a2);
 
         createAndAddTransactionsForTest();

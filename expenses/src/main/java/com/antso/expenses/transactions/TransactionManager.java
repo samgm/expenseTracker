@@ -520,7 +520,7 @@ public class TransactionManager extends Observable {
         accountPeriodBalance = BigDecimal.ZERO;
     }
 
-    public List<Transaction> getAccountNextPeriodTransactions(String account) {
+    public List<Transaction> getAccountNextPeriodTransactions(String account, boolean finished) {
         long start = System.currentTimeMillis();
 
         List<Transaction> transactions = new ArrayList<Transaction>(
@@ -541,7 +541,7 @@ public class TransactionManager extends Observable {
             resultTransactions.add(transaction);
         }
 
-        if(!resultTransactions.isEmpty() || Utils.isBefore(firstTransactionDate, accountPeriodDate)) {
+        if(!resultTransactions.isEmpty() && Utils.isBefore(firstTransactionDate, accountPeriodDate)) {
             AccountManager.AccountInfo accountInfo = AccountManager.ACCOUNT_MANAGER().getAccountInfo(account);
             BigDecimal balance = accountInfo.balance.subtract(accountPeriodBalance);
             BigDecimal diff = in.subtract(out);
@@ -552,6 +552,9 @@ public class TransactionManager extends Observable {
         }
 
         accountPeriodDate = accountPeriodDate.minusMonths(1);
+        if (!Utils.isAfterOrEqual(firstTransactionDate, accountPeriodDate)) {
+            finished = true;
+        }
 
         long end = System.currentTimeMillis();
         Log.i("EXPENSES OBS", "TRANSACTION_MANAGER getAccountNextPeriod {" + (end - start) + "}");
@@ -565,7 +568,7 @@ public class TransactionManager extends Observable {
         budgetPeriodDate = date;
     }
 
-    public List<Transaction> getBudgetNextPeriodTransactions(String budget) {
+    public List<Transaction> getBudgetNextPeriodTransactions(String budget, boolean finished) {
         long start = System.currentTimeMillis();
 
         BudgetManager.BudgetInfo budgetInfo = BudgetManager.BUDGET_MANAGER().getBudgetInfo(budget);
@@ -603,6 +606,9 @@ public class TransactionManager extends Observable {
         }
 
         budgetPeriodDate = periodStart.minusDays(1);
+        if (resultTransactions.isEmpty()) {
+            finished = true;
+        }
 
         long end = System.currentTimeMillis();
         Log.i("EXPENSES OBS", "TRANSACTION_MANAGER getBudgetNextPeriod {" + (end - start) + "}");
@@ -611,7 +617,8 @@ public class TransactionManager extends Observable {
     }
 
     public SummaryTransaction getBudgetNextPeriodTransactionsSummary(String budget) {
-        List<Transaction> transactions = getBudgetNextPeriodTransactions(budget);
+        boolean finished = false;
+        List<Transaction> transactions = getBudgetNextPeriodTransactions(budget, finished);
         for (Transaction transaction : transactions) {
             if (transaction instanceof SummaryTransaction) {
                 return (SummaryTransaction) transaction;
@@ -621,7 +628,8 @@ public class TransactionManager extends Observable {
     }
 
     public SummaryTransaction getAccountNextPeriodTransactionsSummary(String account) {
-        List<Transaction> transactions = getAccountNextPeriodTransactions(account);
+        boolean finished = false;
+        List<Transaction> transactions = getAccountNextPeriodTransactions(account, finished);
         for (Transaction transaction : transactions) {
             if (transaction instanceof SummaryTransaction) {
                 return (SummaryTransaction) transaction;

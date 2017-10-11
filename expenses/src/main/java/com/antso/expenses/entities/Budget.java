@@ -62,6 +62,21 @@ public class Budget {
         return periodStart;
     }
 
+    public double getBudgetLenghtInMonth() {
+        switch (this.getPeriodUnit()) {
+            case Month:
+                return this.getPeriodLength();
+            case Week:
+                return this.getPeriodLength() / 4;
+            case Year:
+                return this.getPeriodLength() * 12;
+            case Day:
+            case Undef:
+            default:
+                return -1;
+        }
+    }
+
     @Override
     public String toString() {
         return name;

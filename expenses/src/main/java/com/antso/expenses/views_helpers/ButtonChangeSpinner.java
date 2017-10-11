@@ -12,17 +12,14 @@ public class ButtonChangeSpinner {
 
     private Spinner spinner;
     @SuppressWarnings("FieldCanBeLocal")
-    private ImageButton button;
 
     public ButtonChangeSpinner(Activity parentActivity) {
         this.parentActivity = parentActivity;
     }
 
-    public void createView(int spinnerId, int buttonId, SpinnerAdapter adapter) {
+    public void createView(int spinnerId, SpinnerAdapter adapter) {
         this.spinner = (Spinner) parentActivity.findViewById(spinnerId);
         this.spinner.setAdapter(adapter);
-        this.button = (ImageButton) parentActivity.findViewById(buttonId);
-        this.button.setOnClickListener(onButtonClick());
     }
 
     public void setSelection(int i) {
@@ -31,16 +28,6 @@ public class ButtonChangeSpinner {
 
     public Object getSelectedItem() {
         return spinner.getSelectedItem();
-    }
-
-    private View.OnClickListener onButtonClick() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int index = spinner.getSelectedItemPosition();
-                spinner.setSelection((index + 1) % spinner.getAdapter().getCount());
-            }
-        };
     }
 
     public void setOnItemSelectedListener(AdapterView.OnItemSelectedListener listener) {

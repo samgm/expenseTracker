@@ -109,12 +109,13 @@ public class DataExporter {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         Collection<Account> accounts = dbHelper.getAccounts();
         for (Account a : accounts) {
-            String[] aString = new String[4];
+            String[] aString = new String[5];
 
             aString[0] = a.getId();
             aString[1] = a.getName();
             aString[2] = a.getInitialBalance().setScale(2).toPlainString();
             aString[3] = String.valueOf(a.getColor());
+            aString[4] = String.valueOf(a.isArchived());
 
             writer.writeNext(aString);
         }
@@ -251,7 +252,8 @@ public class DataExporter {
                     values[0],
                     values[1],
                     BigDecimal.valueOf(Double.parseDouble(values[2])),
-                    Integer.parseInt(values[3]));
+                    Integer.parseInt(values[3]),
+                    Boolean.parseBoolean(values[4]));
 
             dbHelper.insertAccount(a);
 

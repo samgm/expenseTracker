@@ -11,6 +11,7 @@ import com.antso.expenses.R;
 import com.antso.expenses.entities.Budget;
 import com.antso.expenses.views.CircleSectorView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,16 +48,14 @@ public class BudgetSpinnerAdapter extends ArrayAdapter<Budget> {
 
     public static BudgetSpinnerAdapter create(Context context, int resource, Budget[] budgets,
                                               Budget excludeBudget) {
-        Budget[] finalBudgets = new Budget[budgets.length - 1];
-        int i = 0;
+        ArrayList<Budget> finalBudgets = new ArrayList<>();
         for (Budget budget : budgets) {
-            if (!budget.getId().equals(excludeBudget.getId()) && i < finalBudgets.length) {
-                finalBudgets[i] = budget;
-                i++;
+            if (!budget.getId().equals(excludeBudget.getId())) {
+                finalBudgets.add(budget);
             }
         }
 
-        return new BudgetSpinnerAdapter(context, resource, finalBudgets);
+        return new BudgetSpinnerAdapter(context, resource, finalBudgets.toArray(new Budget[0]));
     }
 
     @Override
@@ -70,9 +69,9 @@ public class BudgetSpinnerAdapter extends ArrayAdapter<Budget> {
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         return createView(position, convertView, parent,
-                R.layout.budget_spinner_dropdown_item,
-                R.id.budgetSpinnerDropdownItemText,
-                R.id.budgetSpinnerDropdownItemColor);
+                R.layout.budget_spinner_item,
+                R.id.budgetSpinnerItemText,
+                R.id.budgetSpinnerItemColor);
     }
 
     private View createView(int position, View convertView, ViewGroup parent,

@@ -64,7 +64,7 @@ public class TransactionEntryActivity extends AppCompatActivity {
 
         layout = new TransactionLayout(this);
         endDateEditText = new DateEditText(this);
-        dateEditText = new DateEditText(this);
+            dateEditText = new DateEditText(this);
         recurrentFrequency = new FrequencySpinner(this);
         accountSpinner = new ButtonChangeSpinner(this);
         accountSecondarySpinner = new ButtonChangeSpinner(this);
@@ -100,19 +100,17 @@ public class TransactionEntryActivity extends AppCompatActivity {
         //Creating view
         description = (MultiAutoCompleteTextView) findViewById(R.id.transactionDesc);
 
-        layout.createView(R.id.transactionColor, R.id.transactionSecondaryAccountLayout,
-                R.id.transactionAccountLabel, R.id.transactionSecondaryAccountLabel,
+        layout.createView(R.id.transactionColor,
+                R.id.transactionAccountLabel,
+                R.id.transactionSecondaryAccountLabel, R.id.transactionSecondaryAccountSpinner,
                 R.id.transactionRecurrentCheckbox, R.id.transactionRecurrentDetailsLayout,
                 R.id.transactionFeeCheckbox
                 , R.id.feeDetailLayout);
         value.createView(R.id.transactionValue, R.id.transactionValueCurrency, BigDecimal.ZERO);
         fee.createView(R.id.transactionFee, R.id.transactionFeeCurrency, BigDecimal.ZERO);
-        accountSpinner.createView(R.id.transactionAccountSpinner, R.id.transactionAccountButton,
-                accountSpinnerAdapter);
-        accountSecondarySpinner.createView(R.id.transactionSecondaryAccountSpinner, R.id.transactionSecondaryAccountButton,
-                accountSpinnerAdapter);
-        budgetSpinner.createView(R.id.transactionBudgetSpinner, R.id.transactionBudgetButton,
-                budgetSpinnerAdapter);
+        accountSpinner.createView(R.id.transactionAccountSpinner, accountSpinnerAdapter);
+        accountSecondarySpinner.createView(R.id.transactionSecondaryAccountSpinner, accountSpinnerAdapter);
+        budgetSpinner.createView(R.id.transactionBudgetSpinner, budgetSpinnerAdapter);
 
         recurrentFrequency.createView(R.id.transactionFrequencyUnit, R.id.transactionFrequency);
         dateEditText.createView(R.id.transactionDate, Utils.now());

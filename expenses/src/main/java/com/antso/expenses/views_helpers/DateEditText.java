@@ -2,7 +2,9 @@ package com.antso.expenses.views_helpers;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -53,6 +55,10 @@ public class DateEditText {
                                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                     date = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
                                     dateEditText.setText(Utils.formatDate(date));
+
+                                    //hide keyboard on date selection as not required
+                                    InputMethodManager imm = (InputMethodManager)parentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(parentActivity.getCurrentFocus().getWindowToken(), 0);
                                 }
                             }, date.getYear(), date.getMonthOfYear() - 1, date.getDayOfMonth()
                     );
@@ -74,6 +80,10 @@ public class DateEditText {
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                 date = new DateTime(year, monthOfYear + 1, dayOfMonth, 0, 0);
                                 dateEditText.setText(Utils.formatDate(date));
+
+                                //hide keyboard on date selection as not required
+                                InputMethodManager imm = (InputMethodManager)parentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(parentActivity.getCurrentFocus().getWindowToken(), 0);
                             }
                         }, now.getYear(), now.getMonthOfYear() - 1, now.getDayOfMonth()
                 );

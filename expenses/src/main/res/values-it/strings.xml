@@ -3,7 +3,6 @@
 
     <string name="app_name">Expenses</string>
     <string name="app_data_folder">Expenses</string>
-    <string name="app_version">0.1</string>
 
     <!--Transaction List Activity-->
     <string name="title_default_transaction_list_activity">Movimenti</string>
@@ -140,7 +139,7 @@
     <string name="budget">Categoria</string>
     <string name="budget_period">2 Settimane</string>
     <string name="recurrent_label">Ricorrente</string>
-    <string name="every_label">Ogni</string>
+    <string name="every_label">Non puoi modificare transazioni in accoutn archiviati. Disarchivia prima.</string>
     <string name="until_label">Fino</string>
     <string name="starting_label">Dal</string>
     <string name="revenue_label">Entrate</string>
@@ -215,6 +214,12 @@
     <string name="title_statistics_budgets">Categorie</string>
     <string name="threshold_label">Soglia</string>
     <string name="fee_label">Commissione</string>
+    <string name="archive_label">Archivia</string>
+    <string name="error_cannot_open_transactions_from_archived_account">Non puoi modificare transazioni in accoutn archiviati. Disarchivia prima</string>
+    <string name="fortune_label">Possiedi</string>
+    <string name="monthTrend">Ancamento mese</string>
+    <string name="planned_label">Il tuo piano</string>
+    <string name="title_selected">Selezionato</string>
 
     <!-- Example settings for Notifications -->
     <!--<string name="pref_header_notifications">Notifications</string>-->

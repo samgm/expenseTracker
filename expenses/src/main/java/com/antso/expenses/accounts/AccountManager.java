@@ -89,7 +89,7 @@ public class AccountManager extends Observable {
     }
 
     private void createDefaultAccount() {
-        Account account = new Account("DEFAULT_ACCOUNT", "Default", BigDecimal.ZERO, MaterialColours.GREY_500);
+        Account account = new Account("DEFAULT_ACCOUNT", "Default", BigDecimal.ZERO, MaterialColours.GREY_500, false);
         dbHelper.insertAccount(account);
         addAccount(account, false);
     }

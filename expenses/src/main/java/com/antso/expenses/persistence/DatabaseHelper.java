@@ -25,7 +25,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     final private static String DB_NAME = "expenses_db";
-    final private static Integer DB_VERSION = 1;
+    final private static Integer DB_VERSION = 2;
     final private Context mContext;
 
     //Accounts
@@ -34,17 +34,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String ACCOUNT_FIELD_NAME = "Name";
     final static String ACCOUNT_FIELD_COLOR = "Color";
     final static String ACCOUNT_FIELD_INITIAL_BALANCE = "InitialBalance";
+    final static String ACCOUNT_FIELD_ARCHIVED = "Archived";
     final static String[] accountColumns = { ACCOUNT_FIELD_ID,
             ACCOUNT_FIELD_NAME,
             ACCOUNT_FIELD_COLOR,
-            ACCOUNT_FIELD_INITIAL_BALANCE };
+            ACCOUNT_FIELD_INITIAL_BALANCE,
+            ACCOUNT_FIELD_ARCHIVED};
 
     final private static String ACCOUNT_CREATE_CMD =
             "CREATE TABLE " + ACCOUNT_TABLE_NAME + " ( "
                     + ACCOUNT_FIELD_ID + " TEXT NOT NULL PRIMARY KEY, "
                     + ACCOUNT_FIELD_NAME + " TEXT NOT NULL, "
                     + ACCOUNT_FIELD_COLOR + " INTEGER NOT NULL, "
-                    + ACCOUNT_FIELD_INITIAL_BALANCE + " REAL );";
+                    + ACCOUNT_FIELD_INITIAL_BALANCE + " REAL, "
+                    + ACCOUNT_FIELD_ARCHIVED + " INTEGER NOT NULL );";
 
     final private static String ACCOUNT_DELETE_CMD = "DROP TABLE " + ACCOUNT_TABLE_NAME;
 
@@ -201,6 +204,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ACCOUNT_FIELD_NAME, account.getName());
         values.put(ACCOUNT_FIELD_COLOR, account.getColor());
         values.put(ACCOUNT_FIELD_INITIAL_BALANCE, account.getInitialBalance().doubleValue());
+        values.put(ACCOUNT_FIELD_ARCHIVED, account.isArchived());
 
         db.insert(ACCOUNT_TABLE_NAME, null, values);
     }
@@ -212,6 +216,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(ACCOUNT_FIELD_NAME, account.getName());
         values.put(ACCOUNT_FIELD_COLOR, account.getColor());
         values.put(ACCOUNT_FIELD_INITIAL_BALANCE, account.getInitialBalance().doubleValue());
+        values.put(ACCOUNT_FIELD_ARCHIVED, account.isArchived());
 
         db.update(ACCOUNT_TABLE_NAME, values,
                 ACCOUNT_FIELD_ID + " = ?", new String[]{account.getId()});
@@ -226,7 +231,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<Account> accounts = new ArrayList<Account>();
         while (cursor.moveToNext()) {
             Account account = new Account(cursor.getString(0), cursor.getString(1),
-                    BigDecimal.valueOf(cursor.getDouble(3)), cursor.getInt(2));
+                    BigDecimal.valueOf(cursor.getDouble(3)), cursor.getInt(2),
+                    (cursor.getInt(4) == 1) ? true : false);
             accounts.add(account);
         }
 

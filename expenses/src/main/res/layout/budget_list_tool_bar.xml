@@ -1,31 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:circleSectorview="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/accountItemLayout"
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/account_item_height"
-    android:orientation="horizontal" >
+    android:layout_height="wrap_content"
+    android:background="@color/green_hangout"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/account_item_height"
-        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
-
-
-        <com.antso.expenses.views.CircleSectorView
-            android:id="@+id/accountColor"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_gravity="center_vertical"
-            circleSectorview:fillColor="#ff0000"
-            circleSectorview:radiusDp="32"
-            circleSectorview:angleStart="0"
-            circleSectorview:angleSweep="360"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,37 +21,28 @@
             android:layout_weight="2.5"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
-                <TextView
-                    android:id="@+id/accountName"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:singleLine="true"
-                    android:text="@string/account">
-                </TextView>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:textColor="@color/white"
+                android:singleLine="true"
+                android:text="@string/planned_label">
+            </TextView>
 
-                <TextView
-                    android:id="@+id/accountBalance"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:gravity="left"
-                    android:textStyle="bold"
-                    android:text="@string/currency_value_0_00">
-                </TextView>
-            </LinearLayout>
-
-        <ImageView
-            android:id="@+id/accountArchived"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="16dp"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_lock"
-            android:visibility="gone"/>
+            <TextView
+                android:id="@+id/budgetSummaryGrandTotal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:gravity="left"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:text="@string/currency_value_0_00">
+            </TextView>
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/accountMonthInOutView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -77,6 +53,18 @@
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/budgetSummaryMonthLabel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_gravity="right"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="@string/monthTrend">
+            </TextView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,13 +72,13 @@
                 android:gravity="right">
 
                 <TextView
-                    android:id="@+id/accountMonthIn"
+                    android:id="@+id/budgetSummaryMonthIn"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:layout_gravity="right"
                     android:textSize="14sp"
-                    android:textColor="@color/green_500"
+                    android:textColor="@color/white"
                     android:text="@string/currency_value_0_00">
                 </TextView>
                 <ImageView
@@ -99,7 +87,6 @@
                     android:src="@drawable/ic_trending_up"
                     android:layout_marginLeft="12dp"
                     android:background="@color/green_500"/>
-
             </LinearLayout>
 
             <LinearLayout
@@ -109,13 +96,13 @@
                 android:gravity="right">
 
                 <TextView
-                    android:id="@+id/accountMonthOut"
+                    android:id="@+id/budgetSummaryMonthOut"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:layout_gravity="right"
                     android:textSize="14sp"
-                    android:textColor="@color/red_500"
+                    android:textColor="@color/white"
                     android:text="@string/currency_value_0_00">
                 </TextView>
                 <ImageView
@@ -124,7 +111,6 @@
                     android:src="@drawable/ic_trending_down"
                     android:layout_marginLeft="12dp"
                     android:background="@color/red_500"/>
-
             </LinearLayout>
 
             <LinearLayout
@@ -134,12 +120,13 @@
                 android:gravity="right">
 
                 <TextView
-                    android:id="@+id/accountMonthBalance"
+                    android:id="@+id/budgetSummaryMonthBalance"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:layout_gravity="right"
                     android:textSize="14sp"
+                    android:textColor="@color/white"
                     android:text="@string/currency_value_0_00">
                 </TextView>
                 <ImageView
@@ -152,7 +139,5 @@
             </LinearLayout>
 
         </LinearLayout>
-
     </LinearLayout>
-
-</LinearLayout>
+</android.support.v7.widget.Toolbar>

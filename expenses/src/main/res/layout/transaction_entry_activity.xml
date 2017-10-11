@@ -176,30 +176,14 @@
             android:gravity="left"
             android:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/transactionAccountLayout"
-            android:orientation="horizontal"
+        <Spinner
+            android:id="@+id/transactionAccountSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="6dp">
-
-            <Spinner
-                android:id="@+id/transactionAccountSpinner"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="10"
-                android:textSize="20sp"/>
-
-            <ImageButton
-                android:id="@+id/transactionAccountButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_loop"
-                android:contentDescription="@string/placeholder"
-                style="?android:attr/buttonBarButtonStyle"/>
-        </LinearLayout>
+            android:layout_marginBottom="6dp"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/transactionSecondaryAccountLabel"
@@ -215,31 +199,15 @@
             android:gravity="left"
             android:visibility="gone"/>
 
-        <LinearLayout
-            android:id="@+id/transactionSecondaryAccountLayout"
-            android:orientation="horizontal"
+        <Spinner
+            android:id="@+id/transactionSecondaryAccountSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="6dp"
-            android:visibility="gone">
-
-            <Spinner
-                android:id="@+id/transactionSecondaryAccountSpinner"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="10"
-                android:textSize="20sp"/>
-
-            <ImageButton
-                android:id="@+id/transactionSecondaryAccountButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_loop"
-                android:contentDescription="@string/placeholder"
-                style="?android:attr/buttonBarButtonStyle"/>
-        </LinearLayout>
+            android:textSize="20sp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/transactionBudgetLabel"
@@ -255,30 +223,14 @@
             android:gravity="left"
             android:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/transactionBudgetLayout"
-            android:orientation="horizontal"
+        <Spinner
+            android:id="@+id/transactionBudgetSpinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="6dp">
-
-            <Spinner
-                android:id="@+id/transactionBudgetSpinner"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="10"
-                android:textSize="20sp"/>
-
-            <ImageButton
-                android:id="@+id/transactionBudgetButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_loop"
-                android:contentDescription="@string/placeholder"
-                style="?android:attr/buttonBarButtonStyle"/>
-        </LinearLayout>
+            android:layout_marginBottom="6dp"
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

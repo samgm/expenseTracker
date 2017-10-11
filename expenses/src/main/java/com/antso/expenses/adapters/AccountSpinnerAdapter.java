@@ -11,6 +11,7 @@ import com.antso.expenses.R;
 import com.antso.expenses.entities.Account;
 import com.antso.expenses.views.CircleSectorView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,21 +43,26 @@ public class AccountSpinnerAdapter extends ArrayAdapter<Account> {
     }
 
     public static AccountSpinnerAdapter create(Context context, int resource, Account[] accounts) {
-        return new AccountSpinnerAdapter(context, resource, accounts);
+        ArrayList<Account> finalAccounts = new ArrayList<>();
+        for (Account account : accounts) {
+            if (!account.isArchived()) {
+                finalAccounts.add(account);
+            }
+        }
+
+        return new AccountSpinnerAdapter(context, resource, finalAccounts.toArray(new Account[0]));
     }
 
     public static AccountSpinnerAdapter create(Context context, int resource, Account[] accounts,
                                                Account excludeAccount) {
-        Account[] finalAccounts = new Account[accounts.length - 1];
-        int i = 0;
+        ArrayList<Account> finalAccounts = new ArrayList<>();
         for (Account account : accounts) {
-            if (!account.getId().equals(excludeAccount.getId()) && i < finalAccounts.length) {
-                finalAccounts[i] = account;
-                i++;
+            if (!account.isArchived() && !account.getId().equals(excludeAccount.getId())) {
+                finalAccounts.add(account);
             }
         }
 
-        return new AccountSpinnerAdapter(context, resource, finalAccounts);
+        return new AccountSpinnerAdapter(context, resource, finalAccounts.toArray(new Account[0]));
     }
 
     @Override
@@ -70,9 +76,9 @@ public class AccountSpinnerAdapter extends ArrayAdapter<Account> {
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         return createView(position, convertView, parent,
-                R.layout.account_spinner_dropdown_item,
-                R.id.accountSpinnerDropdownItemText,
-                R.id.accountSpinnerDropdownItemColor);
+                R.layout.account_spinner_item,
+                R.id.accountSpinnerItemText,
+                R.id.accountSpinnerItemColor);
     }
 
     private View createView(int position, View convertView, ViewGroup parent,

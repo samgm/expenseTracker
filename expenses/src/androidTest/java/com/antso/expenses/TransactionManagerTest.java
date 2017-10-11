@@ -25,6 +25,7 @@ public class TransactionManagerTest extends AndroidTestCase {
     private Transaction goodThird;
     private Transaction goodRecurrentFirstAndSecond;
     private Transaction goodRecurrentSecondAndThird;
+    private boolean fakeFinished = false;
 
     @Override
     protected void setUp() throws Exception {
@@ -113,7 +114,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetBudgetNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then1
         assertTrue(period.size() == 1 + 1);
@@ -124,7 +125,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.ONE) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then2
         assertTrue(period.size() == 3 + 1);
@@ -135,7 +136,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-2)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then3
         assertTrue(period.size() == 2 + 1);
@@ -146,7 +147,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-1)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -164,7 +165,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetBudgetNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then1
         assertTrue(period.size() == 1 + 1);
@@ -175,7 +176,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.ONE) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then2
         assertTrue(period.size() == 1 + 1);
@@ -186,7 +187,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-2)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then3
         assertTrue(period.size() == 2 + 1);
@@ -197,7 +198,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-1)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -218,7 +219,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetBudgetNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then1
         assertTrue(period.size() == 1 + 1);
@@ -229,7 +230,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.ONE) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then2
         assertTrue(period.size() == 3 + 1);
@@ -240,7 +241,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-2)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then3
         assertTrue(period.size() == 2 + 1);
@@ -251,7 +252,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-1)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -289,7 +290,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetBudgetNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then1
         assertTrue(period.size() == 1 + 1);
@@ -300,7 +301,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.ONE) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then2
         assertTrue(period.size() == 9 + 1);
@@ -311,7 +312,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-2)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then3
         assertTrue(period.size() == 4 + 1);
@@ -322,7 +323,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-1)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -368,7 +369,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetBudgetNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then1
         assertTrue(period.size() == 1 + 1);
@@ -379,7 +380,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.ONE) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then2
         assertTrue(period.size() == 3 + 1);
@@ -390,7 +391,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-2)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then3
         assertTrue(period.size() == 2 + 1);
@@ -401,7 +402,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(-1)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1");
+        period = TransactionManager.TRANSACTION_MANAGER().getBudgetNextPeriodTransactions("b1", fakeFinished );
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -413,14 +414,14 @@ public class TransactionManagerTest extends AndroidTestCase {
 
     public void testGetAccountNextPeriodTransactions() {
         // Given
-        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         createAndAddTransactionsForAccountTest();
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetAccountNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then1
         assertTrue(period.size() == 3 + 1);
@@ -432,7 +433,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(7)) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then2
         assertTrue(period.size() == 3 + 1);
@@ -444,7 +445,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(7)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then3
         assertTrue(period.size() == 2 + 1);
@@ -456,7 +457,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(9)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -464,7 +465,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
     public void testGetAccountNextPeriodTransactionsAfterDelete() {
         // Given
-        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         createAndAddTransactionsForAccountTest();
@@ -473,7 +474,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetAccountNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then1
         assertTrue(period.size() == 1 + 1);
@@ -485,7 +486,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(12)) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then2
         assertTrue(period.size() == 2 + 1);
@@ -497,7 +498,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(11)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then3
         assertTrue(period.size() == 1 + 1);
@@ -509,7 +510,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(11)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -517,7 +518,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
     public void testGetAccountNextPeriodTransactionsAfterStart() {
         // Given
-        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         createAndAddTransactionsForAccountTest();
@@ -529,7 +530,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetAccountNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished );
 
         // Then1
         assertTrue(period.size() == 3 + 1);
@@ -541,7 +542,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(7)) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then2
         assertTrue(period.size() == 3 + 1);
@@ -553,7 +554,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(7)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then3
         assertTrue(period.size() == 2 + 1);
@@ -565,7 +566,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(9)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -574,7 +575,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
     public void testGetAccountNextPeriodTransactionsWithTransfer() {
         // Given
-        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         createAndAddTransactionsForAccountTest();
@@ -603,7 +604,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetAccountNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then1
         assertTrue(period.size() == 5 + 1);
@@ -615,7 +616,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(7)) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then2
         assertTrue(period.size() == 9 + 1);
@@ -627,7 +628,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(7)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then3
         assertTrue(period.size() == 6 + 1);
@@ -639,7 +640,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(9)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then4
         assertTrue(period.size() == 0 + 0);
@@ -647,7 +648,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
     public void testGetAccountNextPeriodTransactionsWithTransferDelete() {
         // Given
-        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0);
+        Account a1 = new Account("a1", "a1", BigDecimal.TEN, 0, false);
         AccountManager.ACCOUNT_MANAGER().insertAccount(a1);
 
         createAndAddTransactionsForAccountTest();
@@ -684,7 +685,7 @@ public class TransactionManagerTest extends AndroidTestCase {
 
         // When1
         TransactionManager.TRANSACTION_MANAGER().resetGetAccountNextPeriodTransactions(Utils.yyyyMMddToDate(20141016));
-        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        List<Transaction> period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then1
         assertTrue(period.size() == 3 + 1);
@@ -696,7 +697,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(7)) == 0);
 
         // When2
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then2
         assertTrue(period.size() == 3 + 1);
@@ -708,7 +709,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(7)) == 0);
 
         //When3
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then3
         assertTrue(period.size() == 2 + 1);
@@ -720,7 +721,7 @@ public class TransactionManagerTest extends AndroidTestCase {
         assertTrue(summary.getBalance().compareTo(BigDecimal.valueOf(9)) == 0);
 
         // When4
-        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1");
+        period = TransactionManager.TRANSACTION_MANAGER().getAccountNextPeriodTransactions("a1", fakeFinished);
 
         // Then4
         assertTrue(period.size() == 0 + 0);

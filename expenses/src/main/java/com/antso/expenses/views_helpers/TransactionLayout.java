@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.antso.expenses.R;
@@ -15,7 +16,7 @@ public class TransactionLayout {
     private final Activity parentActivity;
 
     private CircleSectorView color;
-    private LinearLayout secondaryAccountLayout;
+    private Spinner secondaryAccountSpinner;
     private TextView accountLabel;
     private TextView secondaryAccountLabel;
     private LinearLayout recurrentDetails;
@@ -27,12 +28,13 @@ public class TransactionLayout {
         this.parentActivity = parentActivity;
     }
 
-    public void createView(int colorId, int secondaryAccountLayoutId,
-                           int accountLabelId, int secondaryAccountLabelId,
+    public void createView(int colorId,
+                           int accountLabelId,
+                           int secondaryAccountLabelId, int secondaryAccountSpinnerId,
                            int recurrentCheckboxId, int recurrentDetailsLayoutId,
                            int hasFeeCheckboxId, int feeDetailsLayoutId) {
         color = (CircleSectorView)parentActivity.findViewById(colorId);
-        secondaryAccountLayout = (LinearLayout) parentActivity.findViewById(secondaryAccountLayoutId);
+        secondaryAccountSpinner = (Spinner) parentActivity.findViewById(secondaryAccountSpinnerId);
         secondaryAccountLabel = (TextView) parentActivity.findViewById(secondaryAccountLabelId);
         accountLabel = (TextView) parentActivity.findViewById(accountLabelId);
         recurrent = (CheckBox) parentActivity.findViewById(recurrentCheckboxId);
@@ -80,7 +82,7 @@ public class TransactionLayout {
         switch (transaction.getType()) {
             case Transfer:
                 color.setColor(MaterialColours.YELLOW_500);
-                secondaryAccountLayout.setVisibility(View.VISIBLE);
+                secondaryAccountSpinner.setVisibility(View.VISIBLE);
                 secondaryAccountLabel.setVisibility(View.VISIBLE);
                 accountLabel.setText(R.string.from_label);
                 feeDetails.setVisibility(View.VISIBLE);

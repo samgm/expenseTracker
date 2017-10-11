@@ -30,7 +30,7 @@
         <Spinner
             android:id="@+id/statisticsBudgetSpinner"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_weight="10"
             android:textSize="20sp"/>
 
@@ -43,13 +43,6 @@
             <!--android:text="@string/total_label"-->
             <!--android:visibility="gone"/>-->
 
-        <ImageButton
-            android:id="@+id/statisticsBudgetButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_loop"
-            android:contentDescription="@string/placeholder"
-            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 
 

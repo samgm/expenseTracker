@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,14 +14,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.antso.expenses.R;
+import com.antso.expenses.accounts.AccountManager;
 import com.antso.expenses.entities.Budget;
 import com.antso.expenses.transactions.TransactionListActivity;
 import com.antso.expenses.utils.Constants;
 import com.antso.expenses.utils.IntentParamNames;
+import com.antso.expenses.utils.Utils;
 import com.antso.expenses.views.BudgetChooseDialog;
 import com.antso.expenses.views.TouchInterceptor;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.Collection;
 
 public class BudgetListFragment extends ListFragment {
     private BudgetListAdapter budgetListAdapter = null;
@@ -47,6 +55,33 @@ public class BudgetListFragment extends ListFragment {
             }
         });
 
+        Toolbar summaryBar = (Toolbar) view.findViewById(R.id.budgetListToolbar);
+        Collection<BudgetManager.BudgetInfo> budgets = BudgetManager.BUDGET_MANAGER().getBudgetInfo();
+//        BigDecimal totMonthBalance = BigDecimal.ZERO;
+//        BigDecimal totMonthIn = BigDecimal.ZERO;
+//        BigDecimal totMonthOut = BigDecimal.ZERO;
+        BigDecimal totBalance = BigDecimal.ZERO;
+        for (BudgetManager.BudgetInfo budget : budgets) {
+            //TODO approximation see how to make it better
+            BigDecimal normalizedValue = BigDecimal.valueOf(budget.periodBalance.doubleValue() / budget.budget.getBudgetLenghtInMonth());
+            totBalance = totBalance.add(normalizedValue.round(MathContext.DECIMAL32));
+//            totMonthBalance = totMonthBalance.add(account.monthBalance);
+//            totMonthIn = totMonthIn.add(account.monthIn);
+//            totMonthOut = totMonthOut.add(account.monthOut);
+        }
+
+        TextView total = (TextView) summaryBar.findViewById(R.id.budgetSummaryGrandTotal);
+        total.setText(Utils.getCurrencyString(getActivity()) + " " +
+                totBalance.setScale(2, BigDecimal.ROUND_UP).toPlainString());
+        TextView in = (TextView) summaryBar.findViewById(R.id.budgetSummaryMonthIn);
+//        in.setText(Utils.getCurrencyString(getActivity()) + " " +
+//                totMonthIn.setScale(2, BigDecimal.ROUND_UP).toPlainString());
+        TextView out = (TextView) summaryBar.findViewById(R.id.budgetSummaryMonthOut);
+//        out.setText(Utils.getCurrencyString(getActivity()) + " " +
+//                totMonthOut.setScale(2, BigDecimal.ROUND_UP).toPlainString());
+        TextView balance = (TextView) summaryBar.findViewById(R.id.budgetSummaryMonthBalance);
+//        balance.setText(Utils.getCurrencyString(getActivity()) + " " +
+//                totMonthBalance.setScale(2, BigDecimal.ROUND_UP).toPlainString());
         return view;
     }
 

@@ -13,14 +13,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.antso.expenses.R;
 import com.antso.expenses.entities.Account;
 import com.antso.expenses.transactions.TransactionListActivity;
 import com.antso.expenses.utils.Constants;
 import com.antso.expenses.utils.IntentParamNames;
+import com.antso.expenses.utils.Utils;
 import com.antso.expenses.views.AccountChooserDialog;
 import com.antso.expenses.views.TouchInterceptor;
+
+import org.w3c.dom.Text;
+
+import java.math.BigDecimal;
+import java.util.Collection;
 
 public class AccountListFragment extends ListFragment {
     private AccountListAdapter accountListAdapter = null;
@@ -46,6 +54,32 @@ public class AccountListFragment extends ListFragment {
                 startActivityForResult(intent, Constants.ACCOUNT_ENTRY_REQUEST_CODE);
             }
         });
+
+        Toolbar summaryBar = (Toolbar) view.findViewById(R.id.accountListToolbar);
+        Collection<AccountManager.AccountInfo> accounts = AccountManager.ACCOUNT_MANAGER().getAccountInfo();
+        BigDecimal totMonthBalance = BigDecimal.ZERO;
+        BigDecimal totMonthIn = BigDecimal.ZERO;
+        BigDecimal totMonthOut = BigDecimal.ZERO;
+        BigDecimal totBalance = BigDecimal.ZERO;
+        for (AccountManager.AccountInfo account : accounts) {
+            totBalance = totBalance.add(account.balance);
+            totMonthBalance = totMonthBalance.add(account.monthBalance);
+            totMonthIn = totMonthIn.add(account.monthIn);
+            totMonthOut = totMonthOut.add(account.monthOut);
+        }
+
+        TextView total = (TextView) summaryBar.findViewById(R.id.accountSummaryGrandTotalBalance);
+        total.setText(Utils.getCurrencyString(getActivity()) + " " +
+                totBalance.setScale(2, BigDecimal.ROUND_UP).toPlainString());
+        TextView in = (TextView) summaryBar.findViewById(R.id.accountSummaryMonthIn);
+        in.setText(Utils.getCurrencyString(getActivity()) + " " +
+                totMonthIn.setScale(2, BigDecimal.ROUND_UP).toPlainString());
+        TextView out = (TextView) summaryBar.findViewById(R.id.accountSummaryMonthOut);
+        out.setText(Utils.getCurrencyString(getActivity()) + " " +
+                totMonthOut.setScale(2, BigDecimal.ROUND_UP).toPlainString());
+        TextView balance = (TextView) summaryBar.findViewById(R.id.accountSummaryMonthBalance);
+        balance.setText(Utils.getCurrencyString(getActivity()) + " " +
+                totMonthBalance.setScale(2, BigDecimal.ROUND_UP).toPlainString());
 
         return view;
     }
