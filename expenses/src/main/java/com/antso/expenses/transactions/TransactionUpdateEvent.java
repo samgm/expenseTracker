@@ -15,7 +15,7 @@ public class TransactionUpdateEvent {
     public Reason reason;
     public Transaction[] data;
     public Transaction newData;
-    private static TransactionUpdateEvent START = new TransactionUpdateEvent(Reason.START, null);
+    private static TransactionUpdateEvent START = new TransactionUpdateEvent(Reason.START, (Transaction) null);
 
     private TransactionUpdateEvent(Reason reason, Transaction... data) {
         this.reason = reason;
